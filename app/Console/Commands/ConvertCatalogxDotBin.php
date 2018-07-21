@@ -52,8 +52,6 @@ class ConvertCatalogxDotBin extends Command
         $file = str_replace("\r\n", "\n", $file);
         $lines = explode("\n", $file);
 
-        $allTags = LevelTag::all();
-
         DB::beginTransaction();
 
         $startProcessing = false;
@@ -96,7 +94,7 @@ class ConvertCatalogxDotBin extends Command
             $level->rating = (float)$rowData[10];
             $level->downloads = (int)$rowData[11];
             $level->description = $rowData[12];
-            $levelTags = array_filter(explode(';', $rowData[13]));
+            // 13: tags
             $level->overall_rating = (float)$rowData[14];
             $level->overall_rating_count = (int)$rowData[15];
             $level->fun_rating = (float)$rowData[16];
@@ -111,46 +109,10 @@ class ConvertCatalogxDotBin extends Command
 //                return arra$levelTags
 //            });
 
-//            $level->tags()->
-
             $level->save();
+
+            $level->retag(array_filter(explode(';', $rowData[13])));
         }
-
-        // Transform to JSON
-//        $json = [];
-//        foreach ($levels as $level) {
-//            $json[] = [
-//                'legacyId'            => $level->legacy_id,
-//                'name'                => $level->name,
-//                'rounds'              => $level->rounds,
-//                'author'              => $level->author,
-//                'date'                => $level->created_at->format('Y-m-d'),
-//                'featured'            => $level->featured,
-//                'gameVersion'         => $level->game_version,
-//                // 'prerelease'          => $level->prerelease,
-//                // 'requiredBuild'       => $level->requiredBuild,
-//                'imageUrl'            => $level->image_url,
-//                'rating'              => $level->rating,
-//                'downloads'           => $level->downloads,
-//                'description'         => $level->description,
-//                'tags'                => $level->tags,
-//                'overallRating'       => $level->overall_rating,
-//                'overallRatingCount'  => $level->overall_rating_count,
-//                'funRating'           => $level->fun_rating,
-//                'funRatingCount'      => $level->fun_rating_count,
-//                'graphicsRating'      => $level->graphics_rating,
-//                'graphicsRatingCount' => $level->graphics_rating_count,
-//                'similarLevels'       => $level->similarLevels,
-//            ];
-//        }
-
-//        file_put_contents(storage_path('catalog.json'), json_encode($json, JSON_PRETTY_PRINT));
-//
-//        if (json_last_error() !== 0) {
-//            $this->error('JSON encode failed: ' + json_last_error_msg());
-//
-//            return;
-//        }
 
         DB::commit();
 

@@ -17,7 +17,7 @@ class RicochetCatalogTransformer
             $level->name,
             $level->rounds,
             $level->author,
-            $level->created_at->format('Y-m-d'), // todo CARBON
+            $level->created_at->format('Y-m-d'),
             (int)$level->featured,
             $level->game_version,
             0, // prerelease
@@ -26,7 +26,7 @@ class RicochetCatalogTransformer
             $level->rating,
             $level->downloads,
             $level->description,
-            implode(';', []), // todo tags
+            $level->tags->pluck('name')->implode(';'),
             $level->overall_rating,
             $level->overall_rating_count,
             $level->fun_rating,

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -49,6 +50,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Level extends Model
 {
+    use Taggable;
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -66,9 +69,4 @@ class Level extends Model
     protected $fillable = [
         'legacy_id',
     ];
-
-    public function tags()
-    {
-        return $this->hasMany(LevelTag::class);
-    }
 }

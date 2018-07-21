@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * @deprecated
+ */
 class CreateLevelTaggedTable extends Migration
 {
     /**
@@ -13,10 +16,6 @@ class CreateLevelTaggedTable extends Migration
      */
     public function up()
     {
-        Schema::create('level_tagged', function (Blueprint $table) {
-            $table->unsignedInteger('level_id');
-            $table->unsignedInteger('tag_id');
-        });
     }
 
     /**

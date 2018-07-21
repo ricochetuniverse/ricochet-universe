@@ -11,13 +11,15 @@ class CatalogController extends Controller
     public function index()
     {
         $response = Cache::remember('level_catalog', 10, function () {
-            $levels = Level::all();
-
             $response = $this->getCatalogHeader();
-            $response .= $levels->map(function (Level $level) {
-                return RicochetCatalogTransformer::transform($level);
-            })->implode("\r\n");
-            $response .= "\r\n";
+
+            Level::with('tagged')->chunk(100, function ($levels) use (&$response) {
+                /** @var Level[] $levels */
+                foreach ($levels as $level) {
+                    $response .= RicochetCatalogTransformer::transform($level);
+                    $response .= "\r\n";
+                }
+            });
 
             return $response;
         });
@@ -30,7 +32,7 @@ class CatalogController extends Controller
     private function getCatalogHeader()
     {
         $imageUrl = 'http://www.ricochetInfinity.com/levels/';
-        $imageUrl = 'http://web.archive.org/web/20171205000449im_/'.$imageUrl;
+        $imageUrl = 'http://web.archive.org/web/20171205000449im_/' . $imageUrl;
 
         $header = <<<EOF
 CCatalogWebResponse
