@@ -19,6 +19,9 @@ class Level
      */
     public $rounds = 0;
 
+    /**
+     * @var string
+     */
     public $author = '';
 
     /**
@@ -30,39 +33,71 @@ class Level
      * @var bool
      */
     public $featured = false;
+
+    /**
+     * @var string
+     */
     public $gameVersion;
 //    public $prerelease = false;
 //    public $requiredBuild;
+
+    /**
+     * @var string
+     */
     public $imageUrl = '';
-    public $rating;
+
+    /**
+     * @var float A value from 0 - 5
+     */
+    public $rating = 0.0;
 
     /**
      * @var int
      */
     public $downloads = 0;
+
+    /**
+     * @var string
+     */
     public $description = '';
 
     /**
      * @var string[]
      */
     public $tags = [];
-    public $overallRatings;
+
+    /**
+     * @var float A value from 0 to 15
+     */
+    public $overallRating = 0.0;
 
     /**
      * @var int
      */
     public $overallRatingCount = 0;
-    public $funRatings;
+
+    /**
+     * @var float A value from 0 to 15
+     */
+    public $funRating = 0.0;
 
     /**
      * @var int
      */
     public $funRatingCount = 0;
-    public $graphicsRatings;
+
+    /**
+     * @var float A value from 0 to 15
+     */
+    public $graphicsRating = 0.0;
 
     /**
      * @var int
      */
     public $graphicsRatingCount = 0;
+
+    /**
+     * @var int[]
+     */
     public $similarLevels = [];
 }

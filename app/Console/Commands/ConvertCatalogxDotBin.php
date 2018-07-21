@@ -83,21 +83,23 @@ class ConvertCatalogxDotBin extends Command
             $level->author = $rowData[3];
             $level->date = Carbon::parse($rowData[4]);
             $level->featured = (bool)$rowData[5];
-            $level->gameVersion = $rowData[6];
+            $level->gameVersion = (int)$rowData[6];
 //            $level->prerelease = $rowData[7];
 //            $level->requiredBuild = $rowData[8];
             $level->imageUrl = $rowData[9];
-            $level->rating = $rowData[10];
+            $level->rating = (float)$rowData[10];
             $level->downloads = (int)$rowData[11];
             $level->description = $rowData[12];
             $level->tags = array_filter(explode(';', $rowData[13]));
-            $level->overallRatings = $rowData[14];
+            $level->overallRating = (float)$rowData[14];
             $level->overallRatingCount = (int)$rowData[15];
-            $level->funRatings = $rowData[16];
+            $level->funRating = (float)$rowData[16];
             $level->funRatingCount = (int)$rowData[17];
-            $level->graphicsRatings = $rowData[18];
+            $level->graphicsRating = (float)$rowData[18];
             $level->graphicsRatingCount = (int)$rowData[19];
-            $level->similarLevels = array_filter(explode(';', $rowData[20]));
+            $level->similarLevels = array_map(function ($id) {
+                return (int)$id;
+            }, array_filter(explode(';', $rowData[20])));
 
             $levels[] = $level;
         }
@@ -120,11 +122,11 @@ class ConvertCatalogxDotBin extends Command
                 'downloads'           => $level->downloads,
                 'description'         => $level->description,
                 'tags'                => $level->tags,
-                'overallRatings'      => $level->overallRatings,
+                'overallRating'       => $level->overallRating,
                 'overallRatingCount'  => $level->overallRatingCount,
-                'funRatings'          => $level->funRatings,
+                'funRating'           => $level->funRating,
                 'funRatingCount'      => $level->funRatingCount,
-                'graphicsRatings'     => $level->graphicsRatings,
+                'graphicsRating'      => $level->graphicsRating,
                 'graphicsRatingCount' => $level->graphicsRatingCount,
                 'similarLevels'       => $level->similarLevels,
             ];
