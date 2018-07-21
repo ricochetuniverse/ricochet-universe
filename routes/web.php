@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('/gateway/catalog.php', 'CatalogController@index');
