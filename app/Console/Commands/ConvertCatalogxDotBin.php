@@ -3,8 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Level;
+use App\LevelTag;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class ConvertCatalogxDotBin extends Command
 {
@@ -50,8 +52,10 @@ class ConvertCatalogxDotBin extends Command
         $file = str_replace("\r\n", "\n", $file);
         $lines = explode("\n", $file);
 
-        /** @var Level[] $levels */
-        $levels = [];
+        $allTags = LevelTag::all();
+
+        DB::beginTransaction();
+
         $startProcessing = false;
         for ($i = 0; $i < count($lines); $i += 1) {
             $line = $lines[$i];
@@ -76,68 +80,79 @@ class ConvertCatalogxDotBin extends Command
                 continue;
             }
 
-            $level = new Level;
-            $level->legacyId = (int)$rowData[0];
+            $legacyId = (int)$rowData[0];
+
+            $level = Level::firstOrNew(['legacy_id' => $legacyId]);
+            $level->legacy_id = $legacyId;
             $level->name = $rowData[1];
             $level->rounds = (int)$rowData[2];
             $level->author = $rowData[3];
-            $level->date = Carbon::parse($rowData[4]);
+            $level->created_at = Carbon::parse($rowData[4]);
             $level->featured = (bool)$rowData[5];
-            $level->gameVersion = (int)$rowData[6];
+            $level->game_version = (int)$rowData[6];
 //            $level->prerelease = $rowData[7];
 //            $level->requiredBuild = $rowData[8];
-            $level->imageUrl = $rowData[9];
+            $level->image_url = $rowData[9];
             $level->rating = (float)$rowData[10];
             $level->downloads = (int)$rowData[11];
             $level->description = $rowData[12];
-            $level->tags = array_filter(explode(';', $rowData[13]));
-            $level->overallRating = (float)$rowData[14];
-            $level->overallRatingCount = (int)$rowData[15];
-            $level->funRating = (float)$rowData[16];
-            $level->funRatingCount = (int)$rowData[17];
-            $level->graphicsRating = (float)$rowData[18];
-            $level->graphicsRatingCount = (int)$rowData[19];
-            $level->similarLevels = array_map(function ($id) {
-                return (int)$id;
-            }, array_filter(explode(';', $rowData[20])));
+            $levelTags = array_filter(explode(';', $rowData[13]));
+            $level->overall_rating = (float)$rowData[14];
+            $level->overall_rating_count = (int)$rowData[15];
+            $level->fun_rating = (float)$rowData[16];
+            $level->fun_rating_count = (int)$rowData[17];
+            $level->graphics_rating = (float)$rowData[18];
+            $level->graphics_rating_count = (int)$rowData[19];
+//            $level->similarLevels = array_map(function ($id) {
+//                return (int)$id;
+//            }, array_filter(explode(';', $rowData[20])));
 
-            $levels[] = $level;
+//            $tagsToId = $allTags->filter(function($tag) use ($levelTags) {
+//                return arra$levelTags
+//            });
+
+//            $level->tags()->
+
+            $level->save();
         }
 
         // Transform to JSON
-        $json = [];
-        foreach ($levels as $level) {
-            $json[] = [
-                'legacyId'            => $level->legacyId,
-                'name'                => $level->name,
-                'rounds'              => $level->rounds,
-                'author'              => $level->author,
-                'date'                => $level->date->format('Y-m-d'),
-                'featured'            => $level->featured,
-                'gameVersion'         => $level->gameVersion,
-                // 'prerelease'          => $level->prerelease,
-                // 'requiredBuild'       => $level->requiredBuild,
-                'imageUrl'            => $level->imageUrl,
-                'rating'              => $level->rating,
-                'downloads'           => $level->downloads,
-                'description'         => $level->description,
-                'tags'                => $level->tags,
-                'overallRating'       => $level->overallRating,
-                'overallRatingCount'  => $level->overallRatingCount,
-                'funRating'           => $level->funRating,
-                'funRatingCount'      => $level->funRatingCount,
-                'graphicsRating'      => $level->graphicsRating,
-                'graphicsRatingCount' => $level->graphicsRatingCount,
-                'similarLevels'       => $level->similarLevels,
-            ];
-        }
+//        $json = [];
+//        foreach ($levels as $level) {
+//            $json[] = [
+//                'legacyId'            => $level->legacy_id,
+//                'name'                => $level->name,
+//                'rounds'              => $level->rounds,
+//                'author'              => $level->author,
+//                'date'                => $level->created_at->format('Y-m-d'),
+//                'featured'            => $level->featured,
+//                'gameVersion'         => $level->game_version,
+//                // 'prerelease'          => $level->prerelease,
+//                // 'requiredBuild'       => $level->requiredBuild,
+//                'imageUrl'            => $level->image_url,
+//                'rating'              => $level->rating,
+//                'downloads'           => $level->downloads,
+//                'description'         => $level->description,
+//                'tags'                => $level->tags,
+//                'overallRating'       => $level->overall_rating,
+//                'overallRatingCount'  => $level->overall_rating_count,
+//                'funRating'           => $level->fun_rating,
+//                'funRatingCount'      => $level->fun_rating_count,
+//                'graphicsRating'      => $level->graphics_rating,
+//                'graphicsRatingCount' => $level->graphics_rating_count,
+//                'similarLevels'       => $level->similarLevels,
+//            ];
+//        }
 
-        file_put_contents(storage_path('catalog.json'), json_encode($json, JSON_PRETTY_PRINT));
+//        file_put_contents(storage_path('catalog.json'), json_encode($json, JSON_PRETTY_PRINT));
+//
+//        if (json_last_error() !== 0) {
+//            $this->error('JSON encode failed: ' + json_last_error_msg());
+//
+//            return;
+//        }
 
-        if (json_last_error() !== 0) {
-            $this->error('JSON encode failed: ' + json_last_error_msg());
-            return;
-        }
+        DB::commit();
 
         $this->info('Done');
     }

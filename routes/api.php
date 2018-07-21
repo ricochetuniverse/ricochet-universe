@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// The game sends a POST request, but I added GET for debugging convenience
+Route::get('/gateway/catalog.php', 'CatalogController@index');
+Route::post('/gateway/catalog.php', 'CatalogController@index');

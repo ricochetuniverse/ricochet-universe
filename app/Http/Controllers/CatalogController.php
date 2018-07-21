@@ -2,20 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Transformers\RicochetCatalogTransformer;
+use App\Level;
+use Illuminate\Support\Facades\Cache;
 
 class CatalogController extends Controller
 {
     public function index()
     {
-        $catalog = file_get_contents(storage_path('catalogx.bin'));
+        $response = Cache::remember('level_catalog', 10, function () {
+            $levels = Level::all();
 
-        return $catalog;
+            $response = $this->getCatalogHeader();
+            $response .= $levels->map(function (Level $level) {
+                return RicochetCatalogTransformer::transform($level);
+            })->implode("\r\n");
+            $response .= "\r\n";
+
+            return $response;
+        });
+
+        return response($response)
+            ->setCache(['public' => true, 'max_age' => 60 * 10])
+            ->header('Content-Type', 'text/plain');
     }
 
-    public function getCatalogHeader()
+    private function getCatalogHeader()
     {
-        return <<<EOF
+        $imageUrl = 'http://www.ricochetInfinity.com/levels/';
+        $imageUrl = 'http://web.archive.org/web/20171205000449im_/'.$imageUrl;
+
+        $header = <<<EOF
 CCatalogWebResponse
 {
   Success=1
@@ -23,12 +40,21 @@ CCatalogWebResponse
   Catalog URL=http://www.ricochetInfinity.com/gateway/catalog.php
   Download URL=http://www.ricochetInfinity.com/levels/download.php?File=downloads/raw/
   Submit URL=http://www.ricochetInfinity.com/levels/ri_submitform.php
-  Image URL=http://www.ricochetInfinity.com/levels/
+  Image URL=${imageUrl}
   Rate URL=http://www.ricochetInfinity.com/gateway/syncratings.php
   Can Test PreRelease Levels=
   Can Apply Star Tags=
   New Build Message=Go to www.RicochetInfinity.com to download an update for Ricochet Infinity
 }
+id,name,rounds,author,date,featured,gameversion,prerelease,required_build,imageurl,rating,downloads,description,tags,overall_rating,overall_ratings,fun_rating,fun_ratings,graphics_rating,graphics_ratings,also_like
+
 EOF;
+
+        return $this->normalizeLineBreaks($header);
+    }
+
+    private function normalizeLineBreaks($text)
+    {
+        return str_replace(["\r\n", "\n"], "\r\n", $text);
     }
 }

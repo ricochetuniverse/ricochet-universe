@@ -10,5 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::post('/gateway/catalog.php', 'CatalogController@index');
