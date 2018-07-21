@@ -64,6 +64,13 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'levels' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/levels'),
+            'url' => env('APP_URL').'/storage/levels',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];

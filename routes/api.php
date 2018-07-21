@@ -16,3 +16,5 @@ Route::get('/gateway/catalog.php', 'CatalogController@index');
 Route::post('/gateway/catalog.php', 'CatalogController@index');
 
 Route::get('/levels/download.php', 'LevelDownloadController@download');
+
+Route::post('/levels/ri_submitform.php', 'LevelSubmitController@submit');
