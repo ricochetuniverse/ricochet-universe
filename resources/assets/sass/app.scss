@@ -1,1 +1,26 @@
+$body-bg: #000;
+$body-color: #fff;
+
+$primary: #00FFFE;
+
+$font-family-sans-serif: Verdana, Arial, Helvetica, sans-serif;
+
+$link-decoration: underline;
+$link-hover-color: #fff;
+
+$card-border-color: #01FFFF;
+$card-cap-bg: #095352;
+$card-bg: #000;
+
+$enable-rounded: false;
+
 @import '~bootstrap/scss/bootstrap';
+
+body {
+    background: url('./stars.jpg');
+}
+
+.card-header {
+    text-align: center;
+    font-weight: bold;
+}
