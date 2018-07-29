@@ -46,16 +46,27 @@
                                 <p class="m-0">by <a href="">{{ $levelSet->author }}</a></p>
                                 <p class="m-0">{{ $levelSet->description }}</p>
 
-                                @if ($levelSet->tagged)
+                                @if (count($levelSet->tagged) > 0)
                                     <p class="m-0">
                                         <strong>Tags:</strong>
                                         @foreach ($levelSet->tagged as $tagged)
-                                            <a href=""
-                                               title="Find other levelsets with the {{ $tagged->tag_name }} tag"
+                                            <a href="" title="Find other levelsets with the {{ $tagged->tag_name }} tag"
                                             >{{ $tagged->tag_name }}</a>{{ !$loop->last ? ', ' : '' }}
                                         @endforeach
                                     </p>
                                 @endif
+
+                                <div class="d-flex align-items-center mt-2">
+                                    <a href="{{ $levelSet->alternate_download_url }}" class="mr-1">
+                                        <img src="{{ asset('images/levelDownload.jpg') }}"
+                                             alt=""
+                                             title="Download this levelset"
+                                             width="38"
+                                             height="38">
+                                    </a>
+
+                                    <a href="{{ $levelSet->alternate_download_url }}">Download</a>
+                                </div>
                             </td>
                             <td class="text-center">{{ $levelSet->rounds }}</td>
                             <td class="text-center text-nowrap">{{ $levelSet->created_at->format('Y-m-d') }}</td>
