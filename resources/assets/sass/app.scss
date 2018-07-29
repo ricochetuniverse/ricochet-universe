@@ -8,19 +8,54 @@ $font-family-sans-serif: Verdana, Arial, Helvetica, sans-serif;
 $link-decoration: underline;
 $link-hover-color: #fff;
 
+$component-active-bg: #095352;
+
 $card-border-color: #01FFFF;
 $card-cap-bg: #095352;
-$card-bg: #000;
+$card-bg: $body-bg;
+
+$table-border-color: #00eeff;
+$table-head-bg: #004040;
+$table-head-color: #fff;
+
+$pagination-bg: $body-bg;
+$pagination-border-color: $card-border-color;
+$pagination-hover-bg: $component-active-bg;
+$pagination-hover-border-color: $pagination-border-color;
+$pagination-active-border-color: $pagination-border-color;
+$pagination-disabled-color: #fff;
+$pagination-disabled-bg: $component-active-bg;
+$pagination-disabled-border-color: $pagination-border-color;
 
 $enable-rounded: false;
 
 @import '~bootstrap/scss/bootstrap';
 
 body {
-    background: url('./stars.jpg');
+    background-image: url('./stars.jpg');
 }
 
 .card-header {
     text-align: center;
     font-weight: bold;
+}
+
+.table {
+    background: $body-bg;
+}
+
+.table thead {
+    text-align: center;
+}
+
+.table-bordered thead th {
+    border-bottom-width: 1px;
+}
+
+.page-item.disabled {
+    opacity: .5;
+}
+
+.page-link {
+    text-decoration: none;
 }

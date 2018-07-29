@@ -77,4 +77,14 @@ class LevelSet extends Model
     protected $fillable = [
         'legacy_id',
     ];
+
+    public function isDesignedForLostWorlds()
+    {
+        return $this->game_version === 2;
+    }
+
+    public function isDesignedForInfinity()
+    {
+        return $this->game_version === 3;
+    }
 }

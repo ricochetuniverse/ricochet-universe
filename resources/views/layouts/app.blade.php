@@ -13,7 +13,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name') }}
                 </a>
@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Levels</a>
+                            <a class="nav-link" href="{{ action('LevelController@index') }}">Levels</a>
                         </li>
                     </ul>
                 </div>
