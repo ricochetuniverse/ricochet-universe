@@ -64,9 +64,9 @@ class ParseLevelSet implements ShouldQueue
         $parser = new LevelSetParser;
         $results = $parser->parse($levelSetData);
 
-        if ($results['levelSet']['author'] !== $this->levelSet->author) {
-            throw new \Exception("Level set author stored on the database is not the same as the downloaded file\n\nDatabase:  ".$this->levelSet->author."\nLevel set: ".$results['levelSet']['author']);
-        }
+//        if ($results['levelSet']['author'] !== $this->levelSet->author) {
+//            throw new \Exception("Level set author stored on the database is not the same as the downloaded file\n\nDatabase:  ".$this->levelSet->author."\nLevel set: ".$results['levelSet']['author']);
+//        }
 
 //        if ($results['levelSet']['description'] !== $this->levelSet->description) {
 //            throw new \Exception("Level set description stored on the database is not the same as the downloaded file\n\nDatabase:  ".$this->levelSet->description."\nLevel set: ".$results['levelSet']['description']);
@@ -95,6 +95,8 @@ class ParseLevelSet implements ShouldQueue
             $rounds[] = $roundToSave;
         }
 
+        $this->levelSet->round_to_get_image_from = $results['levelSet']['roundToGetImageFrom'];
         $this->levelSet->levelRounds()->saveMany($rounds);
+        $this->levelSet->save();
     }
 }

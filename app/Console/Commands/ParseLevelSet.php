@@ -49,6 +49,8 @@ class ParseLevelSet extends Command
         $decompressor = new LevelSetDecompressService;
         $levelSetData = $decompressor->decompress($file);
 
+        var_dump($levelSetData);
+
         $parser = new LevelSetParser;
         $results = $parser->parse($levelSetData);
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\DownloadLevelSet;
+use App\Jobs\ParseLevelSet;
 use App\LevelSet;
 use Illuminate\Http\Request;
 
@@ -45,7 +47,7 @@ class LevelController extends Controller
                 'search'   => $search,
             ]);
 
-        return view('levels', [
+        return view('levels.index', [
             'levelSets'      => $levelSets,
             'orderBy'        => $orderBy,
             'orderDirection' => $orderDirection,
@@ -56,9 +58,31 @@ class LevelController extends Controller
     {
         $name = $request->input('levelsetname');
 
-        $levelSet = LevelSet::whereName($name)->firstOrFail();
+        $levelSet = LevelSet::whereName($name)->with('levelRounds')->firstOrFail();
 
-        return $levelSet;
+        $authorIsSameForAllRounds = false;
+
+        if ($levelSet->levelRounds->isEmpty()) {
+            dispatch(new DownloadLevelSet($levelSet))->chain([
+                new ParseLevelSet($levelSet),
+            ]);
+        } else {
+            $count = 0;
+            foreach ($levelSet->levelRounds as $round) {
+                if ($round->author === $levelSet->author) {
+                    $count += 1;
+                }
+            }
+
+            if ($count === $levelSet->levelRounds->count()) {
+                $authorIsSameForAllRounds = true;
+            }
+        }
+
+        return view('levels.show', [
+            'levelSet'                 => $levelSet,
+            'authorIsSameForAllRounds' => $authorIsSameForAllRounds,
+        ]);
     }
 
     private function convertUrlOrderByToDb($orderBy)

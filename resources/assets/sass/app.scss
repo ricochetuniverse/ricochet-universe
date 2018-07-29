@@ -2,6 +2,7 @@ $body-bg: #000;
 $body-color: #fff;
 
 $primary: #00FFFE;
+$secondary: #FFED11;
 
 $font-family-sans-serif: Verdana, Arial, Helvetica, sans-serif;
 
@@ -34,6 +35,10 @@ $enable-transitions: false;
 
 body {
     background-image: url('./stars.jpg');
+}
+
+.btn {
+    text-decoration: none;
 }
 
 .card-header {
