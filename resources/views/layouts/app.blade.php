@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width">
 <title>{{ config('app.name') }}</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<script src="{{ asset('js/app.js') }}" defer></script>
+<link href="{{ mix('app.scss') }}" rel="stylesheet">
+<script src="{{ mix('app.js') }}" defer></script>
 </head>
 
 <body>
