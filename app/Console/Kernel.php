@@ -12,10 +12,7 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        Commands\ConvertCatalogxDotBin::class,
-        Commands\ConvertGoogleSheetsTsv::class,
-    ];
+    protected $commands = [];
 
     /**
      * Define the application's command schedule.
