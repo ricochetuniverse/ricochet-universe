@@ -82,18 +82,21 @@ class ConvertGoogleSheetsTsv extends Command
             $level = LevelSet::where(['legacy_id' => $legacyId])->first();
 
             if (!$level) {
-                $this->warn('Legacy ID '.$legacyId.' not found in database, skipping:');
+                $this->warn('Legacy ID ' . $legacyId . ' not found in database, skipping:');
                 $this->warn($line);
                 $this->warn('');
                 continue;
             }
 
-            if ($level->name !== $name) {
-                $this->warn('Name of legacy ID '.$legacyId.' does not match, skipping:');
-                $this->warn('Database name: '.$level->name);
-                $this->warn('Provided name: '.$name);
-                $this->warn('');
-                continue;
+            // Some level set names are mangled in TSV/Google Sheets
+            if (!in_array((int)$level->legacy_id, [2016, 3314, 5931, 6134, 6319], true)) {
+                if ($level->name !== $name) {
+                    $this->warn('Name of legacy ID ' . $legacyId . ' does not match, skipping:');
+                    $this->warn('Database name: ' . $level->name);
+                    $this->warn('Provided name: ' . $name);
+                    $this->warn('');
+                    continue;
+                }
             }
 
             $level->alternate_download_url = $alternateDownloadUrl;
