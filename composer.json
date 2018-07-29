@@ -9,6 +9,7 @@
         "rtconner/laravel-tagging": "~2.2"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.1",
         "barryvdh/laravel-ide-helper": "^2.4",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
