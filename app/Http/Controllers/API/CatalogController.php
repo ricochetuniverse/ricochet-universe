@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Services\CatalogService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -19,7 +20,7 @@ class CatalogController extends Controller
         $response = response($catalog)
             ->setCache(['public' => true, 'max_age' => 60 * 10])
             ->header('Content-Type', 'text/plain');
-        
+
         if ($request->input('download')) {
             $response->header(
                 'Content-Disposition',
