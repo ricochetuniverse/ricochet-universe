@@ -56,6 +56,10 @@ body {
     opacity: .4;
 }
 
+.page-item.active .page-link {
+    cursor: default;
+}
+
 .page-link {
     text-decoration: none;
 }

@@ -17,9 +17,15 @@
                 <table class="table table-striped table-bordered table-hover mt-3">
                     <thead class="thead-light">
                     <tr>
-                        <th>Name</th>
-                        <th>Levels</th>
-                        <th class="text-nowrap">Date posted</th>
+                        <th>
+                            <a href="{{ action('LevelController@index', ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">Name</a>
+                        </th>
+                        <th>
+                            <a href="{{ action('LevelController@index', ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">Levels</a>
+                        </th>
+                        <th class="text-nowrap">
+                            <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">Date posted</a>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -35,8 +41,8 @@
                                          class="float-right">
                                 @else
                                     <img src="{{ asset('images/RLW.gif') }}"
-                                         alt="Can be played in Ricochet Lost Worlds, Ricochet Recharged, and Ricochet Infinity"
-                                         title="Can be played in Ricochet Lost Worlds, Ricochet Recharged, and Ricochet Infinity"
+                                         alt="Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity"
+                                         title="Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity"
                                          width="32"
                                          height="32"
                                          class="float-right">
@@ -50,7 +56,8 @@
                                     <p class="m-0">
                                         <strong>Tags:</strong>
                                         @foreach ($levelSet->tagged as $tagged)
-                                            <a href="" title="Find other levelsets with the {{ $tagged->tag_name }} tag"
+                                            <a href=""
+                                               title="Find other level sets with the {{ $tagged->tag_name }} tag"
                                             >{{ $tagged->tag_name }}</a>{{ !$loop->last ? ', ' : '' }}
                                         @endforeach
                                     </p>
@@ -60,7 +67,7 @@
                                     <a href="{{ $levelSet->alternate_download_url }}" class="mr-1">
                                         <img src="{{ asset('images/levelDownload.jpg') }}"
                                              alt=""
-                                             title="Download this levelset"
+                                             title="Download this level set"
                                              width="38"
                                              height="38">
                                     </a>
