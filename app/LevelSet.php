@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $alternate_download_url
  * @property mixed $tag_names
  * @property-read \Illuminate\Database\Eloquent\Collection $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\LevelRound[] $levelRounds
  * @property-read \Illuminate\Database\Eloquent\Collection|\Conner\Tagging\Model\Tagged[] $tagged
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereAlternateDownloadUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereAuthor($value)
@@ -77,6 +78,11 @@ class LevelSet extends Model
     protected $fillable = [
         'legacy_id',
     ];
+
+    public function levelRounds()
+    {
+        return $this->hasMany(LevelRound::class);
+    }
 
     public function isDesignedForLostWorlds()
     {

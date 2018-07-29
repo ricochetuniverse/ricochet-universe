@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\LevelRound;
 use App\LevelSet;
 
 class LevelSetParser
@@ -136,17 +137,4 @@ class LevelSetParser
                 break;
         }
     }
-}
-
-// temp
-class LevelRound
-{
-    public $name = '';
-    public $author = '';
-    public $note1 = '';
-    public $note2 = '';
-    public $note3 = '';
-    public $note4 = '';
-    public $note5 = '';
-    public $source = '';
 }
