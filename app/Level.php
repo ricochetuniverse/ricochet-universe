@@ -27,6 +27,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $graphics_rating_count
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property string $alternate_download_url
+ * @property mixed $tag_names
+ * @property-read \Illuminate\Database\Eloquent\Collection $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Conner\Tagging\Model\Tagged[] $tagged
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Level whereAlternateDownloadUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Level whereAuthor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Level whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Level whereDescription($value)
@@ -46,6 +51,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Level whereRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Level whereRounds($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Level whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Level withAllTags($tagNames)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Level withAnyTag($tagNames)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Level withoutTags($tagNames)
  * @mixin \Eloquent
  */
 class Level extends Model
