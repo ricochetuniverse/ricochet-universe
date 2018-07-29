@@ -28,6 +28,7 @@ $pagination-disabled-bg: $component-active-bg;
 $pagination-disabled-border-color: $pagination-border-color;
 
 $enable-rounded: false;
+$enable-transitions: false;
 
 @import '~bootstrap/scss/bootstrap';
 

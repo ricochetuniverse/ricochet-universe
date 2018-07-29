@@ -10,6 +10,9 @@ class LevelController extends Controller
     public function index(Request $request)
     {
         $orderBy = $request->input('orderBy');
+        $orderDirection = $request->input('orderDir');
+        $search = $request->input('search');
+
         $orderBy = in_array($orderBy, [
             'Name',
             'Author',
@@ -20,7 +23,6 @@ class LevelController extends Controller
             'Stars',
         ]) ? $orderBy : null;
 
-        $orderDirection = $request->input('orderDir');
         $orderDirection = in_array($orderDirection, ['DESC', 'ASC']) ? $orderDirection : 'ASC';
 
         if (!$orderBy) {
@@ -29,11 +31,18 @@ class LevelController extends Controller
         }
 
         $levelSets = LevelSet::orderBy($this->convertUrlOrderByToDb($orderBy), $orderDirection)
-            ->with('tagged')
-            ->paginate(10)
+            ->with('tagged');
+
+        if ($search) {
+            $levelSets->where('name', 'like', '%' . $search . '%')
+                ->orWhere('author', 'like', '%' . $search . '%');
+        }
+
+        $levelSets = $levelSets->paginate(10)
             ->appends([
                 'orderBy'  => $orderBy,
                 'orderDir' => $orderDirection,
+                'search'   => $search,
             ]);
 
         return view('levels', [

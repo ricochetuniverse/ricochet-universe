@@ -14,19 +14,22 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name') }}
-                </a>
+                <a class="navbar-brand" href="{{ url('/') }}">Ricochet</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ action('LevelController@index') }}">Levels</a>
                         </li>
                     </ul>
+
+                    <form class="form-inline my-2 my-lg-0" method="GET" action="{{ action('LevelController@index') }}">
+                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search levels" aria-label="Search levels" value="{{ request()->input('search') }}">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </div>
             </div>
         </nav>
