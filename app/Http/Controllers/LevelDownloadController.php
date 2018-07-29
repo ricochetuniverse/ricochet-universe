@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Level;
+use App\LevelSet;
 use Illuminate\Http\Request;
 
 class LevelDownloadController extends Controller
@@ -15,7 +15,7 @@ class LevelDownloadController extends Controller
         $file = str_before($file, '.RicochetLW');
         $file = str_before($file, '.RicochetI');
 
-        $level = Level::whereName($file)->firstOrFail();
+        $level = LevelSet::whereName($file)->firstOrFail();
 
         return redirect($level->alternate_download_url);
     }

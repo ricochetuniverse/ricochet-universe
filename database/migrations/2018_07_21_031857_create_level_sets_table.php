@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateLevelsTable extends Migration
+class CreateLevelSetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,23 @@ class CreateLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('level_sets', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('legacy_id');
             $table->string('name')->index();
             $table->unsignedInteger('rounds')->index();
             $table->string('author')->index();
             $table->boolean('featured')->default(false);
-            $table->string('game_version');
+            $table->tinyInteger('game_version', false, true);
             $table->string('image_url');
-            $table->float('rating')->index()->default(0);
+            $table->float('rating', 6, 5)->index()->default(0);
             $table->unsignedInteger('downloads')->index()->default(0);
-            $table->string('description');
-            $table->float('overall_rating')->default(0);
+            $table->text('description');
+            $table->float('overall_rating', 6, 4)->default(0);
             $table->unsignedInteger('overall_rating_count')->default(0);
-            $table->float('fun_rating')->default(0);
+            $table->float('fun_rating', 6, 4)->default(0);
             $table->unsignedInteger('fun_rating_count')->default(0);
-            $table->float('graphics_rating')->default(0);
+            $table->float('graphics_rating', 6, 4)->default(0);
             $table->unsignedInteger('graphics_rating_count')->default(0);
             $table->timestamps();
         });
@@ -42,6 +42,6 @@ class CreateLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('level_sets');
     }
 }

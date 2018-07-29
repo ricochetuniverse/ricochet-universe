@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Http\Transformers\RicochetCatalogTransformer;
-use App\Level;
+use App\LevelSet;
 
 class CatalogService
 {
@@ -11,8 +11,8 @@ class CatalogService
     {
         $response = $this->getCatalogHeader();
 
-        Level::with('tagged')->chunk(100, function ($levels) use (&$response) {
-            /** @var Level[] $levels */
+        LevelSet::with('tagged')->chunk(100, function ($levels) use (&$response) {
+            /** @var LevelSet[] $levels */
             foreach ($levels as $level) {
                 $response .= RicochetCatalogTransformer::transform($level);
                 $response .= "\r\n";

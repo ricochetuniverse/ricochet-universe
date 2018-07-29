@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Level;
+use App\LevelSet;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -79,7 +79,7 @@ class ConvertGoogleSheetsTsv extends Command
             $name = $rowData[6];
             $alternateDownloadUrl = $rowData[7];
 
-            $level = Level::where(['legacy_id' => $legacyId])->first();
+            $level = LevelSet::where(['legacy_id' => $legacyId])->first();
 
             if (!$level) {
                 $this->warn('Legacy ID '.$legacyId.' not found in database, skipping:');

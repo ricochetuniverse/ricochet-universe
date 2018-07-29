@@ -2,15 +2,15 @@
 
 namespace App\Http\Transformers;
 
-use App\Level;
+use App\LevelSet;
 
 class RicochetCatalogTransformer
 {
     /**
-     * @param $level Level
+     * @param $level LevelSet
      * @return string
      */
-    public static function transform(Level $level)
+    public static function transform(LevelSet $level)
     {
         $data = [
             $level->legacy_id,

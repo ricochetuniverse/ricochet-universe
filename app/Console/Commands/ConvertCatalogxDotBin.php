@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Level;
+use App\LevelSet;
 use App\LevelTag;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -45,12 +45,15 @@ class ConvertCatalogxDotBin extends Command
         $file = file_get_contents($this->argument('file'));
 
         if (!$file) {
-            throw new \Exception('Cannot read file');
+            $this->error('Cannot read file');
+            return;
         }
 
         $file = mb_convert_encoding($file, 'UTF-8', 'Windows-1252');
         $file = str_replace("\r\n", "\n", $file);
         $lines = explode("\n", $file);
+
+        $this->line('Parsing catalogx.bin file...');
 
         DB::beginTransaction();
 
@@ -80,27 +83,27 @@ class ConvertCatalogxDotBin extends Command
 
             $legacyId = (int)$rowData[0];
 
-            $level = Level::firstOrNew(['legacy_id' => $legacyId]);
-            $level->legacy_id = $legacyId;
-            $level->name = $rowData[1];
-            $level->rounds = (int)$rowData[2];
-            $level->author = $rowData[3];
-            $level->created_at = Carbon::parse($rowData[4]);
-            $level->featured = (bool)$rowData[5];
-            $level->game_version = (int)$rowData[6];
+            $levelSet = LevelSet::firstOrNew(['legacy_id' => $legacyId]);
+            $levelSet->legacy_id = $legacyId;
+            $levelSet->name = $rowData[1];
+            $levelSet->rounds = (int)$rowData[2];
+            $levelSet->author = $rowData[3];
+            $levelSet->created_at = Carbon::parse($rowData[4]);
+            $levelSet->featured = (bool)$rowData[5];
+            $levelSet->game_version = (int)$rowData[6];
 //            $level->prerelease = $rowData[7];
 //            $level->requiredBuild = $rowData[8];
-            $level->image_url = $rowData[9];
-            $level->rating = (float)$rowData[10];
-            $level->downloads = (int)$rowData[11];
-            $level->description = $rowData[12];
+            $levelSet->image_url = $rowData[9];
+            $levelSet->rating = (float)$rowData[10];
+            $levelSet->downloads = (int)$rowData[11];
+            $levelSet->description = $rowData[12];
             // 13: tags
-            $level->overall_rating = (float)$rowData[14];
-            $level->overall_rating_count = (int)$rowData[15];
-            $level->fun_rating = (float)$rowData[16];
-            $level->fun_rating_count = (int)$rowData[17];
-            $level->graphics_rating = (float)$rowData[18];
-            $level->graphics_rating_count = (int)$rowData[19];
+            $levelSet->overall_rating = (float)$rowData[14];
+            $levelSet->overall_rating_count = (int)$rowData[15];
+            $levelSet->fun_rating = (float)$rowData[16];
+            $levelSet->fun_rating_count = (int)$rowData[17];
+            $levelSet->graphics_rating = (float)$rowData[18];
+            $levelSet->graphics_rating_count = (int)$rowData[19];
 //            $level->similarLevels = array_map(function ($id) {
 //                return (int)$id;
 //            }, array_filter(explode(';', $rowData[20])));
@@ -109,10 +112,12 @@ class ConvertCatalogxDotBin extends Command
 //                return arra$levelTags
 //            });
 
-            $level->save();
+            $levelSet->save();
 
-            $level->retag(array_filter(explode(';', $rowData[13])));
+            $levelSet->retag(array_filter(explode(';', $rowData[13])));
         }
+
+        $this->line('Committing to database...');
 
         DB::commit();
 

@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Level;
+use App\LevelSet;
 
 class LevelSetParser
 {
     /**
-     * @var Level
+     * @var LevelSet
      */
     private $levelSet;
 
@@ -30,7 +30,7 @@ class LevelSetParser
             throw new \Exception('Level sets should be CRoundSetUserMade as the first line');
         }
 
-        $this->levelSet = new Level;
+        $this->levelSet = new LevelSet;
         $levelRound = null;
 
         $key = '';
