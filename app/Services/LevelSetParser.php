@@ -3,59 +3,69 @@
 namespace App\Services;
 
 use App\LevelRound;
-use App\LevelSet;
 
+/**
+ * Naive parser for Ricochet Infinity levels
+ *
+ * I'm open for code suggestions =p
+ *
+ * @package App\Services
+ */
 class LevelSetParser
 {
     /**
-     * @var LevelSet
+     * @var string
      */
-    private $levelSet;
+    private $levelSetAuthor = '';
+
+    /**
+     * @var string
+     */
+    private $levelSetDescription = '';
+
+    /**
+     * @var int
+     */
+    private $levelSetRoundToGetImageFrom = 1;
 
     /**
      * @var LevelRound
      */
-    private $levelRound;
+    private $currentLevelRound;
 
     /**
      * @param string $levelSetData
+     * @return array
      * @throws \Exception
      */
     public function parse(string $levelSetData)
     {
-        $newLine = "\r\n";
-        $line = strtok($levelSetData, $newLine);
-
         // Check first line
-        if ($line !== 'CRoundSetUserMade') {
+        if (substr($levelSetData, 0, strlen('CRoundSetUserMade')) !== 'CRoundSetUserMade') {
             throw new \Exception('Level sets should be CRoundSetUserMade as the first line');
         }
 
-        $this->levelSet = new LevelSet;
-        $levelRound = null;
+        $rounds = [];
 
         $key = '';
-        $nested = ['CRoundSetUserMade'];
+        $newLine = "\r\n";
+        $nested = [];
+        $line = strtok($levelSetData, $newLine);
         while ($line !== false) {
-            $line = strtok($newLine);
-
-            if ($line === false) {
-                break;
-            }
-
             $line = ltrim($line);
 
             if ($line === '{') {
                 array_push($nested, $key);
 
                 if ($key === 'Round') {
-                    $this->levelRound = new LevelRound;
+                    $this->currentLevelRound = new LevelRound;
+                    $this->currentLevelRound->image_file_name = ''; // FIXME
                 }
             } elseif ($line === '}') {
                 $popped = array_pop($nested);
 
                 if ($popped === 'Round') {
-                    var_dump($this->levelRound);
+                    array_push($rounds, $this->currentLevelRound);
                 }
             } else {
                 $temp = explode('=', $line, 2);
@@ -64,10 +74,21 @@ class LevelSetParser
 
                 $this->setPropertyForNested(end($nested), $key, $value);
             }
+
+            $line = strtok($newLine);
         }
 
+        strtok('', '');
+
         // Finished...
-        var_dump($this->levelSet);
+        return [
+            'levelSet' => [
+                'author'              => $this->levelSetAuthor,
+                'description'         => $this->levelSetDescription,
+                'roundToGetImageFrom' => $this->levelSetRoundToGetImageFrom,
+            ],
+            'rounds'   => $rounds,
+        ];
     }
 
     /**
@@ -81,14 +102,17 @@ class LevelSetParser
             case 'CRoundSetUserMade':
                 switch ($key) {
                     case 'Author':
-                        $this->levelSet->author = $key;
+                        $this->levelSetAuthor = $value;
                         break;
 
                     case 'Description':
-                        $this->levelSet->description = $value;
+                        $this->levelSetDescription = $value;
                         break;
 
-                    // case 'Round To Get Image From':
+                    case 'Round To Get Image From':
+                        $this->levelSetRoundToGetImageFrom = (int)$value;
+                        break;
+
                     default:
                         break;
                 }
@@ -97,35 +121,38 @@ class LevelSetParser
             case 'Round':
                 switch ($key) {
                     case 'Display Name':
-                        $this->levelRound->name = $value;
+                        $this->currentLevelRound->name = $value;
                         break;
 
                     case 'Author':
-                        $this->levelRound->author = $value;
+                        $this->currentLevelRound->author = $value;
                         break;
 
                     case 'Note 1':
-                        $this->levelRound->note1 = $value;
+                        $this->currentLevelRound->note1 = $value;
                         break;
 
                     case 'Note 2':
-                        $this->levelRound->note2 = $value;
+                        $this->currentLevelRound->note2 = $value;
                         break;
 
                     case 'Note 3':
-                        $this->levelRound->note3 = $value;
+                        $this->currentLevelRound->note3 = $value;
                         break;
 
                     case 'Note 4':
-                        $this->levelRound->note4 = $value;
+                        $this->currentLevelRound->note4 = $value;
                         break;
 
                     case 'Note 5':
-                        $this->levelRound->note5 = $value;
+                        $this->currentLevelRound->note5 = $value;
                         break;
 
                     case 'Source':
-                        $this->levelRound->source = $value;
+                        $this->currentLevelRound->source = $value;
+                        break;
+
+                    case 'Compressed Thumbnail':
                         break;
 
                     default:

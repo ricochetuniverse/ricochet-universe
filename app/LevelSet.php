@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property string $alternate_download_url
+ * @property string $downloaded_file_name
+ * @property int $round_to_get_image_from
  * @property mixed $tag_names
  * @property-read \Illuminate\Database\Eloquent\Collection $tags
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\LevelRound[] $levelRounds
@@ -36,6 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereAuthor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereDownloadedFileName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereDownloads($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereFeatured($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereFunRating($value)
@@ -50,6 +53,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereOverallRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereOverallRatingCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereRoundToGetImageFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereRounds($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withAllTags($tagNames)
