@@ -71,6 +71,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'round-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/round-images'),
+            'url' => env('APP_URL').'/storage/round-images',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\LevelRound;
 use App\LevelSet;
 use App\Services\LevelSetDecompressService;
 use App\Services\LevelSetParser;
@@ -71,6 +72,29 @@ class ParseLevelSet implements ShouldQueue
 //            throw new \Exception("Level set description stored on the database is not the same as the downloaded file\n\nDatabase:  ".$this->levelSet->description."\nLevel set: ".$results['levelSet']['description']);
 //        }
 
-        $this->levelSet->levelRounds()->saveMany($results['rounds']);
+        $count = 0;
+        $rounds = [];
+        foreach ($results['rounds'] as $round) {
+            $count += 1;
+
+            $imageFileName = $this->levelSet->name.'/'.$count.'.jpg';
+
+            $roundToSave = new LevelRound;
+            $roundToSave->name = $round['name'];
+            $roundToSave->author = $round['author'];
+            $roundToSave->note1 = $round['note1'];
+            $roundToSave->note2 = $round['note2'];
+            $roundToSave->note3 = $round['note3'];
+            $roundToSave->note4 = $round['note4'];
+            $roundToSave->note5 = $round['note5'];
+            $roundToSave->source = $round['source'];
+            $roundToSave->image_file_name = $imageFileName;
+
+            Storage::disk('round-images')->put($imageFileName, $round['picture']);
+
+            $rounds[] = $roundToSave;
+        }
+
+        $this->levelSet->levelRounds()->saveMany($rounds);
     }
 }

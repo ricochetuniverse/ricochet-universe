@@ -50,7 +50,7 @@
                                              class="float-right">
                                     @endif
 
-                                    <p class="m-0"><a href="" class="font-weight-bold">{{ $levelSet->name }}</a></p>
+                                    <p class="m-0"><a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}" class="font-weight-bold">{{ $levelSet->name }}</a></p>
                                     <p class="m-0">by <a href="">{{ $levelSet->author }}</a></p>
                                     <p class="m-0">{{ $levelSet->description }}</p>
 

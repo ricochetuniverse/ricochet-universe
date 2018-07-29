@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\LevelRound;
-
 /**
  * Naive parser for Ricochet Infinity levels
  *
@@ -28,10 +26,9 @@ class LevelSetParser
      */
     private $levelSetRoundToGetImageFrom = 1;
 
-    /**
-     * @var LevelRound
-     */
-    private $currentLevelRound;
+    private $currentLevelRound = [];
+
+    private $currentLevelRoundPicture = '';
 
     /**
      * @param string $levelSetData
@@ -52,27 +49,36 @@ class LevelSetParser
         $nested = [];
         $line = strtok($levelSetData, $newLine);
         while ($line !== false) {
-            $line = ltrim($line);
+            $line = ltrim($line, "\t");
 
             if ($line === '{') {
                 array_push($nested, $key);
 
                 if ($key === 'Round') {
-                    $this->currentLevelRound = new LevelRound;
-                    $this->currentLevelRound->image_file_name = ''; // FIXME
+                    $this->currentLevelRound = [];
+                } elseif ($key === 'Compressed Thumbnail') {
+                    $this->currentLevelRoundPicture = '';
                 }
             } elseif ($line === '}') {
                 $popped = array_pop($nested);
 
                 if ($popped === 'Round') {
                     array_push($rounds, $this->currentLevelRound);
+                } elseif ($popped === 'Compressed Thumbnail') {
+                    $this->currentLevelRound['picture'] = $this->decodeAsciiPicture($this->currentLevelRoundPicture);
                 }
             } else {
-                $temp = explode('=', $line, 2);
-                $key = $temp[0];
-                $value = $temp[1] ?? '';
+                if (end($nested) !== 'Compressed Thumbnail') {
+                    $temp = explode('=', $line, 2);
+                    $key = $temp[0];
+                    $value = $temp[1] ?? '';
 
-                $this->setPropertyForNested(end($nested), $key, $value);
+                    $this->setPropertyForNested(end($nested), $key, $value);
+                } else {
+                    // Collect all the strings to concat them in the end
+                    $key = '';
+                    $this->currentLevelRoundPicture .= $line;
+                }
             }
 
             $line = strtok($newLine);
@@ -121,38 +127,35 @@ class LevelSetParser
             case 'Round':
                 switch ($key) {
                     case 'Display Name':
-                        $this->currentLevelRound->name = $value;
+                        $this->currentLevelRound['name'] = $value;
                         break;
 
                     case 'Author':
-                        $this->currentLevelRound->author = $value;
+                        $this->currentLevelRound['author'] = $value;
                         break;
 
                     case 'Note 1':
-                        $this->currentLevelRound->note1 = $value;
+                        $this->currentLevelRound['note1'] = $value;
                         break;
 
                     case 'Note 2':
-                        $this->currentLevelRound->note2 = $value;
+                        $this->currentLevelRound['note2'] = $value;
                         break;
 
                     case 'Note 3':
-                        $this->currentLevelRound->note3 = $value;
+                        $this->currentLevelRound['note3'] = $value;
                         break;
 
                     case 'Note 4':
-                        $this->currentLevelRound->note4 = $value;
+                        $this->currentLevelRound['note4'] = $value;
                         break;
 
                     case 'Note 5':
-                        $this->currentLevelRound->note5 = $value;
+                        $this->currentLevelRound['note5'] = $value;
                         break;
 
                     case 'Source':
-                        $this->currentLevelRound->source = $value;
-                        break;
-
-                    case 'Compressed Thumbnail':
+                        $this->currentLevelRound['source'] = $value;
                         break;
 
                     default:
@@ -163,5 +166,28 @@ class LevelSetParser
             default:
                 break;
         }
+    }
+
+    /**
+     * @param string $ascii
+     * @return string
+     */
+    private function decodeAsciiPicture(string $ascii)
+    {
+        $decoded = $ascii;
+        // $decoded = str_replace(["\r\n", "\n"], '', $decoded);
+        $decoded = str_replace(chr(33) . chr(35), chr(255), $decoded);
+        $decoded = str_replace(chr(33) . chr(36), chr(123), $decoded);
+        $decoded = str_replace(chr(33) . chr(37), chr(125), $decoded);
+        for ($i = 38; $i <= 70; $i += 1) {
+            // min/max:
+            // $decoded = str_replace(chr(33).chr(38), chr(0), $decoded);
+            // $decoded = str_replace(chr(33).chr(70), chr(32), $decoded);
+
+            $decoded = str_replace(chr(33) . chr($i), chr($i - 38), $decoded);
+        }
+        $decoded = str_replace(chr(33) . chr(34), chr(33), $decoded);
+
+        return $decoded;
     }
 }

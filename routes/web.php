@@ -13,3 +13,4 @@
 
 Route::view('/', 'home');
 Route::get('/levels', 'LevelController@index');
+Route::get('/levels/levelsetinfo.php', 'LevelController@show');

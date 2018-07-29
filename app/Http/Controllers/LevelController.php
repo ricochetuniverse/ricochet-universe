@@ -52,6 +52,15 @@ class LevelController extends Controller
         ]);
     }
 
+    public function show(Request $request)
+    {
+        $name = $request->input('levelsetname');
+
+        $levelSet = LevelSet::whereName($name)->firstOrFail();
+
+        return $levelSet;
+    }
+
     private function convertUrlOrderByToDb($orderBy)
     {
         $orders = [
