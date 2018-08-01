@@ -85,6 +85,11 @@ class LevelController extends Controller
         ]);
     }
 
+    public function redirectMain(Request $request)
+    {
+        return redirect()->action('LevelController@index', $request->input());
+    }
+
     private function convertUrlOrderByToDb($orderBy)
     {
         $orders = [
