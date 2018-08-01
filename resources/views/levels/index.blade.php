@@ -50,14 +50,16 @@
                                              title="Can only be played in Ricochet Infinity"
                                              width="32"
                                              height="32"
-                                             class="float-right">
+                                             class="float-right"
+                                             data-toggle="tooltip">
                                     @else
                                         <img src="{{ asset('images/RLW.gif') }}"
                                              alt="Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity"
                                              title="Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity"
                                              width="32"
                                              height="32"
-                                             class="float-right">
+                                             class="float-right"
+                                             data-toggle="tooltip">
                                     @endif
 
                                     <p class="m-0">
