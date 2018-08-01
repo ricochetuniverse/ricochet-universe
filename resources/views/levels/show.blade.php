@@ -110,7 +110,7 @@
                             <div class="row">
                                 @foreach ($levelSet->levelRounds as $round)
                                     <div class="col-sm-4 col-md-3 col-lg-2 text-center mb-4">
-                                        <img src="{{ Storage::disk('round-images')->url($round->image_file_name) }}"
+                                        <img src="{{ Storage::disk('round-images')->url(rawurlencode($round->image_file_name)) }}"
                                              alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
                                              class="mb-2"><br>
 
