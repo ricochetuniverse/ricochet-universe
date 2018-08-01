@@ -8,7 +8,7 @@
                     <div class="card-header">Levels</div>
 
                     <div class="card-body">
-                        These Level Sets include a great variety of levels. Some may have levels that are extremely
+                        These level sets include a great variety of levels. Some may have levels that are extremely
                         difficult, some may finish themselves with no user interaction, and some may have dozens of
                         rings on a single level.
                     </div>
@@ -19,14 +19,24 @@
                         <thead class="thead-light">
                         <tr>
                             <th>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">Name</a>
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">
+                                    Name
+                                </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">Levels</a>
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">
+                                    Levels
+                                </a>
                             </th>
                             <th class="text-nowrap">
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">Date
-                                    posted</a>
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">
+                                    Date posted
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'overall_rating', 'orderDir' => $orderBy === 'overall_rating' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">
+                                    Ratings
+                                </a>
                             </th>
                         </tr>
                         </thead>
@@ -50,12 +60,17 @@
                                              class="float-right">
                                     @endif
 
-                                    <p class="m-0"><a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}" class="font-weight-bold">{{ $levelSet->name }}</a></p>
+                                    <p class="m-0">
+                                        <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
+                                           class="font-weight-bold">
+                                            {{ $levelSet->name }}
+                                        </a>
+                                    </p>
                                     <p class="m-0">by <a href="">{{ $levelSet->author }}</a></p>
-                                    <p class="m-0">{{ $levelSet->description }}</p>
+                                    <p class="m-0 mt-2">{{ $levelSet->description }}</p>
 
                                     @if (count($levelSet->tagged) > 0)
-                                        <p class="m-0">
+                                        <p class="m-0 mt-2">
                                             <strong>Tags:</strong>
                                             @foreach ($levelSet->tagged as $tagged)
                                                 <a href=""
@@ -79,6 +94,47 @@
                                 </td>
                                 <td class="text-center">{{ $levelSet->rounds }}</td>
                                 <td class="text-center text-nowrap">{{ $levelSet->created_at->format('Y-m-d') }}</td>
+                                <td class="text-center">
+                                    @if ($levelSet->overall_rating)
+                                        <div class="row no-gutters">
+                                            <div class="col d-flex align-self-center justify-content-end mr-2">
+                                                <img src="{{ asset('images/ratingOverall.jpg') }}"
+                                                     alt="Overall grade"
+                                                     title="Average overall grade from {{ $levelSet->overall_rating_count }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->overall_rating) }}. Level sets are graded in Ricochet Infinity."
+                                                     width="20"
+                                                     height="20">
+                                            </div>
+                                            <div class="col text-left">
+                                                {{ \App\Services\RatingGradeConverter::getGrade($levelSet->overall_rating) }}
+                                            </div>
+
+                                            <div class="w-100 mt-2"></div>
+
+                                            <div class="col d-flex align-self-center justify-content-end mr-2">
+                                                <img src="{{ asset('images/ratingGameplay.jpg') }}"
+                                                     alt="Gameplay grade"
+                                                     title="Average gameplay grade from {{ $levelSet->fun_rating_count }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->fun_rating) }}. Level sets are graded in Ricochet Infinity."
+                                                     width="20"
+                                                     height="20">
+                                            </div>
+                                            <div class="col text-left">
+                                                {{ \App\Services\RatingGradeConverter::getGrade($levelSet->fun_rating) }}
+                                            </div>
+                                            <div class="w-100 mt-2"></div>
+
+                                            <div class="col d-flex align-self-center justify-content-end mr-2">
+                                                <img src="{{ asset('images/ratingVisuals.jpg') }}"
+                                                     alt="Visuals grade"
+                                                     title="Average visuals grade from {{ $levelSet->graphics_rating_count }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->graphics_rating) }}. Level sets are graded in Ricochet Infinity."
+                                                     width="20"
+                                                     height="20">
+                                            </div>
+                                            <div class="col text-left">
+                                                {{ \App\Services\RatingGradeConverter::getGrade($levelSet->graphics_rating) }}
+                                            </div>
+                                        </div>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

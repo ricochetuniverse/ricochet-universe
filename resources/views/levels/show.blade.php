@@ -21,24 +21,24 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col">
                                 {{ $levelSet->description }}
                             </div>
                         </div>
 
                         <div class="row mt-3">
-                            <div class="col-sm-6 col-md-3">Date Posted:</div>
+                            <div class="col-sm-6 col-md-3">Date posted:</div>
                             <div class="col-sm">{{ $levelSet->created_at->format('Y-m-d') }}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6 col-md-3"># of Rounds:</div>
+                            <div class="col-sm-6 col-md-3">Number of rounds:</div>
                             <div class="col-sm">{{ $levelSet->rounds }}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6 col-md-3"># of Downloads:</div>
+                            <div class="col-sm-6 col-md-3">Downloads:</div>
                             <div class="col-sm">{{ $levelSet->downloads }}</div>
                         </div>
 
