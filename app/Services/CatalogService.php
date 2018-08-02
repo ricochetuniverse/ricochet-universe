@@ -22,10 +22,14 @@ class CatalogService
         return $response;
     }
 
+    public static function getFallbackImageUrl()
+    {
+        return 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/';
+    }
+
     private function getCatalogHeader()
     {
-        $imageUrl = 'http://www.ricochetInfinity.com/levels/';
-        $imageUrl = 'http://web.archive.org/web/20171205000449im_/' . $imageUrl;
+        $imageUrl = preg_replace('/^https\:\/\//', 'http://', static::getFallbackImageUrl());
 
         $header = <<<EOF
 CCatalogWebResponse

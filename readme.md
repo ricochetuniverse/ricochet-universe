@@ -22,3 +22,8 @@ overall_rating:
 *  5.4999 -  4.5001: D
 *  4.5000 -  3.5000: D-
 *            3.4999: F
+
+## web.archive.org
+
+* https://web.archive.org/web/20171128131900/http://www.ricochetinfinity.com
+* https://web.archive.org/web/20171128145057/http://www.ricochetinfinity.com:80/levels/index.php

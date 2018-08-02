@@ -68,8 +68,20 @@
                                             {{ $levelSet->name }}
                                         </a>
                                     </p>
+
                                     <p class="m-0">by <a href="">{{ $levelSet->author }}</a></p>
-                                    <p class="m-0 mt-2">{{ $levelSet->description }}</p>
+
+                                    <div class="media mt-2">
+                                        <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
+                                           class="mr-2">
+                                            <img src="{{ \App\Services\CatalogService::getFallbackImageUrl() }}{{ $levelSet->image_url }}"
+                                                 alt="Screenshot of {{ $levelSet->name }}" width="105" height="80">
+                                        </a>
+
+                                        <div class="media-body">
+                                            <p class="m-0">{{ $levelSet->description }}</p>
+                                        </div>
+                                    </div>
 
                                     @if (count($levelSet->tagged) > 0)
                                         <p class="m-0 mt-2">
