@@ -30,7 +30,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'DESC' ? 'ASC' : 'DESC']) }}">
                                     Levels
                                 </a>
                             </th>
@@ -40,12 +40,12 @@
                                 </a>
                             </th>
                             <th class="text-nowrap">
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'DESC' ? 'ASC' : 'DESC']) }}">
                                     Date posted
                                 </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'overall_rating', 'orderDir' => $orderBy === 'overall_rating' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'overall_rating', 'orderDir' => $orderBy === 'overall_rating' && $orderDirection === 'DESC' ? 'ASC' : 'DESC']) }}">
                                     Ratings
                                 </a>
                             </th>
