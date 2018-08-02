@@ -80,7 +80,9 @@
                                         </a>
                                     </p>
 
-                                    <p class="m-0">by <a href="">{{ $levelSet->author }}</a></p>
+                                    <p class="m-0">
+                                        by <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}">{{ $levelSet->author }}</a>
+                                    </p>
 
                                     <div class="media mt-2">
                                         <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"

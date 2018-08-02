@@ -13,6 +13,7 @@ class LevelController extends Controller
     {
         $orderBy = $request->input('orderBy');
         $orderDirection = $request->input('orderDir');
+        $author = $request->input('author');
         $search = $request->input('search');
 
         $orderBy = in_array($orderBy, [
@@ -35,6 +36,10 @@ class LevelController extends Controller
         $levelSets = LevelSet::orderBy($this->convertUrlOrderByToDb($orderBy), $orderDirection)
             ->with('tagged');
 
+        if ($author) {
+            $levelSets->where('author', 'like', '%' . $author . '%');
+        }
+
         if ($search) {
             $levelSets->where('name', 'like', '%' . $search . '%')
                 ->orWhere('author', 'like', '%' . $search . '%');
@@ -44,6 +49,7 @@ class LevelController extends Controller
             ->appends([
                 'orderBy'  => $orderBy,
                 'orderDir' => $orderDirection,
+                'author'   => $author,
                 'search'   => $search,
             ]);
 

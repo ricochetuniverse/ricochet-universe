@@ -18,7 +18,7 @@
 
                         <div class="row">
                             <div class="col">
-                                by {{ $levelSet->author }}
+                                by <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}">{{ $levelSet->author }}</a>
                             </div>
                         </div>
 
