@@ -8,9 +8,15 @@
                     <div class="card-header">Levels</div>
 
                     <div class="card-body">
-                        These level sets include a great variety of levels. Some may have levels that are extremely
-                        difficult, some may finish themselves with no user interaction, and some may have dozens of
-                        rings on a single level.
+                        <p>
+                            These level sets include a great variety of levels. Some may have levels that are extremely
+                            difficult, some may finish themselves with no user interaction, and some may have dozens of
+                            rings on a single level.
+                        </p>
+
+                        <p class="m-0">
+                            Downloads and ratings are frozen ‘in time’ and will not change.
+                        </p>
                     </div>
                 </div>
 
