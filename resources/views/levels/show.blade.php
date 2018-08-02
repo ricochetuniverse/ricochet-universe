@@ -23,7 +23,7 @@
                         </div>
 
                         <div class="row mt-3">
-                            <div class="col">
+                            <div class="col cursor-auto">
                                 {{ $levelSet->description }}
                             </div>
                         </div>

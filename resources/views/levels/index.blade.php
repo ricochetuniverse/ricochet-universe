@@ -90,7 +90,7 @@
                                                 alt="Screenshot of {{ $levelSet->name }}" width="105" height="80">
                                         </a>
 
-                                        <div class="media-body">
+                                        <div class="media-body cursor-auto">
                                             <p class="m-0">{{ $levelSet->description }}</p>
                                         </div>
                                     </div>

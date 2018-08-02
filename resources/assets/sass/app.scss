@@ -37,6 +37,11 @@ $enable-transitions: false;
 
 body {
     background-image: url('./stars.jpg');
+    cursor: default;
+}
+
+.cursor-auto {
+    cursor: auto;
 }
 
 .btn {
