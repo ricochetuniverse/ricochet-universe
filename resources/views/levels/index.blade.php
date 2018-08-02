@@ -34,6 +34,11 @@
                                     Levels
                                 </a>
                             </th>
+                            <th>
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'downloads', 'orderDir' => $orderBy === 'downloads' && $orderDirection === 'DESC' ? 'ASC' : 'DESC']) }}">
+                                    Downloads
+                                </a>
+                            </th>
                             <th class="text-nowrap">
                                 <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}">
                                     Date posted
@@ -80,8 +85,9 @@
                                     <div class="media mt-2">
                                         <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
                                            class="mr-2">
-                                            <img src="{{ \App\Services\CatalogService::getFallbackImageUrl() }}{{ $levelSet->image_url }}"
-                                                 alt="Screenshot of {{ $levelSet->name }}" width="105" height="80">
+                                            <img
+                                                src="{{ \App\Services\CatalogService::getFallbackImageUrl() }}{{ $levelSet->image_url }}"
+                                                alt="Screenshot of {{ $levelSet->name }}" width="105" height="80">
                                         </a>
 
                                         <div class="media-body">
@@ -113,6 +119,7 @@
                                     </div>
                                 </td>
                                 <td class="text-center">{{ $levelSet->rounds }}</td>
+                                <td class="text-center">{{ number_format($levelSet->downloads) }}</td>
                                 <td class="text-center text-nowrap">{{ $levelSet->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
                                     @if ($levelSet->overall_rating)

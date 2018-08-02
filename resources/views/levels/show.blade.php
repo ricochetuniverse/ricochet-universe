@@ -39,7 +39,7 @@
 
                         <div class="row">
                             <div class="col-sm-6 col-md-3">Downloads:</div>
-                            <div class="col-sm">{{ $levelSet->downloads }}</div>
+                            <div class="col-sm">{{ number_format($levelSet->downloads) }}</div>
                         </div>
 
                         @if (count($levelSet->tagged) > 0)
