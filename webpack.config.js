@@ -36,7 +36,13 @@ module.exports = {
                     'extract-loader',
                     'css-loader',
                     'postcss-loader',
-                    'sass-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require('dart-sass'),
+                            fiber: require('fibers'),
+                        },
+                    },
                 ],
             },
             {
