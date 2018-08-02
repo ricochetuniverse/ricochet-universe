@@ -1,34 +1,46 @@
 {
-    "private": true,
-    "scripts": {
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --mode development --progress",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js -p --mode production --no-progress",
-        "watch": "yarn run development -- --watch"
-    },
-    "dependencies": {
-        "@babel/runtime": "7.0.0-beta.55",
-        "bootstrap": "4.1.3",
-        "jquery": "3.3.1",
-        "popper.js": "1.14.3"
-    },
-    "devDependencies": {
-        "@babel/core": "7.0.0-beta.55",
-        "@babel/plugin-transform-runtime": "7.0.0-beta.55",
-        "@babel/preset-env": "7.0.0-beta.55",
-        "autoprefixer": "9.0.1",
-        "babel-loader": "8.0.0-beta.4",
-        "clean-webpack-plugin": "0.1.19",
-        "cross-env": "5.2.0",
-        "css-loader": "1.0.0",
-        "cssnano": "4.0.4",
-        "extract-loader": "2.0.1",
-        "file-loader": "1.1.11",
-        "node-sass": "4.9.2",
-        "postcss": "7.0.1",
-        "postcss-loader": "2.1.6",
-        "sass-loader": "7.0.3",
-        "webpack": "4.16.3",
-        "webpack-command": "0.4.1",
-        "webpack-manifest-plugin": "2.0.3"
-    }
+  "description": "Ricochet Levels",
+  "homepage": "https://ricochet.ngyikp.com",
+  "bugs": {
+    "url": "https://gitlab.com/ngyikp/ricochet-levels/issues",
+    "email": "ngyikp@gmail.com"
+  },
+  "author": {
+    "name": "Ng Yik Phang (ngyikp)",
+    "email": "ngyikp@gmail.com",
+    "url": "https://ngyikp.com"
+  },
+  "private": true,
+  "license": "MPL-2.0",
+  "scripts": {
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --mode development --progress",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js -p --mode production --no-progress",
+    "watch": "yarn run development -- --watch"
+  },
+  "dependencies": {
+    "@babel/runtime": "7.0.0-beta.55",
+    "bootstrap": "4.1.3",
+    "jquery": "3.3.1",
+    "popper.js": "1.14.3"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.55",
+    "@babel/plugin-transform-runtime": "7.0.0-beta.55",
+    "@babel/preset-env": "7.0.0-beta.55",
+    "autoprefixer": "9.0.1",
+    "babel-loader": "8.0.0-beta.4",
+    "clean-webpack-plugin": "0.1.19",
+    "cross-env": "5.2.0",
+    "css-loader": "1.0.0",
+    "cssnano": "4.0.4",
+    "extract-loader": "2.0.1",
+    "file-loader": "1.1.11",
+    "node-sass": "4.9.2",
+    "postcss": "7.0.1",
+    "postcss-loader": "2.1.6",
+    "sass-loader": "7.0.3",
+    "webpack": "4.16.3",
+    "webpack-command": "0.4.1",
+    "webpack-manifest-plugin": "2.0.3"
+  }
 }

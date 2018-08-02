@@ -32,7 +32,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-gitlab" href="" title="GitLab" data-toggle="tooltip">
+                            <a class="nav-link nav-link-gitlab" href="https://gitlab.com/ngyikp/ricochet-levels" title="GitLab" data-toggle="tooltip">
                                 @include('icons.gitlab')<span class="d-md-none ml-2">GitLab</span>
                             </a>
                         </li>
