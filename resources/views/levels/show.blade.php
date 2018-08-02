@@ -87,16 +87,14 @@
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <a href="{{ $levelSet->alternate_download_url }}" class="mr-1">
+                        <div class="d-flex">
+                            <a href="{{ $levelSet->alternate_download_url }}"
+                               class="d-inline-flex align-items-center font-weight-bold">
                                 <img src="{{ asset('images/levelDownload.jpg') }}"
                                      alt=""
-                                     title="Download this level set"
                                      width="38"
-                                     height="38">
-                            </a>
-
-                            <a href="{{ $levelSet->alternate_download_url }}" class="font-weight-bold">
+                                     height="38"
+                                     class="mr-1">
                                 Download this level set
                             </a>
                         </div>

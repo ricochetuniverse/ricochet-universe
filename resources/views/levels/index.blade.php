@@ -106,16 +106,16 @@
                                         </p>
                                     @endif
 
-                                    <div class="d-flex align-items-center mt-2">
-                                        <a href="{{ $levelSet->alternate_download_url }}" class="mr-1">
+                                    <div class="d-flex">
+                                        <a href="{{ $levelSet->alternate_download_url }}"
+                                           class="d-inline-flex align-items-center mt-2">
                                             <img src="{{ asset('images/levelDownload.jpg') }}"
                                                  alt=""
-                                                 title="Download this level set"
                                                  width="38"
-                                                 height="38">
+                                                 height="38"
+                                                 class="mr-1">
+                                            Download
                                         </a>
-
-                                        <a href="{{ $levelSet->alternate_download_url }}">Download</a>
                                     </div>
                                 </td>
                                 <td class="text-center">{{ $levelSet->rounds }}</td>
