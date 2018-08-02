@@ -12,8 +12,7 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <a class="navbar-brand" href="{{ url('/') }}">Ricochet</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -21,8 +20,21 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ action('LevelController@index') }}">Levels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-discord" href="" title="Discord" data-toggle="tooltip">
+                                @include('icons.discord')<span class="d-md-none ml-2">Discord</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-gitlab" href="" title="GitLab" data-toggle="tooltip">
+                                @include('icons.gitlab')<span class="d-md-none ml-2">GitLab</span>
+                            </a>
                         </li>
                     </ul>
 
@@ -31,10 +43,9 @@
                         <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
-            </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-3">
             @yield('content')
         </main>
     </div>

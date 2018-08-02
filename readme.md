@@ -27,3 +27,7 @@ overall_rating:
 
 * https://web.archive.org/web/20171128131900/http://www.ricochetinfinity.com
 * https://web.archive.org/web/20171128145057/http://www.ricochetinfinity.com:80/levels/index.php
+
+# LICENSE
+
+Discord and GitLab icons are provided under the [CC0 1.0 Universal](https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md) License.

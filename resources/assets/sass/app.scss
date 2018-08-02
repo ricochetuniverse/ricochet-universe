@@ -71,3 +71,26 @@ body {
 .page-link {
     text-decoration: none;
 }
+
+// Navbar
+.navbar a {
+    text-decoration: none;
+}
+
+.nav-link-discord > svg {
+    width: 20px;
+    fill: $navbar-dark-color;
+}
+
+.nav-link-discord:hover > svg {
+    fill: #7289DA;
+}
+
+.nav-link-gitlab > svg {
+    width: 20px;
+    fill: $navbar-dark-color;
+}
+
+.nav-link-gitlab:hover > svg {
+    fill: #E24329;
+}
