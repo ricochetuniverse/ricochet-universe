@@ -4,8 +4,9 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col">
-                <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">&lt;&lt; Return to level
-                    set list</a>
+                <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">
+                    « Return to level set list
+                </a>
 
                 <div class="card my-3">
                     <div class="card-body">
