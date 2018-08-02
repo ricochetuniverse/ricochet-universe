@@ -29,7 +29,7 @@ class LevelController extends Controller
 
         if (!$orderBy) {
             $orderBy = 'downloads';
-            $orderDirection = 'desc';
+            $orderDirection = 'DESC';
         }
 
         $levelSets = LevelSet::orderBy($this->convertUrlOrderByToDb($orderBy), $orderDirection)
