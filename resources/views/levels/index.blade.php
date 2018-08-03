@@ -93,7 +93,7 @@
 
                                     <div class="media mt-2">
                                         <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
-                                           class="mr-2">
+                                           class="mr-2" tabindex="-1">
                                             <img
                                                 src="{{ \App\Services\CatalogService::getFallbackImageUrl() }}{{ $levelSet->image_url }}"
                                                 alt="Screenshot of {{ $levelSet->name }}" width="105" height="80">
