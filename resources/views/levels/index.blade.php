@@ -101,7 +101,7 @@
                                         <p class="m-0 mt-2">
                                             <strong>Tags:</strong>
                                             @foreach ($levelSet->tagged as $tagged)
-                                                <a href=""
+                                                <a href="{{ action('LevelController@index', ['tag' => $tagged->tag_name]) }}"
                                                    title="Find other level sets with the {{ $tagged->tag_name }} tag"
                                                 >{{ $tagged->tag_name }}</a>{{ !$loop->last ? ', ' : '' }}
                                             @endforeach
