@@ -1,7 +1,7 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude(['bootstrap/cache', 'public'])
+    ->exclude(['bootstrap/cache', 'public', 'storage'])
     ->notPath('_ide_helper.php')
     ->notPath('.phpstorm.meta.php')
     ->in(__DIR__);
