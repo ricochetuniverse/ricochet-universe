@@ -118,7 +118,11 @@
                                         {{ $loop->index + 1 }}: {{ $round->name }}
 
                                         @if (!$authorIsSameForAllRounds)
-                                            <br>by {{ $round->author }}
+                                            <br>by @if ($round->author)
+                                                {{ $round->author }}
+                                            @else
+                                                <em>(no author)</em>
+                                            @endif
                                         @endif
                                     </div>
                                 @endforeach
