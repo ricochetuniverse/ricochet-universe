@@ -62,16 +62,16 @@
                                 <td>
                                     @if ($levelSet->isDesignedForInfinity())
                                         <img src="{{ asset('images/RI.gif') }}"
-                                             alt="Can only be played in Ricochet Infinity"
-                                             title="Can only be played in Ricochet Infinity"
+                                             alt="Ricochet Infinity logo"
+                                             title="Designed for Ricochet Infinity. Can only be played in Ricochet Infinity."
                                              width="32"
                                              height="32"
                                              class="float-right"
                                              data-toggle="tooltip">
                                     @else
                                         <img src="{{ asset('images/RLW.gif') }}"
-                                             alt="Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity"
-                                             title="Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity"
+                                             alt="Ricochet Lost Worlds logo"
+                                             title="Designed for Ricochet Lost Worlds. Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity."
                                              width="32"
                                              height="32"
                                              class="float-right"

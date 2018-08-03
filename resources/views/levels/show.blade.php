@@ -57,29 +57,26 @@
                             </div>
                         @endif
 
-                        <div class="row align-items-center mt-3">
-                            <div class="col-auto">
-                                @if ($levelSet->isDesignedForInfinity())
-                                    <img src="{{ asset('images/RI.gif') }}"
-                                         alt="Can only be played in Ricochet Infinity"
-                                         title="Can only be played in Ricochet Infinity"
-                                         width="32"
-                                         height="32">
-                                @else
-                                    <img src="{{ asset('images/RLW.gif') }}"
-                                         alt="Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity"
-                                         title="Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity"
-                                         width="32"
-                                         height="32">
-                                @endif
-                            </div>
-                            <div class="col">
+                        <div class="media align-items-center mt-3">
+                            @if ($levelSet->isDesignedForInfinity())
+                                <img src="{{ asset('images/RI.gif') }}"
+                                     alt="Ricochet Infinity logo"
+                                     width="32"
+                                     height="32">
+                            @else
+                                <img src="{{ asset('images/RLW.gif') }}"
+                                     alt="Ricochet Lost Worlds logo"
+                                     width="32"
+                                     height="32">
+                            @endif
+
+                            <div class="media-body ml-3">
                                 @if ($levelSet->isDesignedForInfinity())
                                     Designed for Ricochet Infinity. This level set can only be played in Ricochet
                                     Infinity.
                                 @else
                                     Designed for Ricochet Lost Worlds. This level set can be played in Ricochet Lost
-                                    Worlds, Ricochet Recharged, and Ricochet Infinity.
+                                    Worlds, Ricochet Recharged and Ricochet Infinity.
                                 @endif
                             </div>
                         </div>
