@@ -8,6 +8,8 @@
         ]
     ],
     "plugins": [
-        "@babel/plugin-transform-runtime"
-    ]
+        "@babel/plugin-transform-runtime",
+        "@babel/plugin-proposal-class-properties",
+        ["@babel/plugin-transform-react-jsx", {"pragma": "h", "useBuiltIns": true}]
+    ],
 }

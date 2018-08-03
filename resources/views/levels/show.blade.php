@@ -107,24 +107,39 @@
 
                     <div class="card-body">
                         @unless ($levelSet->levelRounds->isEmpty())
-                            <div class="row">
+                            <div class="row roundInfo__wrapper">
                                 @foreach ($levelSet->levelRounds as $round)
-                                    <div class="col-sm-4 col-md-3 col-lg-2 text-center mb-4">
+                                    <a href="#" class="roundInfo__link"
+                                       data-round-count="{{ $loop->index + 1 }}"
+                                       data-round-name="{{ $round->name }}"
+                                       @if (strlen($round->author) > 0)data-round-author="{{ $round->author }}" @endif
+                                       @if (strlen($round->note1) > 0)data-round-note-1="{{ $round->note1 }}" @endif
+                                       @if (strlen($round->note2) > 0)data-round-note-2="{{ $round->note2 }}" @endif
+                                       @if (strlen($round->note3) > 0)data-round-note-3="{{ $round->note3 }}" @endif
+                                       @if (strlen($round->note4) > 0)data-round-note-4="{{ $round->note4 }}" @endif
+                                       @if (strlen($round->note5) > 0)data-round-note-5="{{ $round->note5 }}" @endif
+                                       @if (strlen($round->source) > 0)data-round-source="{{ $round->source }}"@endif>
                                         <img
                                             src="{{ Storage::disk('round-images')->url(rawurlencode($round->image_file_name)) }}"
                                             alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
-                                            class="mb-2"><br>
+                                            class="roundInfo__image">
 
-                                        {{ $loop->index + 1 }}: {{ $round->name }}
+                                        <span class="roundInfo__name">{{ $loop->index + 1 }}: {{ $round->name }}</span>
 
                                         @if (!$authorIsSameForAllRounds)
-                                            <br>by @if ($round->author)
-                                                {{ $round->author }}
-                                            @else
-                                                <em>(no author)</em>
-                                            @endif
+                                            <span class="roundInfo__author">
+                                                by @if (strlen($round->author) > 0)
+                                                    {{ $round->author }}
+                                                @else
+                                                    <em>(no author)</em>
+                                                @endif
+                                            </span>
                                         @endif
-                                    </div>
+
+                                        @if (strlen($round->note1) > 0 || strlen($round->note2) > 0 || strlen($round->note3) > 0 || strlen($round->note4) > 0 || strlen($round->note5) > 0)
+                                            <span class="d-block mt-2 btn btn-outline-primary">View notes</span>
+                                        @endif
+                                    </a>
                                 @endforeach
                             </div>
                         @else

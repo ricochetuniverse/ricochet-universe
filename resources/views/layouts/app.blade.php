@@ -7,7 +7,6 @@
 <title>{{ config('app.name') }}</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ mix('app.scss') }}" rel="stylesheet">
-<script src="{{ mix('app.js') }}" defer></script>
 </head>
 
 <body>
@@ -49,5 +48,7 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="{{ mix('app.js') }}" async></script>
 </body>
 </html>

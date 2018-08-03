@@ -30,6 +30,13 @@ $pagination-disabled-border-color: $pagination-border-color;
 
 $tooltip-bg: $component-active-bg;
 
+$modal-content-bg: #000;
+$modal-content-border-color: $card-border-color;
+$modal-header-border-color: $card-border-color;
+
+$close-color: #fff;
+$close-text-shadow: none;
+
 $enable-rounded: false;
 $enable-transitions: false;
 
@@ -77,6 +84,16 @@ body {
     text-decoration: none;
 }
 
+.modal-header {
+    background: $table-head-bg;
+}
+
+.modal-title {
+    margin-left: auto;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
 // Navbar
 .navbar a {
     text-decoration: none;
@@ -112,4 +129,65 @@ body {
 .levelsTable__ratings__text {
     text-align: left;
     width: 50%;
+}
+
+// Level set info
+.roundInfo__wrapper {
+    margin: 0;
+}
+
+.roundInfo__link {
+    padding-top: map-get($spacers, 2);
+    padding-bottom: map-get($spacers, 2);
+    text-decoration: none;
+    text-align: center;
+
+    @include make-col-ready();
+    @include media-breakpoint-up(sm) {
+        @include make-col(6);
+    }
+    @include media-breakpoint-up(md) {
+        @include make-col(3);
+    }
+    @include media-breakpoint-up(lg) {
+        @include make-col(2);
+    }
+
+    &:hover, &:active, &:focus {
+        background: $component-active-bg;
+
+        text-decoration: none;
+
+        .btn-outline-primary {
+            color: color-yiq($primary);
+            background-color: $primary;
+            border-color: $primary;
+        }
+    }
+}
+
+.roundInfo__image {
+    display: block;
+    margin: 0 auto map-get($spacers, 2);
+}
+
+.roundInfo__name {
+    text-decoration: $link-decoration;
+}
+
+.roundInfo__author {
+    color: #fff;
+    display: block;
+}
+
+@supports (display: grid) {
+    .roundInfo__wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    }
+
+    .roundInfo__link {
+        flex: auto;
+        max-width: none;
+    }
 }
