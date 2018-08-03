@@ -5,17 +5,18 @@ import {h, render} from 'preact';
 $('.roundInfo__link').on('click', function (ev) {
     ev.preventDefault();
 
-    const link = this;
+    const $link = $(this);
 
     const options = {
-        name: link.dataset['roundName'],
-        author: link.dataset['roundAuthor'],
-        note1: link.dataset['roundNote-1'],
-        note2: link.dataset['roundNote-2'],
-        note3: link.dataset['roundNote-3'],
-        note4: link.dataset['roundNote-4'],
-        note5: link.dataset['roundNote-5'],
-        source: link.dataset['roundSource'],
+        name: $link.data('round-name'),
+        author: $link.data('round-author'),
+        note1: $link.data('round-note-1'),
+        note2: $link.data('round-note-2'),
+        note3: $link.data('round-note-3'),
+        note4: $link.data('round-note-4'),
+        note5: $link.data('round-note-5'),
+        source: $link.data('round-source'),
+        imageUrl: $link.data('round-image-url'),
     };
 
     const $dialog = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="levelInfoModalTitle" aria-hidden="true"></div>');
@@ -45,6 +46,11 @@ function getModal(options) {
             </div>
 
             <div className="modal-body">
+                <img
+                    src={options.imageUrl}
+                    alt={"Screenshot of “" + options.name + "”"} width="105" height="80"
+                    className="d-block mx-auto mb-3"/>
+
                 <div className="row">
                     {/* Preact doesn't support fragments yet :( */}
                     {options.author ? <div className="col-auto">Author:</div> : null}

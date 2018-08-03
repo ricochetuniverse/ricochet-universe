@@ -118,9 +118,10 @@
                                        @if (strlen($round->note3) > 0)data-round-note-3="{{ $round->note3 }}" @endif
                                        @if (strlen($round->note4) > 0)data-round-note-4="{{ $round->note4 }}" @endif
                                        @if (strlen($round->note5) > 0)data-round-note-5="{{ $round->note5 }}" @endif
-                                       @if (strlen($round->source) > 0)data-round-source="{{ $round->source }}"@endif>
+                                       @if (strlen($round->source) > 0)data-round-source="{{ $round->source }}"@endif
+                                       data-round-image-url="{{ $round->getImageUrl() }}">
                                         <img
-                                            src="{{ Storage::disk('round-images')->url(rawurlencode($round->image_file_name)) }}"
+                                            src="{{ $round->getImageUrl() }}"
                                             alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
                                             class="roundInfo__image">
 

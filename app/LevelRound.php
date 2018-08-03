@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\LevelRound
@@ -41,5 +42,10 @@ class LevelRound extends Model
     public function levelSet()
     {
         return $this->belongsTo(LevelSet::class);
+    }
+
+    public function getImageUrl()
+    {
+        return Storage::disk('round-images')->url(rawurlencode($this->image_file_name));
     }
 }
