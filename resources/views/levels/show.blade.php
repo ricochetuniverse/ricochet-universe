@@ -18,7 +18,8 @@
 
                         <div class="row">
                             <div class="col">
-                                by <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}">{{ $levelSet->author }}</a>
+                                by <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
+                                      title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>
                             </div>
                         </div>
 
@@ -109,9 +110,10 @@
                             <div class="row">
                                 @foreach ($levelSet->levelRounds as $round)
                                     <div class="col-sm-4 col-md-3 col-lg-2 text-center mb-4">
-                                        <img src="{{ Storage::disk('round-images')->url(rawurlencode($round->image_file_name)) }}"
-                                             alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
-                                             class="mb-2"><br>
+                                        <img
+                                            src="{{ Storage::disk('round-images')->url(rawurlencode($round->image_file_name)) }}"
+                                            alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
+                                            class="mb-2"><br>
 
                                         {{ $loop->index + 1 }}: {{ $round->name }}
 
