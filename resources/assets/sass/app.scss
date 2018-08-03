@@ -47,10 +47,23 @@ body {
     cursor: default;
 }
 
+// Self-created utilities
 .cursor-auto {
     cursor: auto;
 }
 
+.thead-clickable {
+    th {
+        padding: 0;
+    }
+
+    a {
+        display: block;
+        padding: $table-cell-padding;
+    }
+}
+
+// Bootstrap
 .btn {
     text-decoration: none;
 }

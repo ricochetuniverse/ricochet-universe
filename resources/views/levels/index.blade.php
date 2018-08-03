@@ -21,8 +21,8 @@
                 </div>
 
                 @unless ($levelSets->isEmpty())
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead class="thead-light">
+                    <table class="table table-bordered">
+                        <thead class="thead-light thead-clickable">
                         <tr>
                             <th>
                                 <a href="{{ action('LevelController@index', ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}"
