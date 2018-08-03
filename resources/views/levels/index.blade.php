@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">Levels</div>
@@ -56,6 +56,7 @@
                             </th>
                         </tr>
                         </thead>
+
                         <tbody>
                         @foreach ($levelSets as $levelSet)
                             <tr>

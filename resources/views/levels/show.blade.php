@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col">
                 <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">
                     « Return to level set list
@@ -10,44 +10,41 @@
 
                 <div class="card my-3">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col text-secondary font-weight-bold">
-                                {{ $levelSet->name }}
+                        <div class="text-secondary font-weight-bold">
+                            {{ $levelSet->name }}
+                        </div>
+
+                        <div>
+                            by <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
+                                  title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>
+                        </div>
+
+                        <div class="mt-3 cursor-auto">
+                            {{ $levelSet->description }}
+                        </div>
+
+                        <div class="d-table mt-3">
+                            <div class="d-table-row">
+                                <div class="d-table-cell pr-2">Date posted:</div>
+                                <div class="d-table-cell">{{ $levelSet->created_at->format('Y-m-d') }}</div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col">
-                                by <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
-                                      title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>
+                            <div class="d-table-row">
+                                <div class="d-table-cell pr-2">Number of rounds:</div>
+                                <div class="d-table-cell">{{ $levelSet->rounds }}</div>
                             </div>
-                        </div>
 
-                        <div class="row mt-3">
-                            <div class="col cursor-auto">
-                                {{ $levelSet->description }}
+                            <div class="d-table-row">
+                                <div class="d-table-cell pr-2">Downloads:</div>
+                                <div class="d-table-cell">{{ number_format($levelSet->downloads) }}</div>
                             </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-sm-6 col-md-3">Date posted:</div>
-                            <div class="col-sm">{{ $levelSet->created_at->format('Y-m-d') }}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6 col-md-3">Number of rounds:</div>
-                            <div class="col-sm">{{ $levelSet->rounds }}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6 col-md-3">Downloads:</div>
-                            <div class="col-sm">{{ number_format($levelSet->downloads) }}</div>
                         </div>
 
                         @if (count($levelSet->tagged) > 0)
-                            <div class="row mt-3">
-                                <div class="col-auto">Tags:</div>
-                                <div class="col">
+                            <div class="media mt-3">
+                                <span class="mr-2">Tags:</span>
+
+                                <div class="media-body">
                                     @foreach ($levelSet->tagged as $tagged)
                                         <a href="{{ action('LevelController@index', ['tag' => $tagged->tag_name]) }}"
                                            title="Find other level sets with the {{ $tagged->tag_name }} tag"
@@ -115,7 +112,7 @@
                                        @if (strlen($round->note3) > 0)data-round-note-3="{{ $round->note3 }}" @endif
                                        @if (strlen($round->note4) > 0)data-round-note-4="{{ $round->note4 }}" @endif
                                        @if (strlen($round->note5) > 0)data-round-note-5="{{ $round->note5 }}" @endif
-                                       @if (strlen($round->source) > 0)data-round-source="{{ $round->source }}"@endif
+                                       @if (strlen($round->source) > 0)data-round-source="{{ $round->source }}" @endif
                                        data-round-image-url="{{ $round->getImageUrl() }}">
                                         <img
                                             src="{{ $round->getImageUrl() }}"
