@@ -25,31 +25,31 @@
                         <thead class="thead-light thead-clickable">
                         <tr>
                             <th>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'ASC' ? 'DESC' : 'ASC']) }}"
+                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'ASC' ? 'DESC' : 'ASC'])) }}"
                                    title="Sort by name">
                                     Name
                                 </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'DESC' ? 'ASC' : 'DESC']) }}"
+                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by level count">
                                     Levels
                                 </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'downloads', 'orderDir' => $orderBy === 'downloads' && $orderDirection === 'DESC' ? 'ASC' : 'DESC']) }}"
+                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'downloads', 'orderDir' => $orderBy === 'downloads' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by downloads">
                                     Downloads
                                 </a>
                             </th>
                             <th class="text-nowrap">
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'DESC' ? 'ASC' : 'DESC']) }}"
+                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by date posted">
                                     Date posted
                                 </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'overall_rating', 'orderDir' => $orderBy === 'overall_rating' && $orderDirection === 'DESC' ? 'ASC' : 'DESC']) }}"
+                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'overall_rating', 'orderDir' => $orderBy === 'overall_rating' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by overall grade">
                                     Ratings
                                 </a>
