@@ -26,7 +26,7 @@
                             <a class="nav-link" href="">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-discord" href="" title="Discord" data-toggle="tooltip">
+                            <a class="nav-link nav-link-discord" href="https://discord.gg/fKK42Wt" title="Discord" data-toggle="tooltip">
                                 @include('icons.discord')<span class="d-md-none ml-2">Discord</span>
                             </a>
                         </li>
