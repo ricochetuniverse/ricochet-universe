@@ -98,14 +98,17 @@
                                     </div>
 
                                     @if (count($levelSet->tagged) > 0)
-                                        <p class="m-0 mt-2">
-                                            <strong>Tags:</strong>
-                                            @foreach ($levelSet->tagged as $tagged)
-                                                <a href="{{ action('LevelController@index', ['tag' => $tagged->tag_name]) }}"
-                                                   title="Find other level sets with the {{ $tagged->tag_name }} tag"
-                                                >{{ $tagged->tag_name }}</a>{{ !$loop->last ? ', ' : '' }}
-                                            @endforeach
-                                        </p>
+                                        <div class="media mt-2">
+                                            <strong class="mr-2">Tags:</strong>
+
+                                            <div class="media-body">
+                                                @foreach ($levelSet->tagged as $tagged)
+                                                    <a href="{{ action('LevelController@index', ['tag' => $tagged->tag_name]) }}"
+                                                       title="Find other level sets with the {{ $tagged->tag_name }} tag"
+                                                    >{{ $tagged->tag_name }}</a>{{ !$loop->last ? ', ' : '' }}
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     @endif
 
                                     <div class="d-flex">
