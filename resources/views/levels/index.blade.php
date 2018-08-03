@@ -81,7 +81,8 @@
                                     </p>
 
                                     <p class="m-0">
-                                        by <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}">{{ $levelSet->author }}</a>
+                                        by <a
+                                            href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}">{{ $levelSet->author }}</a>
                                     </p>
 
                                     <div class="media mt-2">
@@ -126,42 +127,49 @@
                                 <td class="text-center">{{ $levelSet->rounds }}</td>
                                 <td class="text-center">{{ number_format($levelSet->downloads) }}</td>
                                 <td class="text-center text-nowrap">{{ $levelSet->created_at->format('Y-m-d') }}</td>
-                                <td class="text-center">
+                                <td class="no-gutters">
                                     @if ($levelSet->overall_rating)
-                                        <div class="row no-gutters">
-                                            <div class="col d-flex align-self-center justify-content-end mr-2">
+                                        <div class="col d-flex mb-1"
+                                             title="Average overall grade from {{ number_format($levelSet->overall_rating_count) }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->overall_rating) }}. Level sets are graded in Ricochet Infinity."
+                                             data-toggle="tooltip"
+                                             data-placement="left">
+                                            <div class="levelsTable__ratings__image">
                                                 <img src="{{ asset('images/ratingOverall.jpg') }}"
                                                      alt="Overall grade"
-                                                     title="Average overall grade from {{ $levelSet->overall_rating_count }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->overall_rating) }}. Level sets are graded in Ricochet Infinity."
                                                      width="20"
                                                      height="20">
                                             </div>
-                                            <div class="col text-left">
+                                            <div class="levelsTable__ratings__text">
                                                 {{ \App\Services\RatingGradeConverter::getGrade($levelSet->overall_rating) }}
                                             </div>
+                                        </div>
 
-                                            <div class="w-100 mt-2"></div>
-
-                                            <div class="col d-flex align-self-center justify-content-end mr-2">
+                                        <div class="col d-flex mb-1"
+                                             title="Average gameplay grade from {{ number_format($levelSet->fun_rating_count) }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->fun_rating) }}. Level sets are graded in Ricochet Infinity."
+                                             data-toggle="tooltip"
+                                             data-placement="left">
+                                            <div class="levelsTable__ratings__image">
                                                 <img src="{{ asset('images/ratingGameplay.jpg') }}"
                                                      alt="Gameplay grade"
-                                                     title="Average gameplay grade from {{ $levelSet->fun_rating_count }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->fun_rating) }}. Level sets are graded in Ricochet Infinity."
                                                      width="20"
                                                      height="20">
                                             </div>
-                                            <div class="col text-left">
+                                            <div class="levelsTable__ratings__text">
                                                 {{ \App\Services\RatingGradeConverter::getGrade($levelSet->fun_rating) }}
                                             </div>
-                                            <div class="w-100 mt-2"></div>
+                                        </div>
 
-                                            <div class="col d-flex align-self-center justify-content-end mr-2">
+                                        <div class="col d-flex"
+                                             title="Average visuals grade from {{ number_format($levelSet->graphics_rating_count) }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->graphics_rating) }}. Level sets are graded in Ricochet Infinity."
+                                             data-toggle="tooltip"
+                                             data-placement="left">
+                                            <div class="levelsTable__ratings__image">
                                                 <img src="{{ asset('images/ratingVisuals.jpg') }}"
                                                      alt="Visuals grade"
-                                                     title="Average visuals grade from {{ $levelSet->graphics_rating_count }} players: {{ \App\Services\RatingGradeConverter::getGrade($levelSet->graphics_rating) }}. Level sets are graded in Ricochet Infinity."
                                                      width="20"
                                                      height="20">
                                             </div>
-                                            <div class="col text-left">
+                                            <div class="levelsTable__ratings__text">
                                                 {{ \App\Services\RatingGradeConverter::getGrade($levelSet->graphics_rating) }}
                                             </div>
                                         </div>

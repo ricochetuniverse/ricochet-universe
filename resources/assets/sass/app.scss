@@ -99,3 +99,17 @@ body {
 .nav-link-gitlab:hover > svg {
     fill: #E24329;
 }
+
+// Levels table
+.levelsTable__ratings__image {
+    display: flex;
+    align-self: center;
+    justify-content: flex-end;
+    margin-right: map-get($spacers, 2);
+    width: 50%;
+}
+
+.levelsTable__ratings__text {
+    text-align: left;
+    width: 50%;
+}
