@@ -15,7 +15,7 @@
                         </p>
 
                         <p class="m-0">
-                            Downloads and ratings are frozen ‘in time’ and will not change.
+                            Downloads and ratings are frozen in time and will not change.
                         </p>
                     </div>
                 </div>
