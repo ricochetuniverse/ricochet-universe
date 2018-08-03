@@ -11,11 +11,11 @@ class LevelController extends Controller
 {
     public function index(Request $request)
     {
-        $orderBy = $request->input('orderBy');
-        $orderDirection = $request->input('orderDir');
         $author = $request->input('author');
         $tag = $request->input('tag');
         $search = $request->input('search');
+        $orderBy = $request->input('orderBy');
+        $orderDirection = $request->input('orderDir');
 
         $orderBy = in_array($orderBy, [
             'Name',
@@ -52,11 +52,11 @@ class LevelController extends Controller
 
         $levelSets = $levelSets->paginate(10)
             ->appends([
-                'orderBy'  => $orderBy,
-                'orderDir' => $orderDirection,
                 'author'   => $author,
                 'tag'      => $tag,
                 'search'   => $search,
+                'orderBy'  => $orderBy,
+                'orderDir' => $orderDirection,
             ]);
 
         return view('levels.index', [
