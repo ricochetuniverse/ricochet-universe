@@ -38,7 +38,7 @@ class LevelController extends Controller
             ->with('tagged');
 
         if (strlen($author) > 0) {
-            $levelSets->where('author', 'like', '%' . $author . '%');
+            $levelSets->where('author', $author);
         }
 
         if (strlen($tag) > 0) {
