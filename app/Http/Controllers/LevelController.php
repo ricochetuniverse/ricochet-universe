@@ -73,13 +73,13 @@ class LevelController extends Controller
         $levelSet = LevelSet::whereName($name)->with('levelRounds')->firstOrFail();
 
         $authorIsSameForAllRounds = false;
+        $brokenLevelSetWarning = false;
 
         if ($levelSet->levelRounds->isEmpty()) {
             dispatch(new DownloadLevelSet($levelSet))->chain([
                 new ParseLevelSet($levelSet),
             ]);
         } else {
-            $brokenLevelSetWarning = false;
             $roundsWithAuthor = 0;
             $roundsWithNullAuthor = 0;
             foreach ($levelSet->levelRounds as $round) {
