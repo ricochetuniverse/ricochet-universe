@@ -50,4 +50,20 @@ class LevelRound extends Model
     {
         return Storage::disk('round-images')->url(rawurlencode($this->image_file_name));
     }
+
+    public function shouldShowViewNotesButton()
+    {
+        if (strlen($this->note2) > 0 || strlen($this->note3) > 0 || strlen($this->note4) > 0 || strlen($this->note5) > 0) {
+            return true;
+        }
+
+        $common = [
+            'http://www.ricochetinfinity.com',
+            'http://www.ricochetinfinity.com/',
+            'ricochetinfinity.com',
+            'www.ricochetinfinity.com',
+        ];
+
+        return strlen($this->note1) > 0 && !in_array(strtolower($this->note1), $common);
+    }
 }

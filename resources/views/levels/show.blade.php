@@ -139,7 +139,7 @@
                                             </span>
                                         @endif
 
-                                        @if ((strlen($round->note1) > 0 && $round->note1 !== 'www.RicochetInfinity.com') || strlen($round->note2) > 0 || strlen($round->note3) > 0 || strlen($round->note4) > 0 || strlen($round->note5) > 0)
+                                        @if ($round->shouldShowViewNotesButton())
                                             <span class="d-block mt-2 btn btn-outline-primary">View notes</span>
                                         @endif
                                     </a>
