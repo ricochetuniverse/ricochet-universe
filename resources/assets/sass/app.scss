@@ -107,6 +107,14 @@ body {
     font-size: 1rem;
 }
 
+.tooltip-inner {
+    box-shadow: 0 0 0 1px #000;
+
+    &.text-nowrap {
+        max-width: none;
+    }
+}
+
 // Navbar
 .navbar a {
     text-decoration: none;
