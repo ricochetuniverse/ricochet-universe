@@ -28,8 +28,8 @@ class RedirectAlternateHostExceptGame
     private function buildUrl($fullUrl)
     {
         $parsedUrl = parse_url($fullUrl);
-        $parsedUrl['host'] = config('app.url');
-        $finalUrl = $parsedUrl['host'];
+
+        $finalUrl = config('app.url');
         $finalUrl .= $parsedUrl['path'];
         $finalUrl .= isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '';
 
