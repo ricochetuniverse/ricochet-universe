@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $levelSet->name.' by '.$levelSet->author)
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -119,7 +121,9 @@
                                             alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
                                             class="roundInfo__image">
 
-                                        <span class="roundInfo__name">{{ $round->round_number }}: {{ $round->name }}</span>
+                                        <span class="roundInfo__name">
+                                            {{ $round->round_number }}: {{ $round->name }}
+                                        </span>
 
                                         @if (!$authorIsSameForAllRounds)
                                             <span class="roundInfo__author">

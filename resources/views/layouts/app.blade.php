@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width">
-<title>{{ config('app.name') }}</title>
+<title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ mix('app.scss') }}" rel="stylesheet">
 </head>
