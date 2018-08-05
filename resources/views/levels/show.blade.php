@@ -31,16 +31,16 @@
                                   title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>
                         </div>
 
-                        <div class="mt-3 cursor-auto">
-                            {{ $levelSet->description }}
+                        <div class="media mt-3">
+                            <img
+                                src="{{ \App\Services\CatalogService::getFallbackImageUrl() }}{{ $levelSet->image_url }}"
+                                alt="Screenshot of {{ $levelSet->name }}" width="105" height="80"
+                                class="d-block mr-3">
+
+                            <p class="media-body m-0 cursor-auto">{{ $levelSet->description }}</p>
                         </div>
 
                         <div class="d-table mt-3">
-                            <div class="d-table-row">
-                                <div class="d-table-cell pr-2">Date posted:</div>
-                                <div class="d-table-cell">{{ $levelSet->created_at->format('Y-m-d') }}</div>
-                            </div>
-
                             <div class="d-table-row">
                                 <div class="d-table-cell pr-2">Number of rounds:</div>
                                 <div class="d-table-cell">{{ $levelSet->rounds }}</div>
@@ -50,7 +50,22 @@
                                 <div class="d-table-cell pr-2">Downloads:</div>
                                 <div class="d-table-cell">{{ number_format($levelSet->downloads) }}</div>
                             </div>
+
+                            <div class="d-table-row">
+                                <div class="d-table-cell pr-2">Date posted:</div>
+                                <div class="d-table-cell">{{ $levelSet->created_at->format('Y-m-d') }}</div>
+                            </div>
                         </div>
+
+                        @if ($levelSet->overall_rating)
+                            <div class="row no-gutters mt-3">
+                                <span class="col-auto">Ratings:</span>
+
+                                <div class="col-auto">
+                                    @include('levels._rating', ['levelSet' => $levelSet])
+                                </div>
+                            </div>
+                        @endif
 
                         @if (count($levelSet->tagged) > 0)
                             <div class="media mt-3">
@@ -96,7 +111,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <a href="{{ $levelSet->alternate_download_url }}"
-                               class="d-inline-flex align-items-center font-weight-bold">
+                               class="d-inline-flex align-items-center">
                                 <img src="{{ asset('images/levelDownload.jpg') }}"
                                      alt=""
                                      width="38"
@@ -105,6 +120,11 @@
                                 Download this level set
                             </a>
                         </div>
+
+                        <p class="m-0 mt-3">
+                            You can also download and play this level set using
+                            <a href="{{ action('ReviverController@index') }}">the in-game catalog</a>.
+                        </p>
                     </div>
                 </div>
 
