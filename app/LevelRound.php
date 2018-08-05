@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string $image_file_name
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property int $round_number
  * @property-read \App\LevelSet $levelSet
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereAuthor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereCreatedAt($value)
@@ -33,6 +34,7 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereNote3($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereNote4($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereNote5($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereRoundNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereUpdatedAt($value)
  * @mixin \Eloquent

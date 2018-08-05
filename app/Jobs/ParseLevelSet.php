@@ -89,6 +89,7 @@ class ParseLevelSet implements ShouldQueue
             $roundToSave->note5 = $round['note5'];
             $roundToSave->source = $round['source'] ?? '';
             $roundToSave->image_file_name = $imageFileName;
+            $roundToSave->round_number = $count;
 
             Storage::disk('round-images')->put($imageFileName, $round['picture']);
 

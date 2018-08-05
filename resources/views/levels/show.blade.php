@@ -119,7 +119,7 @@
                                             alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
                                             class="roundInfo__image">
 
-                                        <span class="roundInfo__name">{{ $loop->index + 1 }}: {{ $round->name }}</span>
+                                        <span class="roundInfo__name">{{ $round->round_number }}: {{ $round->name }}</span>
 
                                         @if (!$authorIsSameForAllRounds)
                                             <span class="roundInfo__author">
