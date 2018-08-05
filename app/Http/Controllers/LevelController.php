@@ -37,15 +37,15 @@ class LevelController extends Controller
         $levelSets = LevelSet::orderBy($this->convertUrlOrderByToDb($orderBy), $orderDirection)
             ->with('tagged');
 
-        if ($author) {
+        if (strlen($author) > 0) {
             $levelSets->where('author', 'like', '%' . $author . '%');
         }
 
-        if ($tag) {
+        if (strlen($tag) > 0) {
             $levelSets->withAnyTag($tag);
         }
 
-        if ($search) {
+        if (strlen($search) > 0) {
             $levelSets->where('name', 'like', '%' . $search . '%')
                 ->orWhere('author', 'like', '%' . $search . '%');
         }
