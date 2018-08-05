@@ -13,7 +13,7 @@ class ParseLevelSet extends Command
      *
      * @var string
      */
-    protected $signature = 'ricochet:parse-level-set {file}';
+    protected $signature = 'ricochet:parse-level-set {file} {--with-picture}';
 
     /**
      * The console command description.
@@ -49,10 +49,16 @@ class ParseLevelSet extends Command
         $decompressor = new LevelSetDecompressService;
         $levelSetData = $decompressor->decompress($file);
 
-        var_dump($levelSetData);
+        // var_dump($levelSetData);
 
         $parser = new LevelSetParser;
         $results = $parser->parse($levelSetData);
+
+        if (!$this->option('with-picture')) {
+            foreach ($results['rounds'] as &$round) {
+                unset($round['picture']);
+            }
+        }
 
         var_dump($results);
 

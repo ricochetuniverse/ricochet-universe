@@ -41,6 +41,11 @@ class DownloadLevelSet implements ShouldQueue
             return;
         }
 
+        // Already downloaded?
+        if ($this->levelSet->downloaded_file_name) {
+            return;
+        }
+
         // Level rounds already processed?
         if ($this->levelSet->levelRounds->count()) {
             return;
@@ -53,7 +58,8 @@ class DownloadLevelSet implements ShouldQueue
         $filename = str_after($filename, 'filename=');
         $filename = str_replace(['"', '\''], '', $filename);
 
-        Storage::disk('levels')->put($filename, $response->getBody());
+        $disk = Storage::disk('levels');
+        $disk->put($filename, $response->getBody());
 
         $this->levelSet->downloaded_file_name = $filename;
         $this->levelSet->save();

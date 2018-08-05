@@ -77,7 +77,10 @@ class ParseLevelSet implements ShouldQueue
         foreach ($results['rounds'] as $round) {
             $count += 1;
 
-            $imageFileName = $this->levelSet->name.'/'.$count.'.jpg';
+            $imageFileName = '';
+            if (isset($round['picture'])) {
+                $imageFileName = $this->levelSet->name.'/'.$count.'.jpg';
+            }
 
             $roundToSave = new LevelRound;
             $roundToSave->name = $round['name'];
@@ -91,7 +94,9 @@ class ParseLevelSet implements ShouldQueue
             $roundToSave->image_file_name = $imageFileName;
             $roundToSave->round_number = $count;
 
-            Storage::disk('round-images')->put($imageFileName, $round['picture']);
+            if ($imageFileName) {
+                Storage::disk('round-images')->put($imageFileName, $round['picture']);
+            }
 
             $rounds[] = $roundToSave;
         }
