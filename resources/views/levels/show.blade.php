@@ -14,6 +14,12 @@
                     « Return to level set list
                 </a>
 
+                @if ($brokenLevelSetWarning)
+                    <div class="alert alert-danger my-3" role="alert">
+                        This level set can’t be parsed properly, it might be broken or can’t be completed.
+                    </div>
+                @endif
+
                 <div class="card my-3">
                     <div class="card-body">
                         <div class="text-secondary font-weight-bold">
@@ -119,11 +125,13 @@
                                        @if (strlen($round->note4) > 0)data-round-note-4="{{ $round->note4 }}" @endif
                                        @if (strlen($round->note5) > 0)data-round-note-5="{{ $round->note5 }}" @endif
                                        @if (strlen($round->source) > 0)data-round-source="{{ $round->source }}" @endif
-                                       data-round-image-url="{{ $round->getImageUrl() }}">
-                                        <img
-                                            src="{{ $round->getImageUrl() }}"
-                                            alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
-                                            class="roundInfo__image">
+                                       @if ($round->image_file_name)data-round-image-url="{{ $round->getImageUrl() }}" @endif>
+                                        @if ($round->image_file_name)
+                                            <img
+                                                src="{{ $round->getImageUrl() }}"
+                                                alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
+                                                class="roundInfo__image">
+                                        @endif
 
                                         <span class="roundInfo__name">
                                             {{ $round->round_number }}: {{ $round->name }}

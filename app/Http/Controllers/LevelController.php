@@ -79,9 +79,14 @@ class LevelController extends Controller
                 new ParseLevelSet($levelSet),
             ]);
         } else {
+            $brokenLevelSetWarning = false;
             $roundsWithAuthor = 0;
             $roundsWithNullAuthor = 0;
             foreach ($levelSet->levelRounds as $round) {
+                if (!$round->image_file_name) {
+                    $brokenLevelSetWarning = true;
+                }
+
                 if ($round->author === $levelSet->author) {
                     $roundsWithAuthor += 1;
                 } elseif ($round->author === '') {
@@ -97,6 +102,7 @@ class LevelController extends Controller
         return view('levels.show', [
             'levelSet'                 => $levelSet,
             'authorIsSameForAllRounds' => $authorIsSameForAllRounds,
+            'brokenLevelSetWarning'    => $brokenLevelSetWarning,
         ]);
     }
 
