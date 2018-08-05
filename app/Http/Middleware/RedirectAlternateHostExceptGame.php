@@ -18,7 +18,7 @@ class RedirectAlternateHostExceptGame
     {
         if (strpos($request->header('User-Agent'), 'Ricochet Infinity ') !== 0) {
             if ($request->root() === 'http://www.ricochetinfinity.com') {
-                return redirect($this->buildUrl($request->getBaseUrl()));
+                return redirect($this->buildUrl($request->getUri()));
             }
         }
 
