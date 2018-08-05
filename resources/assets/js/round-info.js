@@ -52,10 +52,10 @@ function getModal(options) {
                     className="d-block mx-auto mb-3"/>
 
                 <div className="row">
-                    {/* Preact doesn't support fragments yet :( */}
-                    {options.author ? <div className="col-auto">Author:</div> : null}
-                    {options.author ? <div className="col">{options.author}</div> : null}
+                    <div className="col-auto">Author:</div>
+                    <div className="col">{options.author ? options.author : <em>(no author)</em>}</div>
 
+                    {/* Preact doesn't support fragments yet :( */}
                     <div className="w-100"/>
                     {options.note1 ? <div className="col-auto">Note 1:</div> : null}
                     {options.note1 ? <div className="col">{options.note1}</div> : null}
