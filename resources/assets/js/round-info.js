@@ -48,7 +48,7 @@ function getModal(options) {
             <div className="modal-body">
                 <img
                     src={options.imageUrl}
-                    alt={"Screenshot of “" + options.name + "”"} width="105" height="80"
+                    alt={'Screenshot of “' + options.name + '”'} width="105" height="80"
                     className="d-block mx-auto mb-3"/>
 
                 <div className="row">
