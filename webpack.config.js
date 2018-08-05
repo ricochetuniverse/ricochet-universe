@@ -51,6 +51,11 @@ module.exports = {
             },
         ],
     },
+    resolve: {
+        alias: {
+            jquery: 'jquery/dist/jquery.min',
+        },
+    },
     plugins: [
         new CleanWebpackPlugin(['public/build/']),
 

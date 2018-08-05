@@ -1,9 +1,10 @@
 import '../sass/app.scss';
 
 import $ from 'jquery';
-import 'bootstrap';
 
 // Bootstrap
+import 'bootstrap/js/dist/modal';
+import 'bootstrap/js/dist/tooltip';
 $('[data-toggle="tooltip"]').tooltip();
 
 // Preact
