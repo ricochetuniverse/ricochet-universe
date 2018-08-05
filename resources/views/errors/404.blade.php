@@ -12,7 +12,9 @@
                     <div class="card-body">
                         <p>Sorry, the page you are looking for could not be found.</p>
 
-                        <a href="{{ url('/') }}" class="btn btn-outline-primary">Go to home page</a>
+                        <a href="{{ action('HomeController@index') }}" class="btn btn-outline-primary">
+                            Go to home page
+                        </a>
                     </div>
                 </div>
             </div>
