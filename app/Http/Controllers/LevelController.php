@@ -79,14 +79,17 @@ class LevelController extends Controller
                 new ParseLevelSet($levelSet),
             ]);
         } else {
-            $count = 0;
+            $roundsWithAuthor = 0;
+            $roundsWithNullAuthor = 0;
             foreach ($levelSet->levelRounds as $round) {
                 if ($round->author === $levelSet->author) {
-                    $count += 1;
+                    $roundsWithAuthor += 1;
+                } elseif ($round->author === '') {
+                    $roundsWithNullAuthor += 1;
                 }
             }
 
-            if ($count === $levelSet->levelRounds->count()) {
+            if ($roundsWithAuthor === $levelSet->levelRounds->count() || $roundsWithNullAuthor === $levelSet->levelRounds->count()) {
                 $authorIsSameForAllRounds = true;
             }
         }
