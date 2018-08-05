@@ -49,12 +49,12 @@
                             <a class="nav-link" href="{{ action('AboutController@index') }}" title="Learn more about this website" data-toggle="tooltip">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-discord" href="https://discord.gg/fKK42Wt" title="Discord" data-toggle="tooltip">
+                            <a class="nav-link nav-link-discord" href="https://discord.gg/fKK42Wt" title="Join other Ricochet players on Ricochet Infinity Players Discord" data-toggle="tooltip">
                                 @include('icons.discord')<span class="d-md-none ml-2">Discord</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-gitlab" href="https://gitlab.com/ngyikp/ricochet-levels" title="GitLab" data-toggle="tooltip">
+                            <a class="nav-link nav-link-gitlab" href="https://gitlab.com/ngyikp/ricochet-levels" title="View the website source code on GitLab" data-toggle="tooltip">
                                 @include('icons.gitlab')<span class="d-md-none ml-2">GitLab</span>
                             </a>
                         </li>
