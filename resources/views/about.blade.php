@@ -38,7 +38,7 @@
                         <ul class="list-unstyled aboutPage__columns">
                             @foreach ($authors as $author)
                                 <li class="mb-2">
-                                    <a href="{{ action('LevelController@index', ['search' => $author->author]) }}">{{ $author->author }}</a>
+                                    <a href="{{ action('LevelController@index', ['author' => $author->author]) }}">{{ $author->author }}</a>
                                     <span class="text-nowrap">({{ number_format($author->rounds_sum) }} levels)</span>
                                 </li>
                             @endforeach
