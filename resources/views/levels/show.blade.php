@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', $levelSet->name.' by '.$levelSet->author)
+@section('title', $levelSet->name . ' by ' . $levelSet->author)
+@section('og:title', $levelSet->name . ' by ' . $levelSet->author)
+@section('og:url', action('LevelController@show', ['levelsetname' => $levelSet->name]))
+@section('og:description', $levelSet->description)
+@section('og:image', \App\Services\CatalogService::getFallbackImageUrl() . $levelSet->image_url)
 
 @section('content')
     <div class="container-fluid">

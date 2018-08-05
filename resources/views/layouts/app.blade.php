@@ -1,12 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="viewport" content="width=device-width">
-<title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}</title>
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<link href="{{ mix('app.scss') }}" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}</title>
+    <meta name="viewport" content="width=device-width">
+
+    <link href="{{ mix('app.scss') }}" rel="stylesheet">
+
+    @hasSection('og:title')<meta property="og:title" content="@yield('og:title')">@endif
+    {{--<meta property="og:type" content="website">--}}
+    @hasSection('og:url')<meta property="og:url" content="@yield('og:url')">@endif
+    <meta property="og:description" content="@yield('og:description', 'Explore and download Ricochet level sets created by the community')">
+    <meta name="description" content="@yield('og:description', 'Explore and download Ricochet level sets created by the community')">
+    @hasSection('og:image')
+        <meta property="og:image" content="@yield('og:image')">
+        <meta name="thumbnail" content="@yield('og:image')">
+    @endif
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+    <meta property="og:locale" content="en_US">
+
+    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
 </head>
 
 <body>

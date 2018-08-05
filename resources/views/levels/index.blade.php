@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Levels')
+@section('og:title', 'Ricochet Levels')
 
 @section('content')
     <div class="container-fluid">
