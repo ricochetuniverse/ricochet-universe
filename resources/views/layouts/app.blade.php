@@ -22,8 +22,8 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore and download level sets created by the community" data-toggle="tooltip">Levels</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">About</a>
+                        <li class="nav-item" title="Learn more about this website" data-toggle="tooltip">
+                            <a class="nav-link" href="{{ action('AboutController@index') }}">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-link-discord" href="https://discord.gg/fKK42Wt" title="Discord" data-toggle="tooltip">
