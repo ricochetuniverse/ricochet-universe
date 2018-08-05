@@ -213,6 +213,15 @@ body {
     }
 }
 
+// Reviver page
+.reviverPage__curl__video {
+    max-width: 1052px;
+
+    &::before {
+        padding-top: percentage(698 / 1052);
+    }
+}
+
 // About page
 .aboutPage__columns {
     columns: 250px;

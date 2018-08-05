@@ -28,6 +28,9 @@
                         {{--<li class="nav-item" title="Upload and share your level sets" data-toggle="tooltip">
                             <a class="nav-link" href="{{ action('UploadController@index') }}">Upload</a>
                         </li>--}}
+                        <li class="nav-item" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">
+                            <a class="nav-link" href="{{ action('ReviverController@index') }}">Reviver</a>
+                        </li>
                         <li class="nav-item" title="Learn more about this website" data-toggle="tooltip">
                             <a class="nav-link" href="{{ action('AboutController@index') }}">About</a>
                         </li>

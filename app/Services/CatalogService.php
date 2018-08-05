@@ -29,18 +29,23 @@ class CatalogService
 
     private function getCatalogHeader()
     {
-        $imageUrl = preg_replace('/^https\:\/\//', 'http://', static::getFallbackImageUrl());
+        // $siteUrl = 'http://www.ricochetInfinity.com';
+        // $siteUrl = 'https://ricochet.ngyikp.com';
+        $siteUrl = config('app.url');
+
+        $imageUrl = static::getFallbackImageUrl();
+        // $imageUrl = preg_replace('/^https\:\/\//', 'http://', $imageUrl);
 
         $header = <<<EOF
 CCatalogWebResponse
 {
   Success=1
   SessionID=343882
-  Catalog URL=http://www.ricochetInfinity.com/gateway/catalog.php
-  Download URL=http://www.ricochetInfinity.com/levels/download.php?File=downloads/raw/
-  Submit URL=http://www.ricochetInfinity.com/levels/ri_submitform.php
+  Catalog URL=${siteUrl}/gateway/catalog.php
+  Download URL=${siteUrl}/levels/download.php?File=downloads/raw/
+  Submit URL=${siteUrl}/levels/ri_submitform.php
   Image URL=${imageUrl}
-  Rate URL=http://www.ricochetInfinity.com/gateway/syncratings.php
+  Rate URL=${siteUrl}/gateway/syncratings.php
   Can Test PreRelease Levels=
   Can Apply Star Tags=
   New Build Message=Go to www.RicochetInfinity.com to download an update for Ricochet Infinity

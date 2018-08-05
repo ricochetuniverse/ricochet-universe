@@ -17,4 +17,5 @@ Route::get('/levels/index.php', 'LevelController@index');
 Route::get('/levels/levelsetinfo.php', 'LevelController@show');
 
 Route::get('/upload', 'UploadController@index');
+Route::get('/reviver', 'ReviverController@index');
 Route::get('/about', 'AboutController@index');
