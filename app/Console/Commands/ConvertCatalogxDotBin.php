@@ -108,9 +108,10 @@ class ConvertCatalogxDotBin extends Command
 //                return (int)$id;
 //            }, array_filter(explode(';', $rowData[20])));
 
-//            $tagsToId = $allTags->filter(function($tag) use ($levelTags) {
-//                return arra$levelTags
-//            });
+            if (starts_with($levelSet->image_url, 'cache/')) {
+                $parts = explode('/', $levelSet->image_url);
+                $levelSet->round_to_get_image_from = (int)str_before(end($parts), '.jpg');
+            }
 
             $levelSet->save();
 
