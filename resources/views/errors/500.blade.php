@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-10">
                 <div class="card mb-3">
                     <div class="card-header">Whoops</div>
 
