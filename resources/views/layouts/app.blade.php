@@ -39,14 +39,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore and download level sets created by the community" data-toggle="tooltip">Levels</a>
                         </li>
-                        {{--<li class="nav-item" title="Upload and share your level sets" data-toggle="tooltip">
-                            <a class="nav-link" href="{{ action('UploadController@index') }}">Upload</a>
+                        {{--<li class="nav-item">
+                            <a class="nav-link" href="{{ action('UploadController@index') }}" title="Upload and share your level sets" data-toggle="tooltip">Upload</a>
                         </li>--}}
-                        <li class="nav-item" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">
-                            <a class="nav-link" href="{{ action('ReviverController@index') }}">Reviver</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">Reviver</a>
                         </li>
-                        <li class="nav-item" title="Learn more about this website" data-toggle="tooltip">
-                            <a class="nav-link" href="{{ action('AboutController@index') }}">About</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ action('AboutController@index') }}" title="Learn more about this website" data-toggle="tooltip">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-link-discord" href="https://discord.gg/fKK42Wt" title="Discord" data-toggle="tooltip">
