@@ -12,7 +12,7 @@ class CatalogController extends Controller
 {
     public function index(Request $request)
     {
-        $catalog = Cache::remember('level_catalog', 10, function () {
+        $catalog = Cache::remember('level_catalog', $this->getCacheMinutes(), function () {
             $catalogService = new CatalogService;
             return $catalogService->getCatalog();
         });
@@ -29,5 +29,14 @@ class CatalogController extends Controller
         }
 
         return $response;
+    }
+
+    private function getCacheMinutes(): int
+    {
+        if (app()->environment('production')) {
+            return 10;
+        }
+
+        return 0;
     }
 }
