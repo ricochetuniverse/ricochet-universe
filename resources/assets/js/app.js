@@ -22,4 +22,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Website stuff
+if (process.env.NODE_ENV === 'production') {
+    require('./analytics');
+}
+
 import './round-info';
