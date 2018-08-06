@@ -162,7 +162,7 @@
                                                 by @if (strlen($round->author) > 0)
                                                     {{ $round->author }}
                                                 @else
-                                                    <em>(no author)</em>
+                                                    <em>(not set)</em>
                                                 @endif
                                             </span>
                                         @endif

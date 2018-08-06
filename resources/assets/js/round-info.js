@@ -53,7 +53,7 @@ function getModal(options) {
 
                 <div className="row">
                     <div className="col-auto">Author:</div>
-                    <div className="col">{options.author ? options.author : <em>(no author)</em>}</div>
+                    <div className="col">{options.author ? options.author : <em>(not set)</em>}</div>
 
                     {/* Preact doesn't support fragments yet :( */}
                     <div className="w-100"/>
