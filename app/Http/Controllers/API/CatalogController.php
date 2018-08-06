@@ -18,7 +18,7 @@ class CatalogController extends Controller
         });
 
         $response = response($catalog)
-            ->setCache(['public' => true, 'max_age' => 60 * 10])
+            ->setCache(['public' => true, 'max_age' => 60 * $this->getCacheMinutes()])
             ->header('Content-Type', 'text/plain');
 
         if ($request->input('download')) {

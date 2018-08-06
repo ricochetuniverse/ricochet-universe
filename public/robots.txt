@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://ricochet.ngyikp.com/sitemap.xml

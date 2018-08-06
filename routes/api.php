@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/sitemap.xml', 'SitemapController@index');
+
 // The game sends a POST request, but I added GET for debugging convenience
 Route::get('/gateway/catalog.php', 'CatalogController@index');
 Route::post('/gateway/catalog.php', 'CatalogController@index');
