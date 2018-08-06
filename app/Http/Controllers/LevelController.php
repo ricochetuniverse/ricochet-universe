@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\DownloadLevelSet;
 use App\Jobs\ParseLevelSet;
 use App\LevelSet;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class LevelController extends Controller
@@ -34,8 +35,8 @@ class LevelController extends Controller
             $orderDirection = 'DESC';
         }
 
-        $levelSets = LevelSet::orderBy($this->convertUrlOrderByToDb($orderBy), $orderDirection)
-            ->with('tagged');
+        $levelSets = LevelSet::with('tagged');
+        $this->addOrderBysForLevelSets($levelSets, $orderBy, $orderDirection);
 
         if (strlen($author) > 0) {
             $levelSets->where('author', $author);
@@ -109,6 +110,20 @@ class LevelController extends Controller
     public function redirectMain(Request $request)
     {
         return redirect()->action('LevelController@index', $request->input());
+    }
+
+    private function addOrderBysForLevelSets(Builder $levelSets, string $orderBy, string $orderDirection)
+    {
+        $column = $this->convertUrlOrderByToDb($orderBy);
+
+        $levelSets->orderBy($column, $orderDirection);
+
+        // Fallback sorting when multiple level sets have the same value
+        if ($column === 'created_at') {
+            $levelSets->orderBy('id', 'desc');
+        } else {
+            $levelSets->orderBy('overall_rating', 'desc');
+        }
     }
 
     private function convertUrlOrderByToDb($orderBy)
