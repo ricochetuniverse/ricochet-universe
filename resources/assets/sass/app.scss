@@ -140,17 +140,31 @@ body {
 }
 
 // Levels table
-.levelsTable__ratings__image {
-    display: flex;
-    align-self: center;
-    justify-content: flex-end;
-    margin-right: map-get($spacers, 2);
-    width: 50%;
+.levelsTable__ratingColumn {
+    .levelsRatings__wrap {
+        margin: 0 auto;
+    }
 }
 
-.levelsTable__ratings__text {
-    text-align: left;
-    width: 50%;
+// Levels rating
+.levelsRatings__wrap {
+    display: table;
+}
+
+.levelsRatings__row {
+    display: table-row;
+}
+
+.levelsRatings__cell {
+    display: table-cell;
+    vertical-align: middle;
+
+    padding-right: map-get($spacers, 2);
+    padding-bottom: map-get($spacers, 1);
+
+    > img {
+        display: block;
+    }
 }
 
 // Level set info

@@ -59,10 +59,10 @@
 
                         @if ($levelSet->overall_rating)
                             <div class="row no-gutters mt-3">
-                                <span class="col-auto">Ratings:</span>
+                                <span class="col-auto mr-2">Ratings:</span>
 
-                                <div class="col-auto">
-                                    @include('levels._rating', ['levelSet' => $levelSet])
+                                <div class="col">
+                                    @include('levels._rating', ['levelSet' => $levelSet, 'showPlayerCount' => true])
                                 </div>
                             </div>
                         @endif

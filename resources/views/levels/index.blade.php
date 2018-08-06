@@ -136,7 +136,7 @@
                                 <td class="text-center">{{ $levelSet->rounds }}</td>
                                 <td class="text-center">{{ number_format($levelSet->downloads) }}</td>
                                 <td class="text-center text-nowrap">{{ $levelSet->created_at->format('Y-m-d') }}</td>
-                                <td class="no-gutters">
+                                <td class="no-gutters levelsTable__ratingColumn">
                                     @include('levels._rating', ['levelSet' => $levelSet])
                                 </td>
                             </tr>
