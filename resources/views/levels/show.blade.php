@@ -4,7 +4,7 @@
 @section('og:title', $levelSet->name . ' by ' . $levelSet->author)
 @section('og:url', action('LevelController@show', ['levelsetname' => $levelSet->name]))
 @section('og:description', $levelSet->description)
-@section('og:image', \App\Services\CatalogService::getFallbackImageUrl() . $levelSet->image_url)
+@section('og:image', $levelSet->getImageUrl())
 
 @section('content')
     <div class="container-fluid">
@@ -33,7 +33,7 @@
 
                         <div class="media mt-3">
                             <img
-                                src="{{ \App\Services\CatalogService::getFallbackImageUrl() }}{{ $levelSet->image_url }}"
+                                src="{{ $levelSet->getImageUrl() }}"
                                 alt="Screenshot of {{ $levelSet->name }}" width="105" height="80"
                                 class="d-block mr-3">
 

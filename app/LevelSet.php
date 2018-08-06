@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Services\CatalogService;
 use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\LevelSet
@@ -82,6 +84,20 @@ class LevelSet extends Model
     protected $fillable = [
         'legacy_id',
     ];
+
+    public function getImageUrl()
+    {
+        $disk = Storage::disk('round-images');
+
+        if (strpos($this->image_url, 'cache/') === 0) {
+            $fileName = str_after(rawurldecode($this->image_url), 'cache/');
+            if ($disk->exists($fileName)) {
+                return $disk->url($fileName);
+            }
+        }
+
+        return CatalogService::getFallbackImageUrl() . $this->image_url;
+    }
 
     public function levelRounds()
     {

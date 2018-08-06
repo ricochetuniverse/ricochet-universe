@@ -99,7 +99,7 @@
                                         <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
                                            class="mr-2" tabindex="-1">
                                             <img
-                                                src="{{ \App\Services\CatalogService::getFallbackImageUrl() }}{{ $levelSet->image_url }}"
+                                                src="{{ $levelSet->getImageUrl() }}"
                                                 alt="Screenshot of {{ $levelSet->name }}" width="105" height="80"
                                                 class="d-block">
                                         </a>
