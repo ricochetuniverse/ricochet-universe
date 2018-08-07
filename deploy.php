@@ -3,7 +3,12 @@
 namespace Deployer;
 
 require 'recipe/laravel.php';
-require 'deployer/yarn.php';
+require 'vendor/deployer/recipes/recipe/sentry.php';
+require 'vendor/deployer/recipes/recipe/yarn.php';
+
+if (file_exists('deployer/sentry.config.php')) {
+    require 'deployer/sentry.config.php';
+}
 
 // Project name
 set('application', 'ricochet-levels');
@@ -22,6 +27,12 @@ add('shared_dirs', []);
 // Writable dirs by web server
 add('writable_dirs', []);
 set('allow_anonymous_stats', false);
+
+set('sentry', [
+    'organization' => get('sentry_organization'),
+    'project'      => get('sentry_project'),
+    'token'        => get('sentry_token'),
+]);
 
 // Hosts
 
@@ -51,6 +62,10 @@ before('deploy:symlink', 'deploy:public_disk');
 
 after('deploy', 'artisan:queue:restart');
 after('deploy', 'php-fpm:reload');
+
+if (get('sentry_token')) {
+    after('deploy', 'deploy:sentry');
+}
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
