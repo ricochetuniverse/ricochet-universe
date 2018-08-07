@@ -24,6 +24,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
+        "predis/predis": "^1.1",
         "rtconner/laravel-tagging": "~2.2",
         "sentry/sentry-laravel": "^0.9.2"
     },
