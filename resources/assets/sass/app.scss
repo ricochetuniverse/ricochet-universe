@@ -139,6 +139,10 @@ body {
     fill: #E24329;
 }
 
+input.dropdown-item {
+    cursor: pointer;
+}
+
 // Levels table
 .levelsTable__ratingColumn {
     .levelsRatings__wrap {

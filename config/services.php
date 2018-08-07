@@ -14,25 +14,11 @@ return [
     |
     */
 
-    'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
-    ],
-
-    'ses' => [
-        'key' => env('SES_KEY'),
-        'secret' => env('SES_SECRET'),
-        'region' => env('SES_REGION', 'us-east-1'),
-    ],
-
-    'sparkpost' => [
-        'secret' => env('SPARKPOST_SECRET'),
-    ],
-
-    'stripe' => [
-        'model' => App\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
+    'discord' => [
+        'client_id'         => env('DISCORD_KEY'),
+        'client_secret'     => env('DISCORD_SECRET'),
+        'redirect'          => env('DISCORD_REDIRECT_URI'),
+        'user_id_whitelist' => explode(',', env('DISCORD_USER_ID_WHITELIST')),
     ],
 
 ];

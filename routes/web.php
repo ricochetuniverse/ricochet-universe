@@ -19,3 +19,9 @@ Route::get('/levels/levelsetinfo.php', 'LevelController@show');
 Route::get('/upload', 'UploadController@index');
 Route::get('/reviver', 'ReviverController@index');
 Route::get('/about', 'AboutController@index');
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/auth/login/discord', 'DiscordLoginController@redirectToProvider');
+    Route::get('/auth/login/discord/callback', 'DiscordLoginController@handleProviderCallback');
+});
+Route::post('/auth/logout', 'AuthController@logout');

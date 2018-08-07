@@ -39,9 +39,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore and download level sets created by the community" data-toggle="tooltip">Levels</a>
                         </li>
-                        {{--<li class="nav-item">
-                            <a class="nav-link" href="{{ action('UploadController@index') }}" title="Upload and share your level sets" data-toggle="tooltip">Upload</a>
-                        </li>--}}
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ action('UploadController@index') }}" title="Upload and share your level sets" data-toggle="tooltip">Upload</a>
+                            </li>
+                        @endauth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">Reviver</a>
                         </li>
@@ -64,6 +66,34 @@
                         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search levels" aria-label="Search levels" value="{{ request()->input('search') }}">
                         <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                     </form>
+
+                    @auth
+                        <ul class="navbar-nav ml-2">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle d-flex align-items-center"
+                                   id="accountNavbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false" title="{{ Auth::user()->name }}">
+                                    <img src="{{ Auth::user()->discord_avatar_url }}"
+                                         width="24"
+                                         height="24"
+                                         alt="{{ Auth::user()->name }}’s profile picture"
+                                         class="mr-1">
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right"
+                                     aria-labelledby="accountNavbarDropdownMenuLink">
+                                    <h6 class="dropdown-header">{{ Auth::user()->name }}</h6>
+                                    <div class="dropdown-divider"></div>
+
+                                    <form action="{{ action('AuthController@logout') }}" method="POST">
+                                        {{ csrf_field() }}
+
+                                        <input type="submit" class="dropdown-item" value="Sign out">
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    @endauth
                 </div>
         </nav>
 
