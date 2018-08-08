@@ -116,7 +116,8 @@ class LevelSetParser
                         break;
 
                     case 'Round To Get Image From':
-                        $this->levelSetRoundToGetImageFrom = (int)$value;
+                        // First round starts from 0
+                        $this->levelSetRoundToGetImageFrom = ((int)$value) + 1;
                         break;
 
                     default:

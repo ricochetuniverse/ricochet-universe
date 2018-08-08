@@ -16,7 +16,11 @@ Route::get('/levels', 'LevelController@redirectMain');
 Route::get('/levels/index.php', 'LevelController@index');
 Route::get('/levels/levelsetinfo.php', 'LevelController@show');
 
-Route::get('/upload', 'UploadController@index');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/upload', 'UploadController@index');
+    Route::post('/upload', 'UploadController@store');
+});
+
 Route::get('/reviver', 'ReviverController@index');
 Route::get('/about', 'AboutController@index');
 

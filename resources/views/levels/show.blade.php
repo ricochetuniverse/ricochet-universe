@@ -46,10 +46,12 @@
                                 <div class="d-table-cell">{{ $levelSet->rounds }}</div>
                             </div>
 
-                            <div class="d-table-row">
-                                <div class="d-table-cell pr-2">Downloads:</div>
-                                <div class="d-table-cell">{{ number_format($levelSet->downloads) }}</div>
-                            </div>
+                            @if ($levelSet->downloads > 0)
+                                <div class="d-table-row">
+                                    <div class="d-table-cell pr-2">Downloads:</div>
+                                    <div class="d-table-cell">{{ number_format($levelSet->downloads) }}</div>
+                                </div>
+                            @endif
 
                             <div class="d-table-row">
                                 <div class="d-table-cell pr-2">Date posted:</div>
