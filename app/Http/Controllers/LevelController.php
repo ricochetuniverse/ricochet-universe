@@ -71,7 +71,7 @@ class LevelController extends Controller
     {
         $name = $request->input('levelsetname');
 
-        $levelSet = LevelSet::whereName($name)->with('levelRounds')->firstOrFail();
+        $levelSet = LevelSet::where('name', $name)->with('levelRounds')->firstOrFail();
 
         $authorIsSameForAllRounds = false;
         $brokenLevelSetWarning = false;

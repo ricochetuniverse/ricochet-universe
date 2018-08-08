@@ -16,7 +16,7 @@ class LevelDownloadController extends Controller
         $file = str_before($file, '.RicochetLW');
         $file = str_before($file, '.RicochetI');
 
-        $level = LevelSet::whereName($file)->firstOrFail();
+        $level = LevelSet::where('name', $file)->firstOrFail();
 
         return redirect($level->alternate_download_url);
     }
