@@ -7,9 +7,9 @@ use App\LevelSet;
 
 class CatalogService
 {
-    public function getCatalog()
+    public function getCatalog(bool $isSecure)
     {
-        $response = $this->getCatalogHeader();
+        $response = $this->getCatalogHeader($isSecure);
 
         LevelSet::with('tagged')->chunk(100, function ($levels) use (&$response) {
             /** @var LevelSet[] $levels */
@@ -22,19 +22,17 @@ class CatalogService
         return $response;
     }
 
-    public static function getFallbackImageUrl()
-    {
-        return 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/';
-    }
-
-    private function getCatalogHeader()
+    private function getCatalogHeader(bool $isSecure)
     {
         // $siteUrl = 'http://www.ricochetInfinity.com';
-        // $siteUrl = 'https://ricochet.ngyikp.com';
         $siteUrl = config('app.url');
 
-        $imageUrl = static::getFallbackImageUrl();
-        // $imageUrl = preg_replace('/^https\:\/\//', 'http://', $imageUrl);
+        if (!$isSecure) {
+            $siteUrl = preg_replace('/^https\:\/\//', 'http://', $siteUrl);
+        }
+
+        //$imageUrl = 'http://www.ricochetInfinity.com/levels/';
+        $imageUrl = $siteUrl . '/levels/';
 
         $header = <<<EOF
 CCatalogWebResponse

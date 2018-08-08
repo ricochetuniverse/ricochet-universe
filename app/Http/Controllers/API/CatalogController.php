@@ -12,9 +12,11 @@ class CatalogController extends Controller
 {
     public function index(Request $request)
     {
-        $catalog = Cache::remember('level_catalog', $this->getCacheMinutes(), function () {
+        $isSecure = $request->isSecure();
+
+        $catalog = Cache::remember($this->getCacheKey($isSecure), $this->getCacheMinutes(), function () use ($isSecure) {
             $catalogService = new CatalogService;
-            return $catalogService->getCatalog();
+            return $catalogService->getCatalog($isSecure);
         });
 
         $response = response($catalog)
@@ -31,6 +33,18 @@ class CatalogController extends Controller
         return $response;
     }
 
+    /**
+     * @param bool $isSecure
+     * @return string
+     */
+    private function getCacheKey(bool $isSecure): string
+    {
+        return $isSecure ? 'level_catalog' : 'level_catalog_http';
+    }
+
+    /**
+     * @return int
+     */
     private function getCacheMinutes(): int
     {
         if (app()->environment('production')) {

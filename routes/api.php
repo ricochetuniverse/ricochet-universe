@@ -17,6 +17,9 @@ Route::get('/sitemap.xml', 'SitemapController@index');
 Route::get('/gateway/catalog.php', 'CatalogController@index');
 Route::post('/gateway/catalog.php', 'CatalogController@index');
 
+Route::get('/levels/images/{fileName}.jpg', 'LevelSetImageController@showVersion1');
+Route::get('/levels/cache/{name}/{number}.jpg', 'LevelSetImageController@showVersion2');
+
 Route::get('/levels/download.php', 'LevelDownloadController@download');
 
 Route::post('/levels/ri_submitform.php', 'LevelSubmitController@submit');
