@@ -120,7 +120,7 @@ class LevelController extends Controller
 
         // Fallback sorting when multiple level sets have the same value
         if ($column === 'created_at') {
-            $levelSets->orderBy('id', 'desc');
+            $levelSets->orderBy('id', $orderDirection);
         } else {
             $levelSets->orderBy('overall_rating', 'desc');
         }
