@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\RedirectForGame;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +21,7 @@ class LevelSetImageController extends Controller
      */
     public function showVersion1(Request $request, string $fileName)
     {
-        return $this->redirect(
+        return RedirectForGame::to(
             $request->isSecure(),
             $this->getArchiveOrgFallbackUrl() . 'images/' . $fileName . '.jpg'
         );
@@ -36,28 +37,16 @@ class LevelSetImageController extends Controller
      */
     public function showVersion2(Request $request, string $name, int $number)
     {
+        $isSecure = $request->isSecure();
+
         $fileName = $name . '/' . $number . '.jpg';
 
         $disk = Storage::disk('round-images');
         if ($disk->exists($fileName)) {
-            return $this->redirect($request->isSecure(), $disk->url($fileName));
+            return RedirectForGame::to($isSecure, $disk->url($fileName));
         }
 
-        return $this->redirect($request->isSecure(), $this->getArchiveOrgFallbackUrl() . 'cache/' . $fileName);
-    }
-
-    /**
-     * @param bool $isSecure
-     * @param string $url
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    private function redirect(bool $isSecure, string $url)
-    {
-        if (!$isSecure) {
-            $url = preg_replace('/^https\:\/\//', 'http://', $url);
-        }
-
-        return redirect($url);
+        return RedirectForGame::to($isSecure, $this->getArchiveOrgFallbackUrl() . 'cache/' . $fileName);
     }
 
     /**
