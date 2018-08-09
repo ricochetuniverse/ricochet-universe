@@ -7,14 +7,14 @@ use App\Jobs\ParseLevelSet;
 use App\LevelSet;
 use Illuminate\Console\Command;
 
-class TestLevelSetJobDispatch extends Command
+class RepairDispatchJobForLevelSet extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'ricochet-test:level-set-dispatch {level_set_id}';
+    protected $signature = 'ricochet-repair:dispatch-job-level-set {level_set_id}';
 
     /**
      * The console command description.
