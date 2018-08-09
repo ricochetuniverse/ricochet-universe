@@ -37,6 +37,10 @@ Extra steps:
 
 ## Some useful info
 
+### User-agent
+
+Ricochet Infinity Version 3 Build 62
+
 ### web.archive.org
 
 * https://web.archive.org/web/20171128131900/http://www.ricochetinfinity.com
