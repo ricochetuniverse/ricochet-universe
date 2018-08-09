@@ -1,5 +1,40 @@
 # Ricochet Levels
 
+Visit the live website at [https://ricochet.ngyikp.com](https://ricochet.ngyikp.com)
+
+## Server requirements
+
+* PHP 7.2.8
+* Composer
+* MariaDB 10.3.8
+
+For production usage, you should set up [queue worker](https://laravel.com/docs/5.6/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
+
+If you want to use the Redis driver for broadcasting/cache/session/queues, you need to have [PhpRedis](https://github.com/phpredis/phpredis) PECL installed.
+
+To compile CSS/JavaScript assets, you need:
+
+* Node.js
+* Yarn
+
+## Installation for development
+
+After you `git clone` this repo...
+
+1. Ensure you meet the server requirements
+2. Open a terminal window and execute `composer install` to install PHP/Composer dependencies
+3. Copy `.env.example` to `.env` and adjust your configuration
+4. Execute `php artisan migrate` to create the database tables
+5. To compile CSS/JavaScript assets:
+   1. Execute `yarn` to install the Node dependencies
+   2. Execute `yarn run watch` and leave the terminal window open to rebuild whenever you save
+
+Finally, to start the development server, execute `php artisan serve` to listen on port 8000, or `./start_server.sh`  to listen on port 80 (may require your root password)
+
+Extra steps:
+
+* [Laravel IDE Helper](https://github.com/barryvdh/laravel-ide-helper) is installed, you can generate helper files by executing `php artisan ide-helper:generate` and `php artisan ide-helper:meta`
+
 ## Some useful info
 
 ### web.archive.org
