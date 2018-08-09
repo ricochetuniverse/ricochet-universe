@@ -24,13 +24,27 @@ class LevelDownloadController extends Controller
         $fileName = $levelSet->name . $levelSet->getFileExtension();
 
         if ($disk->exists($fileName)) {
-            return redirect($disk->url($fileName));
+            return $this->redirect($request->isSecure(), $disk->url($fileName));
         }
 
         if ($levelSet->alternate_download_url) {
-            return redirect($levelSet->alternate_download_url);
+            return $this->redirect($request->isSecure(), $levelSet->alternate_download_url);
         }
 
         throw new NotFoundHttpException;
+    }
+
+    /**
+     * @param bool $isSecure
+     * @param string $url
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    private function redirect(bool $isSecure, string $url)
+    {
+        if (!$isSecure) {
+            $url = preg_replace('/^https\:\/\//', 'http://', $url);
+        }
+
+        return redirect($url);
     }
 }
