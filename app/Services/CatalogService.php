@@ -2,11 +2,14 @@
 
 namespace App\Services;
 
-use App\Http\Transformers\RicochetCatalogTransformer;
 use App\LevelSet;
 
 class CatalogService
 {
+    /**
+     * @param bool $isSecure
+     * @return string
+     */
     public function getCatalog(bool $isSecure)
     {
         $response = $this->getCatalogHeader($isSecure);
@@ -14,7 +17,7 @@ class CatalogService
         LevelSet::with('tagged')->chunk(100, function ($levels) use (&$response) {
             /** @var LevelSet[] $levels */
             foreach ($levels as $level) {
-                $response .= RicochetCatalogTransformer::transform($level);
+                $response .= $this->transformLevelSetToCatalogItem($level);
                 $response .= "\r\n";
             }
         });
@@ -22,6 +25,10 @@ class CatalogService
         return $response;
     }
 
+    /**
+     * @param bool $isSecure
+     * @return string
+     */
     private function getCatalogHeader(bool $isSecure)
     {
         // $siteUrl = 'http://www.ricochetInfinity.com';
@@ -55,8 +62,45 @@ EOF;
         return $this->normalizeLineBreaks($header);
     }
 
-    private function normalizeLineBreaks($text)
+    /**
+     * @param string $text
+     * @return string
+     */
+    private function normalizeLineBreaks(string $text)
     {
         return str_replace(["\r\n", "\n"], "\r\n", $text);
+    }
+
+    /**
+     * @param $level LevelSet
+     * @return string
+     */
+    private function transformLevelSetToCatalogItem(LevelSet $level)
+    {
+        $data = [
+            $level->legacy_id,
+            $level->name,
+            $level->rounds,
+            $level->author,
+            $level->created_at->format('Y-m-d'),
+            (int)$level->featured,
+            $level->game_version,
+            0, // prerelease
+            '', // required_build
+            $level->image_url,
+            $level->rating,
+            $level->downloads,
+            $level->description,
+            $level->tags->pluck('name')->implode(';'),
+            $level->overall_rating,
+            $level->overall_rating_count,
+            $level->fun_rating,
+            $level->fun_rating_count,
+            $level->graphics_rating,
+            $level->graphics_rating_count,
+            implode(';', []), // todo similar_levels
+        ];
+
+        return implode(',', $data);
     }
 }
