@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Services\LevelSetValidator;
+use App\Rules\LevelSetName;
 use Tests\TestCase;
 
-class LevelSetValidatorTest extends TestCase
+class LevelSetNameRuleTest extends TestCase
 {
-    public function testNameValidator()
+    public function testRule()
     {
         $names = [
             'Reflexive B Sides',
@@ -40,8 +40,10 @@ class LevelSetValidatorTest extends TestCase
             'Noobie 3 - Shedding Naïveté',
         ];
 
+        $rule = new LevelSetName;
+
         foreach ($names as $name) {
-            $this->assertTrue(LevelSetValidator::isValidLevelSetName($name));
+            $this->assertTrue($rule->passes('', $name));
         }
 
         $names = [
@@ -51,7 +53,7 @@ class LevelSetValidatorTest extends TestCase
         ];
 
         foreach ($names as $name) {
-            $this->assertFalse(LevelSetValidator::isValidLevelSetName($name));
+            $this->assertFalse($rule->passes('', $name));
         }
     }
 }
