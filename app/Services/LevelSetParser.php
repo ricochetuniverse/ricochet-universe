@@ -108,11 +108,11 @@ class LevelSetParser
             case 'CRoundSetUserMade':
                 switch ($key) {
                     case 'Author':
-                        $this->levelSetAuthor = $value;
+                        $this->levelSetAuthor = $this->fixEncoding($value);
                         break;
 
                     case 'Description':
-                        $this->levelSetDescription = $value;
+                        $this->levelSetDescription = $this->fixEncoding($value);
                         break;
 
                     case 'Round To Get Image From':
@@ -128,35 +128,35 @@ class LevelSetParser
             case 'Round':
                 switch ($key) {
                     case 'Display Name':
-                        $this->currentLevelRound['name'] = $value;
+                        $this->currentLevelRound['name'] = $this->fixEncoding($value);
                         break;
 
                     case 'Author':
-                        $this->currentLevelRound['author'] = $value;
+                        $this->currentLevelRound['author'] = $this->fixEncoding($value);
                         break;
 
                     case 'Note 1':
-                        $this->currentLevelRound['note1'] = $value;
+                        $this->currentLevelRound['note1'] = $this->fixEncoding($value);
                         break;
 
                     case 'Note 2':
-                        $this->currentLevelRound['note2'] = $value;
+                        $this->currentLevelRound['note2'] = $this->fixEncoding($value);
                         break;
 
                     case 'Note 3':
-                        $this->currentLevelRound['note3'] = $value;
+                        $this->currentLevelRound['note3'] = $this->fixEncoding($value);
                         break;
 
                     case 'Note 4':
-                        $this->currentLevelRound['note4'] = $value;
+                        $this->currentLevelRound['note4'] = $this->fixEncoding($value);
                         break;
 
                     case 'Note 5':
-                        $this->currentLevelRound['note5'] = $value;
+                        $this->currentLevelRound['note5'] = $this->fixEncoding($value);
                         break;
 
                     case 'Source':
-                        $this->currentLevelRound['source'] = $value;
+                        $this->currentLevelRound['source'] = $this->fixEncoding($value);
                         break;
 
                     default:
@@ -190,5 +190,14 @@ class LevelSetParser
         $decoded = str_replace(chr(33) . chr(34), chr(33), $decoded);
 
         return $decoded;
+    }
+
+    /**
+     * @param string $value
+     * @return null|string|string[]
+     */
+    private function fixEncoding(string $value)
+    {
+        return mb_convert_encoding($value, 'UTF-8', 'Windows-1252');
     }
 }
