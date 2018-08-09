@@ -122,7 +122,7 @@
                                     @endif
 
                                     <div class="d-flex">
-                                        <a href="{{ $levelSet->alternate_download_url }}"
+                                        <a href="{{ action('API\LevelDownloadController@download', ['File' => 'downloads/raw/'.$levelSet->name.$levelSet->getFileExtension()]) }}"
                                            class="d-inline-flex align-items-center mt-2">
                                             <img src="{{ asset('images/levelDownload.jpg') }}"
                                                  alt=""
