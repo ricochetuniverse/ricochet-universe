@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="card mb-3">
-                    <div class="card-header">Round images</div>
+                    <div class="card-header">Round info</div>
 
                     <div class="card-body">
                         @unless ($levelSet->levelRounds->isEmpty())
