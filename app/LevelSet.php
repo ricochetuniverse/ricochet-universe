@@ -3,6 +3,7 @@
 namespace App;
 
 use Conner\Tagging\Taggable;
+use DomainException;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -83,7 +84,7 @@ class LevelSet extends Model
         'legacy_id',
     ];
 
-    public function getImageUrl()
+    public function getImageUrl(): string
     {
         return config('app.url') . '/levels/' . $this->image_url;
     }
@@ -93,13 +94,27 @@ class LevelSet extends Model
         return $this->hasMany(LevelRound::class);
     }
 
-    public function isDesignedForLostWorlds()
+    public function isDesignedForLostWorlds(): bool
     {
         return $this->game_version === 2;
     }
 
-    public function isDesignedForInfinity()
+    public function isDesignedForInfinity(): bool
     {
         return $this->game_version === 3;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileExtension(): string
+    {
+        if ($this->isDesignedForInfinity()) {
+            return '.RicochetI';
+        } elseif ($this->isDesignedForLostWorlds()) {
+            return '.RicochetLW';
+        }
+
+        throw new DomainException('Unknown game version');
     }
 }

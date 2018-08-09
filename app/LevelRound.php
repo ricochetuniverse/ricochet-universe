@@ -46,12 +46,18 @@ class LevelRound extends Model
         return $this->belongsTo(LevelSet::class);
     }
 
-    public function getImageUrl()
+    /**
+     * @return string
+     */
+    public function getImageUrl(): string
     {
         return Storage::disk('round-images')->url(rawurlencode($this->image_file_name));
     }
 
-    public function shouldShowViewNotesButton()
+    /**
+     * @return bool
+     */
+    public function shouldShowViewNotesButton(): bool
     {
         if (strlen($this->note2) > 0 || strlen($this->note3) > 0 || strlen($this->note4) > 0 || strlen($this->note5) > 0) {
             return true;

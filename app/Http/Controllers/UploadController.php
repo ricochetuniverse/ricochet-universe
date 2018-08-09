@@ -7,6 +7,7 @@ use App\LevelSet;
 use App\Services\LevelSetDecompressService;
 use App\Services\LevelSetParser;
 use Carbon\Carbon;
+use DomainException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -42,21 +43,23 @@ class UploadController extends Controller
             'name' => 'level set name',
         ]);
 
+        $name = $request->input('name');
         $url = $request->input('url');
 
-        $fileDiskDetails = $this->downloadAndSaveFile($url);
+        $fileName = $name . $this->getFileExtension($url);
+        $path = $this->downloadAndSaveFile($url, $fileName);
 
         $levelSet = new LevelSet;
         $levelSet->legacy_id = time(); // temp
-        $levelSet->name = $request->input('name');
+        $levelSet->name = $name;
         $levelSet->created_at = Carbon::parse($request->input('date_posted'));
-        $levelSet->game_version = $this->getGameVersion($fileDiskDetails['filename']);
+        $levelSet->game_version = $this->getGameVersion($fileName);
         $levelSet->alternate_download_url = $url;
-        $levelSet->downloaded_file_name = $fileDiskDetails['filename'];
+        $levelSet->downloaded_file_name = $fileName;
 
         DB::beginTransaction();
 
-        $this->parseLevelSet($levelSet, $fileDiskDetails['path']);
+        $this->parseLevelSet($levelSet, $path);
         $levelSet->save();
 
         $levelSet->levelRounds()->saveMany($levelSet->levelRounds); // hack >__<
@@ -69,22 +72,51 @@ class UploadController extends Controller
         return redirect()->action('LevelController@show', ['levelsetname' => $levelSet->name]);
     }
 
-    private function downloadAndSaveFile($url)
+    /**
+     * @param string $url
+     * @param string $name
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function downloadAndSaveFile(string $url, string $name): string
     {
         $client = new \GuzzleHttp\Client();
         $response = $client->request('GET', $url);
 
-        $filename = $response->getHeader('Content-Disposition')[0];
-        $filename = str_after($filename, 'filename=');
-        $filename = str_replace(['"', '\''], '', $filename);
-
         $disk = Storage::disk('levels');
-        $disk->put($filename, $response->getBody());
+        $disk->put($name, $response->getBody());
 
-        return [
-            'filename' => $filename,
-            'path'     => $disk->path($filename),
-        ];
+        return $disk->path($name);
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    private function getFileExtension(string $url): string
+    {
+        if (ends_with($url, '.RicochetI')) {
+            return '.RicochetI';
+        } elseif (ends_with($url, '.RicochetLW')) {
+            return '.RicochetLW';
+        }
+
+        throw new DomainException('The URL must end with a .RicochetI or .RicochetLW file extension.');
+    }
+
+    /**
+     * @param string $fileName
+     * @return int
+     */
+    private function getGameVersion(string $fileName): int
+    {
+        if (ends_with($fileName, '.RicochetI')) {
+            return 3;
+        } elseif (ends_with($fileName, '.RicochetLW')) {
+            return 2;
+        }
+
+        throw new DomainException('File name must end with .RicochetI or .RicochetLW file extension.');
     }
 
     private function parseLevelSet(LevelSet $levelSet, $file)
@@ -131,16 +163,5 @@ class UploadController extends Controller
         $levelSet->image_url = 'cache/' . rawurlencode($levelSet->name) . '/' . $results['levelSet']['roundToGetImageFrom'] . '.jpg';
         $levelSet->description = $results['levelSet']['description'];
         $levelSet->round_to_get_image_from = $results['levelSet']['roundToGetImageFrom'];
-    }
-
-    private function getGameVersion($fileName): int
-    {
-        if (ends_with($fileName, '.RicochetI')) {
-            return 3;
-        } elseif (ends_with($fileName, '.RicochetLW')) {
-            return 2;
-        }
-
-        throw new \Exception('File name must end with .RicochetI or .RicochetLW');
     }
 }

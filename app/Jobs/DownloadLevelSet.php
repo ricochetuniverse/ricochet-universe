@@ -42,7 +42,10 @@ class DownloadLevelSet implements ShouldQueue
         }
 
         // Already downloaded?
-        if ($this->levelSet->downloaded_file_name) {
+        $disk = Storage::disk('levels');
+        $fileName = $this->levelSet->name . $this->levelSet->getFileExtension();
+
+        if ($disk->exists($fileName)) {
             return;
         }
 
@@ -54,14 +57,9 @@ class DownloadLevelSet implements ShouldQueue
         $client = new \GuzzleHttp\Client();
         $response = $client->request('GET', $this->levelSet->alternate_download_url);
 
-        $filename = $response->getHeader('Content-Disposition')[0];
-        $filename = str_after($filename, 'filename=');
-        $filename = str_replace(['"', '\''], '', $filename);
+        $disk->put($fileName, $response->getBody());
 
-        $disk = Storage::disk('levels');
-        $disk->put($filename, $response->getBody());
-
-        $this->levelSet->downloaded_file_name = $filename;
+        $this->levelSet->downloaded_file_name = $fileName;
         $this->levelSet->save();
     }
 }
