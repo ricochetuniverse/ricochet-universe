@@ -122,6 +122,6 @@ class ConvertCatalogxDotBin extends Command
 
         DB::commit();
 
-        $this->info('Done');
+        $this->info('Done.');
     }
 }

@@ -106,6 +106,6 @@ class ConvertGoogleSheetsTsv extends Command
 
         DB::commit();
 
-        $this->info('Done');
+        $this->info('Done.');
     }
 }

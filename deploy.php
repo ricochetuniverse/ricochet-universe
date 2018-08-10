@@ -60,6 +60,7 @@ after('artisan:config:cache', 'artisan:route:cache');
 before('deploy:symlink', 'artisan:migrate');
 before('deploy:symlink', 'deploy:public_disk');
 
+after('deploy', 'ricochet:clear-catalog-cache');
 after('deploy', 'artisan:queue:restart');
 after('deploy', 'php-fpm:reload');
 
