@@ -89,7 +89,7 @@ class ConvertCatalogxDotBin extends Command
             $levelSet->rounds = (int)$rowData[2];
             $levelSet->author = $rowData[3];
             $levelSet->created_at = Carbon::parse($rowData[4]);
-            $levelSet->featured = (bool)$rowData[5];
+            $levelSet->featured = false; // (bool)$rowData[5];
             $levelSet->game_version = (int)$rowData[6];
 //            $level->prerelease = $rowData[7];
 //            $level->requiredBuild = $rowData[8];
