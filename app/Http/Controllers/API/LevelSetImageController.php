@@ -40,13 +40,14 @@ class LevelSetImageController extends Controller
         $isSecure = $request->isSecure();
 
         $fileName = $name . '/' . $number . '.jpg';
+        $fileUrl = rawurlencode($name) . '/' . $number . '.jpg';
 
         $disk = Storage::disk('round-images');
         if ($disk->exists($fileName)) {
-            return RedirectForGame::to($isSecure, $disk->url($fileName));
+            return RedirectForGame::to($isSecure, $disk->url($fileUrl));
         }
 
-        return RedirectForGame::to($isSecure, $this->getArchiveOrgFallbackUrl() . 'cache/' . $fileName);
+        return RedirectForGame::to($isSecure, $this->getArchiveOrgFallbackUrl() . 'cache/' . $fileUrl);
     }
 
     /**

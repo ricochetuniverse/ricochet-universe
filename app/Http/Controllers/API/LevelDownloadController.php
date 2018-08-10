@@ -21,11 +21,12 @@ class LevelDownloadController extends Controller
 
         $levelSet = LevelSet::where('name', $file)->firstOrFail();
 
-        $disk = Storage::disk('levels');
         $fileName = $levelSet->name . $levelSet->getFileExtension();
+        $fileUrl = rawurlencode($levelSet->name) . $levelSet->getFileExtension();
 
+        $disk = Storage::disk('levels');
         if ($disk->exists($fileName)) {
-            return RedirectForGame::to($request->isSecure(), $disk->url($fileName));
+            return RedirectForGame::to($request->isSecure(), $disk->url($fileUrl));
         }
 
         if ($levelSet->alternate_download_url) {
