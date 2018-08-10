@@ -46,6 +46,11 @@ task('webpack:run', function () {
     writeln('<info>' . $output . '</info>');
 });
 
+desc('Clear cache for /gateway/catalog.php');
+task('ricochet:clear-catalog-cache', function () {
+    run('{{bin/php}} {{release_path}}/artisan ricochet:clear-catalog-cache');
+});
+
 desc('Restart PHP-FPM service');
 task('php-fpm:reload', function () {
     // /etc/sudoers:
