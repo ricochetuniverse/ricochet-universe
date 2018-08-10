@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Helpers\TextEncoderForGame;
 use App\LevelSet;
-use App\LevelTag;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +15,7 @@ class ConvertCatalogxDotBin extends Command
      *
      * @var string
      */
-    protected $signature = 'ricochet:convert-catalogx-bin {file}';
+    protected $signature = 'ricochet:convert-catalogx-bin {file} {--dry-run}';
 
     /**
      * The console command description.
@@ -49,7 +49,7 @@ class ConvertCatalogxDotBin extends Command
             return;
         }
 
-        $file = mb_convert_encoding($file, 'UTF-8', 'Windows-1252');
+        $file = TextEncoderForGame::toUtf8($file);
         $file = str_replace("\r\n", "\n", $file);
         $lines = explode("\n", $file);
 
@@ -93,9 +93,9 @@ class ConvertCatalogxDotBin extends Command
             $levelSet->game_version = (int)$rowData[6];
 //            $level->prerelease = $rowData[7];
 //            $level->requiredBuild = $rowData[8];
-            $levelSet->image_url = $rowData[9];
+            $levelSet->image_url = $this->convertImageUrl($rowData[9]);
             $levelSet->rating = (float)$rowData[10];
-            $levelSet->downloads = (int)$rowData[11];
+            $levelSet->downloads = max($levelSet->downloads, (int)$rowData[11]);
             $levelSet->description = $rowData[12];
             // 13: tags
             $levelSet->overall_rating = (float)$rowData[14];
@@ -118,10 +118,30 @@ class ConvertCatalogxDotBin extends Command
             $levelSet->retag(array_filter(explode(';', $rowData[13])));
         }
 
-        $this->line('Committing to database...');
+        if ($this->option('dry-run')) {
+            $this->line('Rolling back...');
 
-        DB::commit();
+            DB::rollBack();
+        } else {
+            $this->line('Committing to database...');
+
+            DB::commit();
+        }
 
         $this->info('Done.');
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    private function convertImageUrl(string $url): string
+    {
+        $url = rawurldecode($url);
+        $url = TextEncoderForGame::toUtf8($url);
+        $url = rawurlencode($url);
+        $url = str_replace('%2F', '/', $url);
+
+        return $url;
     }
 }
