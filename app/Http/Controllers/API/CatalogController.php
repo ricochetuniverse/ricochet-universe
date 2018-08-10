@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\TextEncoderForGame;
 use App\Http\Controllers\Controller;
 use App\Services\CatalogService;
 use Illuminate\Http\Request;
@@ -14,13 +15,14 @@ class CatalogController extends Controller
     {
         $isSecure = $request->isSecure();
 
-        $catalog = Cache::remember($this->getCacheKey($isSecure), $this->getCacheMinutes(), function () use ($isSecure) {
+        $catalogContent = Cache::remember($this->getCacheKey($isSecure), $this->getCacheMinutes(), function () use ($isSecure) {
             $catalogService = new CatalogService;
             return $catalogService->getCatalog($isSecure);
         });
 
-        $response = response($catalog)
+        $response = response(TextEncoderForGame::toLegacyEncoding($catalogContent))
             ->setCache(['public' => true, 'max_age' => 60 * $this->getCacheMinutes()])
+            ->setCharset(TextEncoderForGame::$legacyEncoding)
             ->header('Content-Type', 'text/plain');
 
         if ($request->input('download')) {
