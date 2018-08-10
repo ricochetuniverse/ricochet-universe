@@ -79,7 +79,7 @@ EOF;
     {
         $data = [
             $level->legacy_id,
-            $level->name,
+            str_replace(',', ';', $level->name),
             $level->rounds,
             $level->author,
             $level->created_at->format('Y-m-d'),
@@ -90,7 +90,7 @@ EOF;
             $level->image_url,
             $level->rating,
             $level->downloads,
-            $level->description,
+            str_replace(',', ';', $level->description),
             $level->tags->pluck('name')->implode(';'),
             $level->overall_rating,
             $level->overall_rating_count,
