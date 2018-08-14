@@ -3,6 +3,7 @@
 namespace Deployer;
 
 require 'recipe/laravel.php';
+require 'deployer/php-fpm.php';
 require 'vendor/deployer/recipes/recipe/sentry.php';
 require 'vendor/deployer/recipes/recipe/yarn.php';
 
@@ -49,14 +50,6 @@ task('webpack:run', function () {
 desc('Clear cache for /gateway/catalog.php');
 task('ricochet:clear-catalog-cache', function () {
     run('{{bin/php}} {{release_path}}/artisan ricochet:clear-catalog-cache');
-});
-
-desc('Restart PHP-FPM service');
-task('php-fpm:reload', function () {
-    // /etc/sudoers:
-    //
-    //     username ALL=NOPASSWD:/bin/systemctl reload php7.2-fpm.service
-    run('sudo /bin/systemctl reload php7.2-fpm.service');
 });
 
 after('deploy:vendors', 'yarn:install');
