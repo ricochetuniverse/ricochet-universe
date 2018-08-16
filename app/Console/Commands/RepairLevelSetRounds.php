@@ -44,7 +44,7 @@ class RepairLevelSetRounds extends Command
 
         $this->line('Starting...');
 
-        LevelSet::withCount('levelRounds')->chunk(100, function ($levelSets) use ($dryRun) {
+        LevelSet::withCount('levelRounds')->orderBy('id')->chunk(100, function ($levelSets) use ($dryRun) {
             /** @var \Illuminate\Database\Eloquent\Collection $levelSets */
             $levelSets->each(function ($levelSet) use ($dryRun) {
                 /** @var LevelSet $levelSet */
@@ -52,8 +52,10 @@ class RepairLevelSetRounds extends Command
                 $actual = $levelSet->level_rounds_count;
 
                 if ($claimed < $actual) {
-                    $this->line($levelSet->name . ' has more rounds in the actual level set file (' . $actual . ') than the database (' . $claimed . ')');
-                    $this->line('Alternate download URL: ' . $levelSet->alternate_download_url);
+                    $this->line($levelSet->name . ':');
+                    $this->line('Catalog: ' . $claimed . ' rounds');
+                    $this->line('Actual:  ' . $actual . ' rounds');
+                    $this->line('Download URL: ' . $levelSet->alternate_download_url);
                     $this->line('');
                 } elseif ($claimed > $actual) {
                     $this->line('Regenerating rounds info for ' . $levelSet->name . '...');
