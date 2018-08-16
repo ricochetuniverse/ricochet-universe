@@ -88,15 +88,12 @@ class ConvertGoogleSheetsTsv extends Command
                 continue;
             }
 
-            // Some level set names are mangled in TSV/Google Sheets
-            if (!in_array((int)$level->legacy_id, [2016, 3314, 5931, 6134, 6319], true)) {
-                if ($level->name !== $name) {
-                    $this->warn('Name of legacy ID ' . $legacyId . ' does not match, skipping:');
-                    $this->line('Database name: ' . $level->name);
-                    $this->line('Provided name: ' . $name);
-                    $this->line('');
-                    continue;
-                }
+            if ($level->name !== $name) {
+                $this->warn('Name of legacy ID ' . $legacyId . ' does not match, skipping:');
+                $this->line('Database name: ' . $level->name);
+                $this->line('Provided name: ' . $name);
+                $this->line('');
+                continue;
             }
 
             $level->alternate_download_url = $alternateDownloadUrl;
