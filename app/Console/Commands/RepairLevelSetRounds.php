@@ -21,7 +21,7 @@ class RepairLevelSetRounds extends Command
      *
      * @var string
      */
-    protected $description = 'Repair level rounds info if the counts don\'t match';
+    protected $description = 'Search for inconsistent level set rounds info if the counts don\'t match';
 
     /**
      * Create a new command instance.

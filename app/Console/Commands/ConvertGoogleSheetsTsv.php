@@ -83,8 +83,8 @@ class ConvertGoogleSheetsTsv extends Command
 
             if (!$level) {
                 $this->warn('Legacy ID ' . $legacyId . ' not found in database, skipping:');
-                $this->warn($line);
-                $this->warn('');
+                $this->line($line);
+                $this->line('');
                 continue;
             }
 
@@ -92,9 +92,9 @@ class ConvertGoogleSheetsTsv extends Command
             if (!in_array((int)$level->legacy_id, [2016, 3314, 5931, 6134, 6319], true)) {
                 if ($level->name !== $name) {
                     $this->warn('Name of legacy ID ' . $legacyId . ' does not match, skipping:');
-                    $this->warn('Database name: ' . $level->name);
-                    $this->warn('Provided name: ' . $name);
-                    $this->warn('');
+                    $this->line('Database name: ' . $level->name);
+                    $this->line('Provided name: ' . $name);
+                    $this->line('');
                     continue;
                 }
             }
