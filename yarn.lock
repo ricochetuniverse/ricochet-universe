@@ -1642,9 +1642,9 @@ d@1:
   dependencies:
     es5-ext "^0.10.9"
 
-dart-sass@1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/dart-sass/-/dart-sass-1.11.0.tgz#688d1bd7ca34ccacffdacd43f7cd6eb37e65d716"
+dart-sass@1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/dart-sass/-/dart-sass-1.12.0.tgz#acff17e367bf03b6cce3ed167f7d5d66fe208eaf"
   dependencies:
     chokidar "^2.0.0"
 
@@ -3670,9 +3670,9 @@ postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.23:
     source-map "^0.6.1"
     supports-color "^5.4.0"
 
-preact@8.3.0:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-8.3.0.tgz#eef16418bc351a44015b62c447722132ce5c36eb"
+preact@8.3.1:
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.3.1.tgz#ed34f79d09edc5efd32a378a3416ef5dc531e3ac"
 
 prepend-http@^1.0.1:
   version "1.0.4"
