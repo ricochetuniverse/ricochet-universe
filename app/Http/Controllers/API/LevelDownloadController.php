@@ -30,6 +30,12 @@ class LevelDownloadController extends Controller
 
         $disk = Storage::disk('levels');
         if ($disk->exists($fileName)) {
+            // Caddy can't handle file names with #, even if escaped
+            // Use less efficient download mechanism then
+            if (str_contains($fileName, '#')) {
+                return response()->download($disk->path($fileName), $fileName);
+            }
+
             return RedirectForGame::to($request->isSecure(), $disk->url($fileUrl));
         }
 
