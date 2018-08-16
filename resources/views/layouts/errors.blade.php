@@ -4,7 +4,7 @@
             <div class="col">
                 <div class="alert alert-danger">
                     @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
+                        <p @if ($loop->last) class="m-0"@endif>{{ $error }}</p>
                     @endforeach
                 </div>
             </div>
