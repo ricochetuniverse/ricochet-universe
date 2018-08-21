@@ -48,6 +48,9 @@
                             <a class="nav-link" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">Reviver</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ action('DecompressorController@index') }}" title="Decompress Ricochet levels to view their raw data text" data-toggle="tooltip">Decompressor</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ action('AboutController@index') }}" title="Learn more about this website" data-toggle="tooltip">About</a>
                         </li>
                         <li class="nav-item">

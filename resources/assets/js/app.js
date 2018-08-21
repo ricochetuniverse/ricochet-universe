@@ -29,3 +29,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 import './round-info';
+import './decompressor';
