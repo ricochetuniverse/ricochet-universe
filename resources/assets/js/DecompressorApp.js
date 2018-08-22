@@ -1,4 +1,4 @@
-import pako from 'pako';
+import {inflate} from 'pako/lib/inflate';
 // noinspection ES6UnusedImports
 import {Component, h} from 'preact';
 import Loadable from 'react-loadable';
@@ -74,7 +74,7 @@ export default class DecompressorApp extends Component {
         const compressed = new Uint8Array(buffer.currentTarget.result, 9);
         const decoder = new TextDecoder('windows-1252', {fatal: true});
 
-        const result = decoder.decode(pako.inflate(compressed));
+        const result = decoder.decode(inflate(compressed));
 
         this.setState({result});
     };
