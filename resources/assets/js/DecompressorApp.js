@@ -2,6 +2,7 @@ import pako from 'pako';
 // noinspection ES6UnusedImports
 import {Component, h} from 'preact';
 import Loadable from 'react-loadable';
+import {Card, CardBody, CardHeader} from 'reactstrap';
 
 import LoadingComponent from './LoadingComponent';
 
@@ -9,9 +10,9 @@ const LoadableDecompressorEditor = Loadable({
     loader: () => import('./DecompressorEditor'),
     loading(props) {
         return (
-            <div className="card-body">
-                <LoadingComponent {...props} text="Loading text editor..." />
-            </div>
+            <CardBody>
+                <LoadingComponent {...props} text="Loading text editor..."/>
+            </CardBody>
         );
     },
     timeout: 10000,
@@ -25,22 +26,22 @@ export default class DecompressorApp extends Component {
     render() {
         return (
             <div>
-                <div className="card mb-3">
-                    <div className="card-header">Decompressor</div>
+                <Card className="mb-3">
+                    <CardHeader>Decompressor</CardHeader>
 
-                    <div className="card-body">
+                    <CardBody>
                         <p>Decompress Ricochet levels to view their raw text data.</p>
 
-                        <input type="file" class="w-100" style={{cursor: 'pointer'}} accept=".RicochetI,.RicochetLW"
+                        <input type="file" className="w-100" style={{cursor: 'pointer'}} accept=".RicochetI,.RicochetLW"
                                onChange={this.onFileChange} onMouseEnter={this.onBrowseButtonMouseOver}/>
-                    </div>
-                </div>
+                    </CardBody>
+                </Card>
 
-                {this.state.result ? <div class="card mb-3">
-                    <div className="card-header">Results</div>
+                {this.state.result ? <Card className="mb-3">
+                    <CardHeader>Results</CardHeader>
 
-                    <LoadableDecompressorEditor text={this.state.result} />
-                </div> : null}
+                    <LoadableDecompressorEditor text={this.state.result}/>
+                </Card> : null}
             </div>
         );
     }

@@ -61,7 +61,6 @@ module.exports = {
     },
     resolve: {
         alias: {
-            jquery: 'jquery/dist/jquery.min',
             react: 'preact-compat',
             'react-dom': 'preact-compat',
 

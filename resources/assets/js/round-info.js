@@ -1,13 +1,16 @@
 import $ from 'jquery';
 // noinspection ES6UnusedImports
-import {h, render} from 'preact';
+import {Component, h, render} from 'preact';
+import {Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row} from 'reactstrap';
+
+let modalWrap;
 
 $('.roundInfo__link').on('click', function (ev) {
     ev.preventDefault();
 
     const $link = $(this);
 
-    const options = {
+    const props = {
         name: $link.data('round-name'),
         author: $link.data('round-author'),
         note1: $link.data('round-note-1'),
@@ -19,72 +22,74 @@ $('.roundInfo__link').on('click', function (ev) {
         imageUrl: $link.data('round-image-url'),
     };
 
-    const $dialog = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="levelInfoModalTitle" aria-hidden="true"></div>');
-    $dialog.on('hidden.bs.modal', () => {
-        render('', reactDialog, reactDialog.parentElement);
+    if (!modalWrap) {
+        modalWrap = document.createElement('div');
+        document.body.appendChild(modalWrap);
+    }
 
-        $dialog.remove();
-    });
-
-    const fragment = document.createDocumentFragment();
-    const reactDialog = render(getModal(options), fragment);
-    $dialog.append(fragment);
-
-    $(document.body).append($dialog);
-    $dialog.modal();
+    render(<RoundInfoModal {...props} />, modalWrap, modalWrap.lastElementChild);
 });
 
-function getModal(options) {
-    return <div className="modal-dialog" role="document">
-        <div className="modal-content">
-            <div className="modal-header">
-                <h5 className="modal-title" id="levelInfoModalTitle">{options.name}</h5>
+class RoundInfoModal extends Component {
+    state = {
+        opened: true,
+    };
 
-                <button type="button" className="close" data-dismiss="modal" title="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+    toggleModal = () => {
+        this.setState((prevState) => {
+            return {
+                opened: !prevState.opened,
+            };
+        });
+    };
 
-            <div className="modal-body">
-                {options.imageUrl ? <img
-                    src={options.imageUrl}
-                    alt={'Screenshot of “' + options.name + '”'} width="105" height="80"
-                    className="d-block mx-auto mb-3"/> : null}
+    render() {
+        return (
+            <Modal isOpen={this.state.opened} toggle={this.toggleModal} fade={false}
+                   labelledBy="levelInfoModalTitle">
+                <ModalHeader toggle={this.toggleModal} id="levelInfoModalTitle">{this.props.name}</ModalHeader>
 
-                <div className="row">
-                    <div className="col-auto">Author:</div>
-                    <div className="col">{options.author ? options.author : <em>(not set)</em>}</div>
+                <ModalBody>
+                    {this.props.imageUrl ? <img
+                        src={this.props.imageUrl}
+                        alt={'Screenshot of “' + this.props.name + '”'} width="105" height="80"
+                        className="d-block mx-auto mb-3"/> : null}
 
-                    {/* Preact doesn't support fragments yet :( */}
-                    <div className="w-100"/>
-                    {options.note1 ? <div className="col-auto">Note 1:</div> : null}
-                    {options.note1 ? <div className="col">{options.note1}</div> : null}
+                    <Row>
+                        <Col xs="auto">Author:</Col>
+                        <Col>{this.props.author ? this.props.author : <em>(not set)</em>}</Col>
 
-                    <div className="w-100"/>
-                    {options.note2 ? <div className="col-auto">Note 2:</div> : null}
-                    {options.note2 ? <div className="col">{options.note2}</div> : null}
+                        {/* Preact doesn't support fragments yet :( */}
+                        <div className="w-100"/>
+                        {this.props.note1 ? <Col xs="auto">Note 1:</Col> : null}
+                        {this.props.note1 ? <Col>{this.props.note1}</Col> : null}
 
-                    <div className="w-100"/>
-                    {options.note3 ? <div className="col-auto">Note 3:</div> : null}
-                    {options.note3 ? <div className="col">{options.note3}</div> : null}
+                        <div className="w-100"/>
+                        {this.props.note2 ? <Col xs="auto">Note 2:</Col> : null}
+                        {this.props.note2 ? <Col>{this.props.note2}</Col> : null}
 
-                    <div className="w-100"/>
-                    {options.note4 ? <div className="col-auto">Note 4:</div> : null}
-                    {options.note4 ? <div className="col">{options.note4}</div> : null}
+                        <div className="w-100"/>
+                        {this.props.note3 ? <Col xs="auto">Note 3:</Col> : null}
+                        {this.props.note3 ? <Col>{this.props.note3}</Col> : null}
 
-                    <div className="w-100"/>
-                    {options.note5 ? <div className="col-auto">Note 5:</div> : null}
-                    {options.note5 ? <div className="col">{options.note5}</div> : null}
+                        <div className="w-100"/>
+                        {this.props.note4 ? <Col xs="auto">Note 4:</Col> : null}
+                        {this.props.note4 ? <Col>{this.props.note4}</Col> : null}
 
-                    <div className="w-100"/>
-                    {options.source ? <div className="col-auto">Source:</div> : null}
-                    {options.source ? <div className="col">{options.source}</div> : null}
-                </div>
-            </div>
+                        <div className="w-100"/>
+                        {this.props.note5 ? <Col xs="auto">Note 5:</Col> : null}
+                        {this.props.note5 ? <Col>{this.props.note5}</Col> : null}
 
-            <div className="modal-footer">
-                <button type="button" className="btn btn-outline-primary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>;
+                        <div className="w-100"/>
+                        {this.props.source ? <Col xs="auto">Source:</Col> : null}
+                        {this.props.source ? <Col>{this.props.source}</Col> : null}
+                    </Row>
+                </ModalBody>
+
+                <ModalFooter>
+                    <Button outline color="primary" onClick={this.toggleModal}>Close</Button>
+                </ModalFooter>
+            </Modal>
+        );
+    }
 }

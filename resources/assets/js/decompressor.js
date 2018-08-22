@@ -1,6 +1,7 @@
 // noinspection ES6UnusedImports
 import {h, render} from 'preact';
 import Loadable from 'react-loadable';
+import {Card, CardBody, CardHeader} from 'reactstrap';
 
 import LoadingComponent from './LoadingComponent';
 
@@ -8,15 +9,15 @@ const LoadableDecompressorApp = Loadable({
     loader: () => import('./DecompressorApp'),
     loading(props) {
         return (
-            <div className="card mb-3">
-                <div className="card-header">Decompressor</div>
+            <Card className="mb-3">
+                <CardHeader>Decompressor</CardHeader>
 
-                <div className="card-body">
+                <CardBody>
                     <p className="m-0">
                         <LoadingComponent {...props} />
                     </p>
-                </div>
-            </div>
+                </CardBody>
+            </Card>
         );
     },
     timeout: 5000,

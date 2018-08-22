@@ -1263,6 +1263,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.2.3:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+
 clean-webpack-plugin@0.1.19:
   version "0.1.19"
   resolved "https://registry.yarnpkg.com/clean-webpack-plugin/-/clean-webpack-plugin-0.1.19.tgz#ceda8bb96b00fe168e9b080272960d20fdcadd6d"
@@ -1782,6 +1786,10 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
+
+dom-helpers@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.3.1.tgz#fc1a4e15ffdf60ddde03a480a9c0fece821dd4a6"
 
 dom-serializer@0:
   version "0.1.0"
@@ -2782,6 +2790,14 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
+lodash.isfunction@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
+
+lodash.isobject@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/lodash.isobject/-/lodash.isobject-3.0.2.tgz#3c8fb8d5b5bf4bf90ae06e14f2a530a4ed935e1d"
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
@@ -2789,6 +2805,10 @@ lodash.memoize@^4.1.2:
 lodash.tail@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.tail/-/lodash.tail-4.1.1.tgz#d2333a36d9e7717c8ad2f7cacafec7c32b444664"
+
+lodash.tonumber@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/lodash.tonumber/-/lodash.tonumber-4.0.3.tgz#0b96b31b35672793eb7f5a63ee791f1b9e9025d9"
 
 lodash.uniq@^4.5.0:
   version "4.5.0"
@@ -3434,7 +3454,7 @@ plur@^3.0.0:
   dependencies:
     irregular-plurals "^2.0.0"
 
-popper.js@1.14.4:
+popper.js@1.14.4, popper.js@^1.14.1:
   version "1.14.4"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.4.tgz#8eec1d8ff02a5a3a152dd43414a15c7b79fd69b6"
 
@@ -3793,7 +3813,7 @@ promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
 
-prop-types@^15.5.0, prop-types@^15.6.2:
+prop-types@^15.5.0, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -3883,6 +3903,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-lifecycles-compat@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+
 react-loadable@5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/react-loadable/-/react-loadable-5.5.0.tgz#582251679d3da86c32aae2c8e689c59f1196d8c4"
@@ -3896,6 +3920,35 @@ react-monaco-editor@0.18.0:
     "@types/react" "*"
     monaco-editor "^0.14.2"
     prop-types "^15.6.2"
+
+react-popper@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.10.4.tgz#af2a415ea22291edd504678d7afda8a6ee3295aa"
+  dependencies:
+    popper.js "^1.14.1"
+    prop-types "^15.6.1"
+
+react-transition-group@^2.3.1:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.4.0.tgz#1d9391fabfd82e016f26fabd1eec329dbd922b5a"
+  dependencies:
+    dom-helpers "^3.3.1"
+    loose-envify "^1.3.1"
+    prop-types "^15.6.2"
+    react-lifecycles-compat "^3.0.4"
+
+reactstrap@6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-6.4.0.tgz#891252a284710180cd3d746dd236ee61d28a1c66"
+  dependencies:
+    classnames "^2.2.3"
+    lodash.isfunction "^3.0.9"
+    lodash.isobject "^3.0.2"
+    lodash.tonumber "^4.0.3"
+    prop-types "^15.5.8"
+    react-lifecycles-compat "^3.0.4"
+    react-popper "^0.10.4"
+    react-transition-group "^2.3.1"
 
 read-pkg-up@^3.0.0:
   version "3.0.0"
