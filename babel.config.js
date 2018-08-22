@@ -3,6 +3,23 @@
 module.exports = (api) => {
     const env = api.env();
 
+    const plugins = [
+        '@babel/plugin-transform-runtime',
+        '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-syntax-dynamic-import',
+    ];
+
+    if (env === 'production') {
+        plugins.push(
+            ['transform-imports', {
+                'reactstrap': {
+                    'transform': 'reactstrap/lib/${member}',
+                    'preventFullImport': true,
+                },
+            }],
+        );
+    }
+
     return {
         'presets': [
             [
@@ -19,10 +36,6 @@ module.exports = (api) => {
                 },
             ],
         ],
-        plugins: [
-            '@babel/plugin-transform-runtime',
-            '@babel/plugin-proposal-class-properties',
-            '@babel/plugin-syntax-dynamic-import',
-        ]
-    }
+        plugins: plugins,
+    };
 };
