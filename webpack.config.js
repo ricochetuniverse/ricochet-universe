@@ -4,6 +4,7 @@ const path = require('path');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -23,6 +24,13 @@ module.exports = {
                 options: {
                     cacheDirectory: true,
                 },
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
             },
             {
                 test: /\.scss$/,
@@ -54,6 +62,11 @@ module.exports = {
     resolve: {
         alias: {
             jquery: 'jquery/dist/jquery.min',
+            react: 'preact-compat',
+            'react-dom': 'preact-compat',
+
+            // https://github.com/Microsoft/monaco-editor-webpack-plugin/issues/15#issuecomment-396497668
+            'monaco-editor': 'monaco-editor/esm/vs/editor/editor.api',
         },
     },
     plugins: [
@@ -62,6 +75,20 @@ module.exports = {
         new ManifestPlugin({
             basePath: '/',
             fileName: path.resolve(__dirname, 'public/mix-manifest.json'),
+        }),
+
+        new MonacoWebpackPlugin({
+            languages: [],
+            features: [
+                'bracketMatching',
+                'clipboard',
+                'contextmenu',
+                'find',
+                'folding',
+                'gotoLine',
+                'multicursor',
+                'quickCommand',
+            ],
         }),
     ],
     devtool: false,

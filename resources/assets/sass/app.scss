@@ -242,6 +242,11 @@ input.dropdown-item {
     }
 }
 
+// Decompressor
+.monaco-menu .monaco-action-bar .action-menu-item {
+    text-decoration: none;
+}
+
 // About page
 .aboutPage__columns {
     columns: 250px;

@@ -2,6 +2,8 @@ import pako from 'pako';
 // noinspection ES6UnusedImports
 import {Component, h, render} from 'preact';
 
+import MonacoEditor from 'react-monaco-editor';
+
 class Decompressor extends Component {
     state = {
         result: '',
@@ -16,15 +18,26 @@ class Decompressor extends Component {
                     <div className="card-body">
                         <p>Decompress Ricochet levels to view their raw data text.</p>
 
-                        <input type="file" class="w-100" style={{cursor: 'pointer'}} onChange={this.onFileChange}/>
+                        <input type="file" class="w-100" style={{cursor: 'pointer'}} accept=".RicochetI,.RicochetLW"
+                               onChange={this.onFileChange}/>
                     </div>
                 </div>
 
                 {this.state.result ? <div class="card mb-3">
                     <div className="card-header">Results</div>
 
-                    <div className="card-body text-monospace">
-                        <textarea value={this.state.result} class="w-100" style={{height: '100vh', tabSize: '4'}} spellcheck="false"/>
+                    <div style={{all: 'unset', height: '100vh'}}>
+                        <MonacoEditor
+                            height="100%"
+                            theme="vs-dark"
+                            value={this.state.result}
+                            options={{
+                                lineNumbersMinChars: 7,
+                                renderControlCharacters: true,
+                                renderWhitespace: 'all',
+                                showFoldingControls: 'always',
+                            }}
+                        />
                     </div>
                 </div> : null}
             </div>
@@ -53,7 +66,9 @@ class Decompressor extends Component {
 
     onFileReaderFile = (buffer) => {
         const compressed = new Uint8Array(buffer.currentTarget.result, 9);
-        const result = pako.inflate(compressed, {to: 'string'});
+        const decoder = new TextDecoder('windows-1252', {fatal: true});
+
+        const result = decoder.decode(pako.inflate(compressed));
 
         this.setState({result});
     };
