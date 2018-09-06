@@ -37,6 +37,8 @@ $modal-header-border-color: $card-border-color;
 $close-color: #fff;
 $close-text-shadow: none;
 
+$custom-control-indicator-checked-bg: $card-cap-bg;
+
 $enable-rounded: false;
 $enable-transitions: false;
 
@@ -115,6 +117,11 @@ body {
     &.text-nowrap {
         max-width: none;
     }
+}
+
+.custom-control-label,
+.custom-file-input {
+    cursor: pointer;
 }
 
 // Navbar

@@ -2,16 +2,20 @@ import {inflate} from 'pako/lib/inflate';
 // noinspection ES6UnusedImports
 import {Component, h} from 'preact';
 import Loadable from 'react-loadable';
-import {Card, CardBody, CardHeader} from 'reactstrap';
+import {Alert, Button, Card, CardBody, CardHeader, CustomInput, FormGroup} from 'reactstrap';
 
 import LoadingComponent from './LoadingComponent';
+
+function getDownloadFileName(fileName) {
+    return fileName.replace(/\.Ricochet(I|LW)$/, '') + ' (decompressed).txt';
+}
 
 const LoadableDecompressorEditor = Loadable({
     loader: () => import('./DecompressorEditor'),
     loading(props) {
         return (
             <CardBody>
-                <LoadingComponent {...props} text="Loading text editor..."/>
+                <LoadingComponent {...props} text="Loading text viewer..."/>
             </CardBody>
         );
     },
@@ -20,7 +24,14 @@ const LoadableDecompressorEditor = Loadable({
 
 export default class DecompressorApp extends Component {
     state = {
-        result: '',
+        fileName: '',
+        error: '',
+
+        inflatedResult: '',
+        utf8Result: '',
+        objectUrl: '',
+
+        useBrowserTextEditor: false,
     };
 
     render() {
@@ -32,25 +43,92 @@ export default class DecompressorApp extends Component {
                     <CardBody>
                         <p>Decompress Ricochet levels to view their raw text data.</p>
 
-                        <input type="file" className="w-100" style={{cursor: 'pointer'}} accept=".RicochetI,.RicochetLW"
-                               onChange={this.onFileChange} onMouseEnter={this.onBrowseButtonMouseOver}/>
+                        <FormGroup>
+                            <CustomInput type="radio" name="output" id="output_disk"
+                                         checked={!this.state.useBrowserTextEditor}
+                                         label="Save decompressed result to disk"
+                                         onChange={this.onOutputRadioButtonChanged.bind(this, false)}/>
+
+                            <CustomInput type="radio" name="output" id="output_browser"
+                                         checked={this.state.useBrowserTextEditor}
+                                         label="View in browser (powered by Visual Studio Code)"
+                                         onChange={this.onOutputRadioButtonChanged.bind(this, true)}/>
+                        </FormGroup>
+
+                        <CustomInput type="file"
+                                     label={this.state.fileName}
+                                     accept=".RicochetI,.RicochetLW"
+                                     onChange={this.onFileChange}/>
                     </CardBody>
                 </Card>
 
-                {this.state.result ? <Card className="mb-3">
-                    <CardHeader>Results</CardHeader>
+                {this.state.error ? <Alert color="danger">
+                    {this.state.error}
+                </Alert> : null}
 
-                    <LoadableDecompressorEditor text={this.state.result}/>
+                {this.state.useBrowserTextEditor && this.state.utf8Result ? <Card className="mb-3">
+                    <CardHeader>Decompressed result</CardHeader>
+
+                    <LoadableDecompressorEditor text={this.state.utf8Result}/>
+                </Card> : null}
+
+                {!this.state.useBrowserTextEditor && this.state.objectUrl ? <Card className="mb-3">
+                    <CardHeader>Decompressed result</CardHeader>
+
+                    <CardBody>
+                        <p>You can edit the file with your favorite text editor for advanced scripting, be sure to
+                            save the file with Windows (CRLF) line endings and Windows-1252 text encoding.</p>
+
+                        <Button
+                            tag="a"
+                            href={this.state.objectUrl}
+                            download={getDownloadFileName(this.state.fileName)}
+                            outline
+                            color="primary">
+                            Download
+                        </Button>
+                    </CardBody>
                 </Card> : null}
             </div>
         );
     }
 
-    onBrowseButtonMouseOver() {
-        LoadableDecompressorEditor.preload();
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.objectUrl !== prevState.objectUrl) {
+            window.URL.revokeObjectURL(prevState.objectUrl);
+        }
+
+        if (this.state.useBrowserTextEditor !== prevState.useBrowserTextEditor) {
+            if (this.state.useBrowserTextEditor) {
+                if (!this.state.utf8Result) {
+                    this.decodeDeflatedResult();
+                }
+            } else {
+                if (!this.state.objectUrl) {
+                    this.generateDownload();
+                }
+            }
+        }
+    }
+
+    onOutputRadioButtonChanged(useBrowserTextEditor) {
+        this.setState({useBrowserTextEditor});
+
+        if (useBrowserTextEditor) {
+            LoadableDecompressorEditor.preload();
+        }
     }
 
     onFileChange = ({currentTarget}) => {
+        this.setState({
+            fileName: '',
+            error: '',
+
+            inflatedResult: '',
+            utf8Result: '',
+            objectUrl: '',
+        });
+
         if (currentTarget.files && currentTarget.files[0]) {
             this.processFile(currentTarget.files[0]);
         }
@@ -59,12 +137,16 @@ export default class DecompressorApp extends Component {
     processFile = (file) => {
         // should be unknown
         if (file.type !== '') {
-            throw new Error('File should be .RicochetI or .RicochetLW');
+            this.setState({error: 'File should be .RicochetI or .RicochetLW'});
+            return;
         }
+
+        this.setState({fileName: file.name});
 
         const reader = new FileReader();
         reader.onload = this.onFileReaderFile;
         reader.onerror = (ex) => {
+            this.setState({error: ex.message});
             throw ex;
         };
         reader.readAsArrayBuffer(file);
@@ -72,10 +154,52 @@ export default class DecompressorApp extends Component {
 
     onFileReaderFile = (buffer) => {
         const compressed = new Uint8Array(buffer.currentTarget.result, 9);
-        const decoder = new TextDecoder('windows-1252', {fatal: true});
+        const inflatedResult = inflate(compressed);
 
-        const result = decoder.decode(inflate(compressed));
+        this.setState(
+            {inflatedResult},
+            () => {
+                if (!this.state.useBrowserTextEditor) {
+                    this.generateDownload()
+                        .then(this.downloadResult);
+                } else {
+                    this.decodeDeflatedResult();
+                }
+            }
+        );
+    };
 
-        this.setState({result});
+    generateDownload() {
+        return new Promise((resolve) => {
+            const blob = new Blob([this.state.inflatedResult], {type: 'text/plain'});
+
+            this.setState(
+                {objectUrl: window.URL.createObjectURL(blob)},
+                resolve
+            );
+        });
+    }
+
+    decodeDeflatedResult() {
+        const utf8Result = new TextDecoder('windows-1252', {fatal: true}).decode(this.state.inflatedResult);
+
+        this.setState({utf8Result});
+    }
+
+    downloadResult = () => {
+        // Firefox requires link to be inserted in <body> before clicking
+        // https://stackoverflow.com/a/27116581
+        const link = document.createElement('a');
+        link.setAttribute('href', this.state.objectUrl);
+        link.setAttribute('download', getDownloadFileName(this.state.fileName));
+        link.style.position = 'absolute';
+        link.style.top = '0';
+        link.style.left = '-10px';
+        link.style.visibility = 'hidden';
+        link.setAttribute('aria-hidden', 'true');
+        link.tabIndex = -1;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
     };
 }
