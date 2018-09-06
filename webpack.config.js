@@ -8,7 +8,7 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './resources/assets/js/app.js',
+        app: './resources/js/app.js',
     },
     output: {
         path: path.resolve(__dirname, 'public/build/'),
