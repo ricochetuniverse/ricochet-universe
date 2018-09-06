@@ -104,7 +104,7 @@ export default class DecompressorApp extends Component {
                     this.decodeDeflatedResult();
                 }
             } else {
-                if (!this.state.objectUrl) {
+                if (!this.state.objectUrl && this.state.inflatedResult) {
                     this.generateDownload();
                 }
             }
