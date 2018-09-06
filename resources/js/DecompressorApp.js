@@ -99,13 +99,15 @@ export default class DecompressorApp extends Component {
         }
 
         if (this.state.useBrowserTextEditor !== prevState.useBrowserTextEditor) {
-            if (this.state.useBrowserTextEditor) {
-                if (!this.state.utf8Result) {
-                    this.decodeDeflatedResult();
-                }
-            } else {
-                if (!this.state.objectUrl && this.state.inflatedResult) {
-                    this.generateDownload();
+            if (this.state.inflatedResult) {
+                if (this.state.useBrowserTextEditor) {
+                    if (!this.state.utf8Result) {
+                        this.decodeDeflatedResult();
+                    }
+                } else {
+                    if (!this.state.objectUrl) {
+                        this.generateDownload();
+                    }
                 }
             }
         }
