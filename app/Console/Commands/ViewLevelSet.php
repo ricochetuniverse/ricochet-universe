@@ -56,6 +56,15 @@ class ViewLevelSet extends Command
         $parser = new LevelSetParser;
         $results = $parser->parse($levelSetData);
 
+        $this->line('iPhone specific levels: (if any)');
+        for ($i = 0; $i < count($results['rounds']); $i += 1) {
+            $round = $results['rounds'][$i];
+
+            if (isset($round['iphone_specific'])) {
+                $this->line(($i + 1).': '.$round['name']);
+            }
+        }
+
         if (!$this->option('with-picture')) {
             foreach ($results['rounds'] as &$round) {
                 unset($round['picture']);

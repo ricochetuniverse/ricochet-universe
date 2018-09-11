@@ -27,8 +27,8 @@ class LevelSetParser
     private $levelSetRoundToGetImageFrom = 1;
 
     private $currentLevelRound = [];
-
     private $currentLevelRoundPicture = '';
+    private $currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
 
     /**
      * @param string $levelSetData
@@ -45,6 +45,7 @@ class LevelSetParser
         $rounds = [];
 
         $key = '';
+        $value = '';
         $newLine = "\r\n";
         $nested = [];
         $line = strtok($levelSetData, $newLine);
@@ -52,28 +53,38 @@ class LevelSetParser
             $line = ltrim($line, "\t");
 
             if ($line === '{') {
-                array_push($nested, $key);
+                $nested[] = ['key' => $key, 'value' => $value];
 
                 if ($key === 'Round') {
                     $this->currentLevelRound = [];
                 } elseif ($key === 'Compressed Thumbnail') {
                     $this->currentLevelRoundPicture = '';
+                } elseif ($key === 'Condition' && $value === 'CExpressionRecallButtonPressed') {
+                    $this->currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
                 }
             } elseif ($line === '}') {
                 $popped = array_pop($nested);
 
-                if ($popped === 'Round') {
+                if ($popped['key'] === 'Round') {
                     array_push($rounds, $this->currentLevelRound);
-                } elseif ($popped === 'Compressed Thumbnail') {
+                } elseif ($popped['key'] === 'Compressed Thumbnail') {
                     $this->currentLevelRound['picture'] = $this->decodeAsciiPicture($this->currentLevelRoundPicture);
+                } elseif ($popped['key'] === 'Condition' && $popped['value'] === 'CExpressionRecallButtonPressed') {
+                    if (!$this->currentRecallButtonPressedCondition['left'] || !$this->currentRecallButtonPressedCondition['right']) {
+                        $this->currentLevelRound['iphone_specific'] = true;
+                    }
+
+                    // reset state
+                    $this->currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
                 }
             } else {
-                if (end($nested) !== 'Compressed Thumbnail') {
+                $last = end($nested);
+                if ($last && $last['key'] !== 'Compressed Thumbnail') {
                     $temp = explode('=', $line, 2);
                     $key = $temp[0];
                     $value = $temp[1] ?? '';
 
-                    $this->setPropertyForNested(end($nested), $key, $value);
+                    $this->setPropertyForNested($last, $key, $value);
                 } else {
                     // Collect all the strings to concat them in the end
                     $key = '';
@@ -102,9 +113,9 @@ class LevelSetParser
      * @param string $key
      * @param string $value
      */
-    private function setPropertyForNested(string $nested, string $key, string $value)
+    private function setPropertyForNested(array $nested, string $key, string $value)
     {
-        switch ($nested) {
+        switch ($nested['key']) {
             case 'CRoundSetUserMade':
                 switch ($key) {
                     case 'Author':
@@ -164,6 +175,23 @@ class LevelSetParser
                 }
                 break;
 
+            case 'Condition':
+                if ($nested['value'] === 'CExpressionRecallButtonPressed') {
+                    switch ($key) {
+                        case 'Check For Left Recall':
+                            $this->currentRecallButtonPressedCondition['left'] = (bool) $value;
+                            break;
+
+                        case 'Check For Right Recall':
+                            $this->currentRecallButtonPressedCondition['right'] = (bool) $value;
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                // no break
             default:
                 break;
         }
