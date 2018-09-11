@@ -7,8 +7,12 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__);
 
 return PhpCsFixer\Config::create()
-    ->setRules([
-        '@PSR2' => true,
-        'array_syntax' => ['syntax' => 'short'],
-    ])
+    ->setRules(
+        [
+            '@PSR2'                       => true,
+            'array_syntax'                => ['syntax' => 'short'],
+            'linebreak_after_opening_tag' => true,
+            'ordered_imports'             => true,
+        ]
+    )
     ->setFinder($finder);

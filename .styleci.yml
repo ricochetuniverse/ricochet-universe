@@ -1,0 +1,9 @@
+preset: psr2
+
+enabled:
+    - alpha_ordered_imports
+    - linebreak_after_opening_tag
+    - short_array_syntax
+
+disabled:
+    - length_ordered_imports
