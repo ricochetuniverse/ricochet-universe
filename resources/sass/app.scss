@@ -1,8 +1,8 @@
 $body-bg: #000;
 $body-color: #fff;
 
-$primary: #00FFFE;
-$secondary: #FFED11;
+$primary: #00fffe;
+$secondary: #ffed11;
 
 $font-family-sans-serif: Verdana, Arial, Helvetica, sans-serif;
 
@@ -11,7 +11,7 @@ $link-hover-color: #fff;
 
 $component-active-bg: #095352;
 
-$card-border-color: #01FFFF;
+$card-border-color: #01ffff;
 $card-cap-bg: #095352;
 $card-bg: $body-bg;
 
@@ -88,7 +88,7 @@ body {
 }
 
 .page-item.disabled {
-    opacity: .4;
+    opacity: 0.4;
 }
 
 .page-item.active .page-link {
@@ -135,7 +135,7 @@ body {
 }
 
 .nav-link-discord:hover > svg {
-    fill: #7289DA;
+    fill: #7289da;
 }
 
 .nav-link-gitlab > svg {
@@ -144,7 +144,7 @@ body {
 }
 
 .nav-link-gitlab:hover > svg {
-    fill: #E24329;
+    fill: #e24329;
 }
 
 input.dropdown-item {
@@ -201,7 +201,9 @@ input.dropdown-item {
         @include make-col(2);
     }
 
-    &:hover, &:active, &:focus {
+    &:hover,
+    &:active,
+    &:focus {
         background: $component-active-bg;
 
         text-decoration: none;

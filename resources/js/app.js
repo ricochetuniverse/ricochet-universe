@@ -12,7 +12,8 @@ $('[data-toggle="tooltip"]').each(function() {
 
     const options = {};
     if ($base.closest('.navbar').length) {
-        options.template = '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner text-nowrap"></div></div>';
+        options.template =
+            '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner text-nowrap"></div></div>';
     }
     $base.tooltip(options);
 });

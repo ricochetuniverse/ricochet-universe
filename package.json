@@ -14,6 +14,7 @@
   "license": "MPL-2.0",
   "scripts": {
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --mode development --progress",
+    "prettier": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.scss\" \"**/*.md\" \"**/*.yml\"",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js -p --mode production --no-progress",
     "watch": "yarn run development --watch"
   },
@@ -50,6 +51,7 @@
     "monaco-editor-webpack-plugin": "1.5.2",
     "postcss": "7.0.2",
     "postcss-loader": "3.0.0",
+    "prettier": "1.14.2",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
     "webpack": "4.17.2",

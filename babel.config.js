@@ -10,23 +10,24 @@ module.exports = (api) => {
     ];
 
     if (env === 'production') {
-        plugins.push(
-            ['transform-imports', {
-                'reactstrap': {
-                    'transform': 'reactstrap/lib/${member}',
-                    'preventFullImport': true,
+        plugins.push([
+            'transform-imports',
+            {
+                reactstrap: {
+                    transform: 'reactstrap/lib/${member}',
+                    preventFullImport: true,
                 },
-            }],
-        );
+            },
+        ]);
     }
 
     return {
-        'presets': [
+        presets: [
             [
                 '@babel/preset-env',
                 {
-                    'modules': false,
-                }
+                    modules: false,
+                },
             ],
             [
                 '@babel/preset-react',

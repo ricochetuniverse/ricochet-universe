@@ -26,5 +26,5 @@ const LoadableDecompressorApp = Loadable({
 const root = document.getElementById('decompressor-root');
 
 if (root) {
-    render(<LoadableDecompressorApp/>, root);
+    render(<LoadableDecompressorApp />, root);
 }

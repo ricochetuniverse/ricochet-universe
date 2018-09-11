@@ -2,7 +2,15 @@ import {inflate} from 'pako/lib/inflate';
 // noinspection ES6UnusedImports
 import {Component, h} from 'preact';
 import Loadable from 'react-loadable';
-import {Alert, Button, Card, CardBody, CardHeader, CustomInput, FormGroup} from 'reactstrap';
+import {
+    Alert,
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    CustomInput,
+    FormGroup,
+} from 'reactstrap';
 
 import LoadingComponent from './LoadingComponent';
 
@@ -15,7 +23,7 @@ const LoadableDecompressorEditor = Loadable({
     loading(props) {
         return (
             <CardBody>
-                <LoadingComponent {...props} text="Loading text viewer..."/>
+                <LoadingComponent {...props} text="Loading text viewer..." />
             </CardBody>
         );
     },
@@ -41,54 +49,86 @@ export default class DecompressorApp extends Component {
                     <CardHeader>Decompressor</CardHeader>
 
                     <CardBody>
-                        <p>Decompress Ricochet levels to view their raw text data.</p>
+                        <p>
+                            Decompress Ricochet levels to view their raw text
+                            data.
+                        </p>
 
                         <FormGroup>
-                            <CustomInput type="radio" name="output" id="output_disk"
-                                         checked={!this.state.useBrowserTextEditor}
-                                         label="Save decompressed result to disk"
-                                         onChange={this.onOutputRadioButtonChanged.bind(this, false)}/>
+                            <CustomInput
+                                type="radio"
+                                name="output"
+                                id="output_disk"
+                                checked={!this.state.useBrowserTextEditor}
+                                label="Save decompressed result to disk"
+                                onChange={this.onOutputRadioButtonChanged.bind(
+                                    this,
+                                    false
+                                )}
+                            />
 
-                            <CustomInput type="radio" name="output" id="output_browser"
-                                         checked={this.state.useBrowserTextEditor}
-                                         label="View in browser (powered by Visual Studio Code)"
-                                         onChange={this.onOutputRadioButtonChanged.bind(this, true)}/>
+                            <CustomInput
+                                type="radio"
+                                name="output"
+                                id="output_browser"
+                                checked={this.state.useBrowserTextEditor}
+                                label="View in browser (powered by Visual Studio Code)"
+                                onChange={this.onOutputRadioButtonChanged.bind(
+                                    this,
+                                    true
+                                )}
+                            />
                         </FormGroup>
 
-                        <CustomInput type="file"
-                                     label={this.state.fileName}
-                                     accept=".RicochetI,.RicochetLW"
-                                     onChange={this.onFileChange}/>
+                        <CustomInput
+                            type="file"
+                            label={this.state.fileName}
+                            accept=".RicochetI,.RicochetLW"
+                            onChange={this.onFileChange}
+                        />
                     </CardBody>
                 </Card>
 
-                {this.state.error ? <Alert color="danger">
-                    {this.state.error}
-                </Alert> : null}
+                {this.state.error ? (
+                    <Alert color="danger">{this.state.error}</Alert>
+                ) : null}
 
-                {this.state.useBrowserTextEditor && this.state.utf8Result ? <Card className="mb-3">
-                    <CardHeader>Decompressed result</CardHeader>
+                {this.state.useBrowserTextEditor && this.state.utf8Result ? (
+                    <Card className="mb-3">
+                        <CardHeader>Decompressed result</CardHeader>
 
-                    <LoadableDecompressorEditor text={this.state.utf8Result}/>
-                </Card> : null}
+                        <LoadableDecompressorEditor
+                            text={this.state.utf8Result}
+                        />
+                    </Card>
+                ) : null}
 
-                {!this.state.useBrowserTextEditor && this.state.objectUrl ? <Card className="mb-3">
-                    <CardHeader>Decompressed result</CardHeader>
+                {!this.state.useBrowserTextEditor && this.state.objectUrl ? (
+                    <Card className="mb-3">
+                        <CardHeader>Decompressed result</CardHeader>
 
-                    <CardBody>
-                        <p>You can edit the file with your favorite text editor for advanced scripting, be sure to
-                            save the file with Windows (CRLF) line endings and Windows-1252 text encoding.</p>
+                        <CardBody>
+                            <p>
+                                You can edit the file with your favorite text
+                                editor for advanced scripting, be sure to save
+                                the file with Windows (CRLF) line endings and
+                                Windows-1252 text encoding.
+                            </p>
 
-                        <Button
-                            tag="a"
-                            href={this.state.objectUrl}
-                            download={getDownloadFileName(this.state.fileName)}
-                            outline
-                            color="primary">
-                            Download
-                        </Button>
-                    </CardBody>
-                </Card> : null}
+                            <Button
+                                tag="a"
+                                href={this.state.objectUrl}
+                                download={getDownloadFileName(
+                                    this.state.fileName
+                                )}
+                                outline
+                                color="primary"
+                            >
+                                Download
+                            </Button>
+                        </CardBody>
+                    </Card>
+                ) : null}
             </div>
         );
     }
@@ -98,7 +138,9 @@ export default class DecompressorApp extends Component {
             window.URL.revokeObjectURL(prevState.objectUrl);
         }
 
-        if (this.state.useBrowserTextEditor !== prevState.useBrowserTextEditor) {
+        if (
+            this.state.useBrowserTextEditor !== prevState.useBrowserTextEditor
+        ) {
             if (this.state.inflatedResult) {
                 if (this.state.useBrowserTextEditor) {
                     if (!this.state.utf8Result) {
@@ -158,22 +200,20 @@ export default class DecompressorApp extends Component {
         const compressed = new Uint8Array(buffer.currentTarget.result, 9);
         const inflatedResult = inflate(compressed);
 
-        this.setState(
-            {inflatedResult},
-            () => {
-                if (!this.state.useBrowserTextEditor) {
-                    this.generateDownload()
-                        .then(this.downloadResult);
-                } else {
-                    this.decodeDeflatedResult();
-                }
+        this.setState({inflatedResult}, () => {
+            if (!this.state.useBrowserTextEditor) {
+                this.generateDownload().then(this.downloadResult);
+            } else {
+                this.decodeDeflatedResult();
             }
-        );
+        });
     };
 
     generateDownload() {
         return new Promise((resolve) => {
-            const blob = new Blob([this.state.inflatedResult], {type: 'text/plain'});
+            const blob = new Blob([this.state.inflatedResult], {
+                type: 'text/plain',
+            });
 
             this.setState(
                 {objectUrl: window.URL.createObjectURL(blob)},
@@ -183,7 +223,9 @@ export default class DecompressorApp extends Component {
     }
 
     decodeDeflatedResult() {
-        const utf8Result = new TextDecoder('windows-1252', {fatal: true}).decode(this.state.inflatedResult);
+        const utf8Result = new TextDecoder('windows-1252', {
+            fatal: true,
+        }).decode(this.state.inflatedResult);
 
         this.setState({utf8Result});
     }
