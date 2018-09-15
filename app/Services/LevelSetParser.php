@@ -47,7 +47,9 @@ class LevelSetParser
         $key = '';
         $value = '';
         $newLine = "\r\n";
-        $nested = [];
+        $nested = [
+            ['key' => 'CRoundSetUserMade', 'value' => ''],
+        ];
         $line = strtok($levelSetData, $newLine);
         while ($line !== false) {
             $line = ltrim($line, "\t");
