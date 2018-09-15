@@ -20,8 +20,10 @@ class LevelSetParserTest extends TestCase
         $this->assertCount(26, $results['rounds']);
         $this->assertEquals($results['rounds'][0]['name'], 'Whirlpool');
         $this->assertEquals($results['rounds'][0]['author'], 'Ion');
-        $this->assertEquals($results['rounds'][0]['note1'],
-            '2 rings hidden under obstacles. Obstacles move when all 3 PU bricks over rings are destroyed');
+        $this->assertEquals(
+            $results['rounds'][0]['note1'],
+            '2 rings hidden under obstacles. Obstacles move when all 3 PU bricks over rings are destroyed'
+        );
         $this->assertEquals($results['rounds'][0]['source'], 'Ion/Reflexive B Sides/1');
     }
 
@@ -32,8 +34,10 @@ class LevelSetParserTest extends TestCase
         $results = (new LevelSetParser)->parse($levelSetData);
 
         $this->assertEquals($results['levelSet']['author'], 'Josef L');
-        $this->assertEquals($results['levelSet']['description'],
-            'Just some relaxing quick levels I hope you find fun  .. Some helpful power ups to help you on your way . Enjoy .');
+        $this->assertEquals(
+            $results['levelSet']['description'],
+            'Just some relaxing quick levels I hope you find fun  .. Some helpful power ups to help you on your way . Enjoy .'
+        );
         $this->assertEquals($results['levelSet']['roundToGetImageFrom'], 1);
 
         $this->assertCount(13, $results['rounds']);
