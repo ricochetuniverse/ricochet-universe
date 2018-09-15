@@ -31,7 +31,7 @@
     "reactstrap": "6.4.0"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0",
+    "@babel/core": "7.0.1",
     "@babel/plugin-proposal-class-properties": "7.0.0",
     "@babel/plugin-syntax-dynamic-import": "7.0.0",
     "@babel/plugin-transform-runtime": "7.0.0",
@@ -44,18 +44,18 @@
     "cross-env": "5.2.0",
     "css-loader": "1.0.0",
     "cssnano": "4.1.0",
-    "dart-sass": "1.13.2",
+    "dart-sass": "1.13.4",
     "extract-loader": "3.0.0",
     "fibers": "3.0.0",
     "file-loader": "2.0.0",
-    "monaco-editor-webpack-plugin": "1.5.2",
+    "monaco-editor-webpack-plugin": "1.5.3",
     "postcss": "7.0.2",
     "postcss-loader": "3.0.0",
     "prettier": "1.14.2",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
-    "webpack": "4.17.2",
+    "webpack": "4.19.0",
     "webpack-command": "0.4.1",
-    "webpack-manifest-plugin": "2.0.3"
+    "webpack-manifest-plugin": "2.0.4"
   }
 }
