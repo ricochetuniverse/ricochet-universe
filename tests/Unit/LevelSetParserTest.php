@@ -13,7 +13,7 @@ class LevelSetParserTest extends TestCase
 
         $results = (new LevelSetParser)->parse($levelSetData);
 
-        $this->assertEquals($results['levelSet']['author'], '');
+        $this->assertEquals($results['levelSet']['author'], 'Reflexive Entertainment');
         $this->assertEquals($results['levelSet']['description'], '');
         $this->assertEquals($results['levelSet']['roundToGetImageFrom'], 1);
 
