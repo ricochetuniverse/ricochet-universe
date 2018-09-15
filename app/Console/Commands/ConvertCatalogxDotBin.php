@@ -46,6 +46,7 @@ class ConvertCatalogxDotBin extends Command
 
         if (!$file) {
             $this->error('Cannot read file');
+
             return;
         }
 
@@ -113,6 +114,8 @@ class ConvertCatalogxDotBin extends Command
                 $levelSet->round_to_get_image_from = (int)str_before(end($parts), '.jpg');
             }
 
+            $this->repairCatalogItem($levelSet);
+
             $levelSet->save();
 
             $levelSet->retag(array_filter(explode(';', $rowData[13])));
@@ -143,5 +146,45 @@ class ConvertCatalogxDotBin extends Command
         $url = str_replace('%2F', '/', $url);
 
         return $url;
+    }
+
+    /**
+     * Unfortunately, catalogx.bin contains some corrupted data that requires some
+     * special attention when importing
+     *
+     * https://gitlab.com/ngyikp/ricochet-levels/issues/9
+     *
+     * @param LevelSet $levelSet
+     * @return LevelSet
+     */
+    private function repairCatalogItem(LevelSet $levelSet)
+    {
+        // Legacy ID 729
+        $levelSet->description = str_replace('&#268;', 'Č', $levelSet->description);
+
+        // Legacy ID 921
+        $levelSet->author = str_replace('Ã£', 'ã', $levelSet->author);
+        $levelSet->description = str_replace('Â«', '«', $levelSet->description);
+        $levelSet->description = str_replace('Â»', '»', $levelSet->description);
+
+        // Legacy ID 1039
+        $levelSet->author = str_replace('Ã©', 'é', $levelSet->author);
+
+        // Legacy ID 1080
+        $levelSet->description = str_replace('â€œ', '“', $levelSet->description);
+
+        $levelSet->description = str_replace(
+            chr(195).chr(162).chr(226).chr(130).chr(172).chr(239).chr(191).chr(189),
+            '”',
+            $levelSet->description
+        );
+
+        // Legacy ID 1263
+        $levelSet->author = str_replace(chr(195).chr(131).chr(194).chr(173), 'í', $levelSet->author);
+
+        // Legacy ID 1511
+        $levelSet->description = str_replace('â€“', '–', $levelSet->description);
+
+        return $levelSet;
     }
 }
