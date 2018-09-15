@@ -31,33 +31,15 @@
                             connections, we need to update curl to connect to today’s web.</p>
 
                         <p>
-                            Go to
-                            <a href="https://skanthak.homepage.t-online.de/curl.html#installation">https://skanthak.homepage.t-online.de/curl.html#installation</a>
-                            and download the <code>curl-*.**.*.cab</code> file.
+                            Download the new version of <code><a href="{{ asset('misc/libcurl.dll') }}">libcurl.dll</a></code>
+                            (version 7.61.1), then copy and paste it to the Ricochet Infinity program folder.
                         </p>
 
-                        <p>
-                            Open the downloaded CAB file, copy <code>LIBCURL.DLL</code> from <code>I386\</code> and
-                            paste it to the Ricochet Infinity program folder.
+                        <p class="m-0">
+                            (The original download link is located at
+                            <a href="https://skanthak.homepage.t-online.de/curl.html#installation">https://skanthak.homepage.t-online.de/curl.html#installation</a>,
+                            feel free to use that link and/or send it to VirusTotal)
                         </p>
-
-                        <p>
-                            If Windows File Explorer shows 3 confusing copies of <code>LIBCURL.DLL</code> when you open
-                            the CAB file, please change the <span class="text-nowrap">View to Details</span>, and then
-                            <span class="text-nowrap">Group by &gt; Path</span>. Refer to this video if you’re not sure
-                            what to do:
-                        </p>
-
-                        <div class="embed-responsive reviverPage__curl__video">
-                            <video src="{{ asset('video/ricochet-libcurl.mp4') }}"
-                                   width="1052"
-                                   height="698"
-                                   controls
-                                   muted
-                                   poster="{{ asset('images/ricochet-libcurl-video-poster.png') }}"
-                                   preload="none"
-                                   class="embed-responsive-item"></video>
-                        </div>
                     </div>
                 </div>
 
