@@ -147,6 +147,12 @@ body {
     fill: #e24329;
 }
 
+.navbar-search {
+    flex: 1;
+    min-width: 0;
+    max-width: 200px;
+}
+
 input.dropdown-item {
     cursor: pointer;
 }
