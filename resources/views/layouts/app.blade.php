@@ -39,13 +39,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore and download level sets created by the community" data-toggle="tooltip">Levels</a>
                         </li>
-                        @auth
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ action('UploadController@index') }}" title="Upload and share your level sets" data-toggle="tooltip">Upload</a>
-                            </li>
-                        @endauth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">Reviver</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ action('UploadController@index') }}" title="Upload and share your level sets" data-toggle="tooltip">Upload</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('DecompressorController@index') }}" title="Decompress Ricochet levels to view their raw text data" data-toggle="tooltip">Decompressor</a>
