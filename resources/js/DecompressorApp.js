@@ -50,8 +50,11 @@ export default class DecompressorApp extends Component {
 
                     <CardBody>
                         <p>
-                            Decompress Ricochet levels to view their raw text
-                            data.
+                            Decompress Ricochet levels (<code>.RicochetI</code>/
+                            <code>.RicochetLW</code>
+                            ), your stats (<code>Stats.dat</code>) and level set
+                            cache (<code>Levelsets.dat</code>) to view their raw
+                            text data.
                         </p>
 
                         <FormGroup>
@@ -83,7 +86,7 @@ export default class DecompressorApp extends Component {
                         <CustomInput
                             type="file"
                             label={this.state.fileName}
-                            accept=".RicochetI,.RicochetLW"
+                            accept=".RicochetI,.RicochetLW,.dat"
                             onChange={this.onFileChange}
                         />
                     </CardBody>
@@ -180,8 +183,8 @@ export default class DecompressorApp extends Component {
 
     processFile = (file) => {
         // should be unknown
-        if (file.type !== '') {
-            this.setState({error: 'File should be .RicochetI or .RicochetLW'});
+        if (file.type !== '' && file.type !== 'application/ms-tnef') {
+            this.setState({error: 'File should be .RicochetI or .RicochetLW or .dat'});
             return;
         }
 
