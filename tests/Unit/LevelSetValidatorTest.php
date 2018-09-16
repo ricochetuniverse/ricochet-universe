@@ -48,7 +48,7 @@ class LevelSetValidatorTest extends TestCase
 
         $names = [
             '',
-            'abc,a',
+            'abc;a',
             'abc/../',
         ];
 
