@@ -27,7 +27,7 @@ class LevelSetName implements Rule
     {
         // Game editor blocks these symbols: * / \ | " ; : < > ?
 
-        return preg_match('/^[a-zA-Z0-9`~!@#$%^&()\-_=+[\]{};\'.áéèïíöñ°³ ]+$/', $value) === 1;
+        return preg_match('/^[a-zA-Z0-9`~!@#$%^&()\-_=+[\]{}\',.áéèïíöñ°³ ]+$/', $value) === 1;
     }
 
     /**

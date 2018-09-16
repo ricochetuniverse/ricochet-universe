@@ -159,6 +159,9 @@ class ConvertCatalogxDotBin extends Command
      */
     private function repairCatalogItem(LevelSet $levelSet)
     {
+        // https://gitlab.com/ngyikp/ricochet-levels/issues/10
+        $levelSet->name = str_replace(';', ',', $levelSet->name);
+
         // Legacy ID 729
         $levelSet->description = str_replace('&#268;', 'Č', $levelSet->description);
 
