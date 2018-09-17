@@ -5,30 +5,39 @@ cache:
         - vendor/
         - node_modules/
 
-before_script:
-    - apt-get update
-    - apt-get install -y git gnupg
+.setup_php: &setup_php
+    before_script:
+        - apt-get update
+        - apt-get install -y git php7.2-zip
 
-    - curl -L https://deb.nodesource.com/setup_8.x | bash -
+        - curl https://getcomposer.org/installer | php
+        - php composer.phar install
 
-    - curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+        # - cp .env.testing .env
 
-    - apt-get install -y nodejs yarn
+.setup_node: &setup_node
+    before_script:
+        - apt-get update
+        - apt-get install -y gnupg
 
-    # - cp .env.testing .env
+        - curl -L https://deb.nodesource.com/setup_8.x | bash -
 
-    - curl https://getcomposer.org/installer | php
-    - php composer.phar install
+        - curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+        - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-    - yarn
+        - apt-get remove -y cmdtest
+        - apt-get install -y nodejs yarn
+
+        - yarn
 
 phpunit:
     stage: test
+    <<: *setup_php
     script:
         - php ./vendor/bin/phpunit --coverage-text --colors=never
 
 prettier:
     stage: test
+    <<: *setup_node
     script:
         - yarn run prettier -l
