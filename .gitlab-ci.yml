@@ -1,7 +1,4 @@
-image: php:7.2.10-fpm-alpine3.8
-
-#services:
-#- mysql:latest
+image: php:7.2
 
 cache:
     paths:
