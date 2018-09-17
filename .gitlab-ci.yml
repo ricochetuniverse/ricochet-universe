@@ -7,7 +7,7 @@ image: php:7.2
 
     before_script:
         - apt-get update
-        - apt-get install -y git libzip-dev
+        - apt-get install -y git unzip libzip-dev
         - docker-php-ext-install zip
 
         - curl https://getcomposer.org/installer | php
