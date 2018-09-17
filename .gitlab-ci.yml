@@ -1,22 +1,25 @@
 image: php:7.2
 
-cache:
-    paths:
-        - vendor/
-        - node_modules/
-
 .setup_php: &setup_php
+    cache:
+        paths:
+            - vendor/
+
     before_script:
         - apt-get update
         - apt-get install -y git libzip-dev
         - docker-php-ext-install zip
 
         - curl https://getcomposer.org/installer | php
-        - php composer.phar install
+        - php composer.phar install --no-progress
 
         # - cp .env.testing .env
 
 .setup_node: &setup_node
+    cache:
+        paths:
+            - node_modules/
+
     before_script:
         - apt-get update
         - apt-get install -y gnupg
@@ -35,7 +38,7 @@ phpunit:
     stage: test
     <<: *setup_php
     script:
-        - php ./vendor/bin/phpunit --coverage-text --colors=never
+        - php ./vendor/bin/phpunit
 
 prettier:
     stage: test
