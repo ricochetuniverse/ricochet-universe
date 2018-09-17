@@ -8,7 +8,8 @@ cache:
 .setup_php: &setup_php
     before_script:
         - apt-get update
-        - apt-get install -y git php7.2-zip
+        - apt-get install -y git libzip-dev
+        - docker-php-ext-install zip
 
         - curl https://getcomposer.org/installer | php
         - php composer.phar install
@@ -25,7 +26,7 @@ cache:
         - curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
         - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-        - apt-get remove -y cmdtest
+        - apt-get update
         - apt-get install -y nodejs yarn
 
         - yarn
