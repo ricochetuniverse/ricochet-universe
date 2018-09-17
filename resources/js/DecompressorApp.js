@@ -184,7 +184,9 @@ export default class DecompressorApp extends Component {
     processFile = (file) => {
         // should be unknown
         if (file.type !== '' && file.type !== 'application/ms-tnef') {
-            this.setState({error: 'File should be .RicochetI or .RicochetLW or .dat'});
+            this.setState({
+                error: 'File should be .RicochetI or .RicochetLW or .dat',
+            });
             return;
         }
 

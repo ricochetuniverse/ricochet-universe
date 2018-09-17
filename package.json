@@ -14,7 +14,7 @@
   "license": "MPL-2.0",
   "scripts": {
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --mode development --progress",
-    "prettier": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.scss\" \"**/*.md\" \"**/*.yml\"",
+    "prettier": "prettier \"**/*.js\" \"**/*.json\" \"**/*.scss\" \"**/*.md\" \"**/*.yml\"",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js -p --mode production --no-progress",
     "watch": "yarn run development --watch"
   },
