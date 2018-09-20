@@ -63,7 +63,7 @@
                         </select>
 
                         @foreach (request()->input() as $name => $value)
-                            @if ($name !== 'orderBy' && $name !== 'orderDir')
+                            @if (!in_array($name, ['search', 'orderBy', 'orderDir']))
                                 <input type="hidden" name="{{ $name }}" value="{{ $value }}">
                             @endif
                         @endforeach
