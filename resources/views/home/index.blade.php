@@ -17,7 +17,7 @@
         </div>
 
         <div class="row mt-3">
-            <div class="col-lg-6">
+            <div class="col-md pr-md-0">
                 <div class="card">
                     <div class="card-header">Most downloaded level sets</div>
 
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-md mt-3 mt-md-0 pr-xl-0">
                 <div class="card">
                     <div class="card-header">Recent level sets</div>
 
@@ -48,6 +48,11 @@
                     <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}"
                        class="btn btn-outline-primary">View more</a>
                 </div>
+            </div>
+
+            <div class="col-xl-auto mt-3 mt-xl-0">
+                <iframe src="https://discordapp.com/widget?id=295184393109110785&amp;theme=dark" width="100%"
+                        height="500" allowtransparency="true" frameborder="0" class="discordWidget"></iframe>
             </div>
         </div>
     </div>

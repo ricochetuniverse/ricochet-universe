@@ -160,6 +160,20 @@ input.dropdown-item {
     cursor: pointer;
 }
 
+// Home page
+.discordWidget {
+    width: 100%;
+    height: 500px;
+
+    @include media-breakpoint-up(xl) {
+        $spacer: map-get($spacers, 4);
+
+        width: 300px; // default: 350
+        height: 100vh;
+        height: calc(100vh - #{$spacer});
+    }
+}
+
 // Levels table
 .levelsTable__ratingColumn {
     .levelsRatings__wrap {
