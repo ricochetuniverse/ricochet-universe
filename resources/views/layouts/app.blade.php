@@ -35,7 +35,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore and download level sets created by the community" data-toggle="tooltip">Levels</a>
                         </li>
@@ -63,13 +63,15 @@
                         </li>
                     </ul>
 
-                    <form class="form-inline my-2 my-md-0 ml-md-2" method="GET" action="{{ action('LevelController@index') }}">
-                        <input class="form-control mr-2 navbar-search" type="search" name="search" placeholder="Search levels" aria-label="Search levels" value="{{ request()->input('search') }}">
-                        <button class="btn btn-outline-primary" type="submit">Search</button>
-                    </form>
+                    <div class="d-none d-md-flex flex-grow-1">
+                        <form class="form-inline my-2 my-md-0 ml-md-2 flex-grow-1 justify-content-end" method="GET" action="{{ action('LevelController@index') }}">
+                            <input class="form-control navbar-search" type="search" name="search" placeholder="Search level sets by name/author" title="Search level sets by name/author" value="{{ request()->input('search') }}">
+                            <button class="btn btn-outline-primary ml-2" type="submit">Search</button>
+                        </form>
+                    </div>
 
                     @auth
-                        <ul class="navbar-nav ml-2">
+                        <ul class="navbar-nav ml-md-2">
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle d-flex align-items-center"
                                    id="accountNavbarDropdownMenuLink" role="button" data-toggle="dropdown"

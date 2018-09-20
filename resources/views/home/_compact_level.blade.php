@@ -1,7 +1,7 @@
 <li class="list-group-item p-3">
     <div>
         <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
-           class="text-secondary font-weight-bold">{{ $levelSet->name }}</a> ({{ $levelSet->rounds }} rounds)
+           class="text-secondary font-weight-bold">{{ $levelSet->name }}</a> ({{ $levelSet->rounds }}&nbsp;rounds)
     </div>
 
     <div>

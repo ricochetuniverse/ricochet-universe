@@ -23,9 +23,60 @@
                     </div>
                 </div>
 
+                @if ($levelSets->total() > $levelSets->count())
+                    <p>
+                        Showing {{ number_format($levelSets->firstItem()).'-'.number_format($levelSets->lastItem()) }}
+                        of {{ number_format($levelSets->total()) }} level sets
+                    </p>
+                @else
+                    <p>Showing {{ $levelSets->count() }} level sets</p>
+                @endif
+
+                <div class="d-md-none mb-3">
+                    <form action="{{ action('LevelController@index') }}" method="GET" class="form-inline">
+                        <input class="form-control w-100" type="search" name="search"
+                               placeholder="Search level sets by name/author" title="Search level sets by name/author"
+                               value="{{ request()->input('search') }}">
+
+                        <div class="w-100 mb-2"></div>
+
+                        <select class="custom-select w-auto flex-grow-1" name="orderBy" title="Sort by">
+                            @foreach ([
+                                'Name' => 'Name',
+                                'Rounds' => 'Level count',
+                                'downloads' => 'Downloads',
+                                'Date_Posted' => 'Date posted',
+                                'Ratings' => 'Ratings'
+                            ] as $value => $text)
+                                <option value="{{ $value }}" {{ $orderBy === $value ? 'selected' : '' }}>
+                                    {{ $text }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <select class="custom-select w-auto flex-grow-1 ml-2" name="orderDir" title="Order by">
+                            @foreach (['ASC' => 'Ascending', 'DESC' => 'Descending'] as $value => $text)
+                                <option value="{{ $value }}" {{ $orderDirection === $value ? 'selected' : '' }}>
+                                    {{ $text }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @foreach (request()->input() as $name => $value)
+                            @if ($name !== 'orderBy' && $name !== 'orderDir')
+                                <input type="hidden" name="{{ $name }}" value="{{ $value }}">
+                            @endif
+                        @endforeach
+
+                        <div class="w-100 mb-2"></div>
+
+                        <button type="submit" class="btn btn-outline-primary ml-auto">Search</button>
+                    </form>
+                </div>
+
                 @unless ($levelSets->isEmpty())
                     <table class="table table-bordered">
-                        <thead class="thead-light thead-clickable">
+                        <thead class="d-none d-md-table-header-group thead-light thead-clickable">
                         <tr>
                             <th>
                                 <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'ASC' ? 'DESC' : 'ASC'])) }}"
@@ -70,7 +121,7 @@
                                              title="Designed for Ricochet Infinity. Can only be played in Ricochet Infinity."
                                              width="32"
                                              height="32"
-                                             class="float-right"
+                                             class="float-right ml-3"
                                              data-toggle="tooltip">
                                     @else
                                         <img src="{{ asset('images/RLW.gif') }}"
@@ -78,21 +129,21 @@
                                              title="Designed for Ricochet Lost Worlds. Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity."
                                              width="32"
                                              height="32"
-                                             class="float-right"
+                                             class="float-right ml-3"
                                              data-toggle="tooltip">
                                     @endif
 
                                     <p class="m-0">
                                         <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
-                                           class="font-weight-bold">
-                                            {{ $levelSet->name }}
-                                        </a>
+                                           class="text-secondary font-weight-bold">{{ $levelSet->name }}</a><span
+                                            class="d-md-none"> ({{ $levelSet->rounds }}&nbsp;rounds)</span>
                                     </p>
 
                                     <p class="m-0">
-                                        by <a
+                                        By <a
                                             href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
-                                            title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>
+                                            title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a><span
+                                            class="d-md-none">, posted on {{ $levelSet->created_at->format('Y-m-d') }}</span>
                                     </p>
 
                                     <div class="media mt-2">
@@ -121,7 +172,19 @@
                                         </div>
                                     @endif
 
-                                    <div class="d-flex">
+                                    @if ($levelSet->overall_rating)
+                                        <div class="d-md-none">
+                                            <div class="row no-gutters mt-3">
+                                                <span class="col-auto mr-2">Ratings:</span>
+
+                                                <div class="col">
+                                                    @include('levels._rating', ['levelSet' => $levelSet])
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="d-none d-md-flex">
                                         <a href="{{ action('API\LevelDownloadController@download', ['File' => 'downloads/raw/'.$levelSet->name.$levelSet->getFileExtension()]) }}"
                                            class="d-inline-flex align-items-center mt-2">
                                             <img src="{{ asset('images/levelDownload.jpg') }}"
@@ -133,12 +196,12 @@
                                         </a>
                                     </div>
                                 </td>
-                                <td class="text-center">{{ $levelSet->rounds }}</td>
-                                <td class="text-center">
+                                <td class="d-none d-md-table-cell text-center">{{ $levelSet->rounds }}</td>
+                                <td class="d-none d-md-table-cell text-center">
                                     {{ $levelSet->downloads > 0 ? number_format($levelSet->downloads) : 'N/A' }}
                                 </td>
-                                <td class="text-center text-nowrap">{{ $levelSet->created_at->format('Y-m-d') }}</td>
-                                <td class="no-gutters levelsTable__ratingColumn">
+                                <td class="d-none d-md-table-cell text-center text-nowrap">{{ $levelSet->created_at->format('Y-m-d') }}</td>
+                                <td class="d-none d-md-table-cell no-gutters levelsTable__ratingColumn">
                                     @include('levels._rating', ['levelSet' => $levelSet])
                                 </td>
                             </tr>
@@ -147,7 +210,13 @@
                     </table>
 
                     <div class="d-flex justify-content-center">
-                        {{ $levelSets->links() }}
+                        <div class="d-md-none">
+                            {{ $levelSets->links('pagination::simple-bootstrap-4') }}
+                        </div>
+
+                        <div class="d-none d-md-block">
+                            {{ $levelSets->links() }}
+                        </div>
                     </div>
                 @else
                     <div class="card">
