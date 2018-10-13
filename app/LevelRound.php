@@ -51,11 +51,6 @@ class LevelRound extends Model
      */
     public function getImageUrl(): string
     {
-        // Caddy can't handle file names with #, even if escaped
-        if (str_contains($this->image_file_name, '#')) {
-            return config('app.url') . '/levels/cache/' . rawurlencode($this->image_file_name);
-        }
-
         return Storage::disk('round-images')->url(rawurlencode($this->image_file_name));
     }
 

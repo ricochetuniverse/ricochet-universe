@@ -44,12 +44,6 @@ class LevelSetImageController extends Controller
 
         $disk = Storage::disk('round-images');
         if ($disk->exists($fileName)) {
-            // Caddy can't handle file names with #, even if escaped
-            // Use less efficient download mechanism then
-            if (str_contains($fileName, '#')) {
-                return response()->file($disk->path($fileName));
-            }
-
             return RedirectForGame::to($isSecure, $disk->url($fileUrl));
         }
 
