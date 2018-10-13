@@ -26,10 +26,11 @@ export default class DiscordWidgetContainer extends Component {
     componentDidMount() {
         const request = new XMLHttpRequest();
 
-        // The extra URL parameters aren't used by Discord, it's to ensure we get CORS headers, not cached
+        // The extra URL parameters aren't used by Discord, but it's to ensure we get proper CORS headers, not cached
+        // from another origin
         request.open(
             'GET',
-            'https://discordapp.com/api/guilds/295184393109110785/widget.json?_=40670ca722c22f2e1fdf46226a857dd1',
+            'https://discordapp.com/api/guilds/295184393109110785/widget.json?_=' + window.location.origin,
             true
         );
         request.onload = () => {
