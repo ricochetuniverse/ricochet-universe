@@ -26,7 +26,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1",
-        "rtconner/laravel-tagging": "~2.2",
+        "rtconner/laravel-tagging": "^3.0",
         "sentry/sentry-laravel": "^0.10",
         "socialiteproviders/discord": "^2.0"
     },
