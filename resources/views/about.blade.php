@@ -26,25 +26,27 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header">Level set contributors</div>
+                @if ($authors->count() > 0 && $roundSum > 0)
+                    <div class="card">
+                        <div class="card-header">Level set contributors</div>
 
-                    <div class="card-body">
-                        <p>
-                            Thanks to ~{{ number_format($authors->count()) }} level creators
-                            contributing {{ number_format($roundSum) }} levels to play:
-                        </p>
+                        <div class="card-body">
+                            <p>
+                                Thanks to ~{{ number_format($authors->count()) }} level creators
+                                contributing {{ number_format($roundSum) }} levels to play:
+                            </p>
 
-                        <ul class="list-unstyled aboutPage__columns">
-                            @foreach ($authors as $author)
-                                <li class="mb-2">
-                                    <a href="{{ action('LevelController@index', ['author' => $author->author]) }}">{{ $author->author }}</a>
-                                    <span class="text-nowrap">({{ number_format($author->rounds_sum) }} levels)</span>
-                                </li>
-                            @endforeach
-                        </ul>
+                            <ul class="list-unstyled aboutPage__columns">
+                                @foreach ($authors as $author)
+                                    <li class="mb-2">
+                                        <a href="{{ action('LevelController@index', ['author' => $author->author]) }}">{{ $author->author }}</a>
+                                        <span class="text-nowrap">({{ number_format($author->rounds_sum) }} levels)</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>
