@@ -1,0 +1,108 @@
+#discord-widget-root {
+    width: 100%;
+
+    @include media-breakpoint-up(xl) {
+        width: 260px; // default: 350
+    }
+}
+
+.discordWidget__header {
+    background: #7289da;
+    padding: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover,
+    &:active,
+    &:focus {
+        text-decoration: none;
+
+        .btn-outline-secondary {
+            color: color-yiq($secondary);
+            background-color: $secondary;
+            border-color: $secondary;
+        }
+    }
+}
+
+.discordWidget__logo {
+    background: url('discord_logo.svg') no-repeat;
+    background-size: 124px 34px;
+    width: 124px;
+    height: 34px;
+
+    display: block;
+}
+
+.discordWidget__body {
+    background: #1e2124;
+    padding: 20px;
+
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.discordWidget__heading {
+    color: #8a8e94;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.discordWidget__memberList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.discordWidget__member {
+    display: flex;
+    align-items: center;
+
+    color: #8a8e94;
+    margin: 6px 0 6px 10px;
+}
+
+.discordWidget__member__avatar {
+    width: 16px;
+    height: 16px;
+
+    margin-right: 4px;
+    position: relative;
+}
+
+.discordWidget__member__avatar__image {
+    width: 16px;
+    height: 16px;
+    display: block;
+
+    border-radius: 8px;
+}
+
+.discordWidget__member__avatar__status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 6px;
+    height: 6px;
+
+    border-radius: 3px;
+}
+
+.discordMemberStatus--online {
+    background-color: #43b581;
+}
+
+.discordMemberStatus--idle {
+    background-color: #faa61a;
+}
+
+.discordMemberStatus--offline {
+    background-color: #747f8d;
+}
+
+.discordMemberStatus--dnd {
+    background-color: #f04747;
+}

@@ -51,8 +51,7 @@
             </div>
 
             <div class="col-xl-auto mt-3 mt-xl-0">
-                <iframe src="https://discordapp.com/widget?id=295184393109110785&amp;theme=dark" width="100%"
-                        height="500" allowtransparency="true" frameborder="0" class="discordWidget"></iframe>
+                <div id="discord-widget-root"></div>
             </div>
         </div>
     </div>

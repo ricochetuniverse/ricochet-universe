@@ -28,5 +28,6 @@ if (process.env.NODE_ENV === 'production') {
     require('./analytics');
 }
 
+import './discord/index';
 import './round-info';
 import './decompressor';
