@@ -12,7 +12,7 @@ import {
     FormGroup,
 } from 'reactstrap';
 
-import LoadingComponent from './LoadingComponent';
+import LoadingComponent from '../LoadingComponent';
 
 function getDownloadFileName(fileName) {
     return fileName.replace(/\.Ricochet(I|LW)$/, '') + ' (decompressed).txt';

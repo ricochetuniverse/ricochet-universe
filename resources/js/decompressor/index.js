@@ -3,7 +3,7 @@ import {h, render} from 'preact';
 import Loadable from 'react-loadable';
 import {Card, CardBody, CardHeader} from 'reactstrap';
 
-import LoadingComponent from './LoadingComponent';
+import LoadingComponent from '../LoadingComponent';
 
 const LoadableDecompressorApp = Loadable({
     loader: () => import('./DecompressorApp'),

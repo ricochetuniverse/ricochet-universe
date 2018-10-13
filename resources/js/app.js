@@ -29,5 +29,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 import './discord/index';
-import './round-info';
-import './decompressor';
+import './round-info/index';
+import './decompressor/index';
