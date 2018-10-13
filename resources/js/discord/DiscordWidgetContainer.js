@@ -7,6 +7,8 @@ import getDiscordMemberName from './getDiscordMemberName';
 export default class DiscordWidgetContainer extends Component {
     state = {
         loading: true,
+        error: false,
+
         members: [],
     };
 
@@ -14,6 +16,7 @@ export default class DiscordWidgetContainer extends Component {
         return (
             <DiscordWidget
                 loading={this.state.loading}
+                error={this.state.error}
                 members={this.state.members}
                 inviteLink="https://discord.gg/fKK42Wt"
             />
@@ -34,7 +37,12 @@ export default class DiscordWidgetContainer extends Component {
             try {
                 json = JSON.parse(request.responseText);
             } catch (ex) {
-                // fixme
+                console.error(ex);
+                this.setState({
+                    loading: false,
+                    error: true,
+                });
+
                 return;
             }
 
@@ -65,6 +73,12 @@ export default class DiscordWidgetContainer extends Component {
             this.setState({
                 loading: false,
                 members,
+            });
+        };
+        request.onerror = () => {
+            this.setState({
+                loading: false,
+                error: true,
             });
         };
         request.send();
