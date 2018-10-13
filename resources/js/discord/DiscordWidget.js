@@ -59,7 +59,7 @@ function getWidgetBody(props) {
                                     }
                                 />
                             </div>
-                            <span className="text-nowrap">
+                            <span className="text-truncate">
                                 {getDiscordMemberName(member)}
                             </span>
                         </li>
