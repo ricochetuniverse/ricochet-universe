@@ -2,3 +2,5 @@ vendor/
 
 public/build/
 public/mix-manifest.json
+public/storage/
+storage/

@@ -24,7 +24,11 @@ export default class DiscordWidgetContainer extends Component {
         const request = new XMLHttpRequest();
 
         // The extra URL parameters aren't used by Discord, it's to ensure we get CORS headers, not cached
-        request.open('GET', 'https://discordapp.com/api/guilds/295184393109110785/widget.json?_=40670ca722c22f2e1fdf46226a857dd1', true);
+        request.open(
+            'GET',
+            'https://discordapp.com/api/guilds/295184393109110785/widget.json?_=40670ca722c22f2e1fdf46226a857dd1',
+            true
+        );
         request.onload = () => {
             let json;
             try {
@@ -60,7 +64,7 @@ export default class DiscordWidgetContainer extends Component {
 
             this.setState({
                 loading: false,
-                members
+                members,
             });
         };
         request.send();
