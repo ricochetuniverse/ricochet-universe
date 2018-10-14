@@ -30,7 +30,8 @@ export default class DiscordWidgetContainer extends Component {
         // from another origin
         request.open(
             'GET',
-            'https://discordapp.com/api/guilds/295184393109110785/widget.json?_=' + window.location.origin,
+            'https://discordapp.com/api/guilds/295184393109110785/widget.json?_=' +
+                window.location.origin,
             true
         );
         request.onload = () => {
