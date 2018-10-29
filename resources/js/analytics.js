@@ -1,15 +1,30 @@
-const script = document.createElement('script');
-script.async = true;
-script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-123412242-1';
+const trackingId = document.getElementById('google-analytics-tracking-id');
+if (trackingId) {
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        (i[r] =
+            i[r] ||
+            function() {
+                (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(
+        window,
+        document,
+        'script',
+        'https://www.google-analytics.com/analytics.js',
+        'ga'
+    );
 
-const first = document.getElementsByTagName('script')[0];
-first.parentNode.insertBefore(script, first);
-
-// The rest...
-window.dataLayer = window.dataLayer || [];
-function gtag() {
-    dataLayer.push(arguments);
+    ga('create', {
+        trackingId: trackingId.content,
+        cookieDomain: 'auto',
+        siteSpeedSampleRate: 100,
+    });
+    ga('set', 'transport', 'beacon');
+    ga('send', 'pageview');
 }
-gtag('js', new Date());
-
-gtag('config', 'UA-123412242-1');

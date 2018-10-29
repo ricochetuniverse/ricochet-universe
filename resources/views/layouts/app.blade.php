@@ -22,6 +22,7 @@
     <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:locale" content="en_US">
 
+    <meta id="google-analytics-tracking-id" content="UA-123412242-1">
     {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
 </head>
 
