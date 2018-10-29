@@ -8,6 +8,8 @@
 
     <link href="{{ mix('app.scss') }}" rel="stylesheet">
 
+    @hasSection('og:url')<meta name="canonical" content="@yield('og:url')">@endif
+
     @hasSection('og:title')<meta property="og:title" content="@yield('og:title')">@endif
     {{--<meta property="og:type" content="website">--}}
     @hasSection('og:url')<meta property="og:url" content="@yield('og:url')">@endif
