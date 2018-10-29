@@ -134,6 +134,12 @@
                     <div class="card-header">Round info</div>
 
                     <div class="card-body">
+                        <noscript>
+                            <div class="alert alert-danger" role="alert">
+                                Please enable JavaScript to view more round info.
+                            </div>
+                        </noscript>
+
                         @unless ($levelSet->levelRounds->isEmpty())
                             <div class="row roundInfo__wrapper">
                                 @foreach ($levelSet->levelRounds as $round)
