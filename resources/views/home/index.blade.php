@@ -51,7 +51,17 @@
             </div>
 
             <div class="col-xl-auto mt-3 mt-xl-0">
-                <div id="discord-widget-root"></div>
+                <div class="discordWidget__root">
+                    <a href="https://discord.gg/fKK42Wt" class="discordWidget__header">
+                        <div class="discordWidget__logo">
+                            <span class="sr-only">Discord</span>
+                        </div>
+
+                        <span class="btn btn-outline-secondary">Join</span>
+                    </a>
+
+                    <div class="discordWidget__reactWrap"></div>
+                </div>
             </div>
         </div>
     </div>

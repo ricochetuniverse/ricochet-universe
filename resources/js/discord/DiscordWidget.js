@@ -1,30 +1,11 @@
 // noinspection ES6UnusedImports
 import {Component, h} from 'preact';
-import {Button} from 'reactstrap';
 
 import getDiscordMemberName from './getDiscordMemberName';
 
 // member prop:
 // avatar, avatar_url, discriminator, game, game.name, id, nick, status, username
 export default function DiscordWidget(props) {
-    return (
-        <div>
-            <a href={props.inviteLink} className="discordWidget__header">
-                <div className="discordWidget__logo">
-                    <span className="sr-only">Discord</span>
-                </div>
-
-                <Button tag="span" outline color="secondary">
-                    Join
-                </Button>
-            </a>
-
-            {getWidgetBody(props)}
-        </div>
-    );
-}
-
-function getWidgetBody(props) {
     if (props.loading) {
         return <div className="discordWidget__body">Loading...</div>;
     }

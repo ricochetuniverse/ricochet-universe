@@ -18,7 +18,6 @@ export default class DiscordWidgetContainer extends Component {
                 loading={this.state.loading}
                 error={this.state.error}
                 members={this.state.members}
-                inviteLink="https://discord.gg/fKK42Wt"
             />
         );
     }

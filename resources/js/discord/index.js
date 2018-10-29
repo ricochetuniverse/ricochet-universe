@@ -2,7 +2,7 @@
 import {h, render} from 'preact';
 import DiscordWidgetContainer from './DiscordWidgetContainer';
 
-const root = document.getElementById('discord-widget-root');
+const root = document.querySelector('.discordWidget__reactWrap');
 
 if (root) {
     render(<DiscordWidgetContainer />, root);
