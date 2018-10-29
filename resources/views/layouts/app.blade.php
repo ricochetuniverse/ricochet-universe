@@ -57,7 +57,7 @@
                             <a class="nav-link" href="{{ action('AboutController@index') }}" title="Learn more about this website" data-toggle="tooltip">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-discord" href="https://discord.gg/fKK42Wt" title="Join other players on the Ricochet Infinity Players Discord" data-toggle="tooltip">
+                            <a class="nav-link nav-link-discord" href="https://discord.gg/{{ config('ricochet.discord_invite') }}" title="Join other players on the Ricochet Infinity Players Discord" data-toggle="tooltip">
                                 @include('icons.discord')<span class="d-md-none ml-2">Discord</span>
                             </a>
                         </li>

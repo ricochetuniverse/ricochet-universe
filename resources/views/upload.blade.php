@@ -46,8 +46,8 @@
 
                         <p>
                             Upload your level set to the #ricocheti-upload-channel on the
-                            <a href="https://discord.gg/fKK42Wt">Discord community</a>, the site admin will notice it
-                            and download it.
+                            <a href="https://discord.gg/{{ config('ricochet.discord_invite') }}">Discord community</a>,
+                            the site admin will notice it and download it.
                         </p>
 
                         <p class="m-0">
