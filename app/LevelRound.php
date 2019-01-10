@@ -38,6 +38,9 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound query()
  */
 class LevelRound extends Model
 {
