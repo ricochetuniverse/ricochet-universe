@@ -8,7 +8,7 @@ Visit the live website at [https://ricochet.ngyikp.com](https://ricochet.ngyikp.
 -   Composer
 -   MariaDB 10.3.12
 
-For production usage, you should set up [queue worker](https://laravel.com/docs/5.6/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
+For production usage, you should set up [queue worker](https://laravel.com/docs/5.7/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
 
 If you want to use the Redis driver for broadcasting/cache/session/queues, you need to have [PhpRedis](https://github.com/phpredis/phpredis) PECL installed.
 
