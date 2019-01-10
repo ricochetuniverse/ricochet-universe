@@ -4,9 +4,9 @@ Visit the live website at [https://ricochet.ngyikp.com](https://ricochet.ngyikp.
 
 ## Server requirements
 
--   PHP 7.2.8
+-   PHP 7.2.13
 -   Composer
--   MariaDB 10.3.8
+-   MariaDB 10.3.12
 
 For production usage, you should set up [queue worker](https://laravel.com/docs/5.6/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
 
