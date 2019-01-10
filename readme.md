@@ -41,11 +41,11 @@ Extra steps:
 
 Windows edition:
 
-* Ricochet Infinity Version 3 Build 62
+-   Ricochet Infinity Version 3 Build 62
 
 Mac edition:
 
-* Ricochet Lost Worlds Version 3 Build 71
+-   Ricochet Lost Worlds Version 3 Build 71
 
 ### web.archive.org
 
