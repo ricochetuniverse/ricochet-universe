@@ -20,15 +20,15 @@
   },
   "dependencies": {
     "@babel/runtime": "7.2.0",
-    "bootstrap": "4.1.3",
+    "bootstrap": "4.2.1",
     "jquery": "3.3.1",
-    "pako": "1.0.6",
-    "popper.js": "1.14.4",
-    "preact": "8.3.1",
+    "pako": "1.0.7",
+    "popper.js": "1.14.6",
+    "preact": "8.4.2",
     "preact-compat": "3.18.4",
     "react-loadable": "5.5.0",
     "react-monaco-editor": "0.20.0",
-    "reactstrap": "6.5.0"
+    "reactstrap": "7.0.2"
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
