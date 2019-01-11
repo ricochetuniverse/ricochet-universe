@@ -261,15 +261,6 @@ input.dropdown-item {
     }
 }
 
-// Reviver page
-.reviverPage__curl__video {
-    max-width: 1052px;
-
-    &::before {
-        padding-top: percentage(698 / 1052);
-    }
-}
-
 // Decompressor
 .monaco-menu .monaco-action-bar .action-menu-item {
     text-decoration: none;
