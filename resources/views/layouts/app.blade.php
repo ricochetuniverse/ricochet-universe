@@ -13,8 +13,8 @@
     @hasSection('og:title')<meta property="og:title" content="@yield('og:title')">@endif
     {{--<meta property="og:type" content="website">--}}
     @hasSection('og:url')<meta property="og:url" content="@yield('og:url')">@endif
-    <meta property="og:description" content="@yield('og:description', 'Explore and download Ricochet level sets created by the community')">
-    <meta name="description" content="@yield('og:description', 'Explore and download Ricochet level sets created by the community')">
+    <meta property="og:description" content="@yield('og:description', 'Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community')">
+    <meta name="description" content="@yield('og:description', 'Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community')">
     @hasSection('og:image')
         <meta property="og:image" content="@yield('og:image')">
         <meta name="thumbnail" content="@yield('og:image')">
@@ -42,7 +42,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore and download level sets created by the community" data-toggle="tooltip">Levels</a>
+                            <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore, download and play level sets created by the community" data-toggle="tooltip">Levels</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">Reviver</a>
