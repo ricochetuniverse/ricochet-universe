@@ -60,9 +60,6 @@ module.exports = {
         alias: {
             react: 'preact-compat',
             'react-dom': 'preact-compat',
-
-            // https://github.com/Microsoft/monaco-editor-webpack-plugin/issues/15#issuecomment-396497668
-            'monaco-editor': 'monaco-editor/esm/vs/editor/editor.api',
         },
     },
     plugins: [
