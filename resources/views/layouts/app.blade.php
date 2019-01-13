@@ -31,9 +31,17 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="d-none d-md-block">
                 <a class="navbar-brand d-flex mr-2" href="{{ action('HomeController@index') }}" title="Ricochet" data-toggle="tooltip">
-                    <img src="{{ asset('images/ricochet-logo.png') }}" width="28" height="28" alt="Ricochet">
+                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="Ricochet">
                 </a>
+            </div>
+
+            <div class="d-md-none">
+                <a class="navbar-brand d-flex mr-2" href="{{ action('HomeController@index') }}">
+                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="Ricochet"><span class="ml-2">Ricochet</span>
+                </a>
+            </div>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
