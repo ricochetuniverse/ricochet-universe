@@ -14,8 +14,16 @@ import {
 
 import LoadingComponent from '../LoadingComponent';
 
+import checkForMods from './check-for-mods';
+
 function getDownloadFileName(fileName) {
     return fileName.replace(/\.Ricochet(I|LW)$/, '') + ' (decompressed).txt';
+}
+
+function decodeInflatedResult(inflatedResult) {
+    return new TextDecoder('windows-1252', {
+        fatal: true,
+    }).decode(inflatedResult);
 }
 
 const LoadableDecompressorEditor = Loadable({
@@ -38,6 +46,9 @@ export default class DecompressorApp extends Component {
         inflatedResult: '',
         utf8Result: '',
         objectUrl: '',
+
+        requiresModResult: false,
+        requiresModName: '',
 
         useBrowserTextEditor: false,
     };
@@ -93,7 +104,19 @@ export default class DecompressorApp extends Component {
                 </Card>
 
                 {this.state.error ? (
-                    <Alert color="danger">{this.state.error}</Alert>
+                    <Alert color="danger" fade={false}>
+                        {this.state.error}
+                    </Alert>
+                ) : null}
+
+                {this.state.requiresModResult ? (
+                    <Alert color="warning" fade={false}>
+                        {this.state.requiresModName
+                            ? 'This level set requires the mod “' +
+                              this.state.requiresModName +
+                              '” to play.'
+                            : 'This level set requires files that are not available on the base game.'}
+                    </Alert>
                 ) : null}
 
                 {this.state.useBrowserTextEditor && this.state.utf8Result ? (
@@ -145,11 +168,7 @@ export default class DecompressorApp extends Component {
             this.state.useBrowserTextEditor !== prevState.useBrowserTextEditor
         ) {
             if (this.state.inflatedResult) {
-                if (this.state.useBrowserTextEditor) {
-                    if (!this.state.utf8Result) {
-                        this.decodeDeflatedResult();
-                    }
-                } else {
+                if (!this.state.useBrowserTextEditor) {
                     if (!this.state.objectUrl) {
                         this.generateDownload();
                     }
@@ -174,6 +193,9 @@ export default class DecompressorApp extends Component {
             inflatedResult: '',
             utf8Result: '',
             objectUrl: '',
+
+            requiresModResult: false,
+            requiresModName: '',
         });
 
         if (currentTarget.files && currentTarget.files[0]) {
@@ -204,14 +226,23 @@ export default class DecompressorApp extends Component {
     onFileReaderFile = (buffer) => {
         const compressed = new Uint8Array(buffer.currentTarget.result, 9);
         const inflatedResult = inflate(compressed);
+        const utf8Result = decodeInflatedResult(inflatedResult);
+        const requiresMod = checkForMods(utf8Result);
 
-        this.setState({inflatedResult}, () => {
-            if (!this.state.useBrowserTextEditor) {
-                this.generateDownload().then(this.downloadResult);
-            } else {
-                this.decodeDeflatedResult();
+        this.setState(
+            {
+                inflatedResult,
+                utf8Result,
+
+                requiresModResult: requiresMod.result,
+                requiresModName: requiresMod.mod,
+            },
+            () => {
+                if (!this.state.useBrowserTextEditor) {
+                    this.generateDownload().then(this.downloadResult);
+                }
             }
-        });
+        );
     };
 
     generateDownload() {
@@ -225,14 +256,6 @@ export default class DecompressorApp extends Component {
                 resolve
             );
         });
-    }
-
-    decodeDeflatedResult() {
-        const utf8Result = new TextDecoder('windows-1252', {
-            fatal: true,
-        }).decode(this.state.inflatedResult);
-
-        this.setState({utf8Result});
     }
 
     downloadResult = () => {
