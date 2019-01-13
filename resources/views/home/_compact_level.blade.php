@@ -1,6 +1,6 @@
 <li class="list-group-item p-3">
     <div>
-        <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
+        <a href="{{ $levelSet->getPermalink() }}"
            class="text-secondary font-weight-bold">{{ $levelSet->name }}</a> ({{ $levelSet->rounds }}&nbsp;rounds)
     </div>
 
@@ -11,7 +11,7 @@
     </div>
 
     <div class="media mt-3">
-        <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
+        <a href="{{ $levelSet->getPermalink() }}"
            class="mr-3" tabindex="-1">
             <img
                 src="{{ $levelSet->getImageUrl() }}"

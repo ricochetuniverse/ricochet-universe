@@ -87,6 +87,11 @@ class LevelSet extends Model
         'legacy_id',
     ];
 
+    public function getPermalink(): string
+    {
+        return action('LevelController@show', ['levelsetname' => $this->name]);
+    }
+
     public function getImageUrl(): string
     {
         return config('app.url') . '/levels/' . $this->image_url;

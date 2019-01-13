@@ -2,7 +2,7 @@
 
 @section('title', $levelSet->name . ' by ' . $levelSet->author)
 @section('og:title', $levelSet->name . ' by ' . $levelSet->author)
-@section('og:url', action('LevelController@show', ['levelsetname' => $levelSet->name]))
+@section('og:url', $levelSet->getPermalink())
 @section('og:description', $levelSet->description)
 @section('og:image', $levelSet->getImageUrl())
 

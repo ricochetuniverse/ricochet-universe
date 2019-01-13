@@ -134,7 +134,7 @@
                                     @endif
 
                                     <p class="m-0">
-                                        <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
+                                        <a href="{{ $levelSet->getPermalink() }}"
                                            class="text-secondary font-weight-bold">{{ $levelSet->name }}</a><span
                                             class="d-md-none"> ({{ $levelSet->rounds }}&nbsp;rounds)</span>
                                     </p>
@@ -147,7 +147,7 @@
                                     </p>
 
                                     <div class="media mt-2">
-                                        <a href="{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}"
+                                        <a href="{{ $levelSet->getPermalink() }}"
                                            class="mr-2" tabindex="-1">
                                             <img
                                                 src="{{ $levelSet->getImageUrl() }}"

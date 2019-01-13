@@ -26,6 +26,6 @@ class UploadController extends Controller
 
         $levelSet = $processor->process();
 
-        return redirect()->action('LevelController@show', ['levelsetname' => $levelSet->name]);
+        return redirect($levelSet->getPermalink());
     }
 }

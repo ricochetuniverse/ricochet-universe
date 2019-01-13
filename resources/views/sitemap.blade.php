@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     @foreach ($levelSets as $levelSet)
         <url>
-            <loc>{{ action('LevelController@show', ['levelsetname' => $levelSet->name]) }}</loc>
+            <loc>{{ $levelSet->getPermalink() }}</loc>
             <lastmod>{{ $levelSet->updated_at->format('Y-m-d') }}</lastmod>
         </url>
     @endforeach
