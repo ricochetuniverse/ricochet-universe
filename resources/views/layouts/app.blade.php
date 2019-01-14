@@ -53,6 +53,9 @@
                             <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore, download and play level sets created by the community" data-toggle="tooltip">Levels</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ action('ModsController@index') }}" title="Play new environments, custom content and modifications" data-toggle="tooltip">Mods</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">Reviver</a>
                         </li>
                         <li class="nav-item">

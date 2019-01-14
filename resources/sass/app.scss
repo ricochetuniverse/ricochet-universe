@@ -42,6 +42,14 @@ $custom-control-indicator-checked-bg: $card-cap-bg;
 $list-group-bg: transparent;
 $list-group-border-color: $card-border-color;
 
+// https://github.com/twbs/bootstrap/pull/27910
+$embed-responsive-aspect-ratios: (
+        (21 9),
+        (16 9),
+        (4 3),
+        (1 1)
+);
+
 $enable-rounded: false;
 $enable-transitions: false;
 

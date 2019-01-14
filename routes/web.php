@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/upload', 'UploadController@store');
 });
 
+Route::get('/mods', 'ModsController@index');
 Route::get('/reviver', 'ReviverController@index');
 Route::get('/decompressor', 'DecompressorController@index');
 Route::get('/about', 'AboutController@index');
