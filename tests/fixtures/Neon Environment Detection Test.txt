@@ -1,0 +1,83 @@
+CRoundSetUserMade
+{
+	Author=
+	Description=
+	Round To Get Image From=0
+	Brick Layer Effects=Array
+	{
+	}
+	Round List=Array
+	{
+		Round=CBrickLayout
+		{
+			Display Name=Unnamed Round
+			Author=
+			Note 1=
+			Note 2=
+			Note 3=
+			Note 4=
+			Note 5=
+			Source=
+			Background Type=Environments/Neon/Neon
+			Blank Background Color=0,0,0
+			Canvas Color=0,179,234
+			Last Brick ID Assigned=100
+			Allow Poisonous Spaceship=1
+			Allow Bombing Spaceship=1
+			Skip Brick Layer=0
+			Automatic Power Ups=Array
+			{
+			}
+			Disallow Automatic Power-Ups=1
+			Disallow All Level Breakers=0
+			Disallowed Power-Ups=Array
+			{
+			}
+			Additional Chance Of Getting Conditional Extra Life=0
+			Bricks=Array
+			{
+			}
+			Capture Center=318,240
+			Capture Width=615
+			Show Capture Rect=0
+			Automatic Thumbnail=1
+			Compression Quality=90
+			Sharp Thumbnail=1
+			CRCOfLayoutAtTimeOfLastCatupre=0
+			Has Been Completed With CRC=0
+			Got 5 Rings With CRC=0
+			CRC When Saved=0
+			Name Of Editor Used=Ricochet Infinity Version 3 Build 62
+			Version Of Editor Used=62
+			Was Current Version Tested=1
+			Best Number Of Rings=0
+			Compressed Thumbnail=0 bytes of binary in ASCII esc
+			DecorationSet=CDecorationSet
+			{
+				Decorations=Array
+				{
+				}
+				Size=800,600
+			}
+			ProjectedToCanvasDecorationSet=CDecorationSet
+			{
+				Decorations=Array
+				{
+				}
+				Size=800,600
+			}
+			Number Of Frames To Update Before Brick Layer=6
+			Music To Play=CMusicPickerDefault
+			{
+			}
+			FF When Nothing On Screem=1
+			Seconds Of Nothing Before FF=1.5
+			FastForward Speed=30
+			Has Been Edited In Ricochet Infinity=1
+			Play Log Stats=
+			Brick Layer Effects=Array
+			{
+			}
+		}
+	}
+}

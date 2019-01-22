@@ -45,4 +45,22 @@ class LevelSetParserTest extends TestCase
         $this->assertEquals($results['rounds'][0]['author'], 'Josef L');
         $this->assertEquals($results['rounds'][0]['source'], '/Rico at the Brick Factory/1');
     }
+
+    public function testNeonEnvironmentDetection()
+    {
+        $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Neon Environment Detection Test.txt');
+
+        $results = (new LevelSetParser)->parse($levelSetData);
+
+        $this->assertContains('Neon Environment', $results['levelSet']['modsUsed']);
+    }
+
+    public function testModsUsedFalseDetection()
+    {
+        $levelSetData = file_get_contents(__DIR__.'/../fixtures/Level Editor Template.txt');
+
+        $results = (new LevelSetParser)->parse($levelSetData);
+
+        $this->assertEmpty($results['levelSet']['modsUsed']);
+    }
 }

@@ -26,9 +26,62 @@ class LevelSetParser
      */
     private $levelSetRoundToGetImageFrom = 1;
 
+    /**
+     * @var array Text strings of which mods are used
+     */
+    private $levelSetModsUsed = [];
+
     private $currentLevelRound = [];
     private $currentLevelRoundPicture = '';
     private $currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
+
+    private $fileGroups = [
+        'environments' => ['Background Type'],
+        'sequences' => [
+            'Frame',
+            'Image',
+            'Poisoned Effect Overlay',
+        ],
+        'sounds' => [
+            'Sound',
+            'Change Sound',
+            'Damaged Sound',
+            'Trigger Sound',
+            'Shot Sound',
+        ],
+        'bricks' => [
+            'Create Brick Style',
+            'Style Sheet',
+            'Change To Brick Style',
+            'Change From Brick Style',
+            'Brick Style', // CExpressionNumberOfBricksOfStyle
+        ],
+        'music' => ['Music To Play'],
+        'powerups' => ['Forced Power-Up'],
+    ];
+    private $fileGroupsKeyed = [];
+    private $modFiles = [
+        'Neon Environment' => [
+            'environments' => ['Environments/Neon/'],
+            'sequences' => [
+                'Addon/Custom/Bricks/Neon/',
+                'Addon/Custom/Environments/Neon/',
+            ],
+            'sounds' => ['Addon/Custom/Special Bricks/Switch Neon'],
+            'bricks' => ['Neon/'],
+            'music' => ['Neon/'],
+            'powerups' => ['Multiply 8 Inline'],
+        ],
+    ];
+
+    public function __construct()
+    {
+        foreach ($this->fileGroups as $group => $properties) {
+            foreach ($properties as $property) {
+                $this->fileGroupsKeyed[$property] = $group;
+            }
+        }
+    }
 
     /**
      * @param string $levelSetData
@@ -86,6 +139,7 @@ class LevelSetParser
                     $key = $temp[0];
                     $value = $temp[1] ?? '';
 
+                    $this->checkProperty($key, $value);
                     $this->setPropertyForNested($last, $key, $value);
                 } else {
                     // Collect all the strings to concat them in the end
@@ -105,13 +159,37 @@ class LevelSetParser
                 'author'              => $this->levelSetAuthor,
                 'description'         => $this->levelSetDescription,
                 'roundToGetImageFrom' => $this->levelSetRoundToGetImageFrom,
+                'modsUsed'            => $this->levelSetModsUsed,
             ],
             'rounds'   => $rounds,
         ];
     }
 
     /**
-     * @param string $nested
+     * @param string $key
+     * @param string $value
+     */
+    private function checkProperty(string $key, string $value)
+    {
+        if (isset($this->fileGroupsKeyed[$key])) {
+            foreach ($this->modFiles as $modName => $modFileGroups) {
+                if (in_array($modName, $this->levelSetModsUsed)) {
+                    continue;
+                }
+
+                $type = $this->fileGroupsKeyed[$key];
+
+                if (isset($modFileGroups[$type])) {
+                    if (starts_with($value, $modFileGroups[$type])) {
+                        $this->levelSetModsUsed[] = $modName;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @param array $nested
      * @param string $key
      * @param string $value
      */
@@ -192,8 +270,8 @@ class LevelSetParser
                             break;
                     }
                 }
+                break;
 
-                // no break
             default:
                 break;
         }
