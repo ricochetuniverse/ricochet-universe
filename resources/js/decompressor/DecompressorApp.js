@@ -112,9 +112,9 @@ export default class DecompressorApp extends Component {
                 {this.state.requiresModResult ? (
                     <Alert color="warning" fade={false}>
                         {this.state.requiresModName
-                            ? 'This level set requires the mod “' +
+                            ? 'This level set requires the ' +
                               this.state.requiresModName +
-                              '” to play.'
+                              ' mod to play.'
                             : 'This level set requires files that are not available on the base game.'}
                     </Alert>
                 ) : null}

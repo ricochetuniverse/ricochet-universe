@@ -158,6 +158,20 @@
                                         <p class="media-body m-0 cursor-auto">{{ $levelSet->description }}</p>
                                     </div>
 
+                                    @if (count($levelSet->mods) > 0)
+                                        <div class="media mt-2">
+                                            <strong class="mr-2">Mods:</strong>
+
+                                            <div class="media-body">
+                                                <a href="{{ action('ModsController@index') }}">
+                                                    @foreach ($levelSet->mods as $mod)
+                                                        {{ $mod->name }}{{ !$loop->last ? ', ' : '' }}
+                                                    @endforeach
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     @if (count($levelSet->tagged) > 0)
                                         <div class="media mt-2">
                                             <strong class="mr-2">Tags:</strong>

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\LevelSet;
+use Illuminate\Support\Collection;
 
 class CatalogService
 {
@@ -14,7 +15,7 @@ class CatalogService
     {
         $response = $this->getCatalogHeader($isSecure);
 
-        LevelSet::with('tagged')->chunk(100, function ($levels) use (&$response) {
+        LevelSet::with(['tagged', 'mods'])->chunk(100, function ($levels) use (&$response) {
             /** @var LevelSet[] $levels */
             foreach ($levels as $level) {
                 $response .= $this->transformLevelSetToCatalogItem($level);
@@ -77,6 +78,14 @@ EOF;
      */
     private function transformLevelSetToCatalogItem(LevelSet $level)
     {
+        // mods are at the front first
+        $tags = Collection::make([
+            $level->mods->pluck('name')->map(function ($item) {
+                return 'Mod: ' . $item;
+            }),
+            $level->tags->pluck('name'),
+        ])->flatten(1);
+
         $data = [
             $level->legacy_id,
             str_replace(',', ';', $level->name),
@@ -91,7 +100,7 @@ EOF;
             $level->rating,
             $level->downloads,
             str_replace(',', ';', $level->description),
-            $level->tags->pluck('name')->implode(';'),
+            $tags->implode(';'),
             $level->overall_rating,
             $level->overall_rating_count,
             $level->fun_rating,

@@ -26,15 +26,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $fun_rating_count
  * @property float $graphics_rating
  * @property int $graphics_rating_count
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string $alternate_download_url
  * @property string $downloaded_file_name
  * @property int $round_to_get_image_from
  * @property mixed $tag_names
  * @property-read \Illuminate\Database\Eloquent\Collection $tags
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\LevelRound[] $levelRounds
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Mod[] $mods
  * @property-read \Illuminate\Database\Eloquent\Collection|\Conner\Tagging\Model\Tagged[] $tagged
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereAlternateDownloadUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereAuthor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereCreatedAt($value)
@@ -61,9 +65,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withAnyTag($tagNames)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withoutTags($tagNames)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet query()
  */
 class LevelSet extends Model
 {
@@ -100,6 +101,11 @@ class LevelSet extends Model
     public function levelRounds()
     {
         return $this->hasMany(LevelRound::class);
+    }
+
+    public function mods()
+    {
+        return $this->belongsToMany(Mod::class);
     }
 
     public function isDesignedForLostWorlds(): bool

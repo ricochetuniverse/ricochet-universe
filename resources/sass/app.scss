@@ -139,7 +139,8 @@ body {
 
 .custom-control-label,
 .custom-file-input,
-.custom-select {
+.custom-select,
+label[for] {
     cursor: pointer;
 }
 

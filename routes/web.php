@@ -22,6 +22,14 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/mods', 'ModsController@index');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/mods/create', 'ModsController@create');
+    Route::post('/mods', 'ModsController@store');
+    // Route::get('/mods/{mod}/edit', 'ModsController@edit');
+    // Route::patch('/mods/{mod}', 'ModsController@update');
+    // Route::delete('/mods/{mod}', 'ModsController@destroy');
+});
+
 Route::get('/reviver', 'ReviverController@index');
 Route::get('/decompressor', 'DecompressorController@index');
 Route::get('/about', 'AboutController@index');

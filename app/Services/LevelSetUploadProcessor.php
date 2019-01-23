@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\LevelRound;
 use App\LevelSet;
+use App\Mod;
 use Carbon\Carbon;
 use DomainException;
 use Illuminate\Support\Facades\DB;
@@ -80,6 +81,8 @@ class LevelSetUploadProcessor
      */
     private $legacyIdAddition = 10000;
 
+    private $parserResults = [];
+
     /**
      * @return LevelSet
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -123,6 +126,13 @@ class LevelSetUploadProcessor
         $levelSet->save();
 
         $levelSet->levelRounds()->saveMany($levelSet->levelRounds); // hack >__<
+
+        // Check for mods
+        foreach ($this->parserResults['levelSet']['modsUsed'] as $modsUsed) {
+            $modsFound = Mod::where('trigger_codename', $modsUsed)->get();
+
+            $levelSet->mods()->attach($modsFound);
+        }
 
         $levelSet->legacy_id = $this->legacyIdAddition + $levelSet->id;
         $levelSet->save();
@@ -185,11 +195,11 @@ class LevelSetUploadProcessor
         $levelSetData = $decompressor->decompress($file);
 
         $parser = new LevelSetParser;
-        $results = $parser->parse($levelSetData);
+        $this->parserResults = $parser->parse($levelSetData);
 
         $count = 0;
         $rounds = [];
-        foreach ($results['rounds'] as $round) {
+        foreach ($this->parserResults['rounds'] as $round) {
             $count += 1;
 
             $imageFileName = '';
@@ -219,9 +229,9 @@ class LevelSetUploadProcessor
         }
 
         $levelSet->rounds = count($rounds);
-        $levelSet->author = $results['levelSet']['author'];
-        $levelSet->image_url = 'cache/' . rawurlencode($levelSet->name) . '/' . $results['levelSet']['roundToGetImageFrom'] . '.jpg';
-        $levelSet->description = $results['levelSet']['description'];
-        $levelSet->round_to_get_image_from = $results['levelSet']['roundToGetImageFrom'];
+        $levelSet->author = $this->parserResults['levelSet']['author'];
+        $levelSet->image_url = 'cache/' . rawurlencode($levelSet->name) . '/' . $this->parserResults['levelSet']['roundToGetImageFrom'] . '.jpg';
+        $levelSet->description = $this->parserResults['levelSet']['description'];
+        $levelSet->round_to_get_image_from = $this->parserResults['levelSet']['roundToGetImageFrom'];
     }
 }

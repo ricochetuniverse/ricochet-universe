@@ -20,7 +20,7 @@
                     </div>
                 @endif
 
-                <div class="card my-3">
+                <div class="card mt-3">
                     <div class="card-body">
                         <div class="text-secondary font-weight-bold">
                             {{ $levelSet->name }}
@@ -83,6 +83,26 @@
                             </div>
                         @endif
 
+                        @if (count($levelSet->mods) > 0)
+                            <div class="alert alert-info mt-3">
+                                <p class="m-0">
+                                    @if (count($levelSet->mods) === 1)
+                                        This level set requires the
+                                        <a href="{{ action('ModsController@index') }}" class="alert-link">
+                                            {{ $levelSet->mods->first()->name }} mod</a>
+                                        to play.
+                                    @else
+                                        This level set requires these mods to play:
+                                        <a href="{{ action('ModsController@index') }}" class="alert-link">
+                                            @foreach ($levelSet->mods->sortBy('name') as $mod)
+                                                {{ $mod->name }}{{ !$loop->last ? ', ' : '' }}
+                                            @endforeach
+                                        </a>
+                                    @endif
+                                </p>
+                            </div>
+                        @endif
+
                         <div class="media align-items-center mt-3">
                             @if ($levelSet->isDesignedForInfinity())
                                 <img src="{{ asset('images/RI.gif') }}"
@@ -109,7 +129,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3">
+                <div class="card mt-3">
                     <div class="card-body">
                         <div class="d-flex">
                             <a href="{{ action('API\LevelDownloadController@download', ['File' => 'downloads/raw/'.$levelSet->name.$levelSet->getFileExtension()]) }}"
@@ -130,7 +150,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3">
+                <div class="card mt-3">
                     <div class="card-header">Round info</div>
 
                     <div class="card-body">

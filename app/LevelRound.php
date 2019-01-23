@@ -19,10 +19,13 @@ use Illuminate\Support\Facades\Storage;
  * @property string $note5
  * @property string $source
  * @property string $image_file_name
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $round_number
  * @property-read \App\LevelSet $levelSet
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereAuthor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereId($value)
@@ -38,9 +41,6 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereUpdatedAt($value)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound query()
  */
 class LevelRound extends Model
 {
