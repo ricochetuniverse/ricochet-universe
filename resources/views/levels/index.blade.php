@@ -197,18 +197,6 @@
                                             </div>
                                         </div>
                                     @endif
-
-                                    <div class="d-none d-md-flex">
-                                        <a href="{{ action('API\LevelDownloadController@download', ['File' => 'downloads/raw/'.$levelSet->name.$levelSet->getFileExtension()]) }}"
-                                           class="d-inline-flex align-items-center mt-2">
-                                            <img src="{{ asset('images/levelDownload.jpg') }}"
-                                                 alt=""
-                                                 width="38"
-                                                 height="38"
-                                                 class="mr-1">
-                                            Download
-                                        </a>
-                                    </div>
                                 </td>
                                 <td class="d-none d-md-table-cell text-center">{{ $levelSet->rounds }}</td>
                                 <td class="d-none d-md-table-cell text-center">
