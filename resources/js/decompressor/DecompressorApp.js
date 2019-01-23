@@ -110,7 +110,7 @@ export default class DecompressorApp extends Component {
                 ) : null}
 
                 {this.state.requiresModResult ? (
-                    <Alert color="warning" fade={false}>
+                    <Alert color="info" fade={false}>
                         {this.state.requiresModName
                             ? 'This level set requires the ' +
                               this.state.requiresModName +
