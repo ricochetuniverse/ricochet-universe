@@ -50,14 +50,18 @@ class LevelSetParser
             'Shot Sound',
         ],
         'bricks' => [
-            'Create Brick Style',
             'Style Sheet',
+            'Create Brick Style',
             'Change To Brick Style',
             'Change From Brick Style',
             'Brick Style', // CExpressionNumberOfBricksOfStyle
         ],
         'music' => ['Music To Play'],
-        'powerups' => ['Forced Power-Up'],
+        'powerups' => [
+            'Forced Power-Up',
+            'Automatic',
+            'Disallowed',
+        ],
     ];
     private $fileGroupsKeyed = [];
     private $modFiles = [
