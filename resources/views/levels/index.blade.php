@@ -116,7 +116,7 @@
                         <tbody>
                         @foreach ($levelSets as $levelSet)
                             <tr>
-                                <td>
+                                <td class="w-100">
                                     @if ($levelSet->isDesignedForInfinity())
                                         <img src="{{ asset('images/RI.gif') }}"
                                              alt="Ricochet Infinity logo"
