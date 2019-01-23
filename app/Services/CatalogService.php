@@ -90,7 +90,7 @@ EOF;
             $level->legacy_id,
             str_replace(',', ';', $level->name),
             $level->rounds,
-            $level->author,
+            str_replace(',', ';', $level->author),
             $level->created_at->format('Y-m-d'),
             (int)$level->featured,
             $level->game_version,
