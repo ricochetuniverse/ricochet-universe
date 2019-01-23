@@ -31,7 +31,7 @@ set('allow_anonymous_stats', false);
 
 set('sentry', [
     'organization' => get('sentry_organization'),
-    'project'      => get('sentry_project'),
+    'projects'     => [get('sentry_project')],
     'token'        => get('sentry_token'),
 ]);
 
