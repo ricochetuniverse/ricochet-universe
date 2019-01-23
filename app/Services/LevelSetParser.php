@@ -104,9 +104,7 @@ class LevelSetParser
         $key = '';
         $value = '';
         $newLine = "\r\n";
-        $nested = [
-            ['key' => 'CRoundSetUserMade', 'value' => ''],
-        ];
+        $nested = [];
         $line = strtok($levelSetData, $newLine);
         while ($line !== false) {
             $line = ltrim($line, "\t");
@@ -127,7 +125,11 @@ class LevelSetParser
                 if ($popped['key'] === 'Round') {
                     array_push($rounds, $this->currentLevelRound);
                 } elseif ($popped['key'] === 'Compressed Thumbnail') {
-                    $this->currentLevelRound['picture'] = $this->decodeAsciiPicture($this->currentLevelRoundPicture);
+                    $last = end($nested);
+
+                    if ($last && $last['key'] === 'Round') {
+                        $this->currentLevelRound['picture'] = $this->decodeAsciiPicture($this->currentLevelRoundPicture);
+                    }
                 } elseif ($popped['key'] === 'Condition' && $popped['value'] === 'CExpressionRecallButtonPressed') {
                     if (!$this->currentRecallButtonPressedCondition['left'] || !$this->currentRecallButtonPressedCondition['right']) {
                         $this->currentLevelRound['iphone_specific'] = true;
@@ -138,17 +140,19 @@ class LevelSetParser
                 }
             } else {
                 $last = end($nested);
-                if ($last && $last['key'] !== 'Compressed Thumbnail') {
+                if ($last && $last['key'] === 'Compressed Thumbnail') {
+                    // Collect all the strings to concat them in the end
+                    $key = '';
+                    $this->currentLevelRoundPicture .= $line;
+                } else {
                     $temp = explode('=', $line, 2);
                     $key = $temp[0];
                     $value = $temp[1] ?? '';
 
                     $this->checkProperty($key, $value);
-                    $this->setPropertyForNested($last, $key, $value);
-                } else {
-                    // Collect all the strings to concat them in the end
-                    $key = '';
-                    $this->currentLevelRoundPicture .= $line;
+                    if ($last !== false) {
+                        $this->setPropertyForNested($last, $key, $value);
+                    }
                 }
             }
 

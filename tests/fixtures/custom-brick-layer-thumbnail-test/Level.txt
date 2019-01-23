@@ -1,0 +1,574 @@
+CRoundSetUserMade
+{
+	Author=
+	Description=
+	Round To Get Image From=0
+	Brick Layer Effects=Array
+	{
+	}
+	Round List=Array
+	{
+		Item Count=2
+		Round=CBrickLayout
+		{
+			Display Name=Main
+			Author=
+			Note 1=
+			Note 2=
+			Note 3=
+			Note 4=
+			Note 5=
+			Source=
+			Background Type=Environments/Alien Vista/AlienVista
+			Blank Background Color=0,0,0
+			Canvas Color=0,179,234
+			Last Brick ID Assigned=100
+			Allow Poisonous Spaceship=1
+			Allow Bombing Spaceship=1
+			Skip Brick Layer=0
+			Automatic Power Ups=Array
+			{
+			}
+			Disallow Automatic Power-Ups=1
+			Disallow All Level Breakers=0
+			Disallowed Power-Ups=Array
+			{
+			}
+			Additional Chance Of Getting Conditional Extra Life=0
+			Bricks=Array
+			{
+				Item Count=7
+				Brick=CBrickCoin
+				{
+					Brick Position=290,215
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickCoin
+				{
+					Brick Position=556,237
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickCoin
+				{
+					Brick Position=21,240
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickCoin
+				{
+					Brick Position=568,-1
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickCoin
+				{
+					Brick Position=-3,5
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickNormal
+				{
+					Brick Position=311,161
+					Style Sheet=Alien Vista/AV_Normal13
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickNormal
+				{
+					Brick Position=267,161
+					Style Sheet=Alien Vista/AV_Normal16
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+			}
+			Capture Center=318,240
+			Capture Width=615
+			Show Capture Rect=0
+			Automatic Thumbnail=1
+			Compression Quality=90
+			Sharp Thumbnail=1
+			CRCOfLayoutAtTimeOfLastCatupre=2123932809
+			Has Been Completed With CRC=0
+			Got 5 Rings With CRC=0
+			CRC When Saved=1382322351
+			Name Of Editor Used=Ricochet Infinity Version 3 Build 62
+			Version Of Editor Used=62
+			Was Current Version Tested=0
+			Best Number Of Rings=0
+			Compressed Thumbnail=3811 bytes of binary in ASCII esc
+			{
+				!#Ø!#à!&!6JFIF!&!'!'!&!&!'!&!'!&!&!#Û!&C!&!)!(!(!)!(!(!)!)!)!)!*!)!)!*!+!.!+!+!*!*!+!0!-!-!,!.!2!0!2!2!1!0!1!1!3!4!8!6!3!4!7!4!1!1!6!<!6!7!9!:!;!;!;!2!5!=
+				!>!<!:!>!8!:!;!:!#Û!&C!'!)!*!*!+!*!+!/!+!+!/!:!3!1!3!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!#À!&!7
+				!.!&P!&i!)!'"!&!(!7!'!)!7!'!#Ä!&!E!&!&!'!+!'!'!'!'!'!'!&!&!&!&!&!&!&!&!'!(!)!*!+!,!-!.!/!0!1!#Ä!&µ!6!&!(!'!)!)!(!*!)!+!+!*!*!&!&!'!%!'!(!)!&!*!7!+!8!"1A!,
+				!9Qa!-"q!:2‘¡!.#B±Á!;RÑğ$3br‚!/!0!<!=!>!?!@%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyzƒ„…†
+				‡ˆ‰Š’“”•–—˜™š¢£¤¥¦§¨©ª²³´µ¶·¸¹ºÂÃÄÅÆÇÈÉÊÒÓÔÕÖ×ØÙÚáâãäåæçèéêñòóôõö÷øùú!#Ä!&!E!'!&!)!'!'!'!'!'
+				!'!'!'!'!&!&!&!&!&!&!'!(!)!*!+!,!-!.!/!0!1!#Ä!&µ!7!&!(!'!(!*!*!)!*!-!+!*!*!&!'!(w!&!'!(!)!7!*!+!"1!,!8AQ!-aq!9"2!.!:B‘¡±Á!/#3Rğ!;brÑ!0!<$
+				4á%ñ!=!>!?!@&'()*56789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz‚ƒ„…†‡ˆ‰Š’“”•–—˜™š¢£¤¥¦§¨©ª²³´
+				µ¶·¸¹ºÂÃÄÅÆÇÈÉÊÒÓÔÕÖ×ØÙÚâãäåæçèéêòóôõö÷øùú!#Ú!&!2!)!'!&!(!7!)!7!&?!&ğ!5ˆ7¹ñßÄ!%B÷Qµ–Âáî¥l)*cƒt
+				k!BxÎ2¡O!D¤ç’k”ø©!3æ›ám%ä2EóDU÷Ÿ!@"ÊŞ¸!Fg!-ˆ'¤½Ñ[\mvú!A”U·‹!(Y!5úÆi!(©Éîpïô!,½!-öËğ=À!#!&„f!3
+				6Æ[ëm‘éÊ–‘îİFÛ!B!7×!0!A9!>ÇqÖš\º!"·!%O!6ğF·³Ãò4×!4±¢1l±ë’?3Åg|9ñ$Úg‰’)&”ÛŞ(ˆå!)!'ëëÇü!0¤°ğ
+				V­¦hWöS"æÙ’)!:©`_·!Cz!BqÖ¹»Y!DÒì…r!1í!*uR!5øÕ¢!@º>ˆg•Ÿï?æjÅ¢K$¡WÌcÓ©5Ûx!AÂKãŸ!.éZíŠ«‹¸şx
+				“ødRUÇıô!5áŠÖ!-ŞØI„·XŠ~aÉ¡K¡š8è­om!EnÖÜ:üİ+¥ğıüĞÈ§ky™èMhZø~æñ±q!.Aœ!B!2WOkà!.í¢ûL!(I
+				[¦!A§Ö†×PW;o!/]\ßC!2nğ‚!,!?ç`0*æ£!2zËÍ$6áŒmƒ&8=ª¿€ôk¸ÜZ!?T!2)İÔÖ¥!2Ö—R¤1ì!3Ã,|!*5õ.Ú!B]ù
+				OÜ%M¹íµÍÅ<w7!"°"Lô!Bæ¶¼M©Î3!?D¹HÛ!-!1Ï>•ÄZO!#!&!/!B¯¶ÎIt„!?q!5YÇ®Gü³!#!&Ğ¿İûÛ%¡!*—~$_ˆ¾!;Hn'N
+				¸Šò!F±ÏˆeØˆÅÙ0C!2!:äck!7À×W!#!&!.eÏı!:O!<!#!&àêş.¼ïÅ:ç…ì~+hFöIìì­4Û‰›œ²´²G!@Ÿ÷B¤¬O¤g¿!;íßğŒ
+				è¿óÒãşşñ¬”c!AùšJRv>Qğç‚­|mâ”ÑìnŞëM†vº½X†!)ìI!8,!2óó¸Æ!$sq_[ü!7ğÎã_!5j:Šfy|Oá8¶Ï!B§ı!%¹
+				Cå\¢ãqY#!Fç¨epGJøçöpñôzW‰ï¯ü¶[xÊDì«Âå·s!#!&|ŸÊ¾Ÿø½â5cÑ|AàíBÜjút2Áez!@!A»&r!@Ú^rcè1Ö7!'
+				Ç,ØÛmKÜùËãtĞXøç]‚ÙÑäœ!F^¹RªÀşdşZùç\ƒìúÄŒ€şğ‚yïı1^¥ã¯!9ÂMªŞê<› wÉnçæFP8$vã¨àö®!5
+				^-9’K!-šw!6z‚IÆ!%!4!&Í!=!)Ü?e!5V!D!*Ô[Ã¾%'‡¯ßÌK’Ä!A!/!Aû!3€!5¡!0x!A«ìíkÃzeØI´û˜nU¶°RÀn!*d!;=!.¯
+				Ëİ9m/‹˜$ıú!3ëÎ2;ÄO¥!%1û9|X»şÂºğ­äí0±UÀ“†!73…dÏ¢3!(=!)7P¸!>Tq¦I;%«!19h‘ôµÏƒ!0/™!:,£< ~
+				5!+µ’¦øşÒë³ï/a\Ç‡ş<Ç¦Ûk‘µåÈÓ’6“ÊŠFW!3*F0BsË‚vîà1íÎï‡¼goâØ%º]8Úá!8PK!<ÎâÃ!2!0©R6ôÇzóá¡
+				Rq‚–²ÛF¯×ª-Ñ”SvÛ!%ı"Q§Ì¥g™ÇP‰Æjö¡~$¾Y”uS•eàû!@È¶†î!$‘6Âˆ¿Ä[!)5ĞÅ&™4!A.šuş!*ç&»Ú³¹’wG!1
+				¨èË­j!7i‚$†+Æf¸bC!9!(!2¸!)¡ÜJ!"!-ødcÚ´µûÍ!9Á¾!6»½¼„@,’=È&!:!(IaƒÀ!)µjK©hzWˆu«İFâŞÃLÒtx&k©å!/
+				!B~|Óï,Çk!=ıõï^Câè®ş6!5µIcsaà»42XXNŒ“ê²RiPàÇ!6`!0Fyr!)0!&(¤›“!1Y!E4x³[±ñ×‡üe®ê–÷6šÄ·k!;„
+				Nvˆ !6•U`!5]¬NŞFæo­c!#!&ÃAİ!#!&ÏM_!#!&!(úõ¡ãk/°[6œn%ûEìqÜÜ«¦!*`4c)òıÓ!.ˆãI­/øQ!D!#!&Ÿ/!?!#!&à!0!#
+				!&ñ5Øìˆõ9€zV«¯Ÿ!:6"ÖvqÇ<“!;ùcvb‹–÷ÏOE'±®ûYÒ¯t‹½/K[¸o%»E»!F|å™pGO•ÈùO!>È!;Ç~ÏÖ:ºj!D,ºÑ
+				îŞ!>c°ÍÍ¨#ı$!8ÅFÆ!"_nÒÛIç!)×ë«ó©K!%y§é–ö!@Ä’:M!<àQ~b7o|d!8½Ç~sP¤•âãó9ëRÄJµ*”ê%!+~hÛW¦šô³
+				*üGğe¶‡â!1û!<Ô#»6q[¤w!6«)’i#!2cÚİ!;!5˜!.ë£!)'!Diã].å-Í¤!#!&¦—!?F!8yÎWÔ˜!Bòp!3mŞZ\È³Û^\HíòÂQ
+				/Ï’K!-!*Ëô®sÆq¬zxO2Iä‘À–YNp!-!F!5©!:io3I*Îºi®K;®·éò3|8!<¥.ñåÅ!2Ygq´‡ÈÂşY¯UøIz4!#!&!BiW!?!>y¶
+				!8!40!CJãñÏé^uá÷†íR!1‡vƒŒ!<@áO¨!2!.!E…t³İj^!A–!>ìšŞT„âa!9!7!D6Ä!(O!>!?<j!9KsIóè ½!%!5´!"ñ!BKh!(²€!0®Ş
+				¬sÓğéùŠ–ßR›íFU©n!(ç­|é¦øóÆ>Tm!:>!C¸G!'–Ešp!5¡!?!?!;'ü,!@¶®4ó&‹nUCË- •Ä!0N!&wsÄ‚!(…'!FçoZ.Ó~
+				dÙ5¡õ!1êòİ"ŸµI!A§!ATàb²o|Uo¦_$&íîoe!?[KoŞNÃûÅGİ_ö›j‚@,3^+m¨Ìí!#!&!9o!7ß^3u‚Ñ¾Ç!=á³÷Ÿ›ŸÂº]?
+				ÅÖzM¨¶Ólá³ˆÌ!"h'ûÇ!>É÷<õ|¬›£Ğ4!#!&!+A­ëcÄ!D$aw:¼ok¥4»í-J!)±Ø`!/%!?'q!>RÄ/÷o6£!*!/“>Óí^!C7Ä
+				!<¶Mæ_1½8¬©¾!FŞ^°ùÈ!D€T!$1óœ÷ÇÈ¦¶ñ]ºiÎGÈ&¶$!,HƒI–Sè»ËqÛw!BW©c\!#!&ĞÓ­àÌ!#!&ñ5ã!8<M!<­!:ğùiç
+				Gbcó!2j¬!5!7À!Fe¾ë!D!%O¹>k!#!&!/.µ!#!&A!$ïü!/ñªIÊ)½!+!?^R]ŸèŸêoü;»o!2è!FºGPÛ"Y‡c!?2!<!>!#!&€Œ!Ejé|5eg
+				¯ë:DÖ×€Eu*M!A)!F!Be†;À=³Àëw±Ûx!=^Kpª\"3/VË!7’z!/­o‚W3Ù¥º»¤B#!CÍ·š¤!#!&!8!-Qé!.ú!EZ‹3u%¡!E
+				t÷ğö½4RÊÏ½å.\Ÿ˜—''Ôœç¹æ¸/!7´!=ºah¤I‚J7”<!)Ğ¯5Úü`º—RÕ¥º‹hn‘FrIş!Bzã9ü+Î¼!9`º¦—!%hÒ!>¿x!0
+				ÉèqÔû|´!3´]ğäşz”!/½“a!BõşuÕhÒ Ô"ó!:·ÈÙ!-¿!C+ˆğ´şlw7!'ÈÎ!E=Á+ğ®¿GÔÚÏXà*”Q½yÏŞS!%0I£ Æ¯
+				‡5q¥M©X°!(!17óSpÉ!70-ƒôÅhøjâvĞ®$v"êı!3ÌÏ¸å·!2Û Ø!-²×!?¯k'ûK[”!&!3ÆœG!)Óë]‡‡¯÷Çq!4Å!(!AR!,!=!C0*
+				UÈfµÄN@œ³8ôïW¥½XB/ïBy?ıjäcñ!.cûØÔû©#úÕ[İr22!9?S!#!&×®Y¬w!/®Z®TÛ—>¬I«qk–à!2)_¡À!;äÓkÒ
+				!5¸03ÇCU›Ä7-Ã!=Ç¶ÑK•²¯Å÷Ù!=3&!Aq!0!/'¡bOò!;Ìù¾ÕzúSs¢ÂÄrê˜ÉÉûÍTö!$ş•CHµ¯Ê·~!AÕ!"/(—øËgç­Ï
+				!.Ü:ÃbÅví!DXü3ı!*W1oguqöË@&w‰Â!"^K‚6!-\ãó­_!,7Útë+‘!?ó!C‰l‚Hå²?Jˆ­ÅSN[÷!?âë’·K!Fçj³ıp+‘ğ
+				âiŞ!E×/åˆ?!+P!<*!)•ÂŸÍÇ!Dõ×x»K!8Á8¸şK7™r¤u#€×!1!4›5Æ¤Xm=Ë=ä¨€ŒŒíAù)?‘©kDTuœ¾Dš4Oa Ã
+				"¨Ä×!.Ÿî!-ò!Euú!(Dš‚µÄ!Ei„/1‡Û1×·j«ªX­Ÿ¥ÙªÍp!>€¿İF?–p?!7ZšDe!;œ«‚x!>SSk«!<å¥Ñ›ã!?¬ß]³6
+				úp¶‚h!<!/"óY·~ı!/9=2!.!EJôXu½!Dégû'‡“N"2ÎÂåÜ:‚2œôÏ­y×‰†uM!>ís™ğr¤!8Ÿè+®´ÔÖÒÑâû!8JXc!$©Î;ŠË
+				’7!9›²¸¯®è’<…|3!@!,!E(!=Oòı8¬ıJ!#!&N¸Xü!;`aÃ!;¹$7àEG)ŞìÂ!C€öQÀúS!0–!#!&–mZ(Åmù™ó¶VK»X²N•!:„!Bò
+				!Eğ«ƒ^µÚ¿ñ!FÓğ!'!-å<ôçô?@b=ã#ğ4y!F!5º#MÆ/qûFˆu©…Å‰u…!FVÚDqŒ*òÜ!0ÍËÖ©!76!2B°Ú!=!&)ç“T<·şá«N
+				ÃÜ!#Ù
+			}
+			DecorationSet=CDecorationSet
+			{
+				Decorations=Array
+				{
+				}
+				Size=800,600
+			}
+			ProjectedToCanvasDecorationSet=CDecorationSet
+			{
+				Decorations=Array
+				{
+				}
+				Size=800,600
+			}
+			Number Of Frames To Update Before Brick Layer=6
+			Music To Play=CMusicPickerDefault
+			{
+			}
+			FF When Nothing On Screem=1
+			Seconds Of Nothing Before FF=1.5
+			FastForward Speed=30
+			Has Been Edited In Ricochet Infinity=1
+			Play Log Stats=
+			Brick Layer Effects=Array
+			{
+				Brick Layer Effect=CBrickLayout
+				{
+					Display Name=Brick layer
+					Author=
+					Note 1=
+					Note 2=
+					Note 3=
+					Note 4=
+					Note 5=
+					Source=
+					Background Type=Environments/Alien Vista/AlienVista
+					Blank Background Color=0,0,0
+					Canvas Color=0,179,234
+					Last Brick ID Assigned=100
+					Allow Poisonous Spaceship=1
+					Allow Bombing Spaceship=1
+					Skip Brick Layer=0
+					Automatic Power Ups=Array
+					{
+					}
+					Disallow Automatic Power-Ups=1
+					Disallow All Level Breakers=0
+					Disallowed Power-Ups=Array
+					{
+					}
+					Additional Chance Of Getting Conditional Extra Life=0
+					Bricks=Array
+					{
+						Brick=CBrickNormal
+						{
+							Name=Brick Layer 1
+							Brick Position=258,185
+							Style Sheet=Alien Vista/AV_Normal08
+							Scale X=1
+							Scale Y=1
+							Rotate=0
+							Tint=255,255,255
+							PlugIns=CBrickPlugInSimultaneous
+							{
+								Simultaneous PlugIns=Array
+								{
+									Simultaneous PlugIn=CBrickPlugInSequence
+									{
+										Steps=Array
+										{
+											Item Count=4
+											Step=CBrickPlugInHide
+											{
+												Fade out time=0
+											}
+											Step=CBrickPlugInMoveToPoint
+											{
+												End Point=CScriptPositionPlayerShip
+												{
+												}
+												Time To Complete=0
+												Ease InOut=20
+											}
+											Step=CBrickPlugInWaitXSeconds
+											{
+												Time To Wait=CExpressionRandomFloat
+												{
+													Minumum (inclusive)=0
+													Maximum (inclusive)=1
+												}
+												Countdown Display=CPrintPlugInNone
+												{
+													Match Bricks Size And Rotation=1
+												}
+											}
+											Step=CBrickPlugInSimultaneous
+											{
+												Simultaneous PlugIns=Array
+												{
+													Item Count=2
+													Simultaneous PlugIn=CBrickPlugInMoveToPoint
+													{
+														End Point=CScriptPositionPointRelativeToBrickStartingPosition
+														{
+															Position=0,0
+														}
+														Time To Complete=1
+														Ease InOut=100
+													}
+													Simultaneous PlugIn=CBrickPlugInReveal
+													{
+														Fade in time=1
+													}
+												}
+											}
+										}
+										When Done=Stop
+									}
+								}
+							}
+							Should Be Destroyed If Hit By Player Ship=0
+						}
+					}
+					Capture Center=318,240
+					Capture Width=615
+					Show Capture Rect=0
+					Automatic Thumbnail=1
+					Compression Quality=90
+					Sharp Thumbnail=1
+					CRCOfLayoutAtTimeOfLastCatupre=3199795958
+					Has Been Completed With CRC=0
+					Got 5 Rings With CRC=0
+					CRC When Saved=1676441283
+					Name Of Editor Used=Ricochet Infinity Version 3 Build 62
+					Version Of Editor Used=62
+					Was Current Version Tested=0
+					Best Number Of Rings=0
+					Compressed Thumbnail=3715 bytes of binary in ASCII esc
+					{
+						!#Ø!#à!&!6JFIF!&!'!'!&!&!'!&!'!&!&!#Û!&C!&!)!(!(!)!(!(!)!)!)!)!*!)!)!*!+!.!+!+!*!*!+!0!-!-!,!.!2!0!2!2!1!0!1!1!3!4!8!6!3!4!7!4!1!1!6!<!6!7!9!:!;!;!;!2!5!=
+						!>!<!:!>!8!:!;!:!#Û!&C!'!)!*!*!+!*!+!/!+!+!/!:!3!1!3!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!#À!&!7
+						!.!&P!&i!)!'"!&!(!7!'!)!7!'!#Ä!&!E!&!&!'!+!'!'!'!'!'!'!&!&!&!&!&!&!&!&!'!(!)!*!+!,!-!.!/!0!1!#Ä!&µ!6!&!(!'!)!)!(!*!)!+!+!*!*!&!&!'!%!'!(!)!&!*!7!+!8!"1A!,
+						!9Qa!-"q!:2‘¡!.#B±Á!;RÑğ$3br‚!/!0!<!=!>!?!@%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyzƒ„…†
+						‡ˆ‰Š’“”•–—˜™š¢£¤¥¦§¨©ª²³´µ¶·¸¹ºÂÃÄÅÆÇÈÉÊÒÓÔÕÖ×ØÙÚáâãäåæçèéêñòóôõö÷øùú!#Ä!&!E!'!&!)!'!'!'!'!'
+						!'!'!'!'!&!&!&!&!&!&!'!(!)!*!+!,!-!.!/!0!1!#Ä!&µ!7!&!(!'!(!*!*!)!*!-!+!*!*!&!'!(w!&!'!(!)!7!*!+!"1!,!8AQ!-aq!9"2!.!:B‘¡±Á!/#3Rğ!;brÑ!0!<$
+						4á%ñ!=!>!?!@&'()*56789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz‚ƒ„…†‡ˆ‰Š’“”•–—˜™š¢£¤¥¦§¨©ª²³´
+						µ¶·¸¹ºÂÃÄÅÆÇÈÉÊÒÓÔÕÖ×ØÙÚâãäåæçèéêòóôõö÷øùú!#Ú!&!2!)!'!&!(!7!)!7!&?!&ùÛÇş-¿ñ¿ÅgTÔÖ!$3<Çe¸$!1xU‚
+						ª!&!42!&äzƒI®!$â¤7šo…´—É!=Í!7WŞ~th‹+zàœ!Dzv!F’÷EmqµÛènQVŞ,!/d?ë!?¤!0§'¹Ã¿Ğ!@ô!EÛ/À÷!)ş!7˜4Û!?
+						o­¶G§*ZG¹!#!&u!AlpG\(läc!CÇZ½˜t<CÀúŞÏ!5HÓ\8!7‹e\‘ùô¬ï‡>$›Lñ2E$Ò›!$Å!7!B±Àoà=!%x!#!&T–>!0Õôİ
+						!0şÊqä\Û02E"•$!=íÇ^‡!Bu®nÖW´¼!"XÆğ¾ĞGU!F!#!&4KWGÑ!2ò³ıçüÍX´Id”*ùŒzu&»o!)xI|sá!C+]±Uqw!EÏ!8!2
+						ŠJ¸!#!&¾ü1ZÏàûÛ!/0–ë!7SÏÌ94)t1³G!C!;­í£íÚÛ‡_›¥t¾!E¿š!?!:ío3=!/­!1_!5ÜŞ6.!"!.3ƒ“ÏáŠéí|!'!C´_i€I+t
+						Ãs´úĞÚê!0çmá+«›èaŞ!6@Ã<ì!,!+\ÔaYy¤†Ü1°dÇ!-µWğ!Dp7!A‹C*…;ºšÑÔ¡šÒêT†=¸e€†±¾¥ÛC‹¿1éû
+						„©·=±Ö¹¸§æä6!*IƒœÖ×‰µ9Æc(—)!A`áyçÒ¸‹I!#!&á#•öÙÉ.ƒ.!"ë8õÈ!#!&–ú!=û¿!$d´!FƒRÕ¡»ø­à¹ã—n`Ô
+						!"@!4D„G!?/şé8!)×i=!.Ïm!#!&!.eÏı!:O!<!#!&àêş.¼ïÅ:ç…ì~+hFöIìì­4Û‰›œ²´²G!@Ÿ÷B¤¬O¤g¿!;íßğŒè¿óÒãşş
+						ñ¨²êSlùGÃ!0µñ·ŠSG±»!$­6!?Úêõb!>!5±$H°3ÏÎã!?íÎ9Å!%oğGÃ:?|=¨éş)™åñ?„âÛ<rŸõöå!5•r‹ÅdŒƒ¡
+						•Á!C+ãŸÙÃÇÑé^'¾¿òÙmã)!9²¯!1–İÏıò*úâ÷ŠtÕEñ!-ƒµ!1q«éĞË!+•ê8hnì™ÈkiyÉ ÇXÜ!-!B³cMµ5ÜùËãtĞ
+						Xøç]‚ÙÑäœ!F^¹RªÀşdşZùç\ƒìúÄŒ€şğ‚yïı1^¥ã¯!9ÂMªŞê<› wÉnçæFP8$vã¨àö®!5^-9’K!-šw!6z
+						‚IÆ!%!4!&Í!=!)Ü?e!5V!D!*Ô[Ã¾%'‡¯ßÌK’Ä!A!/!Aû!3€!5¡!0x!A«ìíkÃzeØI´û˜nU¶°RÀn!*d!;=!.¯Ëİ9m/‹˜$ıú!3ë
+						Î2;ÄO¥!%;û5|R¼¹Òn<!"wpd!<Iö›!,s‚°ä!->ŠÄ!6=!>‹Ä8]İ!8ö>‘¹ğaEó"…”g“Ô!5Æ ¶²Tß!EÚ]v!%åì*!#!&„üM
+						q!3¬¡Ü4'‚Å°1V¯Ü†™U!C‰ÎTƒÏ¾+-of--r="Q§Ì¥g™ÇP‰Æjö¡~$¾Y”uS•eàû!@È¶†î!$‘6Âˆ¿Ä[!)5ĞÅ&™4!A.
+						šuş!*ç&†¬î4î!=QÑ—ZÔ"Ó!*I!2WŒÍpÄ†&!*!?p!-C¸”B!5ğÈÇµik÷š'ƒ|!"w!$y!.!FY$!$‘!FL(!*’Ã!-€!-jÔ—RĞô¯!6ëWº
+						Å½†™¤èğL×SÊ!88üù§ŞY!)!(Ö/ûëŞ¼‹Å±İük!#!&K’ÆæÃÁvhd°°!?gÕe!B¤Ó!"Á!FØ)!?ùœ€Ì!&!0)&äÂÖGÌş,Öì|u
+						á!#!&!?kº¥½Í¦±-ÚÅa!9¢(!*%UX!)×k!9·‘¹›ëX!#!&ğĞwóÓW!#!&ÀŸş½hxÚËì!<Í§!A‰~Ñ!$!Bw7*é!>!3!>Ê|¿tÂ"8ç’kK
+						ş!:g‡¿çËÆø!(¿üMv;"=N_à&•ªëÇÅ#MˆµœqÏ$å~Xİ˜¢å½óÓÑIìk¾Öt«İ"ïKÒÖî!AÉnÑnãH!E9f\!7Óår>SÆ2!+
+						pß!)´İu¥ñuÇ‡¯ZÜGd­sk¿hºMå¶m<6!(1Áô!>ç§@—s^A=Í­…½¶¯6ân£Ü§£!CÌ!?¶JúwïI8¨´Ö§5jx™b)ND ¯Ì
+						­¾škÒÌâ?ƒ-´?!6_Ø¶¡!CÙ³Šİ#¸…YL“I!>c!DÖè¨|ÀG\…!>!?8óO!@éw)nm$‡ı4¸Ê4€“Îr¾¤ôÀç“€knòÒæEÚòâG
+						o”î!8‰~|’X8$~_¥s3cÓÂy’O$!*²Ês€9!&!%H©ÒŞf²UtÓ\–w]oÓäføq!@-J]ãËŠ!>²Îãi!5‘…ü³^«ğ’ôiş8Ò®
+						20ól$!B`:•ÇãŸÒ¼ëÃï!3Ú¤!=!4í!-!>,ÂŸP!>!6?!0égºÔ¼7,1Ù5¼©!)!/ÄÂ&"<m;ˆ!*02y!DÔ&–æ“çÑAzú!Eh[ø‰!2!(8ú
+						!$rj[!%Joµ!?D…Kp!=5ó®™ãß!?!.Q¡‹ÃÓ¤ƒp‘&C!4ØÈÈ§!#!&ÂÇñ«jãO2h¶åT<²Ú!/\@¤à!-w8ÜH!F(Rr!4võªm!6¢Ï¨_W
+						–é!:ıªHİ8Ú§!)!;“!$â«!%2ù!"7os!$(ÊÚ[~òv!EŞ*>ê!#!&´ÛT!8!'ašñ[mFgoø›xúñ›¬!<ö8¿!3Ÿ¼üÜş!;Òéş.³ÒmE¶›
+						g!3œDîa!2!$A?Ş8ÆO¹ä÷§ÊÅtz!,Ÿà¨5½lxƒÄŒ.çWít¦—!%¥©@v;!2!'$£$î#!0X…şñíæÔ`2gÚ!%«Ã¦ø‚ÖÉ¼Ëæ7§!;
+						•7Ä!AËÖ!E9!)Ğ!0f>søù!:ÖŞ+·M9Èù!*ÖÄ€É!6i2Ê!%!=yo¦î8¯RşÆ¹!#!&¡§Z!#!&Á™!#!&âkÃ¼!%­FçPŞUØ<¥İÔ!74dã
+						ß†ık‚!#!&„—Z!#!& ½÷ş!*¿øÖ:"!"7'$ÖÏôLßøwvŞ!?Ñ<At¡¶D³!4Æ2d,1!#!&!'!>>ÕÒøjÊÏ_Öt‰­¯!&ŠêTš6RA!F8Ë!2
+						w!E!B!$gÖïc¶ğ.¼–áT¸Df^­–#$õ<!9Zß!*®g³KuwH„F;›o5Iş$!4£Ó<!7ô>µ•™Ò¤´#ñîş!D×¦ŠYY÷¼¥Ë“ó!8ääú
+						“œ÷<×!+â6‚÷L-!:‰0IFò‡€z!7õæ»_Œ!=RêZ´·Qm!8!3Ò(ÎI?Ã\g?…y×‚l!=TÒï­!@C!=ï!'Y=!4:Ÿo–¶‹¾!BŸÏR07²
+						l#¿Îº­!@T!@„^b–ù!A!F÷ã¥q!D!<ŸÍæà9!?Ãç¸%qş!;×èú›Yë!7Ü!+RŠ7¯9ûÊr!5¦!/4t!9ØÕğæ®4©µ+!<!&Afşjn!?"&!+°
+						~˜­!E!3\NÚ!;ÄÄ]_¡¹™÷!B¶á;t!A!&öZã5íd!#!&ikr€!'¸Óˆàzqık°ğõşøî!"Ø Cj@Âã¦!+J¹!2Ó¶¸‰È!9–g!Dêô·«!.
+						EıèSÏ'!#!&­\Œ~!"!2!$!@Ÿu$Z«!$®FFBgêúõÑ«1µá5ËUÊ›rçÕ‰5n-rÜ!'…+ô8!(¼šmzA÷!,!,xèj³x†å¸bøöÚ)r
+						¶QÕø¾û"ædÃn!"A$ô,IşB¹Ÿ7Ú¯_JntXX]S!?9?yªÏÒ¨i!<µùVïÃz¤1Åå!8ñ!#!&!?lüõ¹á!A‡XlX®İ£Ë!E†q!#!& Š
+						æ-ìî§û] !9O3Äá!6¯%Á!AG!)®qùÖ¯‚Ûí!@m•Èˆ‡f%¸$[#ô¨ŠÜU4åõ!?âë’·K!Fçj³ıp+‘ğâiŞ!E×/åˆ?!+P!<*!)•Â
+						ŸÍÇ!Dõ×x»L!8Á8!-ù-!DeÈ#©!Bôô!,¸XtÙ®4m"ÃlîYï%D!*dgj!5ÉIüKZ"£¬åò$Ñ¢!$!3!,!?!;F&¸Dl!#!&tğ?üë¯Ğ!8
+						$Ô!;®!FûL!"yŒ>Üñ½»U]RÅlôı.ÍTîk€Ä!+şê1ü³øŠÔÒ#(¬å\!9ÀÂš›]X·-.Œß!>Ífúí™·Ó…´!9@°I!=šÍ»÷èIÉé
+						@úW¢Ã­è÷K?Ù<<šq!7–v!=.áÔ!7”ç¦!%kÎ¼L3ªhÇkœÏƒ•#ø”!#!&A]u¦¦¶–!=Ø’RÃ!AİNqÜV\‘¸œİ•Å!%wD‘ä+á˜Ğ
+						0ù@º—éÅgêWúuÂÇäè«!)!4!>­É!"¿!(*9N÷f!6ì!-²!-Ò˜T·ü³jÑF+oÌÏ²²]ÚÅ’t¨¤!Fäo!#!&…\!@õ®Õ!#!&‰!,Ÿ€!.?)
+						ç§?¡üê!)!7ï!?!E£É!&!%Óù!@n1!$Ú4C­L.,K¬)!(¶Ò#ŒaW–àVn^´õH‰°b!;†Ğ¸!'O<š¡å¿÷!3Zv!Dç!#Ù
+					}
+					DecorationSet=CDecorationSet
+					{
+						Decorations=Array
+						{
+						}
+						Size=800,600
+					}
+					ProjectedToCanvasDecorationSet=CDecorationSet
+					{
+						Decorations=Array
+						{
+						}
+						Size=800,600
+					}
+					Number Of Frames To Update Before Brick Layer=6
+					Music To Play=CMusicPickerDefault
+					{
+					}
+					FF When Nothing On Screem=1
+					Seconds Of Nothing Before FF=1.5
+					FastForward Speed=30
+					Has Been Edited In Ricochet Infinity=1
+					Play Log Stats=
+					Brick Layer Effects=Array
+					{
+					}
+				}
+			}
+		}
+		Round=CBrickLayout
+		{
+			Display Name=Brick layer
+			Author=
+			Note 1=
+			Note 2=
+			Note 3=
+			Note 4=
+			Note 5=
+			Source=
+			Background Type=Environments/Alien Vista/AlienVista
+			Blank Background Color=0,0,0
+			Canvas Color=0,179,234
+			Last Brick ID Assigned=100
+			Allow Poisonous Spaceship=1
+			Allow Bombing Spaceship=1
+			Skip Brick Layer=0
+			Automatic Power Ups=Array
+			{
+			}
+			Disallow Automatic Power-Ups=1
+			Disallow All Level Breakers=0
+			Disallowed Power-Ups=Array
+			{
+			}
+			Additional Chance Of Getting Conditional Extra Life=0
+			Bricks=Array
+			{
+				Brick=CBrickNormal
+				{
+					Name=Brick Layer 1
+					Brick Position=258,185
+					Style Sheet=Alien Vista/AV_Normal08
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+					PlugIns=CBrickPlugInSimultaneous
+					{
+						Simultaneous PlugIns=Array
+						{
+							Simultaneous PlugIn=CBrickPlugInSequence
+							{
+								Steps=Array
+								{
+									Item Count=4
+									Step=CBrickPlugInHide
+									{
+										Fade out time=0
+									}
+									Step=CBrickPlugInMoveToPoint
+									{
+										End Point=CScriptPositionPlayerShip
+										{
+										}
+										Time To Complete=0
+										Ease InOut=20
+									}
+									Step=CBrickPlugInWaitXSeconds
+									{
+										Time To Wait=CExpressionRandomFloat
+										{
+											Minumum (inclusive)=0
+											Maximum (inclusive)=1
+										}
+										Countdown Display=CPrintPlugInNone
+										{
+											Match Bricks Size And Rotation=1
+										}
+									}
+									Step=CBrickPlugInSimultaneous
+									{
+										Simultaneous PlugIns=Array
+										{
+											Item Count=2
+											Simultaneous PlugIn=CBrickPlugInMoveToPoint
+											{
+												End Point=CScriptPositionPointRelativeToBrickStartingPosition
+												{
+													Position=0,0
+												}
+												Time To Complete=1
+												Ease InOut=100
+											}
+											Simultaneous PlugIn=CBrickPlugInReveal
+											{
+												Fade in time=1
+											}
+										}
+									}
+								}
+								When Done=Stop
+							}
+						}
+					}
+					Should Be Destroyed If Hit By Player Ship=0
+				}
+			}
+			Capture Center=318,240
+			Capture Width=615
+			Show Capture Rect=0
+			Automatic Thumbnail=1
+			Compression Quality=90
+			Sharp Thumbnail=1
+			CRCOfLayoutAtTimeOfLastCatupre=3199795958
+			Has Been Completed With CRC=0
+			Got 5 Rings With CRC=0
+			CRC When Saved=1676441283
+			Name Of Editor Used=Ricochet Infinity Version 3 Build 62
+			Version Of Editor Used=62
+			Was Current Version Tested=0
+			Best Number Of Rings=0
+			Compressed Thumbnail=3715 bytes of binary in ASCII esc
+			{
+				!#Ø!#à!&!6JFIF!&!'!'!&!&!'!&!'!&!&!#Û!&C!&!)!(!(!)!(!(!)!)!)!)!*!)!)!*!+!.!+!+!*!*!+!0!-!-!,!.!2!0!2!2!1!0!1!1!3!4!8!6!3!4!7!4!1!1!6!<!6!7!9!:!;!;!;!2!5!=
+				!>!<!:!>!8!:!;!:!#Û!&C!'!)!*!*!+!*!+!/!+!+!/!:!3!1!3!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!#À!&!7
+				!.!&P!&i!)!'"!&!(!7!'!)!7!'!#Ä!&!E!&!&!'!+!'!'!'!'!'!'!&!&!&!&!&!&!&!&!'!(!)!*!+!,!-!.!/!0!1!#Ä!&µ!6!&!(!'!)!)!(!*!)!+!+!*!*!&!&!'!%!'!(!)!&!*!7!+!8!"1A!,
+				!9Qa!-"q!:2‘¡!.#B±Á!;RÑğ$3br‚!/!0!<!=!>!?!@%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyzƒ„…†
+				‡ˆ‰Š’“”•–—˜™š¢£¤¥¦§¨©ª²³´µ¶·¸¹ºÂÃÄÅÆÇÈÉÊÒÓÔÕÖ×ØÙÚáâãäåæçèéêñòóôõö÷øùú!#Ä!&!E!'!&!)!'!'!'!'!'
+				!'!'!'!'!&!&!&!&!&!&!'!(!)!*!+!,!-!.!/!0!1!#Ä!&µ!7!&!(!'!(!*!*!)!*!-!+!*!*!&!'!(w!&!'!(!)!7!*!+!"1!,!8AQ!-aq!9"2!.!:B‘¡±Á!/#3Rğ!;brÑ!0!<$
+				4á%ñ!=!>!?!@&'()*56789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz‚ƒ„…†‡ˆ‰Š’“”•–—˜™š¢£¤¥¦§¨©ª²³´
+				µ¶·¸¹ºÂÃÄÅÆÇÈÉÊÒÓÔÕÖ×ØÙÚâãäåæçèéêòóôõö÷øùú!#Ú!&!2!)!'!&!(!7!)!7!&?!&ùÛÇş-¿ñ¿ÅgTÔÖ!$3<Çe¸$!1xU‚
+				ª!&!42!&äzƒI®!$â¤7šo…´—É!=Í!7WŞ~th‹+zàœ!Dzv!F’÷EmqµÛènQVŞ,!/d?ë!?¤!0§'¹Ã¿Ğ!@ô!EÛ/À÷!)ş!7˜4Û!?
+				o­¶G§*ZG¹!#!&u!AlpG\(läc!CÇZ½˜t<CÀúŞÏ!5HÓ\8!7‹e\‘ùô¬ï‡>$›Lñ2E$Ò›!$Å!7!B±Àoà=!%x!#!&T–>!0Õôİ
+				!0şÊqä\Û02E"•$!=íÇ^‡!Bu®nÖW´¼!"XÆğ¾ĞGU!F!#!&4KWGÑ!2ò³ıçüÍX´Id”*ùŒzu&»o!)xI|sá!C+]±Uqw!EÏ!8!2
+				ŠJ¸!#!&¾ü1ZÏàûÛ!/0–ë!7SÏÌ94)t1³G!C!;­í£íÚÛ‡_›¥t¾!E¿š!?!:ío3=!/­!1_!5ÜŞ6.!"!.3ƒ“ÏáŠéí|!'!C´_i€I+t
+				Ãs´úĞÚê!0çmá+«›èaŞ!6@Ã<ì!,!+\ÔaYy¤†Ü1°dÇ!-µWğ!Dp7!A‹C*…;ºšÑÔ¡šÒêT†=¸e€†±¾¥ÛC‹¿1éû
+				„©·=±Ö¹¸§æä6!*IƒœÖ×‰µ9Æc(—)!A`áyçÒ¸‹I!#!&á#•öÙÉ.ƒ.!"ë8õÈ!#!&–ú!=û¿!$d´!FƒRÕ¡»ø­à¹ã—n`Ô
+				!"@!4D„G!?/şé8!)×i=!.Ïm!#!&!.eÏı!:O!<!#!&àêş.¼ïÅ:ç…ì~+hFöIìì­4Û‰›œ²´²G!@Ÿ÷B¤¬O¤g¿!;íßğŒè¿óÒãşş
+				ñ¨²êSlùGÃ!0µñ·ŠSG±»!$­6!?Úêõb!>!5±$H°3ÏÎã!?íÎ9Å!%oğGÃ:?|=¨éş)™åñ?„âÛ<rŸõöå!5•r‹ÅdŒƒ¡
+				•Á!C+ãŸÙÃÇÑé^'¾¿òÙmã)!9²¯!1–İÏıò*úâ÷ŠtÕEñ!-ƒµ!1q«éĞË!+•ê8hnì™ÈkiyÉ ÇXÜ!-!B³cMµ5ÜùËãtĞ
+				Xøç]‚ÙÑäœ!F^¹RªÀşdşZùç\ƒìúÄŒ€şğ‚yïı1^¥ã¯!9ÂMªŞê<› wÉnçæFP8$vã¨àö®!5^-9’K!-šw!6z
+				‚IÆ!%!4!&Í!=!)Ü?e!5V!D!*Ô[Ã¾%'‡¯ßÌK’Ä!A!/!Aû!3€!5¡!0x!A«ìíkÃzeØI´û˜nU¶°RÀn!*d!;=!.¯Ëİ9m/‹˜$ıú!3ë
+				Î2;ÄO¥!%;û5|R¼¹Òn<!"wpd!<Iö›!,s‚°ä!->ŠÄ!6=!>‹Ä8]İ!8ö>‘¹ğaEó"…”g“Ô!5Æ ¶²Tß!EÚ]v!%åì*!#!&„üM
+				q!3¬¡Ü4'‚Å°1V¯Ü†™U!C‰ÎTƒÏ¾+-of--r="Q§Ì¥g™ÇP‰Æjö¡~$¾Y”uS•eàû!@È¶†î!$‘6Âˆ¿Ä[!)5ĞÅ&™4!A.
+				šuş!*ç&†¬î4î!=QÑ—ZÔ"Ó!*I!2WŒÍpÄ†&!*!?p!-C¸”B!5ğÈÇµik÷š'ƒ|!"w!$y!.!FY$!$‘!FL(!*’Ã!-€!-jÔ—RĞô¯!6ëWº
+				Å½†™¤èğL×SÊ!88üù§ŞY!)!(Ö/ûëŞ¼‹Å±İük!#!&K’ÆæÃÁvhd°°!?gÕe!B¤Ó!"Á!FØ)!?ùœ€Ì!&!0)&äÂÖGÌş,Öì|u
+				á!#!&!?kº¥½Í¦±-ÚÅa!9¢(!*%UX!)×k!9·‘¹›ëX!#!&ğĞwóÓW!#!&ÀŸş½hxÚËì!<Í§!A‰~Ñ!$!Bw7*é!>!3!>Ê|¿tÂ"8ç’kK
+				ş!:g‡¿çËÆø!(¿üMv;"=N_à&•ªëÇÅ#MˆµœqÏ$å~Xİ˜¢å½óÓÑIìk¾Öt«İ"ïKÒÖî!AÉnÑnãH!E9f\!7Óår>SÆ2!+
+				pß!)´İu¥ñuÇ‡¯ZÜGd­sk¿hºMå¶m<6!(1Áô!>ç§@—s^A=Í­…½¶¯6ân£Ü§£!CÌ!?¶JúwïI8¨´Ö§5jx™b)ND ¯Ì
+				­¾škÒÌâ?ƒ-´?!6_Ø¶¡!CÙ³Šİ#¸…YL“I!>c!DÖè¨|ÀG\…!>!?8óO!@éw)nm$‡ı4¸Ê4€“Îr¾¤ôÀç“€knòÒæEÚòâG
+				o”î!8‰~|’X8$~_¥s3cÓÂy’O$!*²Ês€9!&!%H©ÒŞf²UtÓ\–w]oÓäføq!@-J]ãËŠ!>²Îãi!5‘…ü³^«ğ’ôiş8Ò®
+				20ól$!B`:•ÇãŸÒ¼ëÃï!3Ú¤!=!4í!-!>,ÂŸP!>!6?!0égºÔ¼7,1Ù5¼©!)!/ÄÂ&"<m;ˆ!*02y!DÔ&–æ“çÑAzú!Eh[ø‰!2!(8ú
+				!$rj[!%Joµ!?D…Kp!=5ó®™ãß!?!.Q¡‹ÃÓ¤ƒp‘&C!4ØÈÈ§!#!&ÂÇñ«jãO2h¶åT<²Ú!/\@¤à!-w8ÜH!F(Rr!4võªm!6¢Ï¨_W
+				–é!:ıªHİ8Ú§!)!;“!$â«!%2ù!"7os!$(ÊÚ[~òv!EŞ*>ê!#!&´ÛT!8!'ašñ[mFgoø›xúñ›¬!<ö8¿!3Ÿ¼üÜş!;Òéş.³ÒmE¶›
+				g!3œDîa!2!$A?Ş8ÆO¹ä÷§ÊÅtz!,Ÿà¨5½lxƒÄŒ.çWít¦—!%¥©@v;!2!'$£$î#!0X…şñíæÔ`2gÚ!%«Ã¦ø‚ÖÉ¼Ëæ7§!;
+				•7Ä!AËÖ!E9!)Ğ!0f>søù!:ÖŞ+·M9Èù!*ÖÄ€É!6i2Ê!%!=yo¦î8¯RşÆ¹!#!&¡§Z!#!&Á™!#!&âkÃ¼!%­FçPŞUØ<¥İÔ!74dã
+				ß†ık‚!#!&„—Z!#!& ½÷ş!*¿øÖ:"!"7'$ÖÏôLßøwvŞ!?Ñ<At¡¶D³!4Æ2d,1!#!&!'!>>ÕÒøjÊÏ_Öt‰­¯!&ŠêTš6RA!F8Ë!2
+				w!E!B!$gÖïc¶ğ.¼–áT¸Df^­–#$õ<!9Zß!*®g³KuwH„F;›o5Iş$!4£Ó<!7ô>µ•™Ò¤´#ñîş!D×¦ŠYY÷¼¥Ë“ó!8ääú
+				“œ÷<×!+â6‚÷L-!:‰0IFò‡€z!7õæ»_Œ!=RêZ´·Qm!8!3Ò(ÎI?Ã\g?…y×‚l!=TÒï­!@C!=ï!'Y=!4:Ÿo–¶‹¾!BŸÏR07²
+				l#¿Îº­!@T!@„^b–ù!A!F÷ã¥q!D!<ŸÍæà9!?Ãç¸%qş!;×èú›Yë!7Ü!+RŠ7¯9ûÊr!5¦!/4t!9ØÕğæ®4©µ+!<!&Afşjn!?"&!+°
+				~˜­!E!3\NÚ!;ÄÄ]_¡¹™÷!B¶á;t!A!&öZã5íd!#!&ikr€!'¸Óˆàzqık°ğõşøî!"Ø Cj@Âã¦!+J¹!2Ó¶¸‰È!9–g!Dêô·«!.
+				EıèSÏ'!#!&­\Œ~!"!2!$!@Ÿu$Z«!$®FFBgêúõÑ«1µá5ËUÊ›rçÕ‰5n-rÜ!'…+ô8!(¼šmzA÷!,!,xèj³x†å¸bøöÚ)r
+				¶QÕø¾û"ædÃn!"A$ô,IşB¹Ÿ7Ú¯_JntXX]S!?9?yªÏÒ¨i!<µùVïÃz¤1Åå!8ñ!#!&!?lüõ¹á!A‡XlX®İ£Ë!E†q!#!& Š
+				æ-ìî§û] !9O3Äá!6¯%Á!AG!)®qùÖ¯‚Ûí!@m•Èˆ‡f%¸$[#ô¨ŠÜU4åõ!?âë’·K!Fçj³ıp+‘ğâiŞ!E×/åˆ?!+P!<*!)•Â
+				ŸÍÇ!Dõ×x»L!8Á8!-ù-!DeÈ#©!Bôô!,¸XtÙ®4m"ÃlîYï%D!*dgj!5ÉIüKZ"£¬åò$Ñ¢!$!3!,!?!;F&¸Dl!#!&tğ?üë¯Ğ!8
+				$Ô!;®!FûL!"yŒ>Üñ½»U]RÅlôı.ÍTîk€Ä!+şê1ü³øŠÔÒ#(¬å\!9ÀÂš›]X·-.Œß!>Ífúí™·Ó…´!9@°I!=šÍ»÷èIÉé
+				@úW¢Ã­è÷K?Ù<<šq!7–v!=.áÔ!7”ç¦!%kÎ¼L3ªhÇkœÏƒ•#ø”!#!&A]u¦¦¶–!=Ø’RÃ!AİNqÜV\‘¸œİ•Å!%wD‘ä+á˜Ğ
+				0ù@º—éÅgêWúuÂÇäè«!)!4!>­É!"¿!(*9N÷f!6ì!-²!-Ò˜T·ü³jÑF+oÌÏ²²]ÚÅ’t¨¤!Fäo!#!&…\!@õ®Õ!#!&‰!,Ÿ€!.?)
+				ç§?¡üê!)!7ï!?!E£É!&!%Óù!@n1!$Ú4C­L.,K¬)!(¶Ò#ŒaW–àVn^´õH‰°b!;†Ğ¸!'O<š¡å¿÷!3Zv!Dç!#Ù
+			}
+			DecorationSet=CDecorationSet
+			{
+				Decorations=Array
+				{
+				}
+				Size=800,600
+			}
+			ProjectedToCanvasDecorationSet=CDecorationSet
+			{
+				Decorations=Array
+				{
+				}
+				Size=800,600
+			}
+			Number Of Frames To Update Before Brick Layer=6
+			Music To Play=CMusicPickerDefault
+			{
+			}
+			FF When Nothing On Screem=1
+			Seconds Of Nothing Before FF=1.5
+			FastForward Speed=30
+			Has Been Edited In Ricochet Infinity=1
+			Play Log Stats=
+			Brick Layer Effects=Array
+			{
+			}
+		}
+	}
+}

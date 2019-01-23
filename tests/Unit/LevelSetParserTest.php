@@ -63,4 +63,15 @@ class LevelSetParserTest extends TestCase
 
         $this->assertEmpty($results['levelSet']['modsUsed']);
     }
+
+    public function testThumbnailOfLevelRoundWithCustomBrickLayerEffect()
+    {
+        $levelSetData = file_get_contents(__DIR__.'/../fixtures/custom-brick-layer-thumbnail-test/Level.txt');
+        $thumbnail = file_get_contents(__DIR__.'/../fixtures/custom-brick-layer-thumbnail-test/thumbnail.jpg');
+
+        $results = (new LevelSetParser)->parse($levelSetData);
+
+        $this->assertEquals($results['rounds'][0]['name'], 'Main');
+        $this->assertEquals($results['rounds'][0]['picture'], $thumbnail);
+    }
 }
