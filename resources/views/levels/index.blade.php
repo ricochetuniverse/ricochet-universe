@@ -211,7 +211,7 @@
                         </tbody>
                     </table>
 
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center mb-n3">
                         <div class="d-md-none">
                             {{ $levelSets->links('pagination::simple-bootstrap-4') }}
                         </div>

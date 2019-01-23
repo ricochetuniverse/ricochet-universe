@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card mb-3">
+                <div class="card">
                     <div class="card-header">Page not found</div>
 
                     <div class="card-body">

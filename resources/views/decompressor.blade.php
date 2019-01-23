@@ -9,7 +9,7 @@
                 <div id="decompressor-root"></div>
 
                 <noscript>
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger m-0" role="alert">
                         Please enable JavaScript to use the decompressor tool.
                     </div>
                 </noscript>

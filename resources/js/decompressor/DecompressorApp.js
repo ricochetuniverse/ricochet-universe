@@ -55,7 +55,7 @@ export default class DecompressorApp extends Component {
 
     render() {
         return (
-            <div>
+            <div className="mb-n3">
                 <Card className="mb-3">
                     <CardHeader>Decompressor</CardHeader>
 

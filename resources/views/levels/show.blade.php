@@ -15,7 +15,7 @@
                 </a>
 
                 @if ($brokenLevelSetWarning)
-                    <div class="alert alert-danger my-3" role="alert">
+                    <div class="alert alert-danger mt-3" role="alert">
                         This level set can’t be parsed properly, it might be broken or can’t be completed.
                     </div>
                 @endif

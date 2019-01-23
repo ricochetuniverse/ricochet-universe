@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3">
+                <div class="card">
                     <div class="card-header">Finished!</div>
 
                     <div class="card-body">
