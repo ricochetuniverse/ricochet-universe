@@ -1,7 +1,7 @@
 // noinspection ES6UnusedImports
 import {Component, h} from 'preact';
 
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor from 'react-monaco-editor/lib/editor';
 
 export default class DecompressorEditor extends Component {
     monaco = null;
@@ -38,6 +38,6 @@ export default class DecompressorEditor extends Component {
     };
 
     componentWillUnmount() {
-        window.addEventListener('resize', this.updateDimensions);
+        window.removeEventListener('resize', this.updateDimensions);
     }
 }
