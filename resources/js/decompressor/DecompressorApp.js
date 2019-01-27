@@ -15,6 +15,7 @@ import {
 import LoadingComponent from '../LoadingComponent';
 
 import checkForMods from './check-for-mods';
+import triggerDownload from '../util/trigger-download';
 
 function getDownloadFileName(fileName) {
     return fileName.replace(/\.Ricochet(I|LW)$/, '') + ' (decompressed).txt';
@@ -259,19 +260,9 @@ export default class DecompressorApp extends Component {
     }
 
     downloadResult = () => {
-        // Firefox requires link to be inserted in <body> before clicking
-        // https://stackoverflow.com/a/27116581
-        const link = document.createElement('a');
-        link.setAttribute('href', this.state.objectUrl);
-        link.setAttribute('download', getDownloadFileName(this.state.fileName));
-        link.style.position = 'absolute';
-        link.style.top = '0';
-        link.style.left = '-10px';
-        link.style.visibility = 'hidden';
-        link.setAttribute('aria-hidden', 'true');
-        link.tabIndex = -1;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
+        triggerDownload(
+            this.state.objectUrl,
+            getDownloadFileName(this.state.fileName)
+        );
     };
 }
