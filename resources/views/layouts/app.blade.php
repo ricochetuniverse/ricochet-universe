@@ -32,14 +32,14 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="d-none d-md-block">
-                <a class="navbar-brand d-flex mr-2" href="{{ action('HomeController@index') }}" title="Ricochet" data-toggle="tooltip">
-                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="Ricochet">
+                <a class="navbar-brand d-flex mr-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}" data-toggle="tooltip">
+                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
                 </a>
             </div>
 
             <div class="d-md-none">
                 <a class="navbar-brand d-flex mr-2" href="{{ action('HomeController@index') }}">
-                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="Ricochet"><span class="ml-2">Ricochet</span>
+                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}"><span class="ml-2">{{ config('app.name') }}</span>
                 </a>
             </div>
 

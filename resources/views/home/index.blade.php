@@ -5,11 +5,11 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Welcome to Ricochet Levels</div>
+                    <div class="card-header">Welcome to Ricochet Universe</div>
 
                     <div class="card-body">
                         <p class="m-0">
-                            Here you can download and play levels for Ricochet Lost Worlds and Ricochet Infinity.
+                            Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community.
                         </p>
                     </div>
                 </div>

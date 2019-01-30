@@ -1,4 +1,4 @@
-# Ricochet Levels
+# Ricochet Universe
 
 Visit the live website at [https://ricochet.ngyikp.com](https://ricochet.ngyikp.com)
 
