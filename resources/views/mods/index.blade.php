@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Mods')
+@section('og:description', 'Explore and play new environments, custom content and modifications for Ricochet Infinity.')
 
 @section('content')
     <div class="container-fluid">

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Upload')
+@section('og:description', 'Upload and share your Ricochet level sets.')
 
 @section('content')
     <div class="container-fluid">
