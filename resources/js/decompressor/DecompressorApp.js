@@ -100,7 +100,7 @@ export default class DecompressorApp extends Component {
                                 name="output"
                                 id="output_browser"
                                 checked={this.state.useBrowserTextEditor}
-                                label="View in browser (powered by Visual Studio Code)"
+                                label="View in browser"
                                 onChange={this.onOutputRadioButtonChanged.bind(
                                     this,
                                     true
