@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/reviver', 'ReviverController@index');
+Route::get('/tools', 'ToolsController@index');
 Route::get('/decompressor', 'DecompressorController@index');
 Route::get('/red-mod-packager', 'RedModPackagerController@index');
 Route::get('/about', 'AboutController@index');

@@ -6,6 +6,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
+                <a href="{{ action('ToolsController@index') }}" class="btn btn-outline-primary mb-3">
+                    « Return to tools list
+                </a>
+
                 <div id="red-mod-packager-root"></div>
 
                 <noscript>

@@ -62,7 +62,7 @@
                             <a class="nav-link" href="{{ action('UploadController@index') }}" title="Upload and share your level sets" data-toggle="tooltip">Upload</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('DecompressorController@index') }}" title="Decompress Ricochet levels, stats and other data" data-toggle="tooltip">Decompressor</a>
+                            <a class="nav-link" href="{{ action('ToolsController@index') }}" title="Use various utilities that are useful for tinkerers" data-toggle="tooltip">Tools</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ action('AboutController@index') }}" title="Learn more about this website" data-toggle="tooltip">About</a>

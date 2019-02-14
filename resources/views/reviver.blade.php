@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Reviver')
+@section('og:description', 'Restore the in-game level catalog in Ricochet Infinity.')
 
 @section('content')
     <div class="container-fluid">
