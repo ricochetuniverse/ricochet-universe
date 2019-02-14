@@ -12,10 +12,19 @@ import {
     FormGroup,
 } from 'reactstrap';
 
+import IncompatibleBrowser from '../IncompatibleBrowser';
 import LoadingComponent from '../LoadingComponent';
 
 import checkForMods from './check-for-mods';
 import triggerDownload from '../util/trigger-download';
+
+function isBrowserCompatible() {
+    return (
+        typeof FileReader !== 'undefined' &&
+        typeof Blob !== 'undefined' &&
+        typeof TextDecoder !== 'undefined'
+    );
+}
 
 function getDownloadFileName(fileName) {
     return fileName.replace(/\.Ricochet(I|LW)$/, '') + ' (decompressed).txt';
@@ -55,6 +64,10 @@ export default class DecompressorApp extends Component {
     };
 
     render() {
+        if (!isBrowserCompatible()) {
+            return <IncompatibleBrowser />;
+        }
+
         return (
             <div className="mb-n3">
                 <Card className="mb-3">
