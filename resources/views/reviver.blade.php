@@ -32,7 +32,7 @@
 
                         <p>
                             Download the new version of <code><a href="{{ asset('misc/libcurl.dll') }}">libcurl.dll</a></code>
-                            (version 7.61.1), then copy and paste it to the Ricochet Infinity program folder.
+                            (version 7.64.0), then copy and paste it to the Ricochet Infinity program folder.
                         </p>
 
                         <p class="m-0">
