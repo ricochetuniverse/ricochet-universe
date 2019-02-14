@@ -111,7 +111,7 @@ export default class DecompressorApp extends Component {
                         <CustomInput
                             type="file"
                             label={this.state.fileName}
-                            accept=".RicochetI,.RicochetLW,.dat"
+                            accept=".RicochetI,.RicochetLW,.dat,.Sequence"
                             onChange={this.onFileChange}
                         />
                     </CardBody>
@@ -130,6 +130,13 @@ export default class DecompressorApp extends Component {
                               this.state.requiresModName +
                               ' mod to play.'
                             : 'This level set requires files that are not available on the base game.'}
+                    </Alert>
+                ) : null}
+
+                {this.state.fileName.match(/\.(Sequence|Frame)$/) ? (
+                    <Alert color="info" fade={false}>
+                        Decompressing sequences aren’t fully supported by this
+                        tool yet.
                     </Alert>
                 ) : null}
 
