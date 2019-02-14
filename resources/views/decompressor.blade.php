@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Decompressor')
-@section('og:description', 'Decompress Ricochet levels, stats and other data.')
+@section('description', 'Decompress Ricochet levels, stats and other data.')
 
 @section('content')
     <div class="container-fluid">

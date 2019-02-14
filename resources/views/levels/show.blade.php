@@ -3,7 +3,7 @@
 @section('title', $levelSet->name . ' by ' . $levelSet->author)
 @section('og:title', $levelSet->name . ' by ' . $levelSet->author)
 @section('og:url', $levelSet->getPermalink())
-@section('og:description', $levelSet->description)
+@section('description', $levelSet->description)
 @section('og:image', $levelSet->getImageUrl())
 
 @section('content')

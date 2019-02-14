@@ -13,8 +13,8 @@
     @hasSection('og:title')<meta property="og:title" content="@yield('og:title')">@endif
     {{--<meta property="og:type" content="website">--}}
     @hasSection('og:url')<meta property="og:url" content="@yield('og:url')">@endif
-    <meta property="og:description" content="@yield('og:description', 'Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community')">
-    <meta name="description" content="@yield('og:description', 'Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community')">
+    <meta property="og:description" content="@yield('description', 'Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community')">
+    <meta name="description" content="@yield('description', 'Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community')">
     @hasSection('og:image')
         <meta property="og:image" content="@yield('og:image')">
         <meta name="thumbnail" content="@yield('og:image')">

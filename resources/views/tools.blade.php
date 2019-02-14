@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Tools')
-@section('og:description', 'Use various utilities for Ricochet that are useful for tinkerers.')
+@section('description', 'Use various utilities for Ricochet that are useful for tinkerers.')
 
 @section('content')
     <div class="container-fluid">

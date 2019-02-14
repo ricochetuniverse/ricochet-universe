@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'RED Mod Packager')
-@section('og:description', 'Package your Ricochet mods to a .RED file for easier distribution.')
+@section('description', 'Package your Ricochet mods to a .RED file for easier distribution.')
 
 @section('content')
     <div class="container-fluid">
