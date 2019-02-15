@@ -4,6 +4,7 @@ const path = require('path');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
@@ -32,13 +33,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[hash].css',
-                        },
-                    },
-                    'extract-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'postcss-loader',
                     {
@@ -82,6 +77,10 @@ module.exports = {
                 'multicursor',
                 'quickCommand',
             ],
+        }),
+
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash].css',
         }),
     ],
     devtool: false,

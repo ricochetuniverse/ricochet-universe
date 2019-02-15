@@ -6,7 +6,7 @@
     <title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}</title>
     <meta name="viewport" content="width=device-width">
 
-    <link href="{{ mix('app.scss') }}" rel="stylesheet">
+    <link href="{{ mix('app.css') }}" rel="stylesheet">
 
     @hasSection('og:url')<meta name="canonical" content="@yield('og:url')">@endif
 
