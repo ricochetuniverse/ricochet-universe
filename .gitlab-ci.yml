@@ -40,6 +40,12 @@ phpunit:
     script:
         - php ./vendor/bin/phpunit
 
+eslint:
+    stage: test
+    <<: *setup_node
+    script:
+        - yarn run lint
+
 prettier:
     stage: test
     <<: *setup_node

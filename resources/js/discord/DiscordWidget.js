@@ -1,5 +1,5 @@
 // noinspection ES6UnusedImports
-import {Component, h} from 'preact';
+import {h} from 'preact';
 
 import getDiscordMemberName from './getDiscordMemberName';
 
@@ -24,7 +24,7 @@ export default function DiscordWidget(props) {
             <ul className="discordWidget__memberList">
                 {props.members.map((member) => {
                     return (
-                        <li className="discordWidget__member">
+                        <li className="discordWidget__member" key={member.id}>
                             <div className="discordWidget__member__avatar">
                                 <img
                                     src={member.avatar_url}

@@ -1,3 +1,5 @@
+/* global ga: readonly */
+
 const trackingId = document.getElementById('google-analytics-tracking-id');
 if (trackingId) {
     (function(i, s, o, g, r, a, m) {
