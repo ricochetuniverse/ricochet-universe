@@ -14,6 +14,8 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        return action('DiscordLoginController@redirectToProvider');
+        if (!$request->expectsJson()) {
+            return action('DiscordLoginController@redirectToProvider');
+        }
     }
 }

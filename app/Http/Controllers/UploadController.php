@@ -16,7 +16,7 @@ class UploadController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date_posted' => 'required|date_format:Y-m-d',
+            'date_posted' => ['required', 'date_format:Y-m-d'],
         ]);
 
         $processor = new LevelSetUploadProcessor();

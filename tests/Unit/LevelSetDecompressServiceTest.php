@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class LevelSetDecompressServiceTest extends TestCase
 {
-    public function testDecompress()
+    public function testDecompress(): void
     {
         $originalFile = realpath(__DIR__.'/../fixtures/Reflexive B Sides.RicochetLW');
         $decompressedFile = file_get_contents(__DIR__.'/../fixtures/Reflexive B Sides.RicochetLW.txt');

@@ -10,6 +10,7 @@ use DomainException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class LevelSetUploadProcessor
 {
@@ -98,7 +99,7 @@ class LevelSetUploadProcessor
                 'required',
                 'url',
                 function ($attribute, $value, $fail) {
-                    if (!ends_with($value, ['.RicochetI', '.RicochetLW'])) {
+                    if (!Str::endsWith($value, ['.RicochetI', '.RicochetLW'])) {
                         return $fail('The URL must end with a .RicochetI or .RicochetLW file extension.');
                     }
                 },
@@ -165,9 +166,9 @@ class LevelSetUploadProcessor
      */
     private function getFileExtension(string $url): string
     {
-        if (ends_with($url, '.RicochetI')) {
+        if (Str::endsWith($url, '.RicochetI')) {
             return '.RicochetI';
-        } elseif (ends_with($url, '.RicochetLW')) {
+        } elseif (Str::endsWith($url, '.RicochetLW')) {
             return '.RicochetLW';
         }
 
@@ -180,9 +181,9 @@ class LevelSetUploadProcessor
      */
     private function getGameVersion(string $fileName): int
     {
-        if (ends_with($fileName, '.RicochetI')) {
+        if (Str::endsWith($fileName, '.RicochetI')) {
             return 3;
-        } elseif (ends_with($fileName, '.RicochetLW')) {
+        } elseif (Str::endsWith($fileName, '.RicochetLW')) {
             return 2;
         }
 

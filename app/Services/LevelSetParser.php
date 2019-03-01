@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Str;
+
 /**
  * Naive parser for Ricochet Infinity levels
  *
@@ -188,7 +190,7 @@ class LevelSetParser
                 $type = $this->fileGroupsKeyed[$key];
 
                 if (isset($modFileGroups[$type])) {
-                    if (starts_with($value, $modFileGroups[$type])) {
+                    if (Str::startsWith($value, $modFileGroups[$type])) {
                         $this->levelSetModsUsed[] = $modName;
                     }
                 }

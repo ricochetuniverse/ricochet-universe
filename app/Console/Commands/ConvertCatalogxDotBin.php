@@ -7,6 +7,7 @@ use App\LevelSet;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ConvertCatalogxDotBin extends Command
 {
@@ -109,9 +110,9 @@ class ConvertCatalogxDotBin extends Command
 //                return (int)$id;
 //            }, array_filter(explode(';', $rowData[20])));
 
-            if (starts_with($levelSet->image_url, 'cache/')) {
+            if (Str::startsWith($levelSet->image_url, 'cache/')) {
                 $parts = explode('/', $levelSet->image_url);
-                $levelSet->round_to_get_image_from = (int)str_before(end($parts), '.jpg');
+                $levelSet->round_to_get_image_from = (int)Str::before(end($parts), '.jpg');
             }
 
             $this->repairCatalogItem($levelSet);

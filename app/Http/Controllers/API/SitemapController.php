@@ -10,7 +10,7 @@ class SitemapController extends Controller
 {
     public function index()
     {
-        $xml = Cache::remember('sitemap_xml', $this->getCacheMinutes(), function () {
+        $xml = Cache::remember('sitemap_xml', now()->addMinutes($this->getCacheMinutes()), function () {
             $levelSets = LevelSet::select('name', 'updated_at')
                 ->orderBy('id')
                 ->get();
@@ -29,6 +29,6 @@ class SitemapController extends Controller
             return 60;
         }
 
-        return 1;
+        return 0;
     }
 }

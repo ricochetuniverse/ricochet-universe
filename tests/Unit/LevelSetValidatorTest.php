@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class LevelSetValidatorTest extends TestCase
 {
-    public function testRule()
+    public function testRule(): void
     {
         $names = [
             'Reflexive B Sides',

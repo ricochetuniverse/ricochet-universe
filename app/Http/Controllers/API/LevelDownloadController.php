@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\LevelSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LevelDownloadController extends Controller
@@ -70,9 +71,9 @@ class LevelDownloadController extends Controller
      */
     private function stripFileParameterPrefixAndSuffix(string $file): string
     {
-        $file = str_after($file, 'downloads/raw/');
-        $file = str_before($file, '.RicochetLW');
-        $file = str_before($file, '.RicochetI');
+        $file = Str::after($file, 'downloads/raw/');
+        $file = Str::before($file, '.RicochetLW');
+        $file = Str::before($file, '.RicochetI');
 
         return $file;
     }

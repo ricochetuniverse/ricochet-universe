@@ -15,10 +15,14 @@ class CatalogController extends Controller
     {
         $isSecure = $request->isSecure();
 
-        $catalogContent = Cache::remember($this->getCacheKey($isSecure), $this->getCacheMinutes(), function () use ($isSecure) {
-            $catalogService = new CatalogService;
-            return $catalogService->getCatalog($isSecure);
-        });
+        $catalogContent = Cache::remember(
+            $this->getCacheKey($isSecure),
+            now()->addMinutes($this->getCacheMinutes()),
+            function () use ($isSecure) {
+                $catalogService = new CatalogService;
+                return $catalogService->getCatalog($isSecure);
+            }
+        );
 
         $response = response(TextEncoderForGame::toLegacyEncoding($catalogContent))
             ->setCache(['public' => true, 'max_age' => 60 * $this->getCacheMinutes()])

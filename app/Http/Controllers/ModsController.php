@@ -22,11 +22,11 @@ class ModsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:mods',
+            'name' => ['required', 'unique:mods'],
             'author' => 'required',
             'description' => '',
-            'video_embed_source' => 'nullable|url',
-            'download_link' => 'nullable|url',
+            'video_embed_source' => ['nullable', 'url'],
+            'download_link' => ['nullable', 'url'],
             'trigger_codename' => '',
         ]);
 
