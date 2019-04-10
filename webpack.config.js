@@ -58,7 +58,7 @@ module.exports = {
         },
     },
     plugins: [
-        new CleanWebpackPlugin(['public/build/']),
+        new CleanWebpackPlugin(),
 
         new ManifestPlugin({
             basePath: '/',
