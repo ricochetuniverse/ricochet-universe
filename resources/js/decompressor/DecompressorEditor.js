@@ -1,4 +1,3 @@
-// noinspection ES6UnusedImports
 import {Component, h} from 'preact';
 
 import MonacoEditor from 'react-monaco-editor/lib/editor';

@@ -1,5 +1,4 @@
 import {inflate} from 'pako/lib/inflate';
-// noinspection ES6UnusedImports
 import {Component, h} from 'preact';
 import Loadable from 'react-loadable';
 import {

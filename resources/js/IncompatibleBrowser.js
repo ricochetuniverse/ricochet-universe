@@ -1,4 +1,3 @@
-// noinspection ES6UnusedImports
 import {h} from 'preact';
 import {Alert} from 'reactstrap';
 

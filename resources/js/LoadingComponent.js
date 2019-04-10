@@ -1,4 +1,3 @@
-// noinspection ES6UnusedImports
 import {h} from 'preact';
 
 export default function({error, timedOut, retry, text = 'Loading...'}) {

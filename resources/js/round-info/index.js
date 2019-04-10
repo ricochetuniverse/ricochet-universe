@@ -1,5 +1,4 @@
 import $ from 'jquery';
-// noinspection ES6UnusedImports
 import {h, render} from 'preact';
 
 import RoundInfoModal from './RoundInfoModal';
