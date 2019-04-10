@@ -1,16 +1,19 @@
 import {h} from 'preact';
+import {Button} from 'reactstrap';
 
 export default function({error, timedOut, retry, text = 'Loading...'}) {
     if (error) {
         return (
             <div className="d-flex align-items-center">
                 Failed to load
-                <button
-                    className="btn btn-outline-primary ml-3"
+                <Button
+                    outline
+                    color="primary"
+                    className="ml-3"
                     onClick={retry}
                 >
                     Retry
-                </button>
+                </Button>
             </div>
         );
     }
@@ -20,12 +23,14 @@ export default function({error, timedOut, retry, text = 'Loading...'}) {
             <div className="d-flex align-items-center">
                 This is loading longer than expected... You can continue to wait
                 or
-                <button
-                    className="btn btn-outline-primary ml-3"
+                <Button
+                    outline
+                    color="primary"
+                    className="ml-3"
                     onClick={retry}
                 >
                     Retry
-                </button>
+                </Button>
             </div>
         );
     }
