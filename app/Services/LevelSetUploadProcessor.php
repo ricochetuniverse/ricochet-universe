@@ -104,7 +104,7 @@ class LevelSetUploadProcessor
                     }
                 },
             ],
-            'name' => 'required|unique:level_sets',
+            'name' => ['required', 'unique:level_sets'],
         ], [], [
             'url'  => 'level set URL',
             'name' => 'level set name',
