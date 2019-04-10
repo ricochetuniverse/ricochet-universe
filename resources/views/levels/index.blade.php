@@ -23,15 +23,17 @@
                     </div>
                 </div>
 
-                @if ($levelSets->total() > $levelSets->count())
-                    <p>
-                        Showing {{ number_format($levelSets->firstItem()).'-'.number_format($levelSets->lastItem()) }}
-                        of {{ number_format($levelSets->total()) }} level sets
-                    </p>
-                @elseif ($levelSets->count() > 1)
-                    <p>Showing {{ $levelSets->count() }} level sets</p>
-                @else
-                    <p>Showing {{ $levelSets->count() }} level set</p>
+                @if ($levelSets->count() > 0)
+                    @if ($levelSets->total() > $levelSets->count())
+                        <p>
+                            Showing {{ number_format($levelSets->firstItem()).'-'.number_format($levelSets->lastItem()) }}
+                            of {{ number_format($levelSets->total()) }} level sets
+                        </p>
+                    @elseif ($levelSets->count() > 1)
+                        <p>Showing {{ $levelSets->count() }} level sets</p>
+                    @else
+                        <p>Showing {{ $levelSets->count() }} level set</p>
+                    @endif
                 @endif
 
                 <div class="d-md-none mb-3">
