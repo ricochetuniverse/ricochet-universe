@@ -4,6 +4,7 @@ namespace Deployer;
 
 require 'recipe/laravel.php';
 require 'deployer/php-fpm.php';
+require 'deployer/view-cache.php';
 require 'vendor/deployer/recipes/recipe/sentry.php';
 require 'vendor/deployer/recipes/recipe/yarn.php';
 
@@ -54,6 +55,7 @@ task('ricochet:clear-catalog-cache', function () {
 
 after('deploy:vendors', 'yarn:install');
 after('deploy:writable', 'webpack:run');
+after('artisan:view:clear', 'artisan:view:cache');
 after('artisan:config:cache', 'artisan:route:cache');
 before('deploy:symlink', 'artisan:migrate');
 before('deploy:symlink', 'deploy:public_disk');
