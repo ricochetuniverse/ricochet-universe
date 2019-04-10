@@ -14,15 +14,28 @@
     align-items: center;
     justify-content: space-between;
 
-    &:hover,
-    &:active,
     &:focus {
+        outline: 0;
+
+        .btn-outline-secondary {
+            box-shadow: 0 0 0 $btn-focus-width rgba($secondary, 0.5);
+        }
+    }
+
+    &:hover,
+    &:active {
         text-decoration: none;
 
         .btn-outline-secondary {
             color: color-yiq($secondary);
             background-color: $secondary;
             border-color: $secondary;
+        }
+
+        &:focus {
+            .btn-outline-secondary {
+                box-shadow: 0 0 0 $btn-focus-width rgba($secondary, 0.5);
+            }
         }
     }
 }

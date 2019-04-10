@@ -232,9 +232,14 @@ input.dropdown-item {
         @include make-col(2);
     }
 
-    &:hover,
-    &:active,
     &:focus {
+        .btn-outline-primary {
+            box-shadow: 0 0 0 $btn-focus-width rgba($primary, 0.5);
+        }
+    }
+
+    &:hover,
+    &:active {
         background: $component-active-bg;
 
         text-decoration: none;
@@ -243,6 +248,12 @@ input.dropdown-item {
             color: color-yiq($primary);
             background-color: $primary;
             border-color: $primary;
+        }
+
+        &:focus {
+            .btn-outline-primary {
+                box-shadow: 0 0 0 $btn-focus-width rgba($primary, 0.5);
+            }
         }
     }
 }
