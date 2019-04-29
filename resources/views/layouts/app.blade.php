@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}</title>
     <meta name="viewport" content="width=device-width">
+    <meta name="theme-color" content="#00fffe">
 
     <link href="{{ mix('app.css') }}" rel="stylesheet">
 
