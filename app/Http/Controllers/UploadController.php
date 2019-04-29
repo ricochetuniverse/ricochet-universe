@@ -22,7 +22,7 @@ class UploadController extends Controller
         $processor = new LevelSetUploadProcessor();
         $processor->setUrl($request->input('url'));
         $processor->setName($request->input('name'));
-        $processor->setDatePosted(Carbon::createFromFormat('Y-m-d', $request->input('date_posted')));
+        $processor->setDatePosted(Carbon::createFromFormat('Y-m-d', $request->input('date_posted'))->startOfDay());
 
         $levelSet = $processor->process();
 

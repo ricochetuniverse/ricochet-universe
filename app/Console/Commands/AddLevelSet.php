@@ -37,7 +37,7 @@ class AddLevelSet extends Command
         $processor = new LevelSetUploadProcessor();
         $processor->setUrl($this->argument('url'));
         $processor->setName($this->argument('name'));
-        $processor->setDatePosted(Carbon::createFromFormat('Y-m-d', $this->argument('date_posted')));
+        $processor->setDatePosted(Carbon::createFromFormat('Y-m-d', $this->argument('date_posted'))->startOfDay());
 
         $levelSet = $processor->process();
 
