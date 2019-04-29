@@ -147,7 +147,11 @@
                                         By <a
                                             href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
                                             title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a><span
-                                            class="d-md-none">, posted on {{ $levelSet->created_at->format('Y-m-d') }}</span>
+                                            class="d-md-none">, posted on
+                                            <time datetime="{{ $levelSet->created_at->format('Y-m-d') }}">
+                                                {{ $levelSet->created_at->format('Y-m-d') }}
+                                            </time>
+                                        </span>
                                     </p>
 
                                     <div class="media mt-2">
@@ -206,7 +210,11 @@
                                 <td class="d-none d-md-table-cell text-center">
                                     {{ $levelSet->downloads > 0 ? number_format($levelSet->downloads) : 'N/A' }}
                                 </td>
-                                <td class="d-none d-md-table-cell text-center text-nowrap">{{ $levelSet->created_at->format('Y-m-d') }}</td>
+                                <td class="d-none d-md-table-cell text-center text-nowrap">
+                                    <time datetime="{{ $levelSet->created_at->format('Y-m-d') }}">
+                                        {{ $levelSet->created_at->format('Y-m-d') }}
+                                    </time>
+                                </td>
                                 <td class="d-none d-md-table-cell no-gutters levelsTable__ratingColumn">
                                     @include('levels._rating', ['levelSet' => $levelSet])
                                 </td>

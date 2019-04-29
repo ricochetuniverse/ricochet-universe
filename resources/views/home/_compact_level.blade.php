@@ -6,8 +6,11 @@
 
     <div>
         By <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
-              title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>, posted
-        on {{ $levelSet->created_at->format('Y-m-d') }}
+              title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>,
+        posted on
+        <time datetime="{{ $levelSet->created_at->format('Y-m-d') }}">
+            {{ $levelSet->created_at->format('Y-m-d') }}
+        </time>
     </div>
 
     <div class="media mt-3">

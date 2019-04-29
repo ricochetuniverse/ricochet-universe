@@ -27,7 +27,7 @@
                         </div>
 
                         <div>
-                            by <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
+                            By <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
                                   title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>
                         </div>
 
@@ -55,7 +55,11 @@
 
                             <div class="d-table-row">
                                 <div class="d-table-cell pr-2">Date posted:</div>
-                                <div class="d-table-cell">{{ $levelSet->created_at->format('Y-m-d') }}</div>
+                                <div class="d-table-cell">
+                                    <time datetime="{{ $levelSet->created_at->format('Y-m-d') }}">
+                                        {{ $levelSet->created_at->format('Y-m-d') }}
+                                    </time>
+                                </div>
                             </div>
                         </div>
 
