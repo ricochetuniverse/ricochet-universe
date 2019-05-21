@@ -68,7 +68,13 @@
                                 <span class="col-auto mr-2">Ratings:</span>
 
                                 <div class="col">
-                                    @include('levels._rating', ['levelSet' => $levelSet, 'showPlayerCount' => true])
+                                    @include('levels._ratings', [
+                                        'levelSet' => $levelSet,
+                                        'showTooltipExplanation' => false,
+                                        'showPlayerCount' => true,
+                                    ])
+
+                                    <p class="mt-3 mb-0">Level sets are graded in Ricochet Infinity.</p>
                                 </div>
                             </div>
                         @endif

@@ -200,7 +200,7 @@
                                                 <span class="col-auto mr-2">Ratings:</span>
 
                                                 <div class="col">
-                                                    @include('levels._rating', ['levelSet' => $levelSet])
+                                                    @include('levels._ratings', ['levelSet' => $levelSet])
                                                 </div>
                                             </div>
                                         </div>
@@ -216,7 +216,7 @@
                                     </time>
                                 </td>
                                 <td class="d-none d-md-table-cell no-gutters levelsTable__ratingColumn">
-                                    @include('levels._rating', ['levelSet' => $levelSet])
+                                    @include('levels._ratings', ['levelSet' => $levelSet])
                                 </td>
                             </tr>
                         @endforeach
