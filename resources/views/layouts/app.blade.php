@@ -33,7 +33,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="d-none d-md-block">
-                <a class="navbar-brand d-flex mr-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}" data-toggle="tooltip">
+                <a class="navbar-brand js-with-tooltip d-flex mr-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}">
                     <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
                 </a>
             </div>
@@ -50,31 +50,40 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ action('LevelController@index') }}" title="Explore, download and play level sets created by the community" data-toggle="tooltip">Levels</a>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle js-with-tooltip"
+                               id="levelsNavbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false"
+                               title="Explore, download and play level sets created by the community">
+                                Levels
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="levelsNavbarDropdownMenuLink">
+                                <a href="{{ action('LevelController@index') }}" class="dropdown-item">Most downloaded</a>
+                                <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}" class="dropdown-item">Latest</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{{ action('UploadController@index') }}" class="dropdown-item">Upload</a>
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('ModsController@index') }}" title="Play new environments, custom content and modifications" data-toggle="tooltip">Mods</a>
+                            <a class="nav-link js-with-tooltip" href="{{ action('ModsController@index') }}" title="Play new environments, custom content and modifications">Mods</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity" data-toggle="tooltip">Reviver</a>
+                            <a class="nav-link js-with-tooltip" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity">Reviver</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('UploadController@index') }}" title="Upload and share your level sets" data-toggle="tooltip">Upload</a>
+                            <a class="nav-link js-with-tooltip" href="{{ action('ToolsController@index') }}" title="Use various utilities that are useful for tinkerers">Tools</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('ToolsController@index') }}" title="Use various utilities that are useful for tinkerers" data-toggle="tooltip">Tools</a>
+                            <a class="nav-link js-with-tooltip" href="{{ action('AboutController@index') }}" title="Learn more about this website">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('AboutController@index') }}" title="Learn more about this website" data-toggle="tooltip">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-discord" href="https://discord.gg/{{ config('ricochet.discord_invite') }}" title="Join other players on the Ricochet Players Discord" data-toggle="tooltip">
+                            <a class="nav-link js-with-tooltip nav-link-discord" href="https://discord.gg/{{ config('ricochet.discord_invite') }}" title="Join other players on the Ricochet Players Discord">
                                 @include('icons.discord')<span class="d-md-none ml-2">Discord</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-gitlab" href="https://gitlab.com/ngyikp/ricochet-levels" title="View the website source code on GitLab" data-toggle="tooltip">
+                            <a class="nav-link js-with-tooltip nav-link-gitlab" href="https://gitlab.com/ngyikp/ricochet-levels" title="View the website source code on GitLab">
                                 @include('icons.gitlab')<span class="d-md-none ml-2">GitLab</span>
                             </a>
                         </li>
