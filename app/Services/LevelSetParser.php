@@ -72,9 +72,13 @@ class LevelSetParser
             'sequences' => [
                 'Addon/Custom/Bricks/Neon/',
                 'Addon/Custom/Environments/Neon/',
+                'Custom/Neon/Bricks/',
             ],
             'sounds' => ['Addon/Custom/Special Bricks/Switch Neon'],
-            'bricks' => ['Neon/'],
+            'bricks' => [
+                'Neon/',
+                'Neon Night/',
+            ],
             'music' => ['Neon/'],
             'powerups' => ['Multiply 8 Inline'],
         ],
