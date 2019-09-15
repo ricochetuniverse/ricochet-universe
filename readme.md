@@ -4,36 +4,44 @@ Visit the live website at [https://ricochet.ngyikp.com](https://ricochet.ngyikp.
 
 ## Server requirements
 
--   PHP 7.2.15
--   Composer
--   MariaDB 10.3.13
+You can use the provided `docker-compose.yml` to easily set up the server environment. Reading that file is also useful if you want to set it up on bare metal too.
 
-For production usage, you should set up [queue worker](https://laravel.com/docs/5.7/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
+Note that the Docker Compose file is relatively new, there are some known issues such as missing HTTPS and the Content Security Policy being very strict and blocking Laravel Debugbar.
+
+You should set up [queue worker](https://laravel.com/docs/5.7/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
 
 If you want to use the Redis driver for broadcasting/cache/session/queues, you need to have [PhpRedis](https://github.com/phpredis/phpredis) PECL installed.
-
-To compile CSS/JavaScript assets, you need:
-
--   Node.js
--   Yarn
 
 ## Installation for development
 
 After you `git clone` this repo...
 
-1. Ensure you meet the server requirements
-2. Open a terminal window and execute `composer install` to install PHP/Composer dependencies
-3. Copy `.env.example` to `.env` and adjust your configuration
-4. Execute `php artisan migrate` to create the database tables
-5. To compile CSS/JavaScript assets:
-    1. Execute `yarn` to install the Node dependencies
-    2. Execute `yarn run watch` and leave the terminal window open to rebuild whenever you save
+1. Add this host to your `hosts` file:
+    ```
+    127.0.0.1 ricochet.test
+    ```
+2. Install Docker and Docker Compose
+3. Copy `.env.example` to `.env` and adjust your configuration. Note that `DB_USERNAME` and `DB_PASSWORD` will be used as the initial MariaDB user when creating the database container
+4. Create a text file on `docker/secrets/mariadb_root_password.txt` that will be your root MariaDB password
+5. Open a terminal window and execute these commands:
+    ```bash
+    docker-compose run --rm composer composer install
+    docker-compose run --rm node yarn
+    docker-compose run --rm node yarn run development
+    docker-compose run --rm composer php artisan migrate
+    docker-compose run --rm composer ln -rsTv storage/app/public/ public/storage # php artisan storage:link does not work as it's absolute rather than relative
+    ```
+6. Execute `docker-compose run --rm node yarn run watch` and leave the terminal window open to rebuild assets whenever you save
 
-Finally, to start the development server, execute `php artisan serve` to listen on port 8000, or `./start_server.sh` to listen on port 80 (may require your root password)
+The server runs and listens on `http://ricochet.test:8000`
 
 Extra steps:
 
--   [Laravel IDE Helper](https://github.com/barryvdh/laravel-ide-helper) is installed, you can generate helper files by executing `php artisan ide-helper:generate` and `php artisan ide-helper:meta`
+-   [Laravel IDE Helper](https://github.com/barryvdh/laravel-ide-helper) is installed, you can generate helper files by executing these commands:
+    ```bash
+    docker-compose run --rm composer php artisan ide-helper:generate
+    docker-compose run --rm composer php artisan ide-helper:meta
+    ```
 
 ## Some useful info
 

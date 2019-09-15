@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  phpfpm:
+    build: ./docker/php
+    volumes:
+      - .:/var/ricochetuniverse:delegated
+    # depends_on:
+    #   - mariadb
+
+  mariadb:
+    image: mariadb:10.3.13
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    secrets:
+      - mariadb_root_password
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    # uncomment for debugging
+    ports:
+      - '3306:3306'
+
+  caddy:
+    image: abiosoft/caddy:1.0.3-no-stats
+    volumes:
+      - .:/var/ricochetuniverse
+      - ./docker/caddy/Caddyfile:/etc/Caddyfile
+      - $HOME/.caddy:/root/.caddy
+    ports:
+      - '8000:8000'
+    depends_on:
+      - phpfpm
+
+  composer:
+    image: composer
+    volumes:
+      - .:/app
+
+  node:
+    image: node:10
+    volumes:
+      - .:/var/ricochetuniverse:delegated
+    working_dir: /var/ricochetuniverse
+
+  redis:
+    image: redis:alpine
+    # uncomment for debugging
+    # ports:
+    #   - '6379:6379'
+
+volumes:
+  mariadb-data:
+
+secrets:
+  mariadb_root_password:
+    file: ./docker/secrets/mariadb_root_password.txt
