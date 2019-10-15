@@ -10,8 +10,6 @@ Note that the Docker Compose file is relatively new, there are some known issues
 
 You should set up [queue worker](https://laravel.com/docs/5.7/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
 
-If you want to use the Redis driver for broadcasting/cache/session/queues, you need to have [PhpRedis](https://github.com/phpredis/phpredis) PECL installed.
-
 ## Installation for development
 
 After you `git clone` this repo...
