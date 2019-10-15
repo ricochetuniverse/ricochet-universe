@@ -12,21 +12,37 @@ import {
 
 export default class RoundInfoModal extends Component {
     state = {
-        opened: true,
+        isOpen: true,
+        previousOpenCount: 0,
     };
 
     toggleModal = () => {
         this.setState((prevState) => {
             return {
-                opened: !prevState.opened,
+                isOpen: !prevState.isOpen,
             };
         });
     };
 
+    componentDidMount() {
+        this.setState({
+            previousOpenCount: this.props.currentOpenCount,
+        });
+    }
+
+    componentDidUpdate() {
+        if (this.props.currentOpenCount !== this.state.previousOpenCount) {
+            this.setState({
+                isOpen: true,
+                previousOpenCount: this.props.currentOpenCount,
+            });
+        }
+    }
+
     render() {
         return (
             <Modal
-                isOpen={this.state.opened}
+                isOpen={this.state.isOpen}
                 toggle={this.toggleModal}
                 fade={false}
                 labelledBy="levelInfoModalTitle"
