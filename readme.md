@@ -6,7 +6,7 @@ Visit the live website at [https://ricochet.ngyikp.com](https://ricochet.ngyikp.
 
 You can use the provided `docker-compose.yml` to easily set up the server environment. Reading that file is also useful if you want to set it up on bare metal too.
 
-Note that the Docker Compose file is relatively new, there are some known issues such as missing HTTPS and the Content Security Policy being very strict and blocking Laravel Debugbar.
+Note that the Docker Compose file is relatively new, there are some known issues such as the Content Security Policy being very strict and blocking Laravel Debugbar.
 
 You should set up [queue worker](https://laravel.com/docs/5.7/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
 
@@ -21,7 +21,8 @@ After you `git clone` this repo...
 2. Install Docker and Docker Compose
 3. Copy `.env.example` to `.env` and adjust your configuration. Note that `DB_USERNAME` and `DB_PASSWORD` will be used as the initial MariaDB user when creating the database container
 4. Create a text file on `docker/secrets/mariadb_root_password.txt` that will be your root MariaDB password
-5. Open a terminal window and execute these commands:
+5. Install [mkcert](https://github.com/FiloSottile/mkcert), then run `mkcert -install` and `mkcert ricochet.test`, and move the 2 generated `.pem` files to `docker/secrets/`
+6. Open a terminal window and execute these commands:
     ```bash
     docker-compose run --rm composer composer install
     docker-compose run --rm node yarn
@@ -29,9 +30,9 @@ After you `git clone` this repo...
     docker-compose run --rm composer php artisan migrate
     docker-compose run --rm composer ln -rsTv storage/app/public/ public/storage # php artisan storage:link does not work as it's absolute rather than relative
     ```
-6. Execute `docker-compose run --rm node yarn run watch` and leave the terminal window open to rebuild assets whenever you save
+7. Execute `docker-compose run --rm node yarn run watch` and leave the terminal window open to rebuild assets whenever you save
 
-The server runs and listens on `http://ricochet.test:8000`
+The server runs and listens on `https://ricochet.test:8000`
 
 Extra steps:
 

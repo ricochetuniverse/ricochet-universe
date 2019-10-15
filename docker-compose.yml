@@ -25,6 +25,11 @@ services:
 
   caddy:
     image: abiosoft/caddy:1.0.3-no-stats
+    environment:
+       - CADDY_TLS_MODE
+       - CADDY_TLS_EMAIL
+       - CADDY_TLS_CERT
+       - CADDY_TLS_KEY
     volumes:
       - .:/var/ricochetuniverse
       - ./docker/caddy/Caddyfile:/etc/Caddyfile

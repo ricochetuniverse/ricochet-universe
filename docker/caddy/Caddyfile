@@ -1,4 +1,4 @@
-http://ricochet.test:8000 {
+https://ricochet.test:8000 {
     header / -Server
 
 	header / {
@@ -27,7 +27,7 @@ http://ricochet.test:8000 {
 	}
 
 	gzip
-	tls off
+	import /var/ricochetuniverse/docker/caddy/tls/{$CADDY_TLS_MODE}
 
 	log /var/ricochetuniverse/storage/logs/access.log
 	errors /var/ricochetuniverse/storage/logs/error.log
