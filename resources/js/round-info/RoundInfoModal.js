@@ -1,4 +1,4 @@
-import {Component, h} from 'preact';
+import {Component, Fragment, h} from 'preact';
 
 import {
     Button,
@@ -9,6 +9,20 @@ import {
     ModalHeader,
     Row,
 } from 'reactstrap';
+
+function generateRow(label, text) {
+    if (!text) {
+        return null;
+    }
+
+    return (
+        <>
+            <div className="w-100" />
+            <Col xs="auto">{label}:</Col>
+            <Col>{text}</Col>
+        </>
+    );
+}
 
 export default class RoundInfoModal extends Component {
     state = {
@@ -72,44 +86,12 @@ export default class RoundInfoModal extends Component {
                             )}
                         </Col>
 
-                        {/* Preact doesn't support fragments yet :( */}
-                        <div className="w-100" />
-                        {this.props.note1 ? <Col xs="auto">Note 1:</Col> : null}
-                        {this.props.note1 ? (
-                            <Col>{this.props.note1}</Col>
-                        ) : null}
-
-                        <div className="w-100" />
-                        {this.props.note2 ? <Col xs="auto">Note 2:</Col> : null}
-                        {this.props.note2 ? (
-                            <Col>{this.props.note2}</Col>
-                        ) : null}
-
-                        <div className="w-100" />
-                        {this.props.note3 ? <Col xs="auto">Note 3:</Col> : null}
-                        {this.props.note3 ? (
-                            <Col>{this.props.note3}</Col>
-                        ) : null}
-
-                        <div className="w-100" />
-                        {this.props.note4 ? <Col xs="auto">Note 4:</Col> : null}
-                        {this.props.note4 ? (
-                            <Col>{this.props.note4}</Col>
-                        ) : null}
-
-                        <div className="w-100" />
-                        {this.props.note5 ? <Col xs="auto">Note 5:</Col> : null}
-                        {this.props.note5 ? (
-                            <Col>{this.props.note5}</Col>
-                        ) : null}
-
-                        <div className="w-100" />
-                        {this.props.source ? (
-                            <Col xs="auto">Source:</Col>
-                        ) : null}
-                        {this.props.source ? (
-                            <Col>{this.props.source}</Col>
-                        ) : null}
+                        {generateRow('Note 1', this.props.note1)}
+                        {generateRow('Note 2', this.props.note2)}
+                        {generateRow('Note 3', this.props.note3)}
+                        {generateRow('Note 4', this.props.note4)}
+                        {generateRow('Note 5', this.props.note5)}
+                        {generateRow('Source', this.props.source)}
                     </Row>
                 </ModalBody>
 
