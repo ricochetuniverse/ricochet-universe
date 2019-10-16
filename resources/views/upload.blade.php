@@ -104,11 +104,11 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="date_posted" class="col-sm-3 col-form-label">Date posted</label>
+                                    <label for="timestamp" class="col-sm-3 col-form-label">Unix timestamp</label>
 
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" name="date_posted" id="date_posted"
-                                               value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
+                                        <input type="number" class="form-control" name="timestamp" id="timestamp"
+                                               value="{{ Carbon\Carbon::now()->unix() }}" required>
                                     </div>
                                 </div>
 

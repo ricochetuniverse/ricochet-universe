@@ -16,13 +16,13 @@ class UploadController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date_posted' => ['required', 'date_format:Y-m-d'],
+            'timestamp' => ['required', 'integer'],
         ]);
 
         $processor = new LevelSetUploadProcessor();
         $processor->setUrl($request->input('url'));
         $processor->setName($request->input('name'));
-        $processor->setDatePosted(Carbon::createFromFormat('Y-m-d', $request->input('date_posted'))->startOfDay());
+        $processor->setDatePosted(Carbon::createFromTimestamp($request->input('timestamp')));
 
         $levelSet = $processor->process();
 
