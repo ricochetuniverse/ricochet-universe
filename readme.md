@@ -8,7 +8,7 @@ You can use the provided `docker-compose.yml` to easily set up the server enviro
 
 Note that the Docker Compose file is relatively new, there are some known issues such as the Content Security Policy being very strict and blocking Laravel Debugbar.
 
-You should set up [queue worker](https://laravel.com/docs/5.7/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
+You should set up [queue worker](https://laravel.com/docs/5.8/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
 
 ## Installation for development
 
