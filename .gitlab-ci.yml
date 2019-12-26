@@ -1,4 +1,4 @@
-image: php:7.2
+image: php:7.2.26
 
 .setup_php: &setup_php
     cache:
@@ -24,7 +24,7 @@ image: php:7.2
         - apt-get update
         - apt-get install -y gnupg
 
-        - curl -L https://deb.nodesource.com/setup_8.x | bash -
+        - curl -L https://deb.nodesource.com/setup_10.x | bash -
 
         - curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
         - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list

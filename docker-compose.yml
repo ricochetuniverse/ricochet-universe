@@ -9,7 +9,7 @@ services:
     #   - mariadb
 
   mariadb:
-    image: mariadb:10.3.18
+    image: mariadb:10.4.11
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -40,7 +40,7 @@ services:
       - phpfpm
 
   composer:
-    image: composer
+    image: composer:1.9.1
     volumes:
       - .:/app
 
@@ -51,7 +51,7 @@ services:
     working_dir: /var/ricochetuniverse
 
   redis:
-    image: redis:alpine
+    image: redis:5.0.7-alpine
     # uncomment for debugging
     # ports:
     #   - '6379:6379'
