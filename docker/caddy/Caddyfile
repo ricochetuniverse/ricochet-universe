@@ -18,7 +18,7 @@ https://ricochet.test:8000 {
 	header /storage/round-images/ Cache-Control "public, max-age=86400"
 
 	root /var/ricochetuniverse/public
-	fastcgi / phpfpm:9000 php
+	fastcgi / php:9000 php
 
 	rewrite {
 		if {dir}  not_starts_with "/storage/"

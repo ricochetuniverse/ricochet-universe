@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  phpfpm:
+  php:
     build: ./docker/php
     volumes:
       - .:/var/ricochetuniverse:delegated
@@ -37,12 +37,7 @@ services:
     ports:
       - '8000:8000'
     depends_on:
-      - phpfpm
-
-  composer:
-    image: composer:1.9.1
-    volumes:
-      - .:/app
+      - php
 
   node:
     image: node:10

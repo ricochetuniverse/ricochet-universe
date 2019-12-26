@@ -24,11 +24,11 @@ After you `git clone` this repo...
 5. Install [mkcert](https://github.com/FiloSottile/mkcert), then run `mkcert -install` and `mkcert ricochet.test`, and move the 2 generated `.pem` files to `docker/secrets/`
 6. Open a terminal window and execute these commands:
     ```bash
-    docker-compose run --rm composer composer install
+    docker-compose run --rm php composer install
     docker-compose run --rm node yarn
     docker-compose run --rm node yarn run development
-    docker-compose run --rm composer php artisan migrate
-    docker-compose run --rm composer ln -rsTv storage/app/public/ public/storage # php artisan storage:link does not work as it's absolute rather than relative
+    docker-compose run --rm php php artisan migrate
+    docker-compose run --rm php ln -rsTv storage/app/public/ public/storage # php artisan storage:link does not work as it's absolute rather than relative
     ```
 7. Execute `docker-compose run --rm node yarn run watch` and leave the terminal window open to rebuild assets whenever you save
 
@@ -38,8 +38,8 @@ Extra steps:
 
 -   [Laravel IDE Helper](https://github.com/barryvdh/laravel-ide-helper) is installed, you can generate helper files by executing these commands:
     ```bash
-    docker-compose run --rm composer php artisan ide-helper:generate
-    docker-compose run --rm composer php artisan ide-helper:meta
+    docker-compose run --rm php php artisan ide-helper:generate
+    docker-compose run --rm php php artisan ide-helper:meta
     ```
 
 ## Some useful info

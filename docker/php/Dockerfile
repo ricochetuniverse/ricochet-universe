@@ -13,4 +13,6 @@ RUN apk update && apk upgrade && \
     mv phpredis-* /usr/src/php/ext/redis && \
     docker-php-ext-install redis
 
+COPY --from=composer:1.9.1 /usr/bin/composer /usr/bin/composer
+
 WORKDIR /var/ricochetuniverse
