@@ -5,6 +5,7 @@
 /public/storage
 /storage/*.key
 .env
+.env.backup
 
 .phpstorm.meta.php
 _ide_helper.php

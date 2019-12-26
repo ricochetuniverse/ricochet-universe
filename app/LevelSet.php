@@ -32,10 +32,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $downloaded_file_name
  * @property int $round_to_get_image_from
  * @property mixed $tag_names
- * @property-read \Illuminate\Database\Eloquent\Collection $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Tagged[] $tags
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\LevelRound[] $levelRounds
+ * @property-read int|null $level_rounds_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Mod[] $mods
+ * @property-read int|null $mods_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Conner\Tagging\Model\Tagged[] $tagged
+ * @property-read int|null $tagged_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet query()

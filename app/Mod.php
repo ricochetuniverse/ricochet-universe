@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\LevelSet[] $levelSets
+ * @property-read int|null $level_sets_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Mod newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Mod newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Mod query()
