@@ -9,8 +9,15 @@
         // Possible Errors
         "no-console": ["off"],
 
+        // Variables
+        "no-unused-vars": ["error", {"varsIgnorePattern": "Fragment"}],
+
+        // eslint-plugin-react
+        "react/button-has-type": ["error"],
         "react/no-typos": ["error"],
         "react/prop-types": ["off"],
+
+        // JSX-specific rules
         "react/jsx-no-target-blank": ["off"]
     },
     "plugins": ["react", "jsx-a11y"],
@@ -28,11 +35,7 @@
     "settings": {
         "react": {
             "pragma": "h",
-
-            // Not all React 16 features are available on Preact yet,
-            // disable ESLint rules when appropriate
-            // https://github.com/developit/preact/issues/1047
-            "version": "16.5"
+            "version": "16.12"
         }
     }
 }
