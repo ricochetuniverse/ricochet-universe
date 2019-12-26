@@ -12,11 +12,13 @@
 */
 
 Route::get('/', 'HomeController@index');
+
 Route::get('/levels', 'LevelController@redirectMain');
 Route::get('/levels/index.php', 'LevelController@index');
 Route::get('/levels/levelsetinfo.php', 'LevelController@show');
 
 Route::get('/upload', 'UploadController@index');
+Route::permanentRedirect('/levels/submitform.php', '/upload');
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/upload', 'UploadController@store');
 });
