@@ -142,7 +142,7 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="d-flex">
-                            <a href="{{ action('API\LevelDownloadController@download', ['File' => 'downloads/raw/'.$levelSet->name.$levelSet->getFileExtension()]) }}"
+                            <a href="{{ action('API\\LevelDownloadController@download', ['File' => 'downloads/raw/'.$levelSet->name.$levelSet->getFileExtension()]) }}"
                                class="d-inline-flex align-items-center">
                                 <img src="{{ asset('images/levelDownload.jpg') }}"
                                      alt=""
