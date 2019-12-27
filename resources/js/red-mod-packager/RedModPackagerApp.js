@@ -1,11 +1,5 @@
 import {Component, createRef, h} from 'preact';
-import {
-    Alert,
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-} from 'reactstrap';
+import {Alert, Button, Card, CardBody, CardHeader} from 'reactstrap';
 import Uppie from 'uppie';
 
 import CustomFileInput from '../CustomFileInput';
