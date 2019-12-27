@@ -1,4 +1,4 @@
-import {Component, h} from 'preact';
+import {Component, createRef, h} from 'preact';
 import {
     Alert,
     Button,
@@ -8,6 +8,8 @@ import {
     CustomInput,
 } from 'reactstrap';
 import Uppie from 'uppie';
+
+import CustomFileInput from '../CustomFileInput';
 
 import generateZip from './generate-zip';
 
@@ -27,7 +29,7 @@ export default class RedModPackagerApp extends Component {
         downloadButtonUrl: '',
     };
 
-    fileInputRef = null;
+    fileInputRef = createRef();
 
     render() {
         return (
@@ -47,19 +49,10 @@ export default class RedModPackagerApp extends Component {
                         </p>
 
                         <div className="d-flex">
-                            <CustomInput
-                                type="file"
-                                label={
-                                    this.state.folderName
-                                        ? this.state.folderName
-                                        : 'Select a folder...'
-                                }
+                            <CustomFileInput
+                                label={this.state.folderName}
                                 directory
-                                webkitdirectory
-                                allowdirs
-                                innerRef={(ref) => {
-                                    this.fileInputRef = ref;
-                                }}
+                                ref={this.fileInputRef}
                             />
 
                             <Button
@@ -118,7 +111,7 @@ export default class RedModPackagerApp extends Component {
     componentDidMount() {
         const uppie = new Uppie();
 
-        uppie(this.fileInputRef, this.onFileChange);
+        uppie(this.fileInputRef.current, this.onFileChange);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -181,6 +174,6 @@ export default class RedModPackagerApp extends Component {
     resetButtonClicked = () => {
         this.reset();
 
-        this.fileInputRef.value = '';
+        this.fileInputRef.current.value = '';
     };
 }

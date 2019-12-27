@@ -1,0 +1,14 @@
+# see also Bootstrap's own list: https://github.com/twbs/bootstrap/blob/v4-dev/.browserslistrc
+
+# this is browserslist `defaults` but copied here due to https://github.com/babel/babel/issues/10867
+> 0.5%
+last 2 versions
+Firefox ESR
+not dead
+
+# too old
+not Safari 5.1
+
+# Windows XP / Vista
+Chrome >= 49
+Firefox >= 52

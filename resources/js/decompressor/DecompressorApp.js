@@ -11,6 +11,7 @@ import {
     FormGroup,
 } from 'reactstrap';
 
+import CustomFileInput from '../CustomFileInput';
 import IncompatibleBrowser from '../IncompatibleBrowser';
 import LoadingComponent from '../LoadingComponent';
 
@@ -107,8 +108,7 @@ export default class DecompressorApp extends Component {
                             />
                         </FormGroup>
 
-                        <CustomInput
-                            type="file"
+                        <CustomFileInput
                             label={this.state.fileName}
                             accept=".RicochetI,.RicochetLW,.dat,.Sequence"
                             onChange={this.onFileChange}
