@@ -24,7 +24,7 @@ image: php:7.2.26
         - apt-get update
         - apt-get install -y gnupg
 
-        - curl -L https://deb.nodesource.com/setup_10.x | bash -
+        - curl -L https://deb.nodesource.com/setup_12.x | bash -
 
         - curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
         - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
