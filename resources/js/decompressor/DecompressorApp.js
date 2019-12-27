@@ -37,7 +37,10 @@ function decodeInflatedResult(inflatedResult) {
 }
 
 const LoadableDecompressorEditor = Loadable({
-    loader: () => import('./DecompressorEditor'),
+    loader: () =>
+        import(
+            /* webpackChunkName: "decompressor-editor" */ './DecompressorEditor'
+        ),
     loading(props) {
         return (
             <CardBody>

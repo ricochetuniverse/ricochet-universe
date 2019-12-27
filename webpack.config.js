@@ -27,20 +27,23 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/,
-                use: ['style-loader', 'postcss-loader'],
-            },
-            {
-                test: /\.scss$/,
+                test: /\.(css|scss)$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     'postcss-loader',
+                ],
+            },
+            {
+                test: /\.scss$/,
+                use: [
                     {
                         loader: 'sass-loader',
                         options: {
-                            implementation: require('dart-sass'),
-                            fiber: require('fibers'),
+                            // https://github.com/webpack-contrib/sass-loader/issues/763
+                            sassOptions: {
+                                outputStyle: 'expanded',
+                            },
                         },
                     },
                 ],

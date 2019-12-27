@@ -1,9 +1,9 @@
-import {Component, h} from 'preact';
+import {Component, createRef, h} from 'preact';
 
 import MonacoEditor from 'react-monaco-editor/lib/editor';
 
 export default class DecompressorEditor extends Component {
-    monaco = null;
+    monaco = createRef();
 
     render() {
         // Safari bugs out with `all: unset`
@@ -20,16 +20,14 @@ export default class DecompressorEditor extends Component {
                         showFoldingControls: 'always',
                     }}
                     editorDidMount={this.editorDidMount}
-                    ref={(ref) => {
-                        this.monaco = ref;
-                    }}
+                    ref={this.monaco}
                 />
             </div>
         );
     }
 
     updateDimensions = () => {
-        this.monaco.editor.layout();
+        this.monaco.current.editor.layout();
     };
 
     editorDidMount = () => {
