@@ -1,10 +1,9 @@
 import {h} from 'preact';
 import {forwardRef} from 'preact/compat';
-import {Button} from 'reactstrap';
 
 // Forked from https://github.com/reactstrap/reactstrap/blob/master/src/CustomFileInput.js
 
-export default forwardRef(({label, directory, ...otherProps}, ref) => {
+function CustomFileInput({label, directory, ...otherProps}, ref) {
     return (
         <div className="custom-file">
             <input
@@ -23,4 +22,6 @@ export default forwardRef(({label, directory, ...otherProps}, ref) => {
             </label>
         </div>
     );
-});
+}
+
+export default forwardRef(CustomFileInput);

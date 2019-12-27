@@ -5,7 +5,6 @@ import {
     Card,
     CardBody,
     CardHeader,
-    CustomInput,
 } from 'reactstrap';
 import Uppie from 'uppie';
 

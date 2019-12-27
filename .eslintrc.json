@@ -6,9 +6,6 @@
     ],
     "parser": "babel-eslint",
     "rules": {
-        // Possible Errors
-        "no-console": ["off"],
-
         // Variables
         "no-unused-vars": ["error", {"varsIgnorePattern": "Fragment"}],
 
