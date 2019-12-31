@@ -1,9 +1,16 @@
+stages:
+    - build
+    - test
+    - test_php
+
 .setup_php: &setup_php
     image: php:7.2.26-alpine3.10
     cache:
         paths:
             - vendor/
-
+    artifacts:
+        paths:
+            - vendor/
     services:
         - mariadb:10.4.11
 
@@ -11,9 +18,8 @@
         # from .env.testing, needs to be here as .env isn't copied yet
         MYSQL_DATABASE: ricochetlevels_test
         MYSQL_USER: ricochetlevels_test
-        MYSQL_PASSWORD: 123
+        MYSQL_PASSWORD: '123'
         MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-
     before_script:
         - apk update && apk upgrade
         - apk add --no-cache git
@@ -31,24 +37,48 @@
     cache:
         paths:
             - node_modules/
+    artifacts:
+        paths:
+            - node_modules/
+            - public/build/
+            - public/mix-manifest.json
 
-    before_script:
-        - yarn
-
-phpunit:
-    stage: test
-    <<: *setup_php
+yarn:
+    stage: build
+    <<: *setup_node
     script:
-        - composer test
+        - yarn
 
 eslint:
     stage: test
     <<: *setup_node
     script:
         - yarn run lint
+    dependencies:
+        - yarn
 
 prettier:
     stage: test
     <<: *setup_node
     script:
         - yarn run prettier -l
+    dependencies:
+        - yarn
+
+webpack:
+    stage: test
+    <<: *setup_node
+    script:
+        - yarn production
+    dependencies:
+        - yarn
+
+phpunit:
+    stage: test_php
+    <<: *setup_php
+    script:
+        - composer test
+    dependencies:
+        - webpack
+    needs:
+        - webpack
