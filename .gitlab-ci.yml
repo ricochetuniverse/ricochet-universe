@@ -5,15 +5,8 @@ stages:
 
 .setup_php: &setup_php
     image: php:7.2.26-alpine3.10
-    cache:
-        paths:
-            - vendor/
-    artifacts:
-        paths:
-            - vendor/
     services:
         - mariadb:10.4.11
-
     variables:
         # from .env.testing, needs to be here as .env isn't copied yet
         MYSQL_DATABASE: ricochetlevels_test
@@ -25,6 +18,32 @@ stages:
         - apk add --no-cache git
         - docker-php-ext-install pdo_mysql
 
+.setup_node: &setup_node
+    image: node:12
+
+yarn:
+    stage: build
+    <<: *setup_node
+    cache:
+        paths:
+            - node_modules/
+    artifacts:
+        paths:
+            - node_modules/
+    script:
+        - yarn
+
+composer:
+    stage: build
+    <<: *setup_php
+    cache:
+        paths:
+            - vendor/
+    artifacts:
+        paths:
+            - vendor/
+            - .env
+    script:
         - curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
         - composer install --no-progress
 
@@ -32,53 +51,43 @@ stages:
         - php artisan key:generate
         - php artisan migrate
 
-.setup_node: &setup_node
-    image: node:12
-    cache:
-        paths:
-            - node_modules/
+eslint:
+    stage: test
+    <<: *setup_node
+    dependencies:
+        - yarn
+    script:
+        - yarn run lint
+
+prettier:
+    stage: test
+    <<: *setup_node
+    dependencies:
+        - yarn
+    script:
+        - yarn run prettier -l
+
+webpack:
+    stage: test
+    <<: *setup_node
+    dependencies:
+        - yarn
     artifacts:
         paths:
             - node_modules/
             - public/build/
             - public/mix-manifest.json
-
-yarn:
-    stage: build
-    <<: *setup_node
-    script:
-        - yarn
-
-eslint:
-    stage: test
-    <<: *setup_node
-    script:
-        - yarn run lint
-    dependencies:
-        - yarn
-
-prettier:
-    stage: test
-    <<: *setup_node
-    script:
-        - yarn run prettier -l
-    dependencies:
-        - yarn
-
-webpack:
-    stage: test
-    <<: *setup_node
     script:
         - yarn production
-    dependencies:
-        - yarn
 
 phpunit:
     stage: test_php
     <<: *setup_php
     script:
-        - composer test
+        - php ./vendor/bin/phpunit
     dependencies:
+        - composer
         - webpack
     needs:
+        - composer
         - webpack
