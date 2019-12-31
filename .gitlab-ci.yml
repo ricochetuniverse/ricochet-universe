@@ -1,44 +1,45 @@
-image: php:7.2.26
-
 .setup_php: &setup_php
+    image: php:7.2.26-alpine3.10
     cache:
         paths:
             - vendor/
 
+    services:
+        - mariadb:10.4.11
+
+    variables:
+        # from .env.testing, needs to be here as .env isn't copied yet
+        MYSQL_DATABASE: ricochetlevels_test
+        MYSQL_USER: ricochetlevels
+        MYSQL_PASSWORD: secret
+        MYSQL_RANDOM_ROOT_PASSWORD: Yes
+
     before_script:
-        - apt-get update
-        - apt-get install -y git unzip libzip-dev
-        - docker-php-ext-install zip
+        - apk update && apk upgrade
+        - apk add --no-cache git
+        - docker-php-ext-install pdo_mysql
 
-        - curl https://getcomposer.org/installer | php
-        - php composer.phar install --no-progress
+        - curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+        - composer install --no-progress
 
-        # - cp .env.testing .env
+        - cp .env.testing .env
+        - php artisan key:generate
+        - php artisan migrate
 
 .setup_node: &setup_node
+    image: node:12
     cache:
         paths:
             - node_modules/
 
     before_script:
-        - apt-get update
-        - apt-get install -y gnupg
-
-        - curl -L https://deb.nodesource.com/setup_12.x | bash -
-
-        - curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-        - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-        - apt-get update
-        - apt-get install -y nodejs yarn
-
         - yarn
 
 phpunit:
     stage: test
     <<: *setup_php
     script:
-        - php ./vendor/bin/phpunit
+        - composer test
 
 eslint:
     stage: test
