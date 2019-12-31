@@ -6,14 +6,14 @@ use App\Helpers\RedirectForGame;
 use App\Helpers\TextEncoderForGame;
 use App\Http\Controllers\Controller;
 use App\LevelSet;
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LevelDownloadController extends Controller
 {
-    public function download(Request $request)
+    public function download(Request $request, FilesystemManager $storage)
     {
         $file = $request->input('File', '');
 
@@ -33,7 +33,7 @@ class LevelDownloadController extends Controller
         $fileName = $levelSet->name . $levelSet->getFileExtension();
         $fileUrl = rawurlencode($levelSet->name) . $levelSet->getFileExtension();
 
-        $disk = Storage::disk('levels');
+        $disk = $storage->disk('levels');
         if ($disk->exists($fileName)) {
             return RedirectForGame::to($request->isSecure(), $disk->url($fileUrl));
         }
@@ -63,10 +63,7 @@ class LevelDownloadController extends Controller
      */
     private function tryLegacyEncoding(string $file)
     {
-        $file = TextEncoderForGame::toUtf8($file);
-        $file = $this->stripFileParameterPrefixAndSuffix($file);
-
-        return LevelSet::where('name', $file)->first();
+        return $this->tryUtf8(TextEncoderForGame::toUtf8($file));
     }
 
     /**
