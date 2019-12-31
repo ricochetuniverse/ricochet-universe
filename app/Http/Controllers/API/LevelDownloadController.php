@@ -15,7 +15,11 @@ class LevelDownloadController extends Controller
 {
     public function download(Request $request)
     {
-        $file = $request->input('File');
+        $file = $request->input('File', '');
+
+        if (strlen($file) <= 0) {
+            throw new NotFoundHttpException;
+        }
 
         // First try the usual UTF-8, then try decode legacy encoding to UTF-8
         $levelSet = $this->tryUtf8($file);
