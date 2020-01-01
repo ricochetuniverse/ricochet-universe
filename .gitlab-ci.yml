@@ -51,20 +51,13 @@ composer:
         - php artisan key:generate
         - php artisan migrate
 
-eslint:
+lint:
     stage: test
     <<: *setup_node
     dependencies:
         - yarn
     script:
         - yarn run lint
-
-prettier:
-    stage: test
-    <<: *setup_node
-    dependencies:
-        - yarn
-    script:
         - yarn run prettier -l
 
 webpack:
@@ -74,7 +67,6 @@ webpack:
         - yarn
     artifacts:
         paths:
-            - node_modules/
             - public/build/
             - public/mix-manifest.json
     script:
