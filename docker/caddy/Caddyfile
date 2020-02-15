@@ -8,6 +8,7 @@ https://ricochet.test:8000 {
     	X-Frame-Options DENY
     	Cross-Origin-Opener-Policy Deny
     	Referrer-Policy strict-origin-when-cross-origin
+    	Feature-Policy "accelerometer 'none';ambient-light-sensor 'none';battery 'none';camera 'none';display-capture 'none';geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';usb 'none';xr-spatial-tracking 'none';"
 
 		# Needed for Monaco editor
 		# https://github.com/Microsoft/monaco-editor/issues/271
