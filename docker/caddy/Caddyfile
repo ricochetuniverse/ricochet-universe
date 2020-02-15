@@ -6,6 +6,7 @@ https://ricochet.test:8000 {
     	X-XSS-Protection 0
     	X-UA-Compatible "ie=edge"
     	X-Frame-Options DENY
+    	Cross-Origin-Opener-Policy Deny
     	Referrer-Policy strict-origin-when-cross-origin
 
 		# Needed for Monaco editor
