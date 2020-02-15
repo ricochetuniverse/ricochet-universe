@@ -11,16 +11,16 @@
 |
 */
 
-Route::get('/robots.txt', 'RobotsTxtController@index');
+Route::get('/robots.txt', 'RobotsTxtController@index')->middleware('cache.headers:public;max_age=600');
 Route::get('/sitemap.xml', 'SitemapController@index');
 
 // The game sends a POST request, but I added GET for debugging convenience
 Route::get('/gateway/catalog.php', 'CatalogController@index');
 Route::post('/gateway/catalog.php', 'CatalogController@index');
 
-Route::get('/levels/images/{fileName}.jpg', 'LevelSetImageController@showVersion1');
-Route::get('/levels/cache/{name}/{number}.jpg', 'LevelSetImageController@showVersion2');
+Route::get('/levels/images/{fileName}.jpg', 'LevelSetImageController@showVersion1')->middleware('cache.headers:public;max_age=600');
+Route::get('/levels/cache/{name}/{number}.jpg', 'LevelSetImageController@showVersion2')->middleware('cache.headers:public;max_age=600');
 
-Route::get('/levels/download.php', 'LevelDownloadController@download');
+Route::get('/levels/download.php', 'LevelDownloadController@download')->middleware('cache.headers:public;max_age=600');
 
 Route::post('/levels/ri_submitform.php', 'LevelSubmitController@submit');

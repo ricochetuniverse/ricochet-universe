@@ -11,19 +11,23 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+$cache = 'cache.headers:private;max_age=300';
 
-Route::get('/levels', 'LevelController@redirectMain');
-Route::get('/levels/index.php', 'LevelController@index');
-Route::get('/levels/levelsetinfo.php', 'LevelController@show');
+Route::group(['middleware' => $cache], function () {
+    Route::get('/', 'HomeController@index');
 
-Route::get('/upload', 'UploadController@index');
+    Route::get('/levels', 'LevelController@redirectMain');
+    Route::get('/levels/index.php', 'LevelController@index');
+    Route::get('/levels/levelsetinfo.php', 'LevelController@show');
+});
+
+Route::get('/upload', 'UploadController@index')->middleware($cache);
 Route::permanentRedirect('/levels/submitform.php', '/upload');
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/upload', 'UploadController@store');
 });
 
-Route::get('/mods', 'ModsController@index');
+Route::get('/mods', 'ModsController@index')->middleware($cache);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/mods/create', 'ModsController@create');
     Route::post('/mods', 'ModsController@store');
@@ -32,13 +36,15 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::delete('/mods/{mod}', 'ModsController@destroy');
 });
 
-Route::get('/reviver', 'ReviverController@index');
-Route::get('/reviver/{os}', 'ReviverController@show');
+Route::group(['middleware' => $cache], function () {
+    Route::get('/reviver', 'ReviverController@index');
+    Route::get('/reviver/{os}', 'ReviverController@show');
 
-Route::get('/tools', 'ToolsController@index');
-Route::get('/decompressor', 'DecompressorController@index');
-Route::get('/red-mod-packager', 'RedModPackagerController@index');
-Route::get('/about', 'AboutController@index');
+    Route::get('/tools', 'ToolsController@index');
+    Route::get('/decompressor', 'DecompressorController@index');
+    Route::get('/red-mod-packager', 'RedModPackagerController@index');
+    Route::get('/about', 'AboutController@index');
+});
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/auth/login/discord', 'DiscordLoginController@redirectToProvider');

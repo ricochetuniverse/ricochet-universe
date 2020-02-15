@@ -7,6 +7,7 @@ use App\Jobs\ParseLevelSet;
 use App\LevelSet;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class LevelController extends Controller
 {
@@ -109,7 +110,7 @@ class LevelController extends Controller
 
     public function redirectMain(Request $request)
     {
-        return redirect()->action('LevelController@index', $request->input());
+        return redirect()->action('LevelController@index', $request->input(), Response::HTTP_MOVED_PERMANENTLY);
     }
 
     private function addOrderBysForLevelSets(Builder $levelSets, string $orderBy, string $orderDirection)
