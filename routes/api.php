@@ -11,6 +11,7 @@
 |
 */
 
+Route::get('/robots.txt', 'RobotsTxtController@index');
 Route::get('/sitemap.xml', 'SitemapController@index');
 
 // The game sends a POST request, but I added GET for debugging convenience
