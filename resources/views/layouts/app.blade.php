@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="theme-color" content="#00fffe">
+    <meta name="color-scheme" content="dark light">
 
     <link href="{{ mix('app.css') }}" rel="stylesheet">
 
