@@ -25,6 +25,7 @@ yarn:
     stage: build
     <<: *setup_node
     cache:
+        key: nodejs
         paths:
             - node_modules/
     artifacts:
@@ -37,6 +38,7 @@ composer:
     stage: build
     <<: *setup_php
     cache:
+        key: php
         paths:
             - vendor/
     artifacts:
