@@ -104,7 +104,7 @@
                                 <a href="#" class="nav-link dropdown-toggle d-flex align-items-center"
                                    id="accountNavbarDropdownMenuLink" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false" title="{{ Auth::user()->name }}">
-                                    <img src="{{ Auth::user()->discord_avatar_url }}"
+                                    <img src="{{ Auth::user()->getAvatarUrl(64) }}"
                                          width="24"
                                          height="24"
                                          alt="{{ Auth::user()->name }}’s profile picture"
