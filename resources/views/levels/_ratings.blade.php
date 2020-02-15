@@ -8,7 +8,7 @@
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')
-                <img src="{{ asset('images/ratingOverall.jpg') }}" alt="Overall grade" width="20" height="20">
+                <img src="{{ mix('rating-overall.jpg') }}" alt="Overall grade" width="20" height="20">
             @endslot
         @endcomponent
 
@@ -20,7 +20,7 @@
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')
-                <img src="{{ asset('images/ratingGameplay.jpg') }}" alt="Gameplay grade" width="20" height="20">
+                <img src="{{ mix('rating-gameplay.jpg') }}" alt="Gameplay grade" width="20" height="20">
             @endslot
         @endcomponent
 
@@ -32,7 +32,7 @@
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')
-                <img src="{{ asset('images/ratingVisuals.jpg') }}" alt="Visuals grade" width="20" height="20">
+                <img src="{{ mix('rating-visuals.jpg') }}" alt="Visuals grade" width="20" height="20">
             @endslot
         @endcomponent
     </div>

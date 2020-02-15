@@ -36,13 +36,13 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="d-none d-md-block">
                 <a class="navbar-brand js-with-tooltip d-flex mr-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}">
-                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
+                    <img src="{{ mix('ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
                 </a>
             </div>
 
             <div class="d-md-none">
                 <a class="navbar-brand d-flex mr-2" href="{{ action('HomeController@index') }}">
-                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}"><span class="ml-2">{{ config('app.name') }}</span>
+                    <img src="{{ mix('ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}"><span class="ml-2">{{ config('app.name') }}</span>
                 </a>
             </div>
 

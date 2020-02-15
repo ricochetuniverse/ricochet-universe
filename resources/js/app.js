@@ -1,4 +1,5 @@
 import '../sass/app.scss';
+import './images';
 
 import $ from 'jquery';
 

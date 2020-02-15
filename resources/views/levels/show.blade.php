@@ -115,12 +115,12 @@
 
                         <div class="media align-items-center mt-3">
                             @if ($levelSet->isDesignedForInfinity())
-                                <img src="{{ asset('images/RI.gif') }}"
+                                <img src="{{ mix('logo-infinity.gif') }}"
                                      alt="Ricochet Infinity logo"
                                      width="32"
                                      height="32">
                             @else
-                                <img src="{{ asset('images/RLW.gif') }}"
+                                <img src="{{ mix('logo-lostworlds.gif') }}"
                                      alt="Ricochet Lost Worlds logo"
                                      width="32"
                                      height="32">
@@ -144,7 +144,7 @@
                         <div class="d-flex">
                             <a href="{{ action('API\\LevelDownloadController@download', ['File' => 'downloads/raw/'.$levelSet->name.$levelSet->getFileExtension()]) }}"
                                class="d-inline-flex align-items-center">
-                                <img src="{{ asset('images/levelDownload.jpg') }}"
+                                <img src="{{ mix('download-circle.jpg') }}"
                                      alt=""
                                      width="38"
                                      height="38"
