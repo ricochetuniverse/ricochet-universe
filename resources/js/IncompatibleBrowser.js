@@ -1,3 +1,5 @@
+// @flow
+
 import {h} from 'preact';
 import {Alert} from 'reactstrap';
 

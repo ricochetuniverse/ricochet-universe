@@ -1,3 +1,5 @@
+// @flow
+
 import {inflate} from 'pako/lib/inflate';
 import {Component, h} from 'preact';
 import Loadable from 'react-loadable';
@@ -17,6 +19,20 @@ import LoadingComponent from '../LoadingComponent';
 
 import checkForMods from './check-for-mods';
 import triggerDownload from '../util/trigger-download';
+
+type State = $ReadOnly<{|
+    fileName: string,
+    error: string,
+
+    inflatedResult: string,
+    utf8Result: string,
+    objectUrl: string,
+
+    requiresModResult: boolean,
+    requiresModName: string,
+
+    useBrowserTextEditor: boolean,
+|}>;
 
 function isBrowserCompatible() {
     return (
@@ -51,7 +67,7 @@ const LoadableDecompressorEditor = Loadable({
     timeout: 10000,
 });
 
-export default class DecompressorApp extends Component {
+export default class DecompressorApp extends Component<{||}, State> {
     state = {
         fileName: '',
         error: '',
@@ -182,7 +198,7 @@ export default class DecompressorApp extends Component {
         );
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: {||}, prevState: State) {
         if (this.state.objectUrl !== prevState.objectUrl) {
             window.URL.revokeObjectURL(prevState.objectUrl);
         }
@@ -200,7 +216,7 @@ export default class DecompressorApp extends Component {
         }
     }
 
-    onOutputRadioButtonChanged(useBrowserTextEditor) {
+    onOutputRadioButtonChanged(useBrowserTextEditor: boolean) {
         this.setState({useBrowserTextEditor});
 
         if (useBrowserTextEditor) {
@@ -208,7 +224,7 @@ export default class DecompressorApp extends Component {
         }
     }
 
-    onFileChange = ({currentTarget}) => {
+    onFileChange = (ev: Event) => {
         this.setState({
             fileName: '',
             error: '',
@@ -221,12 +237,16 @@ export default class DecompressorApp extends Component {
             requiresModName: '',
         });
 
-        if (currentTarget.files && currentTarget.files[0]) {
-            this.processFile(currentTarget.files[0]);
+        const fileInput = ev.currentTarget;
+        if (!(fileInput instanceof HTMLInputElement)) {
+            throw new Error('Expected HTMLInputElement');
+        }
+        if (fileInput.files && fileInput.files[0]) {
+            this.processFile(fileInput.files[0]);
         }
     };
 
-    processFile = (file) => {
+    processFile = (file: File) => {
         // should be unknown
         if (file.type !== '' && file.type !== 'application/ms-tnef') {
             this.setState({
@@ -240,14 +260,22 @@ export default class DecompressorApp extends Component {
         const reader = new FileReader();
         reader.onload = this.onFileReaderFile;
         reader.onerror = (ex) => {
-            this.setState({error: ex.message});
+            this.setState({error: 'Error reading file'});
             throw ex;
         };
         reader.readAsArrayBuffer(file);
     };
 
-    onFileReaderFile = (buffer) => {
-        const compressed = new Uint8Array(buffer.currentTarget.result, 9);
+    onFileReaderFile = (buffer: ProgressEvent) => {
+        const reader = buffer.currentTarget;
+        if (
+            !(reader instanceof FileReader) ||
+            !(reader.result instanceof ArrayBuffer)
+        ) {
+            throw new Error();
+        }
+
+        const compressed = new Uint8Array(reader.result, 9);
         const inflatedResult = inflate(compressed);
         const utf8Result = decodeInflatedResult(inflatedResult);
         const requiresMod = checkForMods(utf8Result);
@@ -258,7 +286,7 @@ export default class DecompressorApp extends Component {
                 utf8Result,
 
                 requiresModResult: requiresMod.result,
-                requiresModName: requiresMod.mod,
+                requiresModName: requiresMod.result ? requiresMod.mod : '',
             },
             () => {
                 if (!this.state.useBrowserTextEditor) {
@@ -269,7 +297,7 @@ export default class DecompressorApp extends Component {
     };
 
     generateDownload() {
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
             const blob = new Blob([this.state.inflatedResult], {
                 type: 'text/plain',
             });

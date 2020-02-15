@@ -1,3 +1,5 @@
+// @flow
+
 import JSZip from 'jszip';
 
 function withoutPrefix(text, prefix) {
@@ -11,6 +13,7 @@ function getSortedFileList(files, stripDirectoryPrefix) {
         const file = files[i];
 
         const path = withoutPrefix(
+            // $FlowFixMe https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath
             file.webkitRelativePath,
             stripDirectoryPrefix
         );
@@ -36,7 +39,10 @@ function getSortedFileList(files, stripDirectoryPrefix) {
     });
 }
 
-export default function generateZip(files, stripDirectoryPrefix) {
+export default function generateZip(
+    files: FileList,
+    stripDirectoryPrefix: string
+) {
     const zip = new JSZip();
 
     let sequence = Promise.resolve();
@@ -51,6 +57,7 @@ export default function generateZip(files, stripDirectoryPrefix) {
                     zip.file(fileInfo.path, reader.result, {
                         binary: true,
                         createFolders: false,
+                        // $FlowFixMe https://developer.mozilla.org/en-US/docs/Web/API/File/lastModifiedDate
                         date: fileInfo.file.lastModifiedDate,
                     });
 

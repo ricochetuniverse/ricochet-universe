@@ -1,8 +1,19 @@
+// @flow
+
 import {Component, h} from 'preact';
 
 import DiscordWidget from './DiscordWidget';
 
-export default class DiscordWidgetContainer extends Component {
+import type {DiscordWidgetMemberType} from './DiscordWidgetMemberType';
+
+type State = {|
+    loading: boolean,
+    error: boolean,
+
+    members: DiscordWidgetMemberType[],
+|};
+
+export default class DiscordWidgetContainer extends Component<{||}, State> {
     state = {
         loading: true,
         error: false,
@@ -44,7 +55,7 @@ export default class DiscordWidgetContainer extends Component {
                 return;
             }
 
-            const members = json.members
+            const members = (json.members: DiscordWidgetMemberType[])
                 .filter((member) => {
                     const bots = [
                         '[pls] Dank Memer',

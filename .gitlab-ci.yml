@@ -59,6 +59,7 @@ lint:
     dependencies:
         - yarn
     script:
+        - yarn run flow
         - yarn run lint
         - yarn run prettier -l
 

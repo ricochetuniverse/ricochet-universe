@@ -37,6 +37,7 @@ module.exports = (api) => {
                     useBuiltIns: true,
                 },
             ],
+            '@babel/preset-flow',
         ],
         plugins: plugins,
     };

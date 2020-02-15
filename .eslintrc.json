@@ -1,6 +1,7 @@
 {
     "extends": [
         "eslint:recommended",
+        "plugin:flowtype/recommended",
         "plugin:react/recommended",
         "plugin:jsx-a11y/recommended"
     ],
@@ -8,6 +9,13 @@
     "rules": {
         // Variables
         "no-unused-vars": ["error", {"varsIgnorePattern": "Fragment"}],
+
+        // eslint-plugin-flowtype
+        "flowtype/array-style-simple-type": ["error", "shorthand"],
+        "flowtype/newline-after-flow-annotation": ["error"],
+        "flowtype/require-inexact-type": "error",
+        "flowtype/require-indexer-name": ["error"],
+        "flowtype/require-readonly-react-props": ["error"],
 
         // eslint-plugin-react
         "react/button-has-type": ["error"],
@@ -17,7 +25,7 @@
         // JSX-specific rules
         "react/jsx-no-target-blank": ["off"]
     },
-    "plugins": ["react", "jsx-a11y"],
+    "plugins": ["flowtype", "react", "jsx-a11y"],
     "env": {
         "node": true,
         "es6": true,
@@ -32,7 +40,8 @@
     "settings": {
         "react": {
             "pragma": "h",
-            "version": "16.12"
+            "version": "16.12",
+            "flowVersion": "0.118.0"
         }
     }
 }

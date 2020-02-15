@@ -1,3 +1,5 @@
+// @flow
+
 import {Component, Fragment, h} from 'preact';
 
 import {
@@ -9,6 +11,25 @@ import {
     ModalHeader,
     Row,
 } from 'reactstrap';
+
+type Props = $ReadOnly<{|
+    currentOpenCount: number,
+
+    name: string,
+    author: string,
+    note1: string,
+    note2: string,
+    note3: string,
+    note4: string,
+    note5: string,
+    source: string,
+    imageUrl: string,
+|}>;
+
+type State = $ReadOnly<{|
+    isOpen: boolean,
+    previousOpenCount: number,
+|}>;
 
 function generateRow(label, text) {
     if (!text) {
@@ -24,7 +45,7 @@ function generateRow(label, text) {
     );
 }
 
-export default class RoundInfoModal extends Component {
+export default class RoundInfoModal extends Component<Props, State> {
     state = {
         isOpen: true,
         previousOpenCount: 0,

@@ -1,3 +1,6 @@
+// @flow
+
+import nullthrows from 'nullthrows';
 import {h, render} from 'preact';
 
 import RoundInfoModal from './RoundInfoModal';
@@ -7,10 +10,13 @@ let currentOpenCount = 0;
 
 const links = document.getElementsByClassName('roundInfo__link');
 for (let i = 0, len = links.length; i < len; i += 1) {
-    links[i].addEventListener('click', (ev) => {
+    links[i].addEventListener('click', (ev: MouseEvent) => {
         ev.preventDefault();
 
         const link = ev.currentTarget;
+        if (!(link instanceof HTMLElement)) {
+            return;
+        }
 
         const props = {
             name: link.dataset['roundName'],
@@ -26,7 +32,7 @@ for (let i = 0, len = links.length; i < len; i += 1) {
 
         if (!modalWrap) {
             modalWrap = document.createElement('div');
-            document.body.appendChild(modalWrap);
+            nullthrows(document.body).appendChild(modalWrap);
         }
 
         currentOpenCount += 1;

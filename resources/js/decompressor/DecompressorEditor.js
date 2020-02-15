@@ -1,9 +1,26 @@
+// @flow
+
 import {Component, createRef, h} from 'preact';
 
 import MonacoEditor from 'react-monaco-editor/lib/editor';
 
-export default class DecompressorEditor extends Component {
-    monaco = createRef();
+type Props = $ReadOnly<{|
+    text: string,
+|}>;
+
+type MonacoEditorComponent = {
+    editor: {
+        layout: (dimension?: {|
+            width: number,
+            height: number,
+        |}) => void,
+        ...
+    },
+    ...
+};
+
+export default class DecompressorEditor extends Component<Props> {
+    monaco = createRef<MonacoEditorComponent>();
 
     render() {
         // Safari bugs out with `all: unset`
@@ -27,7 +44,11 @@ export default class DecompressorEditor extends Component {
     }
 
     updateDimensions = () => {
-        this.monaco.current.editor.layout();
+        const ref = this.monaco.current;
+
+        if (ref) {
+            ref.editor.layout();
+        }
     };
 
     editorDidMount = () => {

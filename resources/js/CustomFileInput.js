@@ -1,9 +1,19 @@
+// @flow
+
 import {h} from 'preact';
 import {forwardRef} from 'preact/compat';
 
 // Forked from https://github.com/reactstrap/reactstrap/blob/master/src/CustomFileInput.js
 
-function CustomFileInput({label, directory, ...otherProps}, ref) {
+type Props = $ReadOnly<{
+    label: string,
+    directory?: boolean,
+
+    type?: 'file',
+    ...
+}>;
+
+function CustomFileInput({label, directory = false, ...otherProps}, ref) {
     return (
         <div className="custom-file">
             <input
@@ -24,4 +34,4 @@ function CustomFileInput({label, directory, ...otherProps}, ref) {
     );
 }
 
-export default forwardRef(CustomFileInput);
+export default forwardRef<Props, HTMLInputElement>(CustomFileInput);

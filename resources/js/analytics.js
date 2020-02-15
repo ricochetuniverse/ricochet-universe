@@ -1,4 +1,8 @@
-/* global ga: readonly */
+// @flow
+
+import nullthrows from 'nullthrows';
+
+declare var ga: any;
 
 const trackingId = document.getElementById('google-analytics-tracking-id');
 if (trackingId) {
@@ -11,9 +15,9 @@ if (trackingId) {
             }),
             (i[r].l = 1 * new Date());
         (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
-        a.async = 1;
+        a.async = true;
         a.src = g;
-        m.parentNode.insertBefore(a, m);
+        nullthrows(m.parentNode).insertBefore(a, m);
     })(
         window,
         document,
@@ -23,7 +27,7 @@ if (trackingId) {
     );
 
     ga('create', {
-        trackingId: trackingId.content,
+        trackingId: trackingId.getAttribute('content'),
         cookieDomain: 'auto',
         siteSpeedSampleRate: 100,
     });

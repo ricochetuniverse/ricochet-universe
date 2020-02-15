@@ -1,3 +1,5 @@
+// @flow
+
 import {Component, createRef, h} from 'preact';
 import {Alert, Button, Card, CardBody, CardHeader} from 'reactstrap';
 import Uppie from 'uppie';
@@ -6,14 +8,27 @@ import CustomFileInput from '../CustomFileInput';
 
 import generateZip from './generate-zip';
 
+type State = $ReadOnly<{|
+    folderName: string,
+    error: string,
+
+    packageTime: ?Date,
+    downloadButtonUrl: string,
+|}>;
+
 function getAssumedDirectoryPrefix(file) {
-    const path = file.webkitRelativePath;
+    const path = getFileRelativePath(file);
     const split = path.split('/');
 
     return split[0] + '/';
 }
 
-export default class RedModPackagerApp extends Component {
+function getFileRelativePath(file: File) {
+    // $FlowFixMe https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath
+    return file.webkitRelativePath;
+}
+
+export default class RedModPackagerApp extends Component<{||}, State> {
     state = {
         folderName: '',
         error: '',
@@ -22,7 +37,7 @@ export default class RedModPackagerApp extends Component {
         downloadButtonUrl: '',
     };
 
-    fileInputRef = createRef();
+    fileInputRef = createRef<?HTMLInputElement>();
 
     render() {
         return (
@@ -67,7 +82,7 @@ export default class RedModPackagerApp extends Component {
                     </Alert>
                 ) : null}
 
-                {this.state.downloadButtonUrl ? (
+                {this.state.packageTime && this.state.downloadButtonUrl ? (
                     <Card className="mb-3">
                         <CardHeader>Package ready</CardHeader>
 
@@ -107,15 +122,19 @@ export default class RedModPackagerApp extends Component {
         uppie(this.fileInputRef.current, this.onFileChange);
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: {||}, prevState: State) {
         if (this.state.downloadButtonUrl !== prevState.downloadButtonUrl) {
             window.URL.revokeObjectURL(prevState.downloadButtonUrl);
         }
     }
 
-    onFileChange = (fileInputEvent /*, formData, files*/) => {
+    onFileChange = (fileInputEvent: Event /*, formData, files*/) => {
         this.reset(() => {
-            const files = fileInputEvent.target.files;
+            const fileInput = fileInputEvent.target;
+            if (!(fileInput instanceof HTMLInputElement)) {
+                throw new Error('Expected HTMLInputElement');
+            }
+            const files = fileInput.files;
 
             // Get the first file's directory prefix, and use it for all
             const directoryPrefix = getAssumedDirectoryPrefix(files[0]);
@@ -123,7 +142,7 @@ export default class RedModPackagerApp extends Component {
             // Sanity checking...
             for (let i = 0, len = files.length; i < len; i += 1) {
                 const file = files[i];
-                const path = file.webkitRelativePath;
+                const path = getFileRelativePath(file);
 
                 if (
                     path.substr(0, directoryPrefix.length) !== directoryPrefix
@@ -151,7 +170,7 @@ export default class RedModPackagerApp extends Component {
         });
     };
 
-    reset = (callback = () => {}) => {
+    reset = (callback: () => mixed = () => {}) => {
         this.setState(
             {
                 folderName: '',
@@ -167,6 +186,9 @@ export default class RedModPackagerApp extends Component {
     resetButtonClicked = () => {
         this.reset();
 
-        this.fileInputRef.current.value = '';
+        const ref = this.fileInputRef.current;
+        if (ref) {
+            ref.value = '';
+        }
     };
 }

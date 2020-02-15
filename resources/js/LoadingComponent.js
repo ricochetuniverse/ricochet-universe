@@ -1,7 +1,21 @@
+// @flow
+
 import {h} from 'preact';
 import {Button} from 'reactstrap';
 
-export default function({error, timedOut, retry, text = 'Loading...'}) {
+type Props = $ReadOnly<{
+    // LoadingProps from react-loadable
+    isLoading: boolean,
+    pastDelay: boolean,
+    timedOut: boolean,
+    retry: () => void,
+    error: ?Error,
+
+    text?: string,
+    ...
+}>;
+
+export default function({error, timedOut, retry, text = 'Loading...'}: Props) {
     if (error) {
         return (
             <div className="d-flex align-items-center">

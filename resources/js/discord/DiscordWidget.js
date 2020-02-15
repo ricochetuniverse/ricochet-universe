@@ -1,8 +1,16 @@
+// @flow
+
 import {h} from 'preact';
 
-// member prop:
-// avatar, avatar_url, discriminator, game, game.name, id, nick, status, username
-export default function DiscordWidget(props) {
+import type {DiscordWidgetMemberType} from './DiscordWidgetMemberType';
+
+type Props = $ReadOnly<{|
+    loading: boolean,
+    error: boolean,
+    members: DiscordWidgetMemberType[],
+|}>;
+
+export default function DiscordWidget(props: Props) {
     if (props.loading) {
         return <div className="discordWidget__body">Loading...</div>;
     }
