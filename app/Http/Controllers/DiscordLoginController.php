@@ -24,7 +24,7 @@ class DiscordLoginController extends Controller
                 ->view('auth.not-on-whitelist', ['discordUserId' => $discordUser->id], 403);
         }
 
-        $user = User::firstOrCreate(
+        $user = User::updateOrCreate(
             ['discord_id' => $discordUser->id],
             [
                 'name'               => $discordUser->nickname,
