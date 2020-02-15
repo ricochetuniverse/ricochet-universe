@@ -48,13 +48,13 @@ export default class DiscordWidgetContainer extends Component {
             const members = json.members
                 .filter((member) => {
                     const bots = [
-                        '270904126974590976', // Dank Memer
-                        '159985870458322944', // Mee6
-                        '439205512425504771', // NotSoBot
-                        '235088799074484224', // Rythm
+                        '[pls] Dank Memer',
+                        '[!] Mee6',
+                        '[.] NotSoBot',
+                        '[r!] Rythm',
                     ];
 
-                    return bots.indexOf(member.id) === -1;
+                    return bots.indexOf(member.username) === -1;
                 })
                 .sort((a, b) => {
                     const nameA = getDiscordMemberName(a).toLowerCase();
