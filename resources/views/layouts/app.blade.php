@@ -107,8 +107,8 @@
                                     <img src="{{ Auth::user()->getAvatarUrl(64) }}"
                                          width="24"
                                          height="24"
-                                         alt="{{ Auth::user()->name }}’s profile picture"
-                                         class="mr-1">
+                                         alt="{{ Auth::user()->name }}’s avatar"
+                                         class="navbar-avatar">
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right"

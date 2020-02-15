@@ -175,6 +175,13 @@ label[for] {
     max-width: 324px;
 }
 
+.navbar-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    margin-right: map-get($spacers, 1);
+}
+
 input.dropdown-item {
     cursor: pointer;
 }

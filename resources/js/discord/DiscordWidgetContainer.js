@@ -1,7 +1,6 @@
 import {Component, h} from 'preact';
 
 import DiscordWidget from './DiscordWidget';
-import getDiscordMemberName from './getDiscordMemberName';
 
 export default class DiscordWidgetContainer extends Component {
     state = {
@@ -57,8 +56,8 @@ export default class DiscordWidgetContainer extends Component {
                     return bots.indexOf(member.username) === -1;
                 })
                 .sort((a, b) => {
-                    const nameA = getDiscordMemberName(a).toLowerCase();
-                    const nameB = getDiscordMemberName(b).toLowerCase();
+                    const nameA = a.username.toLowerCase();
+                    const nameB = b.username.toLowerCase();
 
                     if (nameA > nameB) {
                         return 1;

@@ -1,7 +1,5 @@
 import {h} from 'preact';
 
-import getDiscordMemberName from './getDiscordMemberName';
-
 // member prop:
 // avatar, avatar_url, discriminator, game, game.name, id, nick, status, username
 export default function DiscordWidget(props) {
@@ -27,7 +25,7 @@ export default function DiscordWidget(props) {
                             <div className="discordWidget__member__avatar">
                                 <img
                                     src={member.avatar_url}
-                                    alt=""
+                                    alt={member.username + '’s avatar'}
                                     width={16}
                                     height={16}
                                     className="discordWidget__member__avatar__image"
@@ -40,7 +38,7 @@ export default function DiscordWidget(props) {
                                 />
                             </div>
                             <span className="text-truncate">
-                                {getDiscordMemberName(member)}
+                                {member.username}
                             </span>
                         </li>
                     );
