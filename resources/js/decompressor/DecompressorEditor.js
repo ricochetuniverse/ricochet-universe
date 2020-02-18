@@ -3,6 +3,7 @@
 import {Component, createRef, h} from 'preact';
 
 import MonacoEditor from 'react-monaco-editor/lib/editor';
+import 'monaco-editor/esm/vs/base/browser/ui/codiconLabel/codicon/codicon.css'; // https://github.com/microsoft/monaco-editor/issues/1759
 
 type Props = $ReadOnly<{|
     text: string,
