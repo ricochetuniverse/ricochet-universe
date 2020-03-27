@@ -1,4 +1,4 @@
-// @flow
+// @flow strict-local
 
 import nullthrows from 'nullthrows';
 import {h, render} from 'preact';

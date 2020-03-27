@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 import {Component, h} from 'preact';
 
@@ -42,7 +42,7 @@ export default class DiscordWidgetContainer extends Component<{||}, State> {
             true
         );
         request.onload = () => {
-            let json;
+            let json: {...};
             try {
                 json = JSON.parse(request.responseText);
             } catch (ex) {
