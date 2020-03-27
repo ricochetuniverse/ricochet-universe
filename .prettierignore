@@ -7,4 +7,5 @@ public/storage/
 storage/
 
 composer.json
+composer.lock
 package.json

@@ -15,7 +15,7 @@ type Props = $ReadOnly<{
     ...
 }>;
 
-export default function({error, timedOut, retry, text = 'Loading...'}: Props) {
+export default function ({error, timedOut, retry, text = 'Loading...'}: Props) {
     if (error) {
         return (
             <div className="d-flex align-items-center">

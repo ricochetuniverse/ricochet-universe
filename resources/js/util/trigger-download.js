@@ -2,7 +2,7 @@
 
 import nullthrows from 'nullthrows';
 
-export default function(href: string, filename: string) {
+export default function (href: string, filename: string) {
     // Firefox requires link to be inserted in <body> before clicking
     // https://stackoverflow.com/a/27116581
     const link = document.createElement('a');

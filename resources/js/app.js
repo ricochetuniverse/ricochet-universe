@@ -7,7 +7,7 @@ import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/tooltip';
 
-$('[data-toggle="tooltip"], .js-with-tooltip').each(function() {
+$('[data-toggle="tooltip"], .js-with-tooltip').each(function () {
     const $base = $(this);
 
     const options = {};
@@ -18,13 +18,11 @@ $('[data-toggle="tooltip"], .js-with-tooltip').each(function() {
     $base.tooltip(options);
 });
 
-$('[data-toggle="dropdown"]').each(function() {
+$('[data-toggle="dropdown"]').each(function () {
     $(this)
         .parent()
         .on('show.bs.dropdown', (ev) => {
-            $(ev.relatedTarget)
-                .tooltip('hide')
-                .tooltip('disable');
+            $(ev.relatedTarget).tooltip('hide').tooltip('disable');
         })
         .on('hide.bs.dropdown', (ev) => {
             $(ev.relatedTarget).tooltip('enable');
