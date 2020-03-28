@@ -37,6 +37,7 @@ export default function DiscordWidget(props: Props) {
                                     width={16}
                                     height={16}
                                     className="discordWidget__member__avatar__image"
+                                    loading="lazy"
                                 />
                                 <span
                                     className={
