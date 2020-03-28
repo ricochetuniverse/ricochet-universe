@@ -41,7 +41,7 @@
         "react": {
             "pragma": "h",
             "version": "16.12",
-            "flowVersion": "0.118.0"
+            "flowVersion": "0.121.0"
         }
     }
 }
