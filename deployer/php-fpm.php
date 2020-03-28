@@ -8,6 +8,6 @@ task('php-fpm:reload', function () {
     //
     // sudo visudo -f /etc/sudoers.d/php-fpm
     //
-    // username ALL=NOPASSWD:/bin/systemctl reload php7.2-fpm.service
-    run('sudo /bin/systemctl reload php7.2-fpm.service');
+    // username ALL=NOPASSWD:/bin/systemctl reload php7.4-fpm.service
+    run('sudo /bin/systemctl reload php7.4-fpm.service');
 });
