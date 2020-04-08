@@ -1,7 +1,9 @@
 // @flow
 
-import {inflate} from 'pako/lib/inflate';
-import {Component, h} from 'preact';
+import type {ModRequirement} from './check-for-mods';
+
+import {Inflate} from 'pako/lib/inflate';
+import {Component, Fragment, h} from 'preact';
 import Loadable from 'react-loadable';
 import {
     Alert,
@@ -11,6 +13,8 @@ import {
     CardHeader,
     CustomInput,
     FormGroup,
+    Row,
+    Col,
 } from 'reactstrap';
 
 import CustomFileInput from '../CustomFileInput';
@@ -18,18 +22,23 @@ import IncompatibleBrowser from '../IncompatibleBrowser';
 import LoadingComponent from '../LoadingComponent';
 
 import checkForMods from './check-for-mods';
-import triggerDownload from '../util/trigger-download';
+
+type DeflateResult = {|
+    raw: Uint8Array,
+    utf8: string,
+    image: ?Uint8Array,
+|};
 
 type State = $ReadOnly<{|
     fileName: string,
     error: string,
 
-    inflatedResult: string,
-    utf8Result: string,
-    objectUrl: string,
-
-    requiresModResult: boolean,
-    requiresModName: string,
+    result: ?DeflateResult,
+    blobUrls: {|
+        text: string,
+        image: string,
+    |},
+    modRequirement: ModRequirement,
 
     useBrowserTextEditor: boolean,
 |}>;
@@ -42,14 +51,44 @@ function isBrowserCompatible() {
     );
 }
 
-function getDownloadFileName(fileName) {
-    return fileName.replace(/\.Ricochet(I|LW)$/, '') + ' (decompressed).txt';
+function inflateFile(buffer: ArrayBuffer): DeflateResult {
+    const MAGIC_SKIP_NUMBER = 9;
+
+    const compressed = new Uint8Array(buffer, MAGIC_SKIP_NUMBER);
+
+    // basically what deflate() from pako does behind the scenes
+    const inflator = new Inflate();
+    inflator.push(compressed, true);
+    const raw = inflator.result;
+
+    // If there are any leftover, try to decode it as a JPEG sequence
+    let image = null;
+    if (inflator.strm.avail_in > 0) {
+        image = new Uint8Array(
+            buffer,
+            MAGIC_SKIP_NUMBER +
+                inflator.strm.input.length -
+                inflator.strm.avail_in +
+                5
+        );
+    }
+
+    return {
+        raw,
+        utf8: decodeFromUint8Array(raw),
+        image,
+    };
 }
 
-function decodeInflatedResult(inflatedResult) {
+function decodeFromUint8Array(text: Uint8Array) {
     return new TextDecoder('windows-1252', {
         fatal: true,
-    }).decode(inflatedResult);
+    }).decode(text);
+}
+
+function generateBlobUrl(raw: Uint8Array, type: string): string {
+    const blob = new Blob([raw], {type});
+    return window.URL.createObjectURL(blob);
 }
 
 const LoadableDecompressorEditor = Loadable({
@@ -67,17 +106,38 @@ const LoadableDecompressorEditor = Loadable({
     timeout: 10000,
 });
 
+function DownloadButton(
+    props: $ReadOnly<{|
+        blobUrl: string,
+        fileName: string,
+    |}>
+) {
+    return (
+        <Button
+            tag="a"
+            href={props.blobUrl}
+            download={props.fileName}
+            outline
+            color="primary"
+        >
+            Download
+        </Button>
+    );
+}
+
 export default class DecompressorApp extends Component<{||}, State> {
     state = {
         fileName: '',
         error: '',
 
-        inflatedResult: '',
-        utf8Result: '',
-        objectUrl: '',
-
-        requiresModResult: false,
-        requiresModName: '',
+        result: null,
+        blobUrls: {
+            text: '',
+            image: '',
+        },
+        modRequirement: {
+            result: false,
+        },
 
         useBrowserTextEditor: false,
     };
@@ -103,27 +163,11 @@ export default class DecompressorApp extends Component<{||}, State> {
 
                         <FormGroup>
                             <CustomInput
-                                type="radio"
-                                name="output"
-                                id="output_disk"
-                                checked={!this.state.useBrowserTextEditor}
-                                label="Save decompressed result to disk"
-                                onChange={this.onOutputRadioButtonChanged.bind(
-                                    this,
-                                    false
-                                )}
-                            />
-
-                            <CustomInput
-                                type="radio"
-                                name="output"
-                                id="output_browser"
+                                type="checkbox"
+                                id="useBrowserTextEditor"
                                 checked={this.state.useBrowserTextEditor}
-                                label="View in browser"
-                                onChange={this.onOutputRadioButtonChanged.bind(
-                                    this,
-                                    true
-                                )}
+                                label="View text in browser"
+                                onChange={this.onViewInBrowserOptionChange}
                             />
                         </FormGroup>
 
@@ -141,100 +185,126 @@ export default class DecompressorApp extends Component<{||}, State> {
                     </Alert>
                 ) : null}
 
-                {this.state.requiresModResult ? (
+                {this.state.modRequirement.result ? (
                     <Alert color="info" fade={false}>
-                        {this.state.requiresModName
-                            ? 'This level set requires the ' +
-                              this.state.requiresModName +
-                              ' mod to play.'
+                        {this.state.modRequirement.mod
+                            ? `This level set requires the ${this.state.modRequirement.mod} mod to play.`
                             : 'This level set requires files that are not available on the base game.'}
                     </Alert>
                 ) : null}
 
-                {this.state.fileName.match(/\.(Sequence|Frame)$/) ? (
-                    <Alert color="info" fade={false}>
-                        Decompressing sequences aren’t fully supported by this
-                        tool yet.
-                    </Alert>
-                ) : null}
+                {this.state.result ? (
+                    <>
+                        {this.state.blobUrls.image !== '' ? (
+                            <Card className="mb-3">
+                                <CardHeader>Decompressed image</CardHeader>
 
-                {this.state.useBrowserTextEditor && this.state.utf8Result ? (
-                    <Card className="mb-3">
-                        <CardHeader>Decompressed result</CardHeader>
+                                <CardBody>
+                                    <DownloadButton
+                                        blobUrl={this.state.blobUrls.image}
+                                        fileName={
+                                            this.state.fileName.replace(
+                                                /\.Sequence$/,
+                                                ''
+                                            ) + '.jpg'
+                                        }
+                                    />
+                                </CardBody>
 
-                        <LoadableDecompressorEditor
-                            text={this.state.utf8Result}
-                        />
-                    </Card>
-                ) : null}
+                                <div>
+                                    <img
+                                        src={this.state.blobUrls.image}
+                                        alt="Decompressed result"
+                                        className="decompressor__image"
+                                    />
+                                </div>
+                            </Card>
+                        ) : null}
 
-                {!this.state.useBrowserTextEditor && this.state.objectUrl ? (
-                    <Card className="mb-3">
-                        <CardHeader>Decompressed result</CardHeader>
+                        {this.state.result.utf8 ? (
+                            <Card className="mb-3">
+                                <CardHeader>
+                                    {this.state.blobUrls.image === ''
+                                        ? 'Decompressed text'
+                                        : 'Image metadata'}
+                                </CardHeader>
 
-                        <CardBody>
-                            <p>
-                                You can edit the file with your favorite text
-                                editor for advanced scripting, be sure to save
-                                the file with Windows (CRLF) line endings and
-                                Windows-1252 text encoding.
-                            </p>
+                                <CardBody>
+                                    <Row className="align-items-center">
+                                        {this.state.blobUrls.text !== '' ? (
+                                            <Col xs="auto">
+                                                <DownloadButton
+                                                    blobUrl={
+                                                        this.state.blobUrls.text
+                                                    }
+                                                    fileName={
+                                                        this.state.fileName.replace(
+                                                            /\.Ricochet(I|LW)$/,
+                                                            ''
+                                                        ) +
+                                                        ' (decompressed).txt'
+                                                    }
+                                                />
+                                            </Col>
+                                        ) : null}
 
-                            <Button
-                                tag="a"
-                                href={this.state.objectUrl}
-                                download={getDownloadFileName(
-                                    this.state.fileName
-                                )}
-                                outline
-                                color="primary"
-                            >
-                                Download
-                            </Button>
-                        </CardBody>
-                    </Card>
+                                        <Col>
+                                            If you’re editing this file with a
+                                            text editor, be sure to save the
+                                            file with Windows (CRLF) line
+                                            endings and Windows-1252 text
+                                            encoding to ensure game
+                                            compatibility.
+                                        </Col>
+                                    </Row>
+                                </CardBody>
+
+                                {this.state.result &&
+                                this.state.useBrowserTextEditor ? (
+                                    <LoadableDecompressorEditor
+                                        text={this.state.result.utf8}
+                                    />
+                                ) : null}
+                            </Card>
+                        ) : null}
+                    </>
                 ) : null}
             </div>
         );
     }
 
     componentDidUpdate(prevProps: {||}, prevState: State) {
-        if (this.state.objectUrl !== prevState.objectUrl) {
-            window.URL.revokeObjectURL(prevState.objectUrl);
+        if (this.state.blobUrls.text !== prevState.blobUrls.text) {
+            window.URL.revokeObjectURL(prevState.blobUrls.text);
         }
 
-        if (
-            this.state.useBrowserTextEditor !== prevState.useBrowserTextEditor
-        ) {
-            if (this.state.inflatedResult) {
-                if (!this.state.useBrowserTextEditor) {
-                    if (!this.state.objectUrl) {
-                        this.generateDownload();
-                    }
-                }
-            }
+        if (this.state.blobUrls.image !== prevState.blobUrls.image) {
+            window.URL.revokeObjectURL(prevState.blobUrls.image);
         }
     }
 
-    onOutputRadioButtonChanged(useBrowserTextEditor: boolean) {
-        this.setState({useBrowserTextEditor});
+    onViewInBrowserOptionChange = (ev: Event) => {
+        const checkbox = ev.target;
+        if (!(checkbox instanceof HTMLInputElement)) {
+            throw new Error('Expected HTMLInputElement');
+        }
+        const checked = checkbox.checked;
 
-        if (useBrowserTextEditor) {
+        this.setState({useBrowserTextEditor: checked});
+        if (checked) {
             LoadableDecompressorEditor.preload();
         }
-    }
+    };
 
     onFileChange = (ev: Event) => {
         this.setState({
             fileName: '',
             error: '',
 
-            inflatedResult: '',
-            utf8Result: '',
-            objectUrl: '',
-
-            requiresModResult: false,
-            requiresModName: '',
+            result: null,
+            modRequirement: {
+                result: false,
+            },
         });
 
         const fileInput = ev.currentTarget;
@@ -275,44 +345,17 @@ export default class DecompressorApp extends Component<{||}, State> {
             throw new Error();
         }
 
-        const compressed = new Uint8Array(reader.result, 9);
-        const inflatedResult = inflate(compressed);
-        const utf8Result = decodeInflatedResult(inflatedResult);
-        const requiresMod = checkForMods(utf8Result);
+        const result = inflateFile(reader.result);
 
-        this.setState(
-            {
-                inflatedResult,
-                utf8Result,
-
-                requiresModResult: requiresMod.result,
-                requiresModName: requiresMod.result ? requiresMod.mod : '',
+        this.setState({
+            result,
+            blobUrls: {
+                text: generateBlobUrl(result.raw, 'text/plain'),
+                image: result.image
+                    ? generateBlobUrl(result.image, 'image/jpeg')
+                    : '',
             },
-            () => {
-                if (!this.state.useBrowserTextEditor) {
-                    this.generateDownload().then(this.downloadResult);
-                }
-            }
-        );
-    };
-
-    generateDownload() {
-        return new Promise<void>((resolve) => {
-            const blob = new Blob([this.state.inflatedResult], {
-                type: 'text/plain',
-            });
-
-            this.setState(
-                {objectUrl: window.URL.createObjectURL(blob)},
-                resolve
-            );
+            modRequirement: checkForMods(result.utf8),
         });
-    }
-
-    downloadResult = () => {
-        triggerDownload(
-            this.state.objectUrl,
-            getDownloadFileName(this.state.fileName)
-        );
     };
 }
