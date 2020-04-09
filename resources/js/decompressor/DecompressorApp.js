@@ -1,8 +1,8 @@
 // @flow
 
 import type {ModRequirement} from './check-for-mods';
+import type {InflateResult} from './inflate-file';
 
-import {Inflate} from 'pako/lib/inflate';
 import {Component, Fragment, h} from 'preact';
 import Loadable from 'react-loadable';
 import {
@@ -22,18 +22,13 @@ import IncompatibleBrowser from '../IncompatibleBrowser';
 import LoadingComponent from '../LoadingComponent';
 
 import checkForMods from './check-for-mods';
-
-type DeflateResult = {|
-    raw: Uint8Array,
-    utf8: string,
-    image: ?Uint8Array,
-|};
+import {inflateFile} from './inflate-file';
 
 type State = $ReadOnly<{|
     fileName: string,
     error: string,
 
-    result: ?DeflateResult,
+    result: ?InflateResult,
     blobUrls: {|
         text: string,
         image: string,
@@ -49,41 +44,6 @@ function isBrowserCompatible() {
         typeof Blob !== 'undefined' &&
         typeof TextDecoder !== 'undefined'
     );
-}
-
-function inflateFile(buffer: ArrayBuffer): DeflateResult {
-    const MAGIC_SKIP_NUMBER = 9;
-
-    const compressed = new Uint8Array(buffer, MAGIC_SKIP_NUMBER);
-
-    // basically what deflate() from pako does behind the scenes
-    const inflator = new Inflate();
-    inflator.push(compressed, true);
-    const raw = inflator.result;
-
-    // If there are any leftover, try to decode it as a JPEG sequence
-    let image = null;
-    if (inflator.strm.avail_in > 0) {
-        image = new Uint8Array(
-            buffer,
-            MAGIC_SKIP_NUMBER +
-                inflator.strm.input.length -
-                inflator.strm.avail_in +
-                5
-        );
-    }
-
-    return {
-        raw,
-        utf8: decodeFromUint8Array(raw),
-        image,
-    };
-}
-
-function decodeFromUint8Array(text: Uint8Array) {
-    return new TextDecoder('windows-1252', {
-        fatal: true,
-    }).decode(text);
 }
 
 function generateBlobUrl(raw: Uint8Array, type: string): string {

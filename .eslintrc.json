@@ -3,6 +3,8 @@
         "eslint:recommended",
         "plugin:flowtype/recommended",
         "plugin:react/recommended",
+        "plugin:jest/recommended",
+        "plugin:jest/style",
         "plugin:jsx-a11y/recommended"
     ],
     "parser": "babel-eslint",
@@ -25,11 +27,12 @@
         // JSX-specific rules
         "react/jsx-no-target-blank": ["off"]
     },
-    "plugins": ["flowtype", "react", "jsx-a11y"],
+    "plugins": ["flowtype", "react", "jest", "jsx-a11y"],
     "env": {
         "node": true,
         "es6": true,
-        "browser": true
+        "browser": true,
+        "jest/globals": true
     },
     "parserOptions": {
         "sourceType": "module",
