@@ -42,7 +42,8 @@ function isBrowserCompatible() {
     return (
         typeof FileReader !== 'undefined' &&
         typeof Blob !== 'undefined' &&
-        typeof TextDecoder !== 'undefined'
+        typeof TextDecoder !== 'undefined' &&
+        typeof String.prototype.endsWith !== 'undefined'
     );
 }
 
@@ -116,9 +117,10 @@ export default class DecompressorApp extends Component<{||}, State> {
                         <p>
                             Decompress Ricochet levels (<code>.RicochetI</code>/
                             <code>.RicochetLW</code>
-                            ), image Sequences and Frames, your stats (
+                            ), images (<code>.Sequence</code>/
+                            <code>.Frame</code>), your stats (
                             <code>Stats.dat</code>) and level set cache (
-                            <code>Levelsets.dat</code>) to view their raw text
+                            <code>Levelsets.dat</code>) to view their text/image
                             data.
                         </p>
 
@@ -134,7 +136,7 @@ export default class DecompressorApp extends Component<{||}, State> {
 
                         <CustomFileInput
                             label={this.state.fileName}
-                            accept=".RicochetI,.RicochetLW,.dat,.Sequence"
+                            accept=".RicochetI,.RicochetLW,.Sequence,.Frame,.dat"
                             onChange={this.onFileChange}
                         />
                     </CardBody>
@@ -209,14 +211,16 @@ export default class DecompressorApp extends Component<{||}, State> {
                                             </Col>
                                         ) : null}
 
-                                        <Col>
-                                            If you’re editing this file with a
-                                            text editor, be sure to save the
-                                            file with Windows (CRLF) line
-                                            endings and Windows-1252 text
-                                            encoding to ensure game
-                                            compatibility.
-                                        </Col>
+                                        {!this.state.blobUrls.image ? (
+                                            <Col>
+                                                If you’re manually editing this
+                                                file with a text editor, be sure
+                                                to save the file with Windows
+                                                (CRLF) line endings and
+                                                Windows-1252 text encoding to
+                                                ensure game compatibility.
+                                            </Col>
+                                        ) : null}
                                     </Row>
                                 </CardBody>
 
@@ -227,14 +231,6 @@ export default class DecompressorApp extends Component<{||}, State> {
                                     />
                                 ) : null}
                             </Card>
-                        ) : null}
-
-                        {/* FIXME just use error state */}
-                        {!this.state.result.raw && !this.state.result.image ? (
-                            <Alert color="danger" fade={false}>
-                                This file can’t be decompressed yet, this is
-                                probably a bug.
-                            </Alert>
                         ) : null}
                     </>
                 ) : null}
@@ -295,15 +291,15 @@ export default class DecompressorApp extends Component<{||}, State> {
             return;
         }
 
-        this.setState({fileName: file.name});
-
-        const reader = new FileReader();
-        reader.onload = this.onFileReaderFile;
-        reader.onerror = (ex) => {
-            this.setState({error: 'Error reading file'});
-            throw ex;
-        };
-        reader.readAsArrayBuffer(file);
+        this.setState({fileName: file.name}, () => {
+            const reader = new FileReader();
+            reader.onload = this.onFileReaderFile;
+            reader.onerror = (ex) => {
+                this.setState({error: 'There was a problem reading the file.'});
+                throw ex;
+            };
+            reader.readAsArrayBuffer(file);
+        });
     };
 
     onFileReaderFile = (buffer: ProgressEvent) => {
@@ -316,6 +312,22 @@ export default class DecompressorApp extends Component<{||}, State> {
         }
 
         const result = inflateFile(reader.result);
+
+        if (!result.raw && !result.image) {
+            let error = 'This file isn’t supported by the decompressor yet.';
+
+            const fileName = this.state.fileName;
+            if (fileName.endsWith('.Sequence')) {
+                error =
+                    'This file seems to be a Sequence but can’t be decompressed, please report this bug.';
+            } else if (fileName.endsWith('.Frame')) {
+                error =
+                    'This file seems to be a Frame but can’t be decompressed, please report this bug.';
+            }
+
+            this.setState({error});
+            return;
+        }
 
         this.setState({
             result,
