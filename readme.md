@@ -1,6 +1,6 @@
 # Ricochet Universe
 
-Visit the live website at [https://ricochet.ngyikp.com](https://ricochet.ngyikp.com)
+Visit the live website at [https://www.ricochetuniverse.com](https://www.ricochetuniverse.com)
 
 ## Server requirements
 
