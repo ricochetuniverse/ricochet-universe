@@ -58,8 +58,14 @@ module.exports = {
         alias: {
             react: 'preact/compat',
             'react-dom': 'preact/compat',
-            // '/resources/js/helpers/TextDecoder.js':
-            //     '/resources/js/helpers/TextDecoder.browser.js',
+
+            [path.resolve(
+                __dirname,
+                './resources/js/helpers/TextDecoder.js'
+            )]: path.resolve(
+                __dirname,
+                './resources/js/helpers/TextDecoder.browser.js'
+            ),
         },
     },
     plugins: [

@@ -116,9 +116,10 @@ export default class DecompressorApp extends Component<{||}, State> {
                         <p>
                             Decompress Ricochet levels (<code>.RicochetI</code>/
                             <code>.RicochetLW</code>
-                            ), your stats (<code>Stats.dat</code>) and level set
-                            cache (<code>Levelsets.dat</code>) to view their raw
-                            text data.
+                            ), image Sequences and Frames, your stats (
+                            <code>Stats.dat</code>) and level set cache (
+                            <code>Levelsets.dat</code>) to view their raw text
+                            data.
                         </p>
 
                         <FormGroup>
@@ -227,6 +228,14 @@ export default class DecompressorApp extends Component<{||}, State> {
                                 ) : null}
                             </Card>
                         ) : null}
+
+                        {/* FIXME just use error state */}
+                        {!this.state.result.raw && !this.state.result.image ? (
+                            <Alert color="danger" fade={false}>
+                                This file can’t be decompressed yet, this is
+                                probably a bug.
+                            </Alert>
+                        ) : null}
                     </>
                 ) : null}
             </div>
@@ -280,7 +289,8 @@ export default class DecompressorApp extends Component<{||}, State> {
         // should be unknown
         if (file.type !== '' && file.type !== 'application/ms-tnef') {
             this.setState({
-                error: 'File should be .RicochetI or .RicochetLW or .dat',
+                error:
+                    'File should be .RicochetI, .RicochetLW, .Sequence, .Frame or .dat',
             });
             return;
         }
@@ -310,7 +320,9 @@ export default class DecompressorApp extends Component<{||}, State> {
         this.setState({
             result,
             blobUrls: {
-                text: generateBlobUrl(result.raw, 'text/plain'),
+                text: result.raw
+                    ? generateBlobUrl(result.raw, 'text/plain')
+                    : '',
                 image: result.image
                     ? generateBlobUrl(result.image, 'image/jpeg')
                     : '',
