@@ -20,7 +20,7 @@
 
                         <p class="m-0">
                             Special thanks to the
-                            <a href="https://discord.gg/{{ config('ricochet.discord_invite') }}">Ricochet Players Discord community</a>
+                            <a href="{{ action('DiscordRedirectController@index') }}">Ricochet Players Discord community</a>
                             for keeping the community alive after the official website has vanished.
                         </p>
                     </div>

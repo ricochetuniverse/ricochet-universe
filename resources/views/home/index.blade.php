@@ -52,7 +52,7 @@
 
             <div class="col-xl-auto mt-3 mt-xl-0">
                 <div class="discordWidget__root">
-                    <a href="https://discord.gg/{{ config('ricochet.discord_invite') }}" class="discordWidget__header">
+                    <a href="{{ action('DiscordRedirectController@index') }}" class="discordWidget__header">
                         <div class="discordWidget__logo">
                             <span class="sr-only">Discord</span>
                         </div>

@@ -80,7 +80,7 @@
                             <a class="nav-link js-with-tooltip" href="{{ action('AboutController@index') }}" title="Learn more about this website">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-with-tooltip nav-link-discord" href="https://discord.gg/{{ config('ricochet.discord_invite') }}" title="Join other players on the Ricochet Players Discord">
+                            <a class="nav-link js-with-tooltip nav-link-discord" href="{{ action('DiscordRedirectController@index') }}" title="Join other players on the Ricochet Players Discord">
                                 @include('icons.discord')<span class="d-md-none ml-2">Discord</span>
                             </a>
                         </li>

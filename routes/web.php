@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::delete('/mods/{mod}', 'ModsController@destroy');
 });
 
+Route::get('/discord', 'DiscordRedirectController@index');
 Route::group(['middleware' => $cache], function () {
     Route::get('/reviver', 'ReviverController@index');
     Route::get('/reviver/{os}', 'ReviverController@show');
