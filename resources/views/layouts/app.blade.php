@@ -77,6 +77,9 @@
                             <a class="nav-link js-with-tooltip" href="{{ action('ToolsController@index') }}" title="Use various utilities that are useful for tinkerers">Tools</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="https://wiki.ricochetuniverse.com">Wiki</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link js-with-tooltip" href="{{ action('AboutController@index') }}" title="Learn more about this website">About</a>
                         </li>
                         <li class="nav-item">
