@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 import {Component, Fragment, h} from 'preact';
 

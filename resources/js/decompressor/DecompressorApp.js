@@ -11,10 +11,10 @@ import {
     Card,
     CardBody,
     CardHeader,
+    Col,
     CustomInput,
     FormGroup,
     Row,
-    Col,
 } from 'reactstrap';
 
 import CustomFileInput from '../CustomFileInput';
