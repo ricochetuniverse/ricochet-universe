@@ -49,7 +49,7 @@ export function inflateFile(buffer: ArrayBuffer): InflateResult {
     };
 }
 
-export function decodeFromUint8Array(text: Uint8Array) {
+export function decodeFromUint8Array(text: Uint8Array): string {
     return new TextDecoder('windows-1252', {
         fatal: true,
     }).decode(text);

@@ -21,9 +21,11 @@ type MonacoEditorComponent = {
 };
 
 export default class DecompressorEditor extends Component<Props> {
-    monaco = createRef<MonacoEditorComponent>();
+    monaco: {|
+        current: null | MonacoEditorComponent,
+    |} = createRef<MonacoEditorComponent>();
 
-    render() {
+    render(): React.Node {
         // Safari bugs out with `all: unset`
         return (
             <div style={{height: '100vh'}}>
@@ -44,7 +46,7 @@ export default class DecompressorEditor extends Component<Props> {
         );
     }
 
-    updateDimensions = () => {
+    updateDimensions: () => void = () => {
         const ref = this.monaco.current;
 
         if (ref) {
@@ -52,7 +54,7 @@ export default class DecompressorEditor extends Component<Props> {
         }
     };
 
-    editorDidMount = () => {
+    editorDidMount: () => void = () => {
         window.addEventListener('resize', this.updateDimensions);
     };
 

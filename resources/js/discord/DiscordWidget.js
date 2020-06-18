@@ -10,7 +10,7 @@ type Props = $ReadOnly<{|
     members: DiscordWidgetMemberType[],
 |}>;
 
-export default function DiscordWidget(props: Props) {
+export default function DiscordWidget(props: Props): React.Node {
     if (props.loading) {
         return <div className="discordWidget__body">Loading...</div>;
     }

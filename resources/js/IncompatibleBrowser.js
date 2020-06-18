@@ -3,7 +3,7 @@
 import {h} from 'preact';
 import {Alert} from 'reactstrap';
 
-export default function IncompatibleBrowser() {
+export default function IncompatibleBrowser(): React.Node {
     return (
         <Alert color="danger" fade={false} className="m-0">
             Sorry, your browser isn’t supported by this tool. Please use another

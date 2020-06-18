@@ -87,7 +87,7 @@ function DownloadButton(
 }
 
 export default class DecompressorApp extends Component<{||}, State> {
-    state = {
+    state: State = {
         fileName: '',
         error: '',
 
@@ -103,7 +103,7 @@ export default class DecompressorApp extends Component<{||}, State> {
         useBrowserTextEditor: false,
     };
 
-    render() {
+    render(): React.Node {
         if (!isBrowserCompatible()) {
             return <IncompatibleBrowser />;
         }
@@ -248,7 +248,7 @@ export default class DecompressorApp extends Component<{||}, State> {
         }
     }
 
-    onViewInBrowserOptionChange = (ev: Event) => {
+    onViewInBrowserOptionChange: (ev: Event) => void = (ev: Event) => {
         const checkbox = ev.target;
         if (!(checkbox instanceof HTMLInputElement)) {
             throw new Error('Expected HTMLInputElement');
@@ -261,7 +261,7 @@ export default class DecompressorApp extends Component<{||}, State> {
         }
     };
 
-    onFileChange = (ev: Event) => {
+    onFileChange: (ev: Event) => void = (ev: Event) => {
         this.setState({
             fileName: '',
             error: '',
@@ -281,7 +281,7 @@ export default class DecompressorApp extends Component<{||}, State> {
         }
     };
 
-    processFile = (file: File) => {
+    processFile: (file: File) => void = (file: File) => {
         // should be unknown
         if (file.type !== '' && file.type !== 'application/ms-tnef') {
             this.setState({
@@ -302,7 +302,9 @@ export default class DecompressorApp extends Component<{||}, State> {
         });
     };
 
-    onFileReaderFile = (buffer: ProgressEvent) => {
+    onFileReaderFile: (buffer: ProgressEvent) => void = (
+        buffer: ProgressEvent
+    ) => {
         const reader = buffer.currentTarget;
         if (
             !(reader instanceof FileReader) ||

@@ -46,12 +46,12 @@ function generateRow(label, text) {
 }
 
 export default class RoundInfoModal extends Component<Props, State> {
-    state = {
+    state: State = {
         isOpen: true,
         previousOpenCount: 0,
     };
 
-    toggleModal = () => {
+    toggleModal: () => void = () => {
         this.setState((prevState) => {
             return {
                 isOpen: !prevState.isOpen,
@@ -74,7 +74,7 @@ export default class RoundInfoModal extends Component<Props, State> {
         }
     }
 
-    render() {
+    render(): React.Node {
         return (
             <Modal
                 isOpen={this.state.isOpen}

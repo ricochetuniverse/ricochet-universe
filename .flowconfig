@@ -19,6 +19,8 @@ untyped-type-import=error
 
 [options]
 emoji=true
+well_formed_exports=true
+types_first=true
 
 [strict]
 unclear-type

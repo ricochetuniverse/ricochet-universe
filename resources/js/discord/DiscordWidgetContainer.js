@@ -14,14 +14,14 @@ type State = {|
 |};
 
 export default class DiscordWidgetContainer extends Component<{||}, State> {
-    state = {
+    state: State = {
         loading: true,
         error: false,
 
         members: [],
     };
 
-    render() {
+    render(): React.Node {
         return (
             <DiscordWidget
                 loading={this.state.loading}

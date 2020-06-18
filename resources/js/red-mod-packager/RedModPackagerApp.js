@@ -23,13 +23,13 @@ function getAssumedDirectoryPrefix(file) {
     return split[0] + '/';
 }
 
-function getFileRelativePath(file: File) {
-    // $FlowFixMe https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath
-    return file.webkitRelativePath;
+function getFileRelativePath(file: File): string {
+    // $FlowFixMe[prop-missing] https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath
+    return (file.webkitRelativePath: string);
 }
 
 export default class RedModPackagerApp extends Component<{||}, State> {
-    state = {
+    state: State = {
         folderName: '',
         error: '',
 
@@ -37,9 +37,11 @@ export default class RedModPackagerApp extends Component<{||}, State> {
         downloadButtonUrl: '',
     };
 
-    fileInputRef = createRef<?HTMLInputElement>();
+    fileInputRef: {|
+        current: null | HTMLInputElement,
+    |} = createRef<HTMLInputElement>();
 
-    render() {
+    render(): React.Node {
         return (
             <div className="mb-n3">
                 <Card className="mb-3">
@@ -128,7 +130,9 @@ export default class RedModPackagerApp extends Component<{||}, State> {
         }
     }
 
-    onFileChange = (fileInputEvent: Event /*, formData, files*/) => {
+    onFileChange: (fileInputEvent: Event) => void = (
+        fileInputEvent: Event /*, formData, files*/
+    ) => {
         this.reset(() => {
             const fileInput = fileInputEvent.target;
             if (!(fileInput instanceof HTMLInputElement)) {
@@ -161,16 +165,18 @@ export default class RedModPackagerApp extends Component<{||}, State> {
                 ),
             });
 
-            generateZip(files, directoryPrefix).then((link) => {
+            generateZip(files, directoryPrefix).then((blob: Blob) => {
                 this.setState({
                     packageTime: new Date(),
-                    downloadButtonUrl: link,
+                    downloadButtonUrl: window.URL.createObjectURL(blob),
                 });
             });
         });
     };
 
-    reset = (callback: () => mixed = () => {}) => {
+    reset: (callback?: () => mixed) => void = (
+        callback: () => mixed = () => {}
+    ) => {
         this.setState(
             {
                 folderName: '',
@@ -183,7 +189,7 @@ export default class RedModPackagerApp extends Component<{||}, State> {
         );
     };
 
-    resetButtonClicked = () => {
+    resetButtonClicked: () => void = () => {
         this.reset();
 
         const ref = this.fileInputRef.current;

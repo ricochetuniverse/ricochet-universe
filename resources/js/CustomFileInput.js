@@ -13,7 +13,10 @@ type Props = $ReadOnly<{
     ...
 }>;
 
-function CustomFileInput({label, directory = false, ...otherProps}, ref) {
+function CustomFileInput(
+    {label, directory = false, ...otherProps},
+    ref
+): React.Node {
     return (
         <div className="custom-file">
             <input
@@ -34,4 +37,6 @@ function CustomFileInput({label, directory = false, ...otherProps}, ref) {
     );
 }
 
-export default forwardRef<Props, HTMLInputElement>(CustomFileInput);
+export default (forwardRef<Props, HTMLInputElement>(
+    CustomFileInput
+): React$AbstractComponent<Props, HTMLInputElement>);

@@ -7,14 +7,14 @@ function withoutPrefix(text, prefix) {
 }
 
 function getSortedFileList(files, stripDirectoryPrefix) {
-    const sorted = []; // {path: string, file: string}
+    const sorted: Array<{|path: string, file: File|}> = [];
 
     for (let i = 0, len = files.length; i < len; i += 1) {
         const file = files[i];
 
         const path = withoutPrefix(
-            // $FlowFixMe https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath
-            file.webkitRelativePath,
+            // $FlowFixMe[prop-missing] https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath
+            (file.webkitRelativePath: string),
             stripDirectoryPrefix
         );
 
@@ -42,7 +42,7 @@ function getSortedFileList(files, stripDirectoryPrefix) {
 export default function generateZip(
     files: FileList,
     stripDirectoryPrefix: string
-) {
+): Promise<Blob> {
     const zip = new JSZip();
 
     let sequence = Promise.resolve();
@@ -57,8 +57,7 @@ export default function generateZip(
                     zip.file(fileInfo.path, reader.result, {
                         binary: true,
                         createFolders: false,
-                        // $FlowFixMe https://developer.mozilla.org/en-US/docs/Web/API/File/lastModifiedDate
-                        date: fileInfo.file.lastModifiedDate,
+                        date: new Date(fileInfo.file.lastModified),
                     });
 
                     resolve();
@@ -79,13 +78,14 @@ export default function generateZip(
         return zip
             .generateAsync({type: 'blob', platform: 'UNIX'})
             .then((content) => {
-                const blob = new Blob([content], {
-                    type: 'application/zip',
-                });
-
-                return Promise.resolve(window.URL.createObjectURL(blob));
+                return Promise.resolve(
+                    new Blob([content], {
+                        type: 'application/zip',
+                    })
+                );
             });
     });
 
+    // $FlowFixMe[incompatible-return]
     return sequence;
 }
