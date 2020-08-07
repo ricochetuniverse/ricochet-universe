@@ -1,37 +1,18 @@
 // @flow strict
 
-import {Component, h} from 'preact';
+import {h} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
 
 import DiscordWidget from './DiscordWidget';
 
 import type {DiscordWidgetMemberType} from './DiscordWidgetMemberType';
 
-type State = {|
-    loading: boolean,
-    error: boolean,
+export default function DiscordWidgetContainer(): React.Node {
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
+    const [members, setMembers] = useState<DiscordWidgetMemberType[]>([]);
 
-    members: DiscordWidgetMemberType[],
-|};
-
-export default class DiscordWidgetContainer extends Component<{||}, State> {
-    state: State = {
-        loading: true,
-        error: false,
-
-        members: [],
-    };
-
-    render(): React.Node {
-        return (
-            <DiscordWidget
-                loading={this.state.loading}
-                error={this.state.error}
-                members={this.state.members}
-            />
-        );
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         const request = new XMLHttpRequest();
 
         // Cache-bust to ensure we get proper CORS headers, not cached from another origin
@@ -47,10 +28,9 @@ export default class DiscordWidgetContainer extends Component<{||}, State> {
                 json = JSON.parse(request.responseText);
             } catch (ex) {
                 console.error(ex);
-                this.setState({
-                    loading: false,
-                    error: true,
-                });
+
+                setIsLoading(false);
+                setIsError(true);
 
                 return;
             }
@@ -79,17 +59,21 @@ export default class DiscordWidgetContainer extends Component<{||}, State> {
                     return 0;
                 });
 
-            this.setState({
-                loading: false,
-                members,
-            });
+            setIsLoading(false);
+            setMembers(members);
         };
         request.onerror = () => {
-            this.setState({
-                loading: false,
-                error: true,
-            });
+            setIsLoading(false);
+            setIsError(true);
         };
         request.send();
-    }
+
+        return () => {
+            request.abort();
+        };
+    }, []);
+
+    return (
+        <DiscordWidget loading={isLoading} error={isError} members={members} />
+    );
 }

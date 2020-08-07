@@ -3,6 +3,7 @@
         "eslint:recommended",
         "plugin:flowtype/recommended",
         "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
         "plugin:jest/recommended",
         "plugin:jest/style",
         "plugin:jsx-a11y/recommended"

@@ -1,6 +1,7 @@
 // @flow strict
 
-import {Component, Fragment, h} from 'preact';
+import {Fragment, h} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
 
 import {
     Button,
@@ -13,7 +14,7 @@ import {
 } from 'reactstrap';
 
 type Props = $ReadOnly<{|
-    currentOpenCount: number,
+    launchTime: number,
 
     name: string,
     author: string,
@@ -24,11 +25,6 @@ type Props = $ReadOnly<{|
     note5: string,
     source: string,
     imageUrl: string,
-|}>;
-
-type State = $ReadOnly<{|
-    isOpen: boolean,
-    previousOpenCount: number,
 |}>;
 
 function generateRow(label, text) {
@@ -45,83 +41,59 @@ function generateRow(label, text) {
     );
 }
 
-export default class RoundInfoModal extends Component<Props, State> {
-    state: State = {
-        isOpen: true,
-        previousOpenCount: 0,
-    };
+export default function RoundInfoModal(props: Props): React.Node {
+    const [isOpen, setIsOpen] = useState(true);
 
-    toggleModal: () => void = () => {
-        this.setState((prevState) => {
-            return {
-                isOpen: !prevState.isOpen,
-            };
-        });
-    };
-
-    componentDidMount() {
-        this.setState({
-            previousOpenCount: this.props.currentOpenCount,
-        });
+    function toggleModal() {
+        setIsOpen(!isOpen);
     }
 
-    componentDidUpdate() {
-        if (this.props.currentOpenCount !== this.state.previousOpenCount) {
-            this.setState({
-                isOpen: true,
-                previousOpenCount: this.props.currentOpenCount,
-            });
-        }
-    }
+    useEffect(() => {
+        setIsOpen(true);
+    }, [props.launchTime]);
 
-    render(): React.Node {
-        return (
-            <Modal
-                isOpen={this.state.isOpen}
-                toggle={this.toggleModal}
-                fade={false}
-                labelledBy="levelInfoModalTitle"
-            >
-                <ModalHeader toggle={this.toggleModal} id="levelInfoModalTitle">
-                    {this.props.name}
-                </ModalHeader>
+    return (
+        <Modal
+            isOpen={isOpen}
+            toggle={toggleModal}
+            fade={false}
+            labelledBy="levelInfoModalTitle"
+        >
+            <ModalHeader toggle={toggleModal} id="levelInfoModalTitle">
+                {props.name}
+            </ModalHeader>
 
-                <ModalBody>
-                    {this.props.imageUrl ? (
-                        <img
-                            src={this.props.imageUrl}
-                            alt={'Screenshot of “' + this.props.name + '”'}
-                            width="105"
-                            height="80"
-                            className="d-block mx-auto mb-3"
-                        />
-                    ) : null}
+            <ModalBody>
+                {props.imageUrl ? (
+                    <img
+                        src={props.imageUrl}
+                        alt={`Screenshot of “${props.name}”`}
+                        width="105"
+                        height="80"
+                        className="d-block mx-auto mb-3"
+                    />
+                ) : null}
 
-                    <Row>
-                        <Col xs="auto">Author:</Col>
-                        <Col>
-                            {this.props.author ? (
-                                this.props.author
-                            ) : (
-                                <em>(not set)</em>
-                            )}
-                        </Col>
+                <Row>
+                    <Col xs="auto">Author:</Col>
+                    <Col>
+                        {props.author ? props.author : <em>(not set)</em>}
+                    </Col>
 
-                        {generateRow('Note 1', this.props.note1)}
-                        {generateRow('Note 2', this.props.note2)}
-                        {generateRow('Note 3', this.props.note3)}
-                        {generateRow('Note 4', this.props.note4)}
-                        {generateRow('Note 5', this.props.note5)}
-                        {generateRow('Source', this.props.source)}
-                    </Row>
-                </ModalBody>
+                    {generateRow('Note 1', props.note1)}
+                    {generateRow('Note 2', props.note2)}
+                    {generateRow('Note 3', props.note3)}
+                    {generateRow('Note 4', props.note4)}
+                    {generateRow('Note 5', props.note5)}
+                    {generateRow('Source', props.source)}
+                </Row>
+            </ModalBody>
 
-                <ModalFooter>
-                    <Button outline color="primary" onClick={this.toggleModal}>
-                        Close
-                    </Button>
-                </ModalFooter>
-            </Modal>
-        );
-    }
+            <ModalFooter>
+                <Button outline color="primary" onClick={toggleModal}>
+                    Close
+                </Button>
+            </ModalFooter>
+        </Modal>
+    );
 }

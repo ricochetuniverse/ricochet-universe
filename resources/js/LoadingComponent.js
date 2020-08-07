@@ -15,7 +15,7 @@ type Props = $ReadOnly<{
     ...
 }>;
 
-export default function ({
+export default function LoadingComponent({
     error,
     timedOut,
     retry,

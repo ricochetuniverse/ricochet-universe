@@ -6,7 +6,6 @@ import {h, render} from 'preact';
 import RoundInfoModal from './RoundInfoModal';
 
 let modalWrap;
-let currentOpenCount = 0;
 
 const links = document.getElementsByClassName('roundInfo__link');
 for (let i = 0, len = links.length; i < len; i += 1) {
@@ -35,10 +34,8 @@ for (let i = 0, len = links.length; i < len; i += 1) {
             nullthrows(document.body).appendChild(modalWrap);
         }
 
-        currentOpenCount += 1;
-
         render(
-            <RoundInfoModal currentOpenCount={currentOpenCount} {...props} />,
+            <RoundInfoModal launchTime={Date.now()} {...props} />,
             modalWrap
         );
     });
