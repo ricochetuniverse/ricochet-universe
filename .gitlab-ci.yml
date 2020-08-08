@@ -4,9 +4,9 @@ stages:
     - test_php
 
 .setup_php: &setup_php
-    image: php:7.4.4-alpine3.11
+    image: php:7.4.9-alpine3.12
     services:
-        - mariadb:10.4.12
+        - mariadb:10.4.13
     variables:
         # from .env.testing, needs to be here as .env isn't copied yet
         MYSQL_DATABASE: ricochetlevels_test
@@ -19,7 +19,7 @@ stages:
         - docker-php-ext-install pdo_mysql
 
 .setup_node: &setup_node
-    image: node:12
+    image: node:14
 
 yarn:
     stage: build

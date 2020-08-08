@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
   php:
@@ -9,7 +9,7 @@ services:
     #   - mariadb
 
   mariadb:
-    image: mariadb:10.4.12
+    image: mariadb:10.4.13
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -40,7 +40,7 @@ services:
       - php
 
   node:
-    image: node:12
+    image: node:14
     volumes:
       - .:/var/ricochetuniverse:delegated
     working_dir: /var/ricochetuniverse
