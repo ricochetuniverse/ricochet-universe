@@ -144,10 +144,11 @@ class ExportLevelCatalog extends Command
             $response .= "\n";
         }
 
-        return $header."\n".$response;
+        return $header . "\n" . $response;
     }
 
-    private function escapeTsv(array $data): array {
+    private function escapeTsv(array $data): array
+    {
         foreach ($data as $key => $value) {
             $data[$key] = str_replace('\\', '\\\\', $value);
             $data[$key] = str_replace("\r", '\\r', $value);
