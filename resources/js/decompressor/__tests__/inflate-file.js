@@ -3,19 +3,15 @@ import path from 'path';
 
 import {inflateFile, decodeFromUint8Array} from '../inflate-file';
 
+const FIXTURE_DIR = path.resolve(__dirname, '../../../../tests/fixtures/');
+
 test('level sets', async () => {
     const compressed = await fs.readFile(
-        path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Reflexive B Sides.RicochetLW'
-        )
+        path.resolve(FIXTURE_DIR, './Reflexive B Sides.RicochetLW')
     );
 
     const decompressed = await fs.readFile(
-        path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Reflexive B Sides.RicochetLW.txt'
-        )
+        path.resolve(FIXTURE_DIR, './Reflexive B Sides.RicochetLW.txt')
     );
 
     // Need to force convert to Uint8Array
@@ -28,19 +24,25 @@ test('level sets', async () => {
 
 test('sequences', async () => {
     const original = await fs.readFile(
-        path.resolve(__dirname, './fixtures/Sequence1/Ball Rail Small.Sequence')
+        path.resolve(
+            FIXTURE_DIR,
+            './decompressor/Sequence1/Ball Rail Small.Sequence'
+        )
     );
 
     const text = await fs.readFile(
         path.resolve(
-            __dirname,
-            './fixtures/Sequence1/Ball Rail Small.Sequence (decompressed).txt'
+            FIXTURE_DIR,
+            './decompressor/Sequence1/Ball Rail Small.Sequence (decompressed).txt'
         ),
         'utf8'
     );
 
     const image = await fs.readFile(
-        path.resolve(__dirname, './fixtures/Sequence1/Ball Rail Small.jpg')
+        path.resolve(
+            FIXTURE_DIR,
+            './decompressor/Sequence1/Ball Rail Small.jpg'
+        )
     );
 
     const inflated = inflateFile(new Uint8Array(original).buffer);
@@ -51,11 +53,14 @@ test('sequences', async () => {
 
 test('frames', async () => {
     const original = await fs.readFile(
-        path.resolve(__dirname, './fixtures/Frame/MainMenuShipShield.Frame')
+        path.resolve(
+            FIXTURE_DIR,
+            './decompressor/Frame/MainMenuShipShield.Frame'
+        )
     );
 
     const image = await fs.readFile(
-        path.resolve(__dirname, './fixtures/Frame/MainMenuShipShield.jpg')
+        path.resolve(FIXTURE_DIR, './decompressor/Frame/MainMenuShipShield.jpg')
     );
 
     const inflated = inflateFile(new Uint8Array(original).buffer);
