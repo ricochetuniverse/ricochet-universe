@@ -5,6 +5,7 @@ namespace App\Services;
 use App\LevelRound;
 use App\LevelSet;
 use App\Mod;
+use App\Rules\LevelSetName;
 use Carbon\Carbon;
 use DomainException;
 use Illuminate\Support\Facades\DB;
@@ -104,7 +105,7 @@ class LevelSetUploadProcessor
                     }
                 },
             ],
-            'name' => ['required', 'unique:level_sets'],
+            'name' => ['required', 'string', new LevelSetName, 'unique:App\\LevelSet,name'],
         ], [], [
             'url'  => 'level set URL',
             'name' => 'level set name',
