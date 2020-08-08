@@ -313,7 +313,18 @@ export default class DecompressorApp extends Component<{||}, State> {
             throw new Error();
         }
 
-        const result = inflateFile(reader.result);
+        let result: InflateResult;
+        try {
+            result = inflateFile(reader.result);
+        } catch (ex) {
+            console.error(ex);
+
+            result = {
+                raw: null,
+                utf8: '',
+                image: null,
+            };
+        }
 
         if (!result.raw && !result.image) {
             let error = 'This file isn’t supported by the decompressor yet.';
