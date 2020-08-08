@@ -22,8 +22,8 @@ class ModsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'unique:mods'],
-            'author' => 'required',
+            'name' => ['required', 'string', 'unique:mods'],
+            'author' => ['required', 'string'],
             'description' => '',
             'video_embed_source' => ['nullable', 'url'],
             'download_link' => ['nullable', 'url'],
