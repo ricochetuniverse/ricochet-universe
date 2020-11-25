@@ -16,6 +16,12 @@
                             levels right in the game.
                         </p>
 
+                        <p>
+                            If you need help with any of these instructions, you can
+                            <a href="{{ action('DiscordRedirectController@index') }}">join our Discord</a> where others
+                            can help you out!
+                        </p>
+
                         <div>
                             Select your operating system:
 
