@@ -4,9 +4,9 @@ stages:
     - test_php
 
 .setup_php: &setup_php
-    image: php:7.4.9-alpine3.12
+    image: php:7.4.12-alpine3.12
     services:
-        - mariadb:10.4.13
+        - mariadb:10.5.8
     variables:
         # from .env.testing, needs to be here as .env isn't copied yet
         MYSQL_DATABASE: ricochetlevels_test

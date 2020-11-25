@@ -1,6 +1,6 @@
-FROM php:7.4.9-fpm-alpine3.12
+FROM php:7.4.12-fpm-alpine3.12
 
-ENV REDIS_VERSION 5.3.1
+ENV REDIS_VERSION 5.3.2
 
 RUN apk update && apk upgrade && \
     apk add --no-cache git && \

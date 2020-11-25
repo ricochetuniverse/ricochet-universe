@@ -13,7 +13,7 @@
   "private": true,
   "license": "MPL-2.0",
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "scripts": {
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --mode development --progress",
