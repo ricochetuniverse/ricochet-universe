@@ -107,8 +107,8 @@
                                     <label for="timestamp" class="col-sm-3 col-form-label">Unix timestamp</label>
 
                                     <div class="col-sm-9">
-                                        <input type="number" class="form-control" name="timestamp" id="timestamp"
-                                               value="{{ Carbon\Carbon::now()->unix() }}" required>
+                                        <input type="text" inputmode="numeric" class="form-control" name="timestamp"
+                                               id="timestamp" value="{{ Carbon\Carbon::now()->unix() }}" required>
                                     </div>
                                 </div>
 
