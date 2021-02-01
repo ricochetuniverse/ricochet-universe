@@ -1,14 +1,15 @@
 https://ricochet.test:8000 {
-    header / -Server
-
-	header / {
-    	X-Content-Type-Options nosniff
-    	X-XSS-Protection 0
-    	X-UA-Compatible "ie=edge"
-    	X-Frame-Options DENY
-    	Cross-Origin-Opener-Policy Deny
-    	Referrer-Policy strict-origin-when-cross-origin
-    	Feature-Policy "accelerometer 'none';ambient-light-sensor 'none';battery 'none';camera 'none';display-capture 'none';geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';usb 'none';xr-spatial-tracking 'none';"
+	header -Server
+	header {
+		X-Content-Type-Options nosniff
+		X-XSS-Protection 0
+		X-UA-Compatible "ie=edge"
+		X-Frame-Options DENY
+		Strict-Transport-Security "max-age=31536000"
+		Cross-Origin-Opener-Policy same-origin
+		Cross-Origin-Resource-Policy same-site
+		Referrer-Policy strict-origin-when-cross-origin
+		Feature-Policy "accelerometer 'none';ambient-light-sensor 'none';battery 'none';camera 'none';display-capture 'none';geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';usb 'none';xr-spatial-tracking 'none';"
 
 		# Needed for Monaco editor
 		# https://github.com/Microsoft/monaco-editor/issues/271
@@ -16,8 +17,8 @@ https://ricochet.test:8000 {
 		# style-src: 'unsafe-inline'
 		# font-src: 'self'
 
-        # Needed for Laravel Debugbar
-        #
+		# Needed for Laravel Debugbar
+		#
 		# script-src: 'unsafe-inline'
 		# connect-src: 'unsafe-inline'
 		# font-src: data:
@@ -29,28 +30,41 @@ https://ricochet.test:8000 {
 		Content-Security-Policy "default-src 'self';script-src 'self' https://www.google-analytics.com;img-src 'self' data: blob: https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/ https://cdn.discordapp.com/avatars/ https://cdn.discordapp.com/widget-avatars/ https://www.google-analytics.com;style-src 'self' 'unsafe-inline';connect-src https://www.google-analytics.com https://discordapp.com/api/guilds/295184393109110785/widget.json;frame-src https://www.youtube.com/embed/;font-src 'self';frame-ancestors 'none';base-uri 'none';manifest-src 'none';media-src 'none';object-src 'none';worker-src 'none';block-all-mixed-content"
 	}
 
-	header /build/ Cache-Control "public, max-age=31536000, immutable"
-	header /images/ Cache-Control "public, max-age=31536000"
-	header /storage/round-images/ Cache-Control "public, max-age=86400"
-	status 404 /mix-manifest.json
+	header /build/* Cache-Control "public, max-age=31536000, immutable"
+	header /images/* Cache-Control "public, max-age=31536000"
+	header /storage/round-images/* Cache-Control "public, max-age=86400"
+	respond /mix-manifest.json 404
 
-	root /var/ricochetuniverse/public
-	fastcgi / php:9000 php
-
-	rewrite {
-		if {dir}  not_starts_with "/storage/"
-		if {file} not_has "#"
-		to {path} {path}/ /index.php?{query}
+	@not_php {
+		not path /storage/* *#*
+	}
+	root * /var/ricochetuniverse/public
+	file_server
+	php_fastcgi @not_php php:9000 {
+		resolve_root_symlink
 	}
 
-	gzip
+	@zip_files {
+		path *.red
+	}
+	@binary_files {
+		path *.ricocheti *.ricochetlw
+	}
+	@not_text_files {
+		not path *.red *.ricocheti *.ricochetlw
+	}
+	header @zip_files Content-Type application/zip
+	header @binary_files Content-Type application/octet-stream
+	encode @not_text_files gzip
+
 	import /var/ricochetuniverse/docker/caddy/tls/{$CADDY_TLS_MODE}
 
-	log /var/ricochetuniverse/storage/logs/access.log
-	errors /var/ricochetuniverse/storage/logs/error.log
+	log {
+		output file /var/ricochetuniverse/storage/logs/access.log
+	}
 
-	browse /storage/levels/
-	header /storage/levels/ {
+	file_server /storage/levels/* browse
+	header /storage/levels/* {
 		Cache-Control "public, max-age=86400"
 		Content-Security-Policy "default-src 'self';script-src 'self' 'unsafe-inline';style-src 'self' 'unsafe-inline';object-src 'none';block-all-mixed-content"
 	}
