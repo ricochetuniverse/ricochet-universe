@@ -47,7 +47,7 @@ services:
     working_dir: /var/ricochetuniverse
 
   redis:
-    image: redis:6.0.9-alpine3.12
+    image: redis:6.0.10-alpine3.12
     # uncomment for debugging
     # ports:
     #   - '6379:6379'
