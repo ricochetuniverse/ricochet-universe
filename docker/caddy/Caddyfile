@@ -42,6 +42,9 @@ https://ricochet.test:8000 {
 	file_server
 	php_fastcgi @not_php php:9000 {
 		resolve_root_symlink
+		dial_timeout 30s
+		read_timeout 30s
+		write_timeout 30s
 	}
 
 	@zip_files {
