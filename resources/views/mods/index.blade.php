@@ -13,6 +13,9 @@
                     <div class="card-body">
                         <p>
                             Explore and play new environments, custom content and modifications for Ricochet Infinity.
+                            For even more mods,
+                            <a href="https://discord.com/channels/295184393109110785/390998849537310721">check out
+                                #mod-showcase on Discord</a>.
                         </p>
 
                         <p class="m-0">
