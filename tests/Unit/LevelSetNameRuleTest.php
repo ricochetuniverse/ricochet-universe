@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Rules\LevelSetName;
 use Tests\TestCase;
 
-class LevelSetValidatorTest extends TestCase
+class LevelSetNameRuleTest extends TestCase
 {
     public function testRule(): void
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mod;
+use App\Rules\TagName;
 use Illuminate\Http\Request;
 
 class ModsController extends Controller
@@ -22,7 +23,7 @@ class ModsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'string', 'unique:mods'],
+            'name' => ['required', 'string', new TagName, 'unique:mods'],
             'author' => ['required', 'string'],
             'description' => '',
             'video_embed_source' => ['nullable', 'url'],
