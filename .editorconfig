@@ -19,5 +19,8 @@ indent_size = 2
 [*.svg]
 insert_final_newline = false
 
+[resources/views/icons/*.blade.php]
+insert_final_newline = false
+
 [Caddyfile]
 indent_style = tab
