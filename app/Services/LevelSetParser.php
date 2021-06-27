@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -13,34 +15,22 @@ use Illuminate\Support\Str;
  */
 class LevelSetParser
 {
-    /**
-     * @var string
-     */
-    private $levelSetAuthor = '';
+    private string $levelSetAuthor = '';
 
-    /**
-     * @var string
-     */
-    private $levelSetDescription = '';
+    private string $levelSetDescription = '';
 
-    /**
-     * @var int
-     */
-    private $levelSetRoundToGetImageFrom = 1;
+    private int $levelSetRoundToGetImageFrom = 1;
 
-    /**
-     * @var array Text strings of which mods are used
-     */
-    private $levelSetModsUsed = [];
+    private array $levelSetModsUsed = [];
 
-    private $currentLevelRound = [];
-    private $currentLevelRoundPicture = '';
-    private $currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
+    private array $currentLevelRound = [];
+    private string $currentLevelRoundPicture = '';
+    private array $currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
 
-    private $fileGroups = [
+    private static array $propertyReferences = [
         'environments' => ['Background Type'],
+        'frames' => ['Frame'],
         'sequences' => [
-            'Frame',
             'Image',
             'Poisoned Effect Overlay',
         ],
@@ -65,31 +55,73 @@ class LevelSetParser
             'Disallowed',
         ],
     ];
-    private $fileGroupsKeyed = [];
-    private $modFiles = [
-        'Neon Environment' => [
-            'environments' => ['Environments/Neon/'],
-            'sequences' => [
-                'Addon/Custom/Bricks/Neon/',
-                'Addon/Custom/Environments/Neon/',
-                'Custom/Neon/Bricks/',
-            ],
-            'sounds' => ['Addon/Custom/Special Bricks/Switch Neon'],
-            'bricks' => [
-                'Neon/',
-                'Neon Night/',
-            ],
-            'music' => ['Neon/'],
-            'powerups' => ['Multiply 8 Inline'],
-        ],
-    ];
+    private static array $propertyReferencesReversed = [];
+    private static array $modInfo = [];
 
     public function __construct()
     {
-        foreach ($this->fileGroups as $group => $properties) {
-            foreach ($properties as $property) {
-                $this->fileGroupsKeyed[$property] = $group;
+        if (empty(static::$propertyReferencesReversed)) {
+            foreach (static::$propertyReferences as $group => $properties) {
+                foreach ($properties as $property) {
+                    static::$propertyReferencesReversed[$property] = $group;
+                }
             }
+        }
+
+        if (empty(static::$modInfo)) {
+            $this->preloadModInfo();
+        }
+    }
+
+    private static function preloadModInfo(): void
+    {
+        $disk = Storage::disk('mod-info');
+        foreach ($disk->files('.') as $modFile) {
+            $info = json_decode($disk->read($modFile), true);
+
+            $types = [];
+            foreach ($info['files'] as $file) {
+                if (Str::endsWith($file, '.Background')) {
+                    $types['environments'][] = Str::after(
+                        Str::beforeLast($file, '.Background'),
+                        'Resources/'
+                    );
+                } elseif (Str::endsWith($file, '.Sequence')) {
+                    $types['sequences'][] = Str::after(
+                        Str::beforeLast($file, '.Sequence'),
+                        'Cache/Resources/'
+                    );
+                } elseif (Str::endsWith($file, '.Frame')) {
+                    $types['frames'][] = Str::after(
+                        Str::beforeLast($file, '.Frame'),
+                        'Cache/Resources/'
+                    );
+                } elseif (Str::endsWith($file, '.ogg')) {
+                    if (Str::startsWith($file, 'Music/')) {
+                        // Music To Play property intentionally includes .ogg
+                        $types['music'][] = Str::after($file, 'Music/');
+                    } else {
+                        $types['sounds'][] = Str::after(
+                            Str::beforeLast($file, '.ogg'),
+                            'Sounds/'
+                        );
+                    }
+                } elseif (Str::endsWith($file, '.BrickStyleSheet')) {
+                    $types['bricks'][] = Str::after(
+                        Str::beforeLast($file, '.BrickStyleSheet'),
+                        'Resources/Brick Style Sheets/'
+                    );
+                } elseif (Str::endsWith($file, '.PowerUp')) {
+                    $types['powerups'][] = Str::after(
+                        Str::beforeLast($file, '.PowerUp'),
+                        'Resources/Power Ups/'
+                    );
+                } else {
+                    // Unknown??
+                }
+            }
+
+            static::$modInfo[$info['trigger_codename']] = $types;
         }
     }
 
@@ -98,10 +130,10 @@ class LevelSetParser
      * @return array
      * @throws \Exception
      */
-    public function parse(string $levelSetData)
+    public function parse(string $levelSetData): array
     {
         // Check first line
-        if (substr($levelSetData, 0, strlen('CRoundSetUserMade')) !== 'CRoundSetUserMade') {
+        if (!Str::startsWith($levelSetData, 'CRoundSetUserMade')) {
             throw new \Exception('Level sets should be CRoundSetUserMade as the first line');
         }
 
@@ -170,12 +202,12 @@ class LevelSetParser
         // Finished...
         return [
             'levelSet' => [
-                'author'              => $this->levelSetAuthor,
-                'description'         => $this->levelSetDescription,
+                'author' => $this->levelSetAuthor,
+                'description' => $this->levelSetDescription,
                 'roundToGetImageFrom' => $this->levelSetRoundToGetImageFrom,
-                'modsUsed'            => $this->levelSetModsUsed,
+                'modsUsed' => $this->levelSetModsUsed,
             ],
-            'rounds'   => $rounds,
+            'rounds' => $rounds,
         ];
     }
 
@@ -185,17 +217,20 @@ class LevelSetParser
      */
     private function checkProperty(string $key, string $value)
     {
-        if (isset($this->fileGroupsKeyed[$key])) {
-            foreach ($this->modFiles as $modName => $modFileGroups) {
-                if (in_array($modName, $this->levelSetModsUsed)) {
-                    continue;
-                }
+        foreach (static::$modInfo as $modName => $modFileTypeGroups) {
+            if (in_array($modName, $this->levelSetModsUsed, true)) {
+                continue;
+            }
 
-                $type = $this->fileGroupsKeyed[$key];
+            if (isset(static::$propertyReferencesReversed[$key])) {
+                $type = static::$propertyReferencesReversed[$key];
 
-                if (isset($modFileGroups[$type])) {
-                    if (Str::startsWith($value, $modFileGroups[$type])) {
-                        $this->levelSetModsUsed[] = $modName;
+                if (isset($modFileTypeGroups[$type])) {
+                    foreach ($modFileTypeGroups[$type] as $file) {
+                        if ($value === $file) {
+                            $this->levelSetModsUsed[] = $modName;
+                            continue;
+                        }
                     }
                 }
             }
@@ -273,11 +308,11 @@ class LevelSetParser
                 if ($nested['value'] === 'CExpressionRecallButtonPressed') {
                     switch ($key) {
                         case 'Check For Left Recall':
-                            $this->currentRecallButtonPressedCondition['left'] = (bool) $value;
+                            $this->currentRecallButtonPressedCondition['left'] = (bool)$value;
                             break;
 
                         case 'Check For Right Recall':
-                            $this->currentRecallButtonPressedCondition['right'] = (bool) $value;
+                            $this->currentRecallButtonPressedCondition['right'] = (bool)$value;
                             break;
 
                         default:
@@ -295,7 +330,7 @@ class LevelSetParser
      * @param string $ascii
      * @return string
      */
-    private function decodeAsciiPicture(string $ascii)
+    private function decodeAsciiPicture(string $ascii): string
     {
         $decoded = $ascii;
         // $decoded = str_replace(["\r\n", "\n"], '', $decoded);
@@ -316,10 +351,16 @@ class LevelSetParser
 
     /**
      * @param string $value
-     * @return null|string|string[]
+     * @return string
+     * @throws \Exception
      */
-    private function fixEncoding(string $value)
+    private function fixEncoding(string $value): string
     {
-        return mb_convert_encoding($value, 'UTF-8', 'Windows-1252');
+        $converted = mb_convert_encoding($value, 'UTF-8', 'Windows-1252');
+        if ($converted === false) {
+            throw new \Exception('Cannot convert string to proper encoding');
+        }
+
+        return $converted;
     }
 }

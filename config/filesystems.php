@@ -64,6 +64,11 @@ return [
             'endpoint' => env('AWS_URL'),
         ],
 
+        'mod-info' => [
+            'driver' => 'local',
+            'root' => resource_path('mod-info'),
+        ],
+
         'levels' => [
             'driver' => 'local',
             'root' => storage_path('app/public/levels'),
