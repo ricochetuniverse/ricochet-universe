@@ -73,8 +73,8 @@ class LevelDownloadController extends Controller
     private function stripFileParameterPrefixAndSuffix(string $file): string
     {
         $file = Str::after($file, 'downloads/raw/');
-        $file = Str::before($file, '.RicochetLW');
-        $file = Str::before($file, '.RicochetI');
+        $file = Str::beforeLast($file, '.RicochetLW');
+        $file = Str::beforeLast($file, '.RicochetI');
 
         return $file;
     }

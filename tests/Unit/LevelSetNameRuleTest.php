@@ -50,6 +50,7 @@ class LevelSetNameRuleTest extends TestCase
             '',
             'abc;a',
             'abc/../',
+            'abc\\..',
         ];
 
         foreach ($names as $name) {

@@ -37,6 +37,6 @@ class LevelSetName implements Rule
      */
     public function message()
     {
-        return 'The :attribute must be a valid name.';
+        return 'The :attribute contains special/non-alpha-numeric characters that are not allowed, please simplify and remove them.';
     }
 }
