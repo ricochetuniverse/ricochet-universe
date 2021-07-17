@@ -46,6 +46,7 @@ Route::group(['middleware' => $cache], function () {
     Route::get('/tools', 'ToolsController@index');
     Route::get('/decompressor', 'DecompressorController@index');
     Route::get('/red-mod-packager', 'RedModPackagerController@index');
+    Route::get('/image-to-canvas', 'ImageToCanvasController@index');
     Route::get('/about', 'AboutController@index');
 });
 

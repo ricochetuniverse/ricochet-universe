@@ -41,3 +41,4 @@ import './discord/index';
 import './round-info/index';
 import './decompressor/index';
 import './red-mod-packager/index';
+import './image-to-canvas/index';
