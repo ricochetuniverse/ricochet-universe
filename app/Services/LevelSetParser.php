@@ -132,9 +132,8 @@ class LevelSetParser
      */
     public function parse(string $levelSetData): array
     {
-        // Check first line
         if (!Str::startsWith($levelSetData, 'CRoundSetUserMade')) {
-            throw new \Exception('Level sets should be CRoundSetUserMade as the first line');
+            throw new \Exception('Level sets should start with CRoundSetUserMade as the first line');
         }
 
         $rounds = [];
