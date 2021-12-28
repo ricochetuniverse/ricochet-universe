@@ -29,7 +29,8 @@ class LevelSetParserTest extends TestCase
 
     public function testInfinityLevelSet(): void
     {
-        $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Rico at the Brick Factory.RicochetI.txt');
+        $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Rico at the Brick Factory/Rico at the Brick Factory.RicochetI.txt');
+        $thumbnail = file_get_contents(__DIR__ . '/../fixtures/Rico at the Brick Factory/thumbnail.jpg');
 
         $results = (new LevelSetParser)->parse($levelSetData);
 
@@ -44,6 +45,7 @@ class LevelSetParserTest extends TestCase
         $this->assertEquals('Arrived', $results['rounds'][0]['name']);
         $this->assertEquals('Josef L', $results['rounds'][0]['author']);
         $this->assertEquals('/Rico at the Brick Factory/1', $results['rounds'][0]['source']);
+        $this->assertEquals($thumbnail, $results['rounds'][0]['picture']);
     }
 
     public function testNeonEnvironmentDetection(): void

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -160,7 +159,7 @@ class LevelSetParser
                 $popped = array_pop($nested);
 
                 if ($popped['key'] === 'Round') {
-                    array_push($rounds, $this->currentLevelRound);
+                    $rounds[] = $this->currentLevelRound;
                 } elseif ($popped['key'] === 'Compressed Thumbnail') {
                     $last = end($nested);
 
@@ -228,7 +227,6 @@ class LevelSetParser
                     foreach ($modFileTypeGroups[$type] as $file) {
                         if ($value === $file) {
                             $this->levelSetModsUsed[] = $modName;
-                            continue;
                         }
                     }
                 }

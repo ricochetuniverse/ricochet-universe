@@ -29,7 +29,14 @@ test('parses Infinity level set', async () => {
     const levelSet = await fs.readFile(
         path.resolve(
             __dirname,
-            '../../../../tests/fixtures/Rico at the Brick Factory.RicochetI.txt'
+            '../../../../tests/fixtures/Rico at the Brick Factory/Rico at the Brick Factory.RicochetI.txt'
+        )
+    );
+
+    const thumbnail = await fs.readFile(
+        path.resolve(
+            __dirname,
+            '../../../../tests/fixtures/Rico at the Brick Factory/thumbnail.jpg'
         )
     );
 
@@ -44,6 +51,7 @@ test('parses Infinity level set', async () => {
     expect(results.rounds[0].name).toEqual('Arrived');
     expect(results.rounds[0].author).toEqual('Josef L');
     expect(results.rounds[0].source).toEqual('/Rico at the Brick Factory/1');
+    expect(results.rounds[0].thumbnail).toStrictEqual(thumbnail);
 });
 
 test('thumbnail of round with custom brick layer effect', async () => {
