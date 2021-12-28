@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Services\LevelSetParser;
+use App\Services\LevelSetParser\Parser;
 use Tests\TestCase;
 
 class LevelSetParserTest extends TestCase
@@ -11,20 +11,21 @@ class LevelSetParserTest extends TestCase
     {
         $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Reflexive B Sides.RicochetLW.txt');
 
-        $results = (new LevelSetParser)->parse($levelSetData);
+        $levelSet = (new Parser)->parse($levelSetData);
+        $rounds = $levelSet->getRounds();
 
-        $this->assertEquals('Reflexive Entertainment', $results['levelSet']['author']);
-        $this->assertEquals('', $results['levelSet']['description']);
-        $this->assertEquals(1, $results['levelSet']['roundToGetImageFrom']);
+        $this->assertEquals('Reflexive Entertainment', $levelSet->author);
+        $this->assertEquals('', $levelSet->description);
+        $this->assertEquals(1, $levelSet->roundToGetImageFrom);
 
-        $this->assertCount(26, $results['rounds']);
-        $this->assertEquals('Whirlpool', $results['rounds'][0]['name']);
-        $this->assertEquals('Ion', $results['rounds'][0]['author']);
+        $this->assertCount(26, $rounds);
+        $this->assertEquals('Whirlpool', $rounds[0]->name);
+        $this->assertEquals('Ion', $rounds[0]->author);
         $this->assertEquals(
             '2 rings hidden under obstacles. Obstacles move when all 3 PU bricks over rings are destroyed',
-            $results['rounds'][0]['note1']
+            $rounds[0]->notes[0]
         );
-        $this->assertEquals('Ion/Reflexive B Sides/1', $results['rounds'][0]['source']);
+        $this->assertEquals('Ion/Reflexive B Sides/1', $rounds[0]->source);
     }
 
     public function testInfinityLevelSet(): void
@@ -32,59 +33,60 @@ class LevelSetParserTest extends TestCase
         $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Rico at the Brick Factory/Rico at the Brick Factory.RicochetI.txt');
         $thumbnail = file_get_contents(__DIR__ . '/../fixtures/Rico at the Brick Factory/thumbnail.jpg');
 
-        $results = (new LevelSetParser)->parse($levelSetData);
+        $levelSet = (new Parser)->parse($levelSetData);
+        $rounds = $levelSet->getRounds();
 
-        $this->assertEquals('Josef L', $results['levelSet']['author']);
+        $this->assertEquals('Josef L', $levelSet->author);
         $this->assertEquals(
             'Just some relaxing quick levels I hope you find fun  .. Some helpful power ups to help you on your way . Enjoy .',
-            $results['levelSet']['description']
+            $levelSet->description
         );
-        $this->assertEquals(1, $results['levelSet']['roundToGetImageFrom']);
+        $this->assertEquals(1, $levelSet->roundToGetImageFrom);
 
-        $this->assertCount(13, $results['rounds']);
-        $this->assertEquals('Arrived', $results['rounds'][0]['name']);
-        $this->assertEquals('Josef L', $results['rounds'][0]['author']);
-        $this->assertEquals('/Rico at the Brick Factory/1', $results['rounds'][0]['source']);
-        $this->assertEquals($thumbnail, $results['rounds'][0]['picture']);
+        $this->assertCount(13, $rounds);
+        $this->assertEquals('Arrived', $rounds[0]->name);
+        $this->assertEquals('Josef L', $rounds[0]->author);
+        $this->assertEquals('/Rico at the Brick Factory/1', $rounds[0]->source);
+        $this->assertEquals($thumbnail, $rounds[0]->thumbnail);
     }
 
     public function testNeonEnvironmentDetection(): void
     {
         $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Neon Environment Detection Test.txt');
 
-        $results = (new LevelSetParser)->parse($levelSetData);
+        $levelSet = (new Parser)->parse($levelSetData);
 
-        $this->assertCount(1, $results['levelSet']['modsUsed']);
-        $this->assertContains('Neon Environment', $results['levelSet']['modsUsed']);
+        $this->assertCount(1, $levelSet->modsUsed);
+        $this->assertContains('Neon Environment', $levelSet->modsUsed);
     }
 
     public function testHeavyMetalEnvironment(): void
     {
         $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Heavy Metal Environment Detection Test.txt');
 
-        $results = (new LevelSetParser)->parse($levelSetData);
+        $levelSet = (new Parser)->parse($levelSetData);
 
-        $this->assertCount(1, $results['levelSet']['modsUsed']);
-        $this->assertContains('Heavy Metal Environment', $results['levelSet']['modsUsed']);
+        $this->assertCount(1, $levelSet->modsUsed);
+        $this->assertContains('Heavy Metal Environment', $levelSet->modsUsed);
     }
 
     public function testHEXDetection(): void
     {
         $levelSetData = file_get_contents(__DIR__ . '/../fixtures/HEX Detection Test.txt');
 
-        $results = (new LevelSetParser)->parse($levelSetData);
+        $levelSet = (new Parser)->parse($levelSetData);
 
-        $this->assertCount(1, $results['levelSet']['modsUsed']);
-        $this->assertContains('HEX', $results['levelSet']['modsUsed']);
+        $this->assertCount(1, $levelSet->modsUsed);
+        $this->assertContains('HEX', $levelSet->modsUsed);
     }
 
     public function testModsUsedFalseDetection(): void
     {
         $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Level Editor Template.txt');
 
-        $results = (new LevelSetParser)->parse($levelSetData);
+        $levelSet = (new Parser)->parse($levelSetData);
 
-        $this->assertEmpty($results['levelSet']['modsUsed']);
+        $this->assertEmpty($levelSet->modsUsed);
     }
 
     public function testThumbnailOfLevelRoundWithCustomBrickLayerEffect(): void
@@ -92,9 +94,10 @@ class LevelSetParserTest extends TestCase
         $levelSetData = file_get_contents(__DIR__ . '/../fixtures/custom-brick-layer-thumbnail-test/Level.txt');
         $thumbnail = file_get_contents(__DIR__ . '/../fixtures/custom-brick-layer-thumbnail-test/thumbnail.jpg');
 
-        $results = (new LevelSetParser)->parse($levelSetData);
+        $levelSet = (new Parser)->parse($levelSetData);
+        $rounds = $levelSet->getRounds();
 
-        $this->assertEquals('Main', $results['rounds'][0]['name']);
-        $this->assertEquals($thumbnail, $results['rounds'][0]['picture']);
+        $this->assertEquals('Main', $rounds[0]->name);
+        $this->assertEquals($thumbnail, $rounds[0]->thumbnail);
     }
 }

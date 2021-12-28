@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\LevelRound;
 use App\LevelSet;
 use App\Services\LevelSetDecompressService;
-use App\Services\LevelSetParser;
+use App\Services\LevelSetParser\Parser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -61,8 +61,8 @@ class ParseLevelSet implements ShouldQueue
         $decompressor = new LevelSetDecompressService;
         $levelSetData = $decompressor->decompress($file);
 
-        $parser = new LevelSetParser;
-        $results = $parser->parse($levelSetData);
+        $parser = new Parser;
+        $result = $parser->parse($levelSetData);
 
 //        if ($results['levelSet']['author'] !== $this->levelSet->author) {
 //            throw new \Exception("Level set author stored on the database is not the same as the downloaded file\n\nDatabase:  ".$this->levelSet->author."\nLevel set: ".$results['levelSet']['author']);
@@ -74,34 +74,34 @@ class ParseLevelSet implements ShouldQueue
 
         $count = 0;
         $rounds = [];
-        foreach ($results['rounds'] as $round) {
+        foreach ($result->getRounds() as $round) {
             $count += 1;
 
             $imageFileName = '';
-            if (isset($round['picture'])) {
-                $imageFileName = $this->levelSet->name.'/'.$count.'.jpg';
+            if ($round->thumbnail !== '') {
+                $imageFileName = $this->levelSet->name . '/' . $count . '.jpg';
             }
 
             $roundToSave = new LevelRound;
-            $roundToSave->name = $round['name'];
-            $roundToSave->author = $round['author'];
-            $roundToSave->note1 = $round['note1'];
-            $roundToSave->note2 = $round['note2'];
-            $roundToSave->note3 = $round['note3'];
-            $roundToSave->note4 = $round['note4'];
-            $roundToSave->note5 = $round['note5'];
-            $roundToSave->source = $round['source'] ?? '';
+            $roundToSave->name = $round->name;
+            $roundToSave->author = $round->author;
+            $roundToSave->note1 = $round->notes[0];
+            $roundToSave->note2 = $round->notes[1];
+            $roundToSave->note3 = $round->notes[2];
+            $roundToSave->note4 = $round->notes[3];
+            $roundToSave->note5 = $round->notes[4];
+            $roundToSave->source = $round->source;
             $roundToSave->image_file_name = $imageFileName;
             $roundToSave->round_number = $count;
 
             if ($imageFileName) {
-                Storage::disk('round-images')->put($imageFileName, $round['picture']);
+                Storage::disk('round-images')->put($imageFileName, $round->thumbnail);
             }
 
             $rounds[] = $roundToSave;
         }
 
-        $this->levelSet->round_to_get_image_from = $results['levelSet']['roundToGetImageFrom'];
+        $this->levelSet->round_to_get_image_from = $result->roundToGetImageFrom;
         $this->levelSet->levelRounds()->saveMany($rounds);
         $this->levelSet->save();
     }

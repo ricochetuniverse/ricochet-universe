@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Services\LevelSetDecompressService;
-use App\Services\LevelSetParser;
+use App\Services\LevelSetParser\Parser;
 use Illuminate\Console\Command;
 
 class ViewLevelSet extends Command
@@ -53,25 +53,25 @@ class ViewLevelSet extends Command
             echo $levelSetData;
         }
 
-        $parser = new LevelSetParser;
-        $results = $parser->parse($levelSetData);
-
-        $this->line('iPhone specific levels: (if any)');
-        for ($i = 0; $i < count($results['rounds']); $i += 1) {
-            $round = $results['rounds'][$i];
-
-            if (isset($round['iphone_specific'])) {
-                $this->line(($i + 1).': '.$round['name']);
-            }
-        }
+        $parser = new Parser;
+        $levelSet = $parser->parse($levelSetData);
 
         if (!$this->option('with-picture')) {
-            foreach ($results['rounds'] as &$round) {
-                unset($round['picture']);
+            foreach ($levelSet->getRounds() as $round) {
+                unset($round->thumbnail);
             }
         }
 
-        var_dump($results);
+        var_dump($levelSet);
+
+        $this->line('iPhone specific levels: (if any)');
+        for ($i = 0; $i < count($levelSet->getRounds()); $i += 1) {
+            $round = $levelSet->getRounds()[$i];
+
+            if ($round->iphoneSpecific) {
+                $this->line(($i + 1) . ': ' . $round->name);
+            }
+        }
 
         $this->info('Done');
     }

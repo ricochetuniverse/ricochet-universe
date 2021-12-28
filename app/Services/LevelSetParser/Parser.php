@@ -1,29 +1,17 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\LevelSetParser;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
- * Naive parser for Ricochet Infinity levels
- *
- * I'm open for code suggestions =p
+ * Parser for Ricochet Lost Worlds/Infinity levels
  *
  * @package App\Services
  */
-class LevelSetParser
+class Parser
 {
-    private string $levelSetAuthor = '';
-
-    private string $levelSetDescription = '';
-
-    private int $levelSetRoundToGetImageFrom = 1;
-
-    private array $levelSetModsUsed = [];
-
-    private array $currentLevelRound = [];
-    private string $currentLevelRoundPicture = '';
     private array $currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
 
     private static array $propertyReferences = [
@@ -125,70 +113,88 @@ class LevelSetParser
     }
 
     /**
-     * @param string $levelSetData
-     * @return array
+     * @param string $rawData
+     * @return LevelSet
      * @throws \Exception
      */
-    public function parse(string $levelSetData): array
+    public function parse(string $rawData): LevelSet
     {
-        if (!Str::startsWith($levelSetData, 'CRoundSetUserMade')) {
+        if (!Str::startsWith($rawData, 'CRoundSetUserMade')) {
             throw new \Exception('Level sets should start with CRoundSetUserMade as the first line');
         }
 
-        $rounds = [];
+        $levelSet = new LevelSet();
 
-        $key = '';
-        $value = '';
-        $newLine = "\r\n";
         $nested = [];
-        $line = strtok($levelSetData, $newLine);
+        $previousKey = '';
+        $previousValue = '';
+        $currentWorkingRound = null;
+        $currentWorkingRoundPicture = '';
+
+        $newLine = "\r\n";
+        $line = strtok($rawData, $newLine);
         while ($line !== false) {
             $line = ltrim($line, "\t");
 
             if ($line === '{') {
-                $nested[] = ['key' => $key, 'value' => $value];
+                $nested[] = ['key' => $previousKey, 'value' => $previousValue];
 
-                if ($key === 'Round') {
-                    $this->currentLevelRound = [];
-                } elseif ($key === 'Compressed Thumbnail') {
-                    $this->currentLevelRoundPicture = '';
-                } elseif ($key === 'Condition' && $value === 'CExpressionRecallButtonPressed') {
+                if ($previousKey === 'Round') {
+                    $currentWorkingRound = new Round();
+                } elseif ($previousKey === 'Compressed Thumbnail') {
+                    $currentWorkingRoundPicture = '';
+                } elseif ($previousKey === 'Condition' && $previousValue === 'CExpressionRecallButtonPressed') {
                     $this->currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
                 }
             } elseif ($line === '}') {
                 $popped = array_pop($nested);
 
                 if ($popped['key'] === 'Round') {
-                    $rounds[] = $this->currentLevelRound;
+                    $levelSet->addRound($currentWorkingRound);
+                    $currentWorkingRound = null;
                 } elseif ($popped['key'] === 'Compressed Thumbnail') {
-                    $last = end($nested);
+                    $lastNested = end($nested);
 
-                    if ($last && $last['key'] === 'Round') {
-                        $this->currentLevelRound['picture'] = $this->decodeAsciiPicture($this->currentLevelRoundPicture);
+                    if ($lastNested && $lastNested['key'] === 'Round') {
+                        $currentWorkingRound->thumbnail = $this->decodeAsciiPicture($currentWorkingRoundPicture);
+                        $currentWorkingRoundPicture = '';
                     }
                 } elseif ($popped['key'] === 'Condition' && $popped['value'] === 'CExpressionRecallButtonPressed') {
                     if (!$this->currentRecallButtonPressedCondition['left'] || !$this->currentRecallButtonPressedCondition['right']) {
-                        $this->currentLevelRound['iphone_specific'] = true;
+                        $currentWorkingRound->iphoneSpecific = true;
                     }
 
                     // reset state
                     $this->currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
                 }
             } else {
-                $last = end($nested);
-                if ($last && $last['key'] === 'Compressed Thumbnail') {
+                $lastNested = end($nested);
+                if ($lastNested && $lastNested['key'] === 'Compressed Thumbnail') {
                     // Collect all the strings to concat them in the end
-                    $key = '';
-                    $this->currentLevelRoundPicture .= $line;
+                    $previousKey = '';
+                    $currentWorkingRoundPicture .= $line;
                 } else {
-                    $temp = explode('=', $line, 2);
-                    $key = $temp[0];
-                    $value = $temp[1] ?? '';
-
-                    $this->checkProperty($key, $value);
-                    if ($last !== false) {
-                        $this->setPropertyForNested($last, $key, $value);
+                    $split = strpos($line, '=');
+                    if ($split === false) {
+                        $split = -1;
                     }
+                    $key = substr($line, 0, $split);
+                    $value = substr($line, $split + 1);
+
+                    $this->checkPropertyForModUsage($levelSet, $key, $value);
+
+                    if ($lastNested !== false) {
+                        if ($lastNested['value'] === 'CRoundSetUserMade') {
+                            $this->setPropertyForLevelSet($levelSet, $key, $value);
+                        } else if ($lastNested['key'] === 'Round') {
+                            $this->setPropertyForRound($currentWorkingRound, $key, $value);
+                        } else {
+                            $this->setPropertyForNested($lastNested, $key, $value);
+                        }
+                    }
+
+                    $previousKey = $key;
+                    $previousValue = $value;
                 }
             }
 
@@ -197,26 +203,18 @@ class LevelSetParser
 
         strtok('', '');
 
-        // Finished...
-        return [
-            'levelSet' => [
-                'author' => $this->levelSetAuthor,
-                'description' => $this->levelSetDescription,
-                'roundToGetImageFrom' => $this->levelSetRoundToGetImageFrom,
-                'modsUsed' => $this->levelSetModsUsed,
-            ],
-            'rounds' => $rounds,
-        ];
+        return $levelSet;
     }
 
     /**
+     * @param LevelSet $levelSet
      * @param string $key
      * @param string $value
      */
-    private function checkProperty(string $key, string $value)
+    private function checkPropertyForModUsage(LevelSet $levelSet, string $key, string $value): void
     {
         foreach (static::$modInfo as $modName => $modFileTypeGroups) {
-            if (in_array($modName, $this->levelSetModsUsed, true)) {
+            if (in_array($modName, $levelSet->modsUsed, true)) {
                 continue;
             }
 
@@ -226,7 +224,7 @@ class LevelSetParser
                 if (isset($modFileTypeGroups[$type])) {
                     foreach ($modFileTypeGroups[$type] as $file) {
                         if ($value === $file) {
-                            $this->levelSetModsUsed[] = $modName;
+                            $levelSet->modsUsed[] = $modName;
                         }
                     }
                 }
@@ -235,72 +233,84 @@ class LevelSetParser
     }
 
     /**
+     * @param LevelSet $levelSet
+     * @param string $key
+     * @param string $value
+     */
+    private function setPropertyForLevelSet(LevelSet $levelSet, string $key, string $value): void
+    {
+        switch ($key) {
+            case 'Author':
+                $levelSet->author = $this->fixEncoding($value);
+                break;
+
+            case 'Description':
+                $levelSet->description = $this->fixEncoding($value);
+                break;
+
+            case 'Round To Get Image From':
+                // First round starts from 0
+                $levelSet->roundToGetImageFrom = ((int)$value) + 1;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     * @param Round $round
+     * @param string $key
+     * @param string $value
+     */
+    private function setPropertyForRound(Round $round, string $key, string $value): void
+    {
+        switch ($key) {
+            case 'Display Name':
+                $round->name = $this->fixEncoding($value);
+                break;
+
+            case 'Author':
+                $round->author = $this->fixEncoding($value);
+                break;
+
+            case 'Note 1':
+                $round->notes[0] = $this->fixEncoding($value);
+                break;
+
+            case 'Note 2':
+                $round->notes[1] = $this->fixEncoding($value);
+                break;
+
+            case 'Note 3':
+                $round->notes[2] = $this->fixEncoding($value);
+                break;
+
+            case 'Note 4':
+                $round->notes[3] = $this->fixEncoding($value);
+                break;
+
+            case 'Note 5':
+                $round->notes[4] = $this->fixEncoding($value);
+                break;
+
+            case 'Source':
+                $round->source = $this->fixEncoding($value);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
      * @param array $nested
      * @param string $key
      * @param string $value
      */
-    private function setPropertyForNested(array $nested, string $key, string $value)
+    private function setPropertyForNested(array $nested, string $key, string $value): void
     {
         switch ($nested['key']) {
-            case 'CRoundSetUserMade':
-                switch ($key) {
-                    case 'Author':
-                        $this->levelSetAuthor = $this->fixEncoding($value);
-                        break;
-
-                    case 'Description':
-                        $this->levelSetDescription = $this->fixEncoding($value);
-                        break;
-
-                    case 'Round To Get Image From':
-                        // First round starts from 0
-                        $this->levelSetRoundToGetImageFrom = ((int)$value) + 1;
-                        break;
-
-                    default:
-                        break;
-                }
-                break;
-
-            case 'Round':
-                switch ($key) {
-                    case 'Display Name':
-                        $this->currentLevelRound['name'] = $this->fixEncoding($value);
-                        break;
-
-                    case 'Author':
-                        $this->currentLevelRound['author'] = $this->fixEncoding($value);
-                        break;
-
-                    case 'Note 1':
-                        $this->currentLevelRound['note1'] = $this->fixEncoding($value);
-                        break;
-
-                    case 'Note 2':
-                        $this->currentLevelRound['note2'] = $this->fixEncoding($value);
-                        break;
-
-                    case 'Note 3':
-                        $this->currentLevelRound['note3'] = $this->fixEncoding($value);
-                        break;
-
-                    case 'Note 4':
-                        $this->currentLevelRound['note4'] = $this->fixEncoding($value);
-                        break;
-
-                    case 'Note 5':
-                        $this->currentLevelRound['note5'] = $this->fixEncoding($value);
-                        break;
-
-                    case 'Source':
-                        $this->currentLevelRound['source'] = $this->fixEncoding($value);
-                        break;
-
-                    default:
-                        break;
-                }
-                break;
-
             case 'Condition':
                 if ($nested['value'] === 'CExpressionRecallButtonPressed') {
                     switch ($key) {

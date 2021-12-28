@@ -174,6 +174,7 @@ export function parse(buffer: Buffer): LevelSet {
                     ).thumbnail = decodeAsciiImage(
                         Buffer.concat(currentWorkingRoundPictureBuffers)
                     );
+                    currentWorkingRoundPictureBuffers = [];
                 }
             }
         } else {
