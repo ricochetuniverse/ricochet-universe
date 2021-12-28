@@ -5,4 +5,5 @@ export default class Round {
     author: string = '';
     notes: [string, string, string, string, string] = ['', '', '', '', ''];
     source: string = '';
+    thumbnail: ?Buffer;
 }
