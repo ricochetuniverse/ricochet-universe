@@ -8,6 +8,7 @@ https://ricochet.test:8000 {
 		Strict-Transport-Security "max-age=31536000"
 		Cross-Origin-Opener-Policy same-origin
 		Cross-Origin-Resource-Policy same-site
+		Permissions-Policy "interest-cohort=()"
 		Referrer-Policy strict-origin-when-cross-origin
 		Feature-Policy "accelerometer 'none';ambient-light-sensor 'none';battery 'none';camera 'none';display-capture 'none';geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';usb 'none';xr-spatial-tracking 'none';"
 
