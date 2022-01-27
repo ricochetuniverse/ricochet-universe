@@ -24,7 +24,7 @@ services:
       - '3306:3306'
 
   caddy:
-    image: caddy:2.3.0-alpine
+    image: caddy:2.4.6-alpine
     environment:
       - CADDY_TLS_MODE
       - CADDY_TLS_EMAIL
