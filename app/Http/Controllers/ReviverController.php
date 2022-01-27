@@ -11,7 +11,7 @@ class ReviverController extends Controller
     const MACOS = 'macos';
 
     const GROUPS = [
-        self::WINDOWS10 => 'Windows 10',
+        self::WINDOWS10 => 'Windows 11/10',
         self::LEGACY_WINDOWS => 'Windows 8.1 or below',
         self::MACOS => 'macOS',
     ];
