@@ -186,7 +186,7 @@ class Parser
                     if ($lastNested !== false) {
                         if ($lastNested['value'] === 'CRoundSetUserMade') {
                             $this->setPropertyForLevelSet($levelSet, $key, $value);
-                        } else if ($lastNested['key'] === 'Round') {
+                        } elseif ($lastNested['key'] === 'Round') {
                             $this->setPropertyForRound($currentWorkingRound, $key, $value);
                         } else {
                             $this->setPropertyForNested($lastNested, $key, $value);
