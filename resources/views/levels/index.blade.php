@@ -2,6 +2,7 @@
 
 @section('title', 'Levels')
 @section('og:title', 'Ricochet Universe')
+@section('robots', 'noindex,follow')
 
 @section('content')
     <div class="container-fluid">

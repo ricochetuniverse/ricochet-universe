@@ -8,6 +8,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="theme-color" content="#00fffe">
     <meta name="color-scheme" content="dark light">
+    @hasSection('robots')<meta property="robots" content="@yield('robots')">@endif
 
     <link href="{{ mix('app.css') }}" rel="stylesheet">
 

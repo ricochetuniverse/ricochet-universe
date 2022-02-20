@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Whoops')
+@section('robots', 'noindex,follow')
 
 @section('content')
     <div class="container-fluid">
