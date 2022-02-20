@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}</title>
+    <title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}@if (Request::is('/')) - Download and play custom Ricochet Infinity levels @endif</title>
     <meta name="viewport" content="width=device-width">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="theme-color" content="#00fffe">
