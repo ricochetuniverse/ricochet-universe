@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'mods',
+])
 
 @section('title', 'Add new mod')
 

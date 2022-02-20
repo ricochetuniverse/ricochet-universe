@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'tools',
+])
 
 @section('title', 'Decompressor')
 @section('description', 'Decompress Ricochet levels, stats and other data.')

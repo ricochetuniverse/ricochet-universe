@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'tools',
+])
 
 @section('title', 'RED Mod Packager')
 @section('description', 'Package your Ricochet mods to a .RED file for easier distribution.')

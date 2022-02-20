@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'about',
+])
 
 @section('title', 'About')
 

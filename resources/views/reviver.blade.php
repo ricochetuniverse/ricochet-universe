@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'reviver',
+])
 
 @section('title', 'Reviver')
 @section('description', 'Restore the in-game level catalog in Ricochet Infinity.')

@@ -53,7 +53,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown @if (($selected_navbar_item ?? '') === 'levels')active @endif">
                             <a href="#" class="nav-link dropdown-toggle js-with-tooltip"
                                id="levelsNavbarDropdownMenuLink" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false"
@@ -68,19 +68,19 @@
                                 <a href="{{ action('UploadController@index') }}" class="dropdown-item">Upload</a>
                             </div>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @if (($selected_navbar_item ?? '') === 'mods')active @endif">
                             <a class="nav-link js-with-tooltip" href="{{ action('ModsController@index') }}" title="Play new environments, custom content and modifications">Mods</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @if (($selected_navbar_item ?? '') === 'reviver')active @endif">
                             <a class="nav-link js-with-tooltip" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity">Reviver</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @if (($selected_navbar_item ?? '') === 'tools')active @endif">
                             <a class="nav-link js-with-tooltip" href="{{ action('ToolsController@index') }}" title="Use various utilities that are useful for tinkerers">Tools</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-with-tooltip" href="https://wiki.ricochetuniverse.com" title="Learn more about the Ricochet game series in the fan wiki">Wiki</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @if (($selected_navbar_item ?? '') === 'about')active @endif">
                             <a class="nav-link js-with-tooltip" href="{{ action('AboutController@index') }}" title="Learn more about this website">About</a>
                         </li>
                         <li class="nav-item">

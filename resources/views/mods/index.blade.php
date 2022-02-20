@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'mods',
+])
 
 @section('title', 'Mods')
 @section('description', 'Explore and play new environments, custom content and modifications for Ricochet Infinity.')

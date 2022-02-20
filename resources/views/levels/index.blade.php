@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'levels',
+])
 
 @section('title', 'Levels')
 @section('og:title', 'Ricochet Universe')

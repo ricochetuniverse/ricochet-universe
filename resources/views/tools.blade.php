@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'tools',
+])
 
 @section('title', 'Tools')
 @section('description', 'Use various utilities for Ricochet that are useful for tinkerers.')

@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'selected_navbar_item' => 'levels',
+])
 
 @section('title', 'Upload')
 @section('description', 'Upload and share your Ricochet level sets.')
