@@ -30,6 +30,8 @@
         <meta id="google-analytics-tracking-id" content="{{ config('ricochet.google_analytics_id') }}">
     @endif
     {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
+
+    <link href="{{ action('API\RssController@index') }}" rel="alternate" type="application/rss+xml">
 </head>
 
 <body>
