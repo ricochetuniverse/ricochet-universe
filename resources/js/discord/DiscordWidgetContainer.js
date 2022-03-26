@@ -11,6 +11,7 @@ export default function DiscordWidgetContainer(): React.Node {
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const [members, setMembers] = useState<DiscordWidgetMemberType[]>([]);
+    const [presenceCount, setPresenceCount] = useState(0);
 
     useEffect(() => {
         const request = new XMLHttpRequest();
@@ -38,6 +39,7 @@ export default function DiscordWidgetContainer(): React.Node {
             const members = (json.members: DiscordWidgetMemberType[])
                 .filter((member) => {
                     const bots = [
+                        'AmariBot',
                         '[pls] Dank Memer',
                         '[!] Mee6',
                         '[.] NotSoBot',
@@ -61,6 +63,7 @@ export default function DiscordWidgetContainer(): React.Node {
 
             setIsLoading(false);
             setMembers(members);
+            setPresenceCount(json.presence_count);
         };
         request.onerror = () => {
             setIsLoading(false);
@@ -74,6 +77,11 @@ export default function DiscordWidgetContainer(): React.Node {
     }, []);
 
     return (
-        <DiscordWidget loading={isLoading} error={isError} members={members} />
+        <DiscordWidget
+            loading={isLoading}
+            error={isError}
+            members={members}
+            presenceCount={presenceCount}
+        />
     );
 }

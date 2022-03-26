@@ -8,6 +8,7 @@ type Props = $ReadOnly<{|
     loading: boolean,
     error: boolean,
     members: DiscordWidgetMemberType[],
+    presenceCount: number,
 |}>;
 
 export default function DiscordWidget(props: Props): React.Node {
@@ -23,7 +24,7 @@ export default function DiscordWidget(props: Props): React.Node {
     return (
         <div className="discordWidget__body">
             <div className="discordWidget__heading">
-                {props.members.length} Members Online
+                {props.presenceCount} Members Online
             </div>
 
             <ul className="discordWidget__memberList">
