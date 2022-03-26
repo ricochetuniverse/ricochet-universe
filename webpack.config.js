@@ -59,13 +59,11 @@ module.exports = {
             react: 'preact/compat',
             'react-dom': 'preact/compat',
 
-            [path.resolve(
-                __dirname,
-                './resources/js/helpers/TextDecoder.js'
-            )]: path.resolve(
-                __dirname,
-                './resources/js/helpers/TextDecoder.browser.js'
-            ),
+            [path.resolve(__dirname, './resources/js/helpers/TextDecoder.js')]:
+                path.resolve(
+                    __dirname,
+                    './resources/js/helpers/TextDecoder.browser.js'
+                ),
         },
     },
     plugins: [

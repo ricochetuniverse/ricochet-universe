@@ -43,6 +43,7 @@ function isBrowserCompatible() {
         typeof FileReader !== 'undefined' &&
         typeof Blob !== 'undefined' &&
         typeof TextDecoder !== 'undefined' &&
+        // $FlowFixMe[method-unbinding] https://github.com/facebook/flow/issues/8689
         typeof String.prototype.endsWith !== 'undefined'
     );
 }
@@ -285,8 +286,7 @@ export default class DecompressorApp extends Component<{||}, State> {
         // should be unknown
         if (file.type !== '' && file.type !== 'application/ms-tnef') {
             this.setState({
-                error:
-                    'File should be .RicochetI, .RicochetLW, .Sequence, .Frame or .dat',
+                error: 'File should be .RicochetI, .RicochetLW, .Sequence, .Frame or .dat',
             });
             return;
         }

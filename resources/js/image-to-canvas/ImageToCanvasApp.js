@@ -165,8 +165,12 @@ export default class ImageToCanvasApp extends Component<{||}, State> {
             const pixels: Pixel[] = [];
             for (let y = 0; y < img.height; y += 1) {
                 for (let x = 0; x < img.width; x += 1) {
-                    const firstPixel = canvasContext.getImageData(x, y, 1, 1)
-                        .data;
+                    const firstPixel = canvasContext.getImageData(
+                        x,
+                        y,
+                        1,
+                        1
+                    ).data;
 
                     // fully transparent, don't bother
                     if (

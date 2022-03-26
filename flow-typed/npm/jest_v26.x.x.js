@@ -1,5 +1,5 @@
-// flow-typed signature: 9a1f9054d272cf6383233b8bfb639f84
-// flow-typed version: 4efeddffd8/jest_v26.x.x/flow_>=v0.104.x
+// flow-typed signature: ec1949e99980c0b12113832818d455c9
+// flow-typed version: 644a595e77/jest_v26.x.x/flow_>=v0.134.x
 
 type JestMockFn<TArguments: $ReadOnlyArray<*>, TReturn> = {
   (...args: TArguments): TReturn,
@@ -259,6 +259,9 @@ type DomTestingLibraryType = {
   // 5.x
   toHaveDisplayValue(value: string | string[]): void,
   toBeChecked(): void,
+  toBeEmptyDOMElement(): void,
+  toBePartiallyChecked(): void,
+  toHaveDescription(text: string | RegExp): void,
   ...
 };
 
@@ -802,6 +805,14 @@ type JestObjectType = {
    */
   getTimerCount(): number,
   /**
+   * Set the current system time used by fake timers.
+   * Simulates a user changing the system clock while your program is running.
+   * It affects the current time but it does not in itself cause
+   * e.g. timers to fire; they will fire exactly as they would have done
+   * without the call to jest.setSystemTime().
+   */
+  setSystemTime(now?: number | Date): void,
+  /**
    * The same as `mock` but not moved to the top of the expectation by
    * babel-jest.
    */
@@ -823,10 +834,14 @@ type JestObjectType = {
    */
   isMockFunction(fn: Function): boolean,
   /**
+   * Alias of `createMockFromModule`.
+   */
+  genMockFromModule(moduleName: string): any,
+  /**
    * Given the name of a module, use the automatic mocking system to generate a
    * mocked version of the module for you.
    */
-  genMockFromModule(moduleName: string): any,
+  createMockFromModule(moduleName: string): any,
   /**
    * Mocks a module with an auto-mocked version when it is being required.
    *
@@ -845,7 +860,7 @@ type JestObjectType = {
    * Returns the actual module instead of a mock, bypassing all checks on
    * whether the module should receive a mock implementation or not.
    */
-  requireActual(moduleName: string): any,
+  requireActual<T>(m: $Flow$ModuleRef<T> | string): T,
   /**
    * Returns a mock module instead of the actual module, bypassing all checks
    * on whether the module should be required normally or not.
@@ -1032,11 +1047,20 @@ declare var it: {
    * @param {Function} Test
    * @param {number} Timeout for the test, in milliseconds.
    */
-  skip(
-    name: JestTestName,
-    fn?: (done: JestDoneFn) => ?Promise<mixed>,
-    timeout?: number
-  ): void,
+  skip: {|
+    (
+      name: JestTestName,
+      fn?: (done: JestDoneFn) => ?Promise<mixed>,
+      timeout?: number
+    ): void,
+    each(
+      ...table: Array<Array<mixed> | mixed> | [Array<string>, string]
+    ): (
+      name: JestTestName,
+      fn?: (...args: Array<any>) => ?Promise<mixed>,
+      timeout?: number
+    ) => void,
+  |},
   /**
    * Highlight planned tests in the summary output
    *
