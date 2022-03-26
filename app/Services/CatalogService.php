@@ -15,7 +15,12 @@ class CatalogService
     {
         $response = $this->getCatalogHeader($isSecure);
 
-        LevelSet::with(['tagged', 'mods'])->chunk(100, function ($levels) use (&$response) {
+        LevelSet::with([
+            'tagged',
+            'mods' => function ($query) {
+                $query->orderBy('name');
+            },
+        ])->chunk(100, function ($levels) use (&$response) {
             /** @var LevelSet[] $levels */
             foreach ($levels as $level) {
                 $response .= $this->transformLevelSetToCatalogItem($level);

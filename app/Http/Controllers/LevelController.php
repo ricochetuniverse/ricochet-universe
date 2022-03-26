@@ -36,7 +36,13 @@ class LevelController extends Controller
             $orderDirection = 'DESC';
         }
 
-        $levelSets = LevelSet::with(['tagged', 'mods']);
+        $levelSets = LevelSet::with([
+            'tagged',
+            'mods' => function ($query) {
+                $query->orderBy('name');
+            },
+        ]);
+
         $this->addOrderBysForLevelSets($levelSets, $orderBy, $orderDirection);
 
         if (strlen($author) > 0) {
@@ -72,7 +78,15 @@ class LevelController extends Controller
     {
         $name = $request->input('levelsetname');
 
-        $levelSet = LevelSet::where('name', $name)->with(['levelRounds', 'tagged', 'mods'])->firstOrFail();
+        $levelSet = LevelSet::where('name', $name)
+            ->with([
+                'levelRounds',
+                'tagged',
+                'mods' => function ($query) {
+                    $query->orderBy('name');
+                },
+            ])
+            ->firstOrFail();
 
         $authorIsSameForAllRounds = false;
         $brokenLevelSetWarning = false;

@@ -106,7 +106,7 @@
                                     @else
                                         This level set requires these mods to play:
                                         <a href="{{ action('ModsController@index') }}" class="alert-link">
-                                            @foreach ($levelSet->mods->sortBy('name') as $mod)
+                                            @foreach ($levelSet->mods as $mod)
                                                 {{ $mod->name }}{{ !$loop->last ? ', ' : '' }}
                                             @endforeach
                                         </a>

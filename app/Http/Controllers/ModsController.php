@@ -10,7 +10,7 @@ class ModsController extends Controller
 {
     public function index()
     {
-        $mods = Mod::all();
+        $mods = Mod::orderBy('created_at')->get();
 
         return view('mods.index', ['mods' => $mods]);
     }
