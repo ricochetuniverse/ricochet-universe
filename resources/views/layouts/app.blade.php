@@ -32,6 +32,8 @@
     {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
 
     <link href="{{ action('API\RssController@index') }}" rel="alternate" type="application/rss+xml">
+    <link href="{{ action('API\OpensearchController@index') }}" rel="search"
+          type="application/opensearchdescription+xml" title="Ricochet Levels Search">
 </head>
 
 <body>
