@@ -16,7 +16,6 @@
         // eslint-plugin-flowtype
         "flowtype/array-style-simple-type": ["error", "shorthand"],
         "flowtype/newline-after-flow-annotation": ["error"],
-        "flowtype/require-inexact-type": "error",
         "flowtype/require-indexer-name": ["error"],
         "flowtype/require-readonly-react-props": ["error"],
 
