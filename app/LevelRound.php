@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Url\Url;
 
 /**
  * App\LevelRound
@@ -54,7 +55,10 @@ class LevelRound extends Model
      */
     public function getImageUrl(): string
     {
-        return Storage::disk('round-images')->url(rawurlencode($this->image_file_name));
+        $original = Storage::disk('round-images')->url(rawurlencode($this->image_file_name));
+
+        return Url::fromString($original)
+            ->withQueryParameter('time', $this->updated_at->unix());
     }
 
     /**

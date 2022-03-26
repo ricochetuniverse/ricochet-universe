@@ -6,6 +6,7 @@ use App\Helpers\RedirectForGame;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Url\Url;
 
 class LevelSetImageController extends Controller
 {
@@ -44,7 +45,10 @@ class LevelSetImageController extends Controller
 
         $disk = Storage::disk('round-images');
         if ($disk->exists($fileName)) {
-            return RedirectForGame::to($isSecure, $disk->url($fileUrl));
+            $url = Url::fromString($disk->url($fileUrl))
+                ->withQueryParameter('time', $disk->lastModified($fileName));
+
+            return RedirectForGame::to($isSecure, $url);
         }
 
         return RedirectForGame::to($isSecure, $this->getArchiveOrgFallbackUrl() . 'cache/' . $fileUrl);

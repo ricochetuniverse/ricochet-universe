@@ -5,6 +5,8 @@ namespace App;
 use Conner\Tagging\Taggable;
 use DomainException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Url\Url;
 
 /**
  * App\LevelSet
@@ -98,7 +100,8 @@ class LevelSet extends Model
 
     public function getImageUrl(): string
     {
-        return config('app.url') . '/levels/' . $this->image_url;
+        return Url::fromString(config('app.url') . '/levels/' . $this->image_url)
+            ->withQueryParameter('time', $this->updated_at->unix());
     }
 
     public function levelRounds()

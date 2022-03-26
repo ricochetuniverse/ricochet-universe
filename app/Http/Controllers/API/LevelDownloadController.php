@@ -9,6 +9,7 @@ use App\LevelSet;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Spatie\Url\Url;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LevelDownloadController extends Controller
@@ -35,7 +36,10 @@ class LevelDownloadController extends Controller
 
         $disk = $storage->disk('levels');
         if ($disk->exists($fileName)) {
-            return RedirectForGame::to($request->isSecure(), $disk->url($fileUrl));
+            $url = Url::fromString($disk->url($fileUrl))
+                ->withQueryParameter('time', $disk->lastModified($fileName));
+
+            return RedirectForGame::to($request->isSecure(), $url);
         }
 
         if ($levelSet->alternate_download_url) {
