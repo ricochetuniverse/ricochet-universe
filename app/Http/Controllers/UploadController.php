@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Rules\ValidTimestamp;
 use App\Services\LevelSetUploadProcessor;
 use Carbon\Carbon;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Sentry\Laravel\Facade as Sentry;
@@ -21,7 +20,12 @@ class UploadController extends Controller
     {
         // url and name parameters are validated inside the processor
         $this->validate($request, [
+            'url' => ['required', 'string', 'unique:App\\LevelSet,alternate_download_url'],
             'timestamp' => ['required', 'integer', new ValidTimestamp],
+        ], [
+            'url.unique' => 'The level set URL is already submitted.'
+        ], [
+            'url' => 'level set URL',
         ]);
 
         $processor = new LevelSetUploadProcessor();
