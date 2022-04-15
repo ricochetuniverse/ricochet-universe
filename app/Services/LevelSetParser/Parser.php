@@ -40,6 +40,7 @@ class Parser
             'Forced Power-Up',
             'Automatic',
             'Disallowed',
+            'Powerup', // CLotteryList
         ],
     ];
     private static array $propertyReferencesReversed = [];

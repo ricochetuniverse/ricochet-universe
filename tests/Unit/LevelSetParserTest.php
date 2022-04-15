@@ -100,4 +100,14 @@ class LevelSetParserTest extends TestCase
         $this->assertEquals('Main', $rounds[0]->name);
         $this->assertEquals($thumbnail, $rounds[0]->thumbnail);
     }
+
+    public function testModPowerupInsideLottery(): void
+    {
+        $levelSetData = file_get_contents(__DIR__ . '/../fixtures/Mod powerup inside lottery.txt');
+
+        $levelSet = (new Parser)->parse($levelSetData);
+
+        $this->assertCount(1, $levelSet->modsUsed);
+        $this->assertContains('Neon Environment', $levelSet->modsUsed);
+    }
 }

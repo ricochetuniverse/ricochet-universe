@@ -64,3 +64,19 @@ test('HEX detection', async () => {
     expect(modRequirement.mods).toHaveLength(1);
     expect(modRequirement.mods).toEqual(['HEX']);
 });
+
+test('mod powerup inside lottery', async () => {
+    const levelSet = await fs.readFile(
+        path.resolve(
+            __dirname,
+            '../../../../tests/fixtures/Mod powerup inside lottery.txt'
+        ),
+        'utf-8'
+    );
+
+    const modRequirement = checkForMods(levelSet);
+
+    expect(modRequirement.result).toEqual(true);
+    expect(modRequirement.mods).toHaveLength(1);
+    expect(modRequirement.mods).toEqual(['Neon Environment']);
+});

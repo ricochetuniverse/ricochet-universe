@@ -1,0 +1,176 @@
+CRoundSetUserMade
+{
+	Author=
+	Description=
+	Round To Get Image From=0
+	Brick Layer Effects=Array
+	{
+	}
+	Round List=Array
+	{
+		Round=CBrickLayout
+		{
+			Dynamic Properties=1
+			{
+				Lottery Lists=CLotteryLists
+				{
+					Lottery Lists List=Array
+					{
+						Lottery Lists=CLotteryList
+						{
+							Group Name=LotteryBlue
+							Powerup Indexes List=Array
+							{
+								Item Count=2
+								Powerup=Fire Ball
+								Powerup=Multiply 8 Inline
+							}
+						}
+					}
+				}
+			}
+			Display Name=Unnamed Round
+			Author=
+			Note 1=
+			Note 2=
+			Note 3=
+			Note 4=
+			Note 5=
+			Source=
+			Background Type=Environments/Alien Vista/AlienVista
+			Blank Background Color=0,0,0
+			Canvas Color=0,179,234
+			Last Brick ID Assigned=100
+			Allow Poisonous Spaceship=1
+			Allow Bombing Spaceship=1
+			Skip Brick Layer=0
+			Automatic Power Ups=Array
+			{
+			}
+			Disallow Automatic Power-Ups=1
+			Disallow All Level Breakers=0
+			Disallowed Power-Ups=Array
+			{
+			}
+			Additional Chance Of Getting Conditional Extra Life=0
+			Bricks=Array
+			{
+				Item Count=8
+				Brick=CBrickCoin
+				{
+					Brick Position=290,215
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickCoin
+				{
+					Brick Position=556,237
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickCoin
+				{
+					Brick Position=21,240
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickCoin
+				{
+					Brick Position=568,-1
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickCoin
+				{
+					Brick Position=-3,5
+					Style Sheet=Common/Coin
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickNormal
+				{
+					Brick Position=311,161
+					Style Sheet=Alien Vista/AV_Normal13
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickNormal
+				{
+					Brick Position=267,161
+					Style Sheet=Alien Vista/AV_Normal16
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+				}
+				Brick=CBrickLottery
+				{
+					Brick Position=238,274
+					Style Sheet=Alien Vista/Lottery Blue
+					Scale X=1
+					Scale Y=1
+					Rotate=0
+					Tint=255,255,255
+					Power-Up List Start Index=Start Off
+				}
+			}
+			Capture Center=318,240
+			Capture Width=615
+			Show Capture Rect=0
+			Automatic Thumbnail=1
+			Compression Quality=90
+			Sharp Thumbnail=1
+			CRCOfLayoutAtTimeOfLastCatupre=0
+			Has Been Completed With CRC=0
+			Got 5 Rings With CRC=0
+			CRC When Saved=2742899395
+			Name Of Editor Used=Ricochet Infinity Version 3 Build 62
+			Version Of Editor Used=62
+			Was Current Version Tested=0
+			Best Number Of Rings=0
+			Compressed Thumbnail=0 bytes of binary in ASCII esc
+			DecorationSet=CDecorationSet
+			{
+				Decorations=Array
+				{
+				}
+				Size=800,600
+			}
+			ProjectedToCanvasDecorationSet=CDecorationSet
+			{
+				Decorations=Array
+				{
+				}
+				Size=800,600
+			}
+			Number Of Frames To Update Before Brick Layer=6
+			Music To Play=CMusicPickerDefault
+			{
+			}
+			FF When Nothing On Screem=1
+			Seconds Of Nothing Before FF=1.5
+			FastForward Speed=30
+			Has Been Edited In Ricochet Infinity=1
+			Play Log Stats=
+			Brick Layer Effects=Array
+			{
+			}
+		}
+	}
+}
