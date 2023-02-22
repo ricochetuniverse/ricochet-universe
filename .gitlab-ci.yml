@@ -4,7 +4,7 @@ stages:
     - test_php
 
 .setup_php: &setup_php
-    image: php:7.4.14-alpine3.13
+    image: php:7.4.33-alpine
     services:
         - mariadb:10.5.8
     variables:
