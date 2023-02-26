@@ -46,7 +46,7 @@ composer:
             - vendor/
             - .env
     script:
-        - curl https://getcomposer.org/installer | php -- --1 --install-dir=/usr/local/bin --filename=composer
+        - curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
         - composer install --no-progress
 
         - cp .env.testing .env
