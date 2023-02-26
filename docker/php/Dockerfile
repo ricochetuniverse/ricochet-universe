@@ -15,6 +15,6 @@ RUN apk update && apk upgrade && \
 
 COPY extra.ini $PHP_INI_DIR/conf.d/
 
-COPY --from=composer:1.10.26 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.5.4 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/ricochetuniverse
