@@ -4,6 +4,7 @@ namespace App;
 
 use Conner\Tagging\Taggable;
 use DomainException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Url\Url;
@@ -73,7 +74,7 @@ use Spatie\Url\Url;
  */
 class LevelSet extends Model
 {
-    use Taggable;
+    use HasFactory, Taggable;
 
     /**
      * The attributes that should be cast to native types.

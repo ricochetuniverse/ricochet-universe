@@ -1,21 +1,37 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\LevelSet;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(LevelSet::class, function (Faker $faker) {
-    static $legacyId = -1;
-    $legacyId += 1;
+class LevelSetFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = LevelSet::class;
 
-    return [
-        'legacy_id' => $legacyId,
-        'name' => $faker->sentence,
-        'rounds' => 10,
-        'author' => $faker->name,
-        'game_version' => 3,
-        'image_url' => '',
-        'description' => '',
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        static $legacyId = -1;
+        $legacyId += 1;
+
+        return [
+            'legacy_id' => $legacyId,
+            'name' => $this->faker->sentence(),
+            'rounds' => 10,
+            'author' => $this->faker->name(),
+            'game_version' => 3,
+            'image_url' => '',
+            'description' => '',
+        ];
+    }
+}
