@@ -18,6 +18,6 @@
         </include>
     </coverage>
     <php>
-        <server name="APP_ENV" value="testing"/>
+        <env name="APP_ENV" value="testing"/>
     </php>
 </phpunit>

@@ -33,6 +33,7 @@ use Spatie\Url\Url;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class User extends Authenticatable

@@ -70,6 +70,7 @@ use Spatie\Url\Url;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withAllTags($tagNames)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withAnyTag($tagNames)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withoutTags($tagNames)
+ * @method static \Database\Factories\LevelSetFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class LevelSet extends Model

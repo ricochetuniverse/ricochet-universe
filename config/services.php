@@ -18,7 +18,7 @@ return [
         'client_id'         => env('DISCORD_KEY'),
         'client_secret'     => env('DISCORD_SECRET'),
         'redirect'          => env('DISCORD_REDIRECT_URI'),
-        'user_id_whitelist' => explode(',', env('DISCORD_USER_ID_WHITELIST')),
+        'user_id_whitelist' => explode(',', env('DISCORD_USER_ID_WHITELIST', '')),
     ],
 
 ];
