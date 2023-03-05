@@ -5,7 +5,6 @@ namespace Deployer;
 require 'contrib/sentry.php';
 require 'contrib/yarn.php';
 require 'recipe/laravel.php';
-require 'deployer/php-fpm.php';
 
 if (file_exists('deployer/sentry.config.php')) {
     require 'deployer/sentry.config.php';
@@ -57,7 +56,6 @@ after('yarn:install', 'webpack:run');
 
 after('deploy', 'ricochet:clear-catalog-cache');
 after('deploy', 'artisan:queue:restart');
-after('deploy', 'php-fpm:reload');
 
 if (get('sentry_token')) {
     after('deploy', 'deploy:sentry');
