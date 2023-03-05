@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 /**
  * Parser for Ricochet Lost Worlds/Infinity levels
  */
-class Parser
+final class Parser
 {
     private array $currentRecallButtonPressedCondition = ['left' => true, 'right' => true];
 

@@ -10,6 +10,7 @@ class DiscordLoginController extends Controller
 {
     public function redirectToProvider()
     {
+        // @phpstan-ignore-next-line
         return Socialite::driver('discord')
             ->setScopes(['identify'])
             ->redirect();
@@ -19,18 +20,18 @@ class DiscordLoginController extends Controller
     {
         $discordUser = Socialite::driver('discord')->user();
 
-        if (! in_array($discordUser->id, config('services.discord.user_id_whitelist'))) {
+        if (! in_array($discordUser->getId(), config('services.discord.user_id_whitelist'))) {
             return response()
-                ->view('auth.not-on-whitelist', ['discordUserId' => $discordUser->id], 403);
+                ->view('auth.not-on-whitelist', ['discordUserId' => $discordUser->getId()], 403);
         }
 
         $user = User::updateOrCreate(
-            ['discord_id' => $discordUser->id],
+            ['discord_id' => $discordUser->getId()],
             [
-                'name' => $discordUser->nickname,
+                'name' => $discordUser->getNickname(),
                 'email' => '',
                 'password' => '',
-                'discord_avatar_url' => $discordUser->avatar,
+                'discord_avatar_url' => $discordUser->getAvatar(),
             ]
         );
 

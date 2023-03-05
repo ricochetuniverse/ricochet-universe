@@ -97,3 +97,13 @@ pint:
         - composer
     needs:
         - composer
+
+phpstan:
+    stage: test_php
+    <<: *setup_php
+    script:
+        - php ./vendor/bin/phpstan analyse --memory-limit=256M
+    dependencies:
+        - composer
+    needs:
+        - composer

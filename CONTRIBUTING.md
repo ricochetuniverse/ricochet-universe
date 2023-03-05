@@ -22,6 +22,8 @@ Run PHP tests:
 
 ```bash
 docker-compose run --rm php ./vendor/bin/phpunit
+docker-compose run --rm php ./vendor/bin/pint
+docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=256M
 ```
 
 Run Node tests:

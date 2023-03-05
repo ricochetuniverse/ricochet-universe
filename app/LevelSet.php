@@ -6,6 +6,8 @@ use Conner\Tagging\Taggable;
 use DomainException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Url\Url;
 
 /**
@@ -33,44 +35,48 @@ use Spatie\Url\Url;
  * @property string $alternate_download_url
  * @property string $downloaded_file_name
  * @property int $round_to_get_image_from
- * @property mixed $tag_names
- * @property-read \Illuminate\Database\Eloquent\Collection|\Tagged[] $tags
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\LevelRound[] $levelRounds
+ * @property array $tag_names
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Tagged[] $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelRound> $levelRounds
  * @property-read int|null $level_rounds_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Mod[] $mods
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Mod> $mods
  * @property-read int|null $mods_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Conner\Tagging\Model\Tagged[] $tagged
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tagged> $tagged
  * @property-read int|null $tagged_count
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereAlternateDownloadUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereAuthor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereDownloadedFileName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereDownloads($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereFeatured($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereFunRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereFunRatingCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereGameVersion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereGraphicsRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereGraphicsRatingCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereImageUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereLegacyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereOverallRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereOverallRatingCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereRoundToGetImageFrom($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereRounds($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withAllTags($tagNames)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withAnyTag($tagNames)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withoutTags($tagNames)
  * @method static \Database\Factories\LevelSetFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet query()
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereAlternateDownloadUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereAuthor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereDownloadedFileName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereDownloads($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereFeatured($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereFunRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereFunRatingCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereGameVersion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereGraphicsRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereGraphicsRatingCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereImageUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereLegacyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereOverallRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereOverallRatingCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereRoundToGetImageFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereRounds($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet withAllTags($tagNames)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet withAnyTag($tagNames)
+ * @method static \Illuminate\Database\Eloquent\Builder|LevelSet withoutTags($tagNames)
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelRound> $levelRounds
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Mod> $mods
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tagged> $tagged
  *
  * @mixin \Eloquent
  */
@@ -107,12 +113,12 @@ class LevelSet extends Model
             ->withQueryParameter('time', $this->updated_at->unix());
     }
 
-    public function levelRounds()
+    public function levelRounds(): HasMany
     {
         return $this->hasMany(LevelRound::class);
     }
 
-    public function mods()
+    public function mods(): BelongsToMany
     {
         return $this->belongsToMany(Mod::class);
     }
