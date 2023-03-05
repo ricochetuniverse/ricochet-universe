@@ -2,11 +2,10 @@
 
 namespace Deployer;
 
+require 'contrib/sentry.php';
+require 'contrib/yarn.php';
 require 'recipe/laravel.php';
 require 'deployer/php-fpm.php';
-require 'deployer/view-cache.php';
-require 'vendor/deployer/recipes/recipe/sentry.php';
-require 'vendor/deployer/recipes/recipe/yarn.php';
 
 if (file_exists('deployer/sentry.config.php')) {
     require 'deployer/sentry.config.php';
@@ -38,7 +37,7 @@ set('sentry', [
 
 // Hosts
 
-inventory('deployer/hosts.yml');
+import('deployer/hosts.yml');
 
 // Tasks
 
@@ -54,11 +53,7 @@ task('ricochet:clear-catalog-cache', function () {
 });
 
 after('deploy:vendors', 'yarn:install');
-after('deploy:writable', 'webpack:run');
-after('artisan:view:clear', 'artisan:view:cache');
-after('artisan:config:cache', 'artisan:route:cache');
-before('deploy:symlink', 'artisan:migrate');
-before('deploy:symlink', 'deploy:public_disk');
+after('yarn:install', 'webpack:run');
 
 after('deploy', 'ricochet:clear-catalog-cache');
 after('deploy', 'artisan:queue:restart');

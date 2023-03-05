@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9cecc17ee686c99db86f8ead9a5fed1f",
+    "content-hash": "fb7e387408cd7cfeb918d70b42546b93",
     "packages": [
         {
             "name": "brick/math",
@@ -7914,28 +7914,23 @@
             "time": "2022-11-17T09:50:14+00:00"
         },
         {
-            "name": "deployer/recipes",
-            "version": "6.2.1",
+            "name": "deployer/deployer",
+            "version": "v7.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/deployphp/recipes.git",
-                "reference": "4c2470771249fbff55eb56429c29d74590768fa0"
+                "url": "https://github.com/deployphp/deployer.git",
+                "reference": "61314b16a776da3ba332ee0390e999a361431e52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deployphp/recipes/zipball/4c2470771249fbff55eb56429c29d74590768fa0",
-                "reference": "4c2470771249fbff55eb56429c29d74590768fa0",
+                "url": "https://api.github.com/repos/deployphp/deployer/zipball/61314b16a776da3ba332ee0390e999a361431e52",
+                "reference": "61314b16a776da3ba332ee0390e999a361431e52",
                 "shasum": ""
             },
-            "require-dev": {
-                "deployer/deployer": "^6.3"
-            },
+            "bin": [
+                "dep"
+            ],
             "type": "library",
-            "autoload": {
-                "files": [
-                    "autoload.php"
-                ]
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -7946,28 +7941,20 @@
                     "email": "anton@medv.io"
                 }
             ],
-            "description": "3rd party deployer recipes",
-            "homepage": "https://github.com/deployphp/recipes",
-            "keywords": [
-                "cachetool",
-                "cloudflare",
-                "deploy",
-                "deployer",
-                "deployment",
-                "hipchat",
-                "newrelic",
-                "rabbit",
-                "recipes",
-                "sentry",
-                "slack",
-                "yarn"
-            ],
+            "description": "Deployment Tool",
+            "homepage": "https://deployer.org",
             "support": {
-                "issues": "https://github.com/deployphp/recipes/issues",
-                "source": "https://github.com/deployphp/recipes"
+                "docs": "https://deployer.org/docs",
+                "issues": "https://github.com/deployphp/deployer/issues",
+                "source": "https://github.com/deployphp/deployer"
             },
-            "abandoned": true,
-            "time": "2019-01-17T06:03:27+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/antonmedv",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-03-01T20:16:58+00:00"
         },
         {
             "name": "doctrine/instantiator",
