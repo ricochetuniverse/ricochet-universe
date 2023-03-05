@@ -43,11 +43,11 @@ class ExportLevelCatalog extends Command
         $info = $this->argument('info');
         $filetype = $this->argument('filetype');
 
-        if (!in_array(strtolower($info), ['levelsets', 'rounds'], true)) {
+        if (! in_array(strtolower($info), ['levelsets', 'rounds'], true)) {
             throw new \Exception('Info must be either levelsets or rounds');
         }
 
-        if (!in_array(strtolower($filetype), ['tsv', 'json'], true)) {
+        if (! in_array(strtolower($filetype), ['tsv', 'json'], true)) {
             throw new \Exception('File type must be either TSV or JSON');
         }
 
@@ -144,7 +144,7 @@ class ExportLevelCatalog extends Command
             $response .= "\n";
         }
 
-        return $header . "\n" . $response;
+        return $header."\n".$response;
     }
 
     private function escapeTsv(array $data): array
@@ -155,6 +155,7 @@ class ExportLevelCatalog extends Command
             $data[$key] = str_replace("\n", '\\n', $value);
             $data[$key] = str_replace("\t", '\\t', $value);
         }
+
         return $data;
     }
 

@@ -7,8 +7,6 @@ use Illuminate\Support\Str;
 
 /**
  * Parser for Ricochet Lost Worlds/Infinity levels
- *
- * @package App\Services
  */
 class Parser
 {
@@ -43,7 +41,9 @@ class Parser
             'Powerup', // CLotteryList
         ],
     ];
+
     private static array $propertyReferencesReversed = [];
+
     private static array $modInfo = [];
 
     public function __construct()
@@ -114,13 +114,11 @@ class Parser
     }
 
     /**
-     * @param string $rawData
-     * @return LevelSet
      * @throws \Exception
      */
     public function parse(string $rawData): LevelSet
     {
-        if (!Str::startsWith($rawData, 'CRoundSetUserMade')) {
+        if (! Str::startsWith($rawData, 'CRoundSetUserMade')) {
             throw new \Exception('Level sets should start with CRoundSetUserMade as the first line');
         }
 
@@ -161,7 +159,7 @@ class Parser
                         $currentWorkingRoundPicture = '';
                     }
                 } elseif ($popped['key'] === 'Condition' && $popped['value'] === 'CExpressionRecallButtonPressed') {
-                    if (!$this->currentRecallButtonPressedCondition['left'] || !$this->currentRecallButtonPressedCondition['right']) {
+                    if (! $this->currentRecallButtonPressedCondition['left'] || ! $this->currentRecallButtonPressedCondition['right']) {
                         $currentWorkingRound->iphoneSpecific = true;
                     }
 
@@ -207,11 +205,6 @@ class Parser
         return $levelSet;
     }
 
-    /**
-     * @param LevelSet $levelSet
-     * @param string $key
-     * @param string $value
-     */
     private function checkPropertyForModUsage(LevelSet $levelSet, string $key, string $value): void
     {
         foreach (static::$modInfo as $modName => $modFileTypeGroups) {
@@ -233,11 +226,6 @@ class Parser
         }
     }
 
-    /**
-     * @param LevelSet $levelSet
-     * @param string $key
-     * @param string $value
-     */
     private function setPropertyForLevelSet(LevelSet $levelSet, string $key, string $value): void
     {
         switch ($key) {
@@ -251,7 +239,7 @@ class Parser
 
             case 'Round To Get Image From':
                 // First round starts from 0
-                $levelSet->roundToGetImageFrom = ((int)$value) + 1;
+                $levelSet->roundToGetImageFrom = ((int) $value) + 1;
                 break;
 
             default:
@@ -259,11 +247,6 @@ class Parser
         }
     }
 
-    /**
-     * @param Round $round
-     * @param string $key
-     * @param string $value
-     */
     private function setPropertyForRound(Round $round, string $key, string $value): void
     {
         switch ($key) {
@@ -304,11 +287,6 @@ class Parser
         }
     }
 
-    /**
-     * @param array $nested
-     * @param string $key
-     * @param string $value
-     */
     private function setPropertyForNested(array $nested, string $key, string $value): void
     {
         switch ($nested['key']) {
@@ -316,11 +294,11 @@ class Parser
                 if ($nested['value'] === 'CExpressionRecallButtonPressed') {
                     switch ($key) {
                         case 'Check For Left Recall':
-                            $this->currentRecallButtonPressedCondition['left'] = (bool)$value;
+                            $this->currentRecallButtonPressedCondition['left'] = (bool) $value;
                             break;
 
                         case 'Check For Right Recall':
-                            $this->currentRecallButtonPressedCondition['right'] = (bool)$value;
+                            $this->currentRecallButtonPressedCondition['right'] = (bool) $value;
                             break;
 
                         default:
@@ -334,32 +312,26 @@ class Parser
         }
     }
 
-    /**
-     * @param string $ascii
-     * @return string
-     */
     private function decodeAsciiPicture(string $ascii): string
     {
         $decoded = $ascii;
         // $decoded = str_replace(["\r\n", "\n"], '', $decoded);
-        $decoded = str_replace(chr(33) . chr(35), chr(255), $decoded);
-        $decoded = str_replace(chr(33) . chr(36), chr(123), $decoded);
-        $decoded = str_replace(chr(33) . chr(37), chr(125), $decoded);
+        $decoded = str_replace(chr(33).chr(35), chr(255), $decoded);
+        $decoded = str_replace(chr(33).chr(36), chr(123), $decoded);
+        $decoded = str_replace(chr(33).chr(37), chr(125), $decoded);
         for ($i = 38; $i <= 70; $i += 1) {
             // min/max:
             // $decoded = str_replace(chr(33).chr(38), chr(0), $decoded);
             // $decoded = str_replace(chr(33).chr(70), chr(32), $decoded);
 
-            $decoded = str_replace(chr(33) . chr($i), chr($i - 38), $decoded);
+            $decoded = str_replace(chr(33).chr($i), chr($i - 38), $decoded);
         }
-        $decoded = str_replace(chr(33) . chr(34), chr(33), $decoded);
+        $decoded = str_replace(chr(33).chr(34), chr(33), $decoded);
 
         return $decoded;
     }
 
     /**
-     * @param string $value
-     * @return string
      * @throws \Exception
      */
     private function fixEncoding(string $value): string

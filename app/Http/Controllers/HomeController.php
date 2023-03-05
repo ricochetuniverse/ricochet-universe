@@ -18,7 +18,7 @@ class HomeController extends Controller
             ->get();
 
         return view('home.index', [
-            'topLevelSets'    => $topLevelSets,
+            'topLevelSets' => $topLevelSets,
             'recentLevelSets' => $recentLevelSets,
         ]);
     }

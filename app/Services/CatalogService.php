@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 class CatalogService
 {
     /**
-     * @param bool $isSecure
      * @return string
      */
     public function getCatalog(bool $isSecure)
@@ -32,7 +31,6 @@ class CatalogService
     }
 
     /**
-     * @param bool $isSecure
      * @return string
      */
     private function getCatalogHeader(bool $isSecure)
@@ -40,12 +38,12 @@ class CatalogService
         // $siteUrl = 'http://www.ricochetInfinity.com';
         $siteUrl = config('app.url');
 
-        if (!$isSecure) {
+        if (! $isSecure) {
             $siteUrl = preg_replace('/^https\:\/\//', 'http://', $siteUrl);
         }
 
         //$imageUrl = 'http://www.ricochetInfinity.com/levels/';
-        $imageUrl = $siteUrl . '/levels/';
+        $imageUrl = $siteUrl.'/levels/';
 
         $header = <<<EOF
 CCatalogWebResponse
@@ -69,7 +67,6 @@ EOF;
     }
 
     /**
-     * @param string $text
      * @return string
      */
     private function normalizeLineBreaks(string $text)
@@ -86,7 +83,7 @@ EOF;
         // mods are at the front first
         $tags = Collection::make([
             $level->mods->pluck('name')->map(function ($item) {
-                return 'Mod: ' . $item;
+                return 'Mod: '.$item;
             }),
             $level->tags->pluck('name'),
         ])->flatten(1);
@@ -97,7 +94,7 @@ EOF;
             $level->rounds,
             str_replace(',', ';', $level->author),
             $level->created_at->format('Y-m-d'),
-            (int)$level->featured,
+            (int) $level->featured,
             $level->game_version,
             0, // prerelease
             '', // required_build

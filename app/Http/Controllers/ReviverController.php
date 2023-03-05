@@ -7,7 +7,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ReviverController extends Controller
 {
     const WINDOWS10 = 'windows10';
+
     const LEGACY_WINDOWS = 'windows8';
+
     const MACOS = 'macos';
 
     const GROUPS = [
@@ -23,7 +25,7 @@ class ReviverController extends Controller
 
     public function show(string $os)
     {
-        if (!in_array($os, array_keys(self::GROUPS), true)) {
+        if (! in_array($os, array_keys(self::GROUPS), true)) {
             throw new NotFoundHttpException;
         }
 

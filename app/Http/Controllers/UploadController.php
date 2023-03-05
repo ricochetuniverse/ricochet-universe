@@ -23,7 +23,7 @@ class UploadController extends Controller
             'url' => ['required', 'string', 'unique:App\\LevelSet,alternate_download_url'],
             'timestamp' => ['required', 'integer', new ValidTimestamp],
         ], [
-            'url.unique' => 'The level set URL is already submitted.'
+            'url.unique' => 'The level set URL is already submitted.',
         ], [
             'url' => 'level set URL',
         ]);
@@ -44,7 +44,7 @@ class UploadController extends Controller
                     'embeds' => [
                         [
                             'author' => [
-                                'name' => 'By ' . $levelSet->author,
+                                'name' => 'By '.$levelSet->author,
                                 'url' => action('LevelController@index', ['author' => $levelSet->author]),
                             ],
                             'title' => $levelSet->name,
@@ -54,7 +54,7 @@ class UploadController extends Controller
                                 [
                                     'name' => 'Number of rounds',
                                     'value' => $levelSet->rounds,
-                                ]
+                                ],
                             ],
                             'image' => [
                                 'url' => $levelSet->getImageUrl(),

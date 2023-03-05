@@ -1,6 +1,6 @@
 stages:
     - build
-    - test
+    - test_js
     - test_php
 
 .setup_php: &setup_php
@@ -54,7 +54,7 @@ composer:
         - php artisan migrate
 
 lint:
-    stage: test
+    stage: test_js
     <<: *setup_node
     dependencies:
         - yarn
@@ -65,7 +65,7 @@ lint:
         - yarn run prettier -l
 
 webpack:
-    stage: test
+    stage: test_js
     <<: *setup_node
     dependencies:
         - yarn
@@ -87,3 +87,13 @@ phpunit:
     needs:
         - composer
         - webpack
+
+pint:
+    stage: test_php
+    <<: *setup_php
+    script:
+        - php ./vendor/bin/pint --test
+    dependencies:
+        - composer
+    needs:
+        - composer

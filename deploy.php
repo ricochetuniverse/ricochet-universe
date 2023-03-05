@@ -31,8 +31,8 @@ set('allow_anonymous_stats', false);
 
 set('sentry', [
     'organization' => get('sentry_organization'),
-    'projects'     => [get('sentry_project')],
-    'token'        => get('sentry_token'),
+    'projects' => [get('sentry_project')],
+    'token' => get('sentry_token'),
 ]);
 
 // Hosts
@@ -44,7 +44,7 @@ import('deployer/hosts.yml');
 desc('Compile JS/CSS assets');
 task('webpack:run', function () {
     $output = run('cd {{release_path}} && yarn run production');
-    writeln('<info>' . $output . '</info>');
+    writeln('<info>'.$output.'</info>');
 });
 
 desc('Clear cache for /gateway/catalog.php');

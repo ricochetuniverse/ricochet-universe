@@ -17,10 +17,10 @@ class LevelDownloadControllerTest extends TestCase
 
         $levelSet = LevelSet::factory()->create();
 
-        $fileName = $levelSet->name . $levelSet->getFileExtension();
+        $fileName = $levelSet->name.$levelSet->getFileExtension();
         $disk->put($fileName, 'sample');
 
-        $response = $this->get('/levels/download.php?File=downloads/raw/' . $fileName);
+        $response = $this->get('/levels/download.php?File=downloads/raw/'.$fileName);
         $response->assertRedirect();
     }
 

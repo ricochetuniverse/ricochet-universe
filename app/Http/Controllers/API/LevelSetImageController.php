@@ -16,32 +16,27 @@ class LevelSetImageController extends Controller
      * We haven't captured/saved these images to the server yet, so redirect to archive.org and hope they got a saved
      * copy
      *
-     * @param Request $request
-     * @param string $fileName
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function showVersion1(Request $request, string $fileName)
     {
         return RedirectForGame::to(
             $request->isSecure(),
-            $this->getArchiveOrgFallbackUrl() . 'images/' . $fileName . '.jpg'
+            $this->getArchiveOrgFallbackUrl().'images/'.$fileName.'.jpg'
         );
     }
 
     /**
      * These level sets use thumbnails from the rounds
      *
-     * @param Request $request
-     * @param string $name
-     * @param int $number
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function showVersion2(Request $request, string $name, int $number)
     {
         $isSecure = $request->isSecure();
 
-        $fileName = $name . '/' . $number . '.jpg';
-        $fileUrl = rawurlencode($name) . '/' . $number . '.jpg';
+        $fileName = $name.'/'.$number.'.jpg';
+        $fileUrl = rawurlencode($name).'/'.$number.'.jpg';
 
         $disk = Storage::disk('round-images');
         if ($disk->exists($fileName)) {
@@ -51,12 +46,9 @@ class LevelSetImageController extends Controller
             return RedirectForGame::to($isSecure, $url);
         }
 
-        return RedirectForGame::to($isSecure, $this->getArchiveOrgFallbackUrl() . 'cache/' . $fileUrl);
+        return RedirectForGame::to($isSecure, $this->getArchiveOrgFallbackUrl().'cache/'.$fileUrl);
     }
 
-    /**
-     * @return string
-     */
     private function getArchiveOrgFallbackUrl(): string
     {
         return 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/';

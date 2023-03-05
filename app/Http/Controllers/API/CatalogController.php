@@ -20,6 +20,7 @@ class CatalogController extends Controller
             now()->addMinutes($this->getCacheMinutes()),
             function () use ($isSecure) {
                 $catalogService = new CatalogService;
+
                 return $catalogService->getCatalog($isSecure);
             }
         );
@@ -39,18 +40,11 @@ class CatalogController extends Controller
         return $response;
     }
 
-    /**
-     * @param bool $isSecure
-     * @return string
-     */
     private function getCacheKey(bool $isSecure): string
     {
         return $isSecure ? 'level_catalog' : 'level_catalog_http';
     }
 
-    /**
-     * @return int
-     */
     private function getCacheMinutes(): int
     {
         if (app()->environment('production')) {

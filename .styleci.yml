@@ -1,6 +1,4 @@
-preset: psr2
+preset: laravel
 
 enabled:
-    - alpha_ordered_imports
     - linebreak_after_opening_tag
-    - short_array_syntax

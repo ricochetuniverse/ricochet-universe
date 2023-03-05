@@ -12,7 +12,7 @@ return [
     'displayer' => '\Illuminate\Support\Str::title',
 
     // Database connection for Conner\Taggable\Tag model to use
-// 	'connection' => 'mysql',
+    // 	'connection' => 'mysql',
 
     // When deleting a model, remove all the tags first
     'untag_on_delete' => true,
@@ -21,7 +21,7 @@ return [
     'delete_unused_tags' => true,
 
     // Model to use to store the tags in the database
-    'tag_model'=>'\Conner\Tagging\Model\Tag',
+    'tag_model' => '\Conner\Tagging\Model\Tag',
 
     // Delimiter used within tags
     'delimiter' => '-',

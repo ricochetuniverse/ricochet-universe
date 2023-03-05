@@ -21,6 +21,7 @@ use Spatie\Url\Url;
  * @property string $discord_avatar_url
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User query()
@@ -34,6 +35,7 @@ use Spatie\Url\Url;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable

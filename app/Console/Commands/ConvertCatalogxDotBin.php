@@ -39,13 +39,14 @@ class ConvertCatalogxDotBin extends Command
      * Execute the console command.
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function handle()
     {
         $file = file_get_contents($this->argument('file'));
 
-        if (!$file) {
+        if (! $file) {
             $this->error('Cannot read file');
 
             return;
@@ -64,7 +65,7 @@ class ConvertCatalogxDotBin extends Command
             $line = $lines[$i];
 
             // The beginning of the file contains CCatalogWebResponse
-            if (!$startProcessing) {
+            if (! $startProcessing) {
                 if (strpos($line, 'id,') === 0) {
                     $startProcessing = true;
                 }
@@ -83,36 +84,36 @@ class ConvertCatalogxDotBin extends Command
                 continue;
             }
 
-            $legacyId = (int)$rowData[0];
+            $legacyId = (int) $rowData[0];
 
             $levelSet = LevelSet::firstOrNew(['legacy_id' => $legacyId]);
             $levelSet->legacy_id = $legacyId;
             $levelSet->name = $rowData[1];
-            $levelSet->rounds = (int)$rowData[2];
+            $levelSet->rounds = (int) $rowData[2];
             $levelSet->author = $rowData[3];
             $levelSet->created_at = Carbon::parse($rowData[4]);
             $levelSet->featured = false; // (bool)$rowData[5];
-            $levelSet->game_version = (int)$rowData[6];
+            $levelSet->game_version = (int) $rowData[6];
 //            $level->prerelease = $rowData[7];
 //            $level->requiredBuild = $rowData[8];
             $levelSet->image_url = $this->convertImageUrl($rowData[9]);
-            $levelSet->rating = (float)$rowData[10];
-            $levelSet->downloads = max($levelSet->downloads, (int)$rowData[11]);
+            $levelSet->rating = (float) $rowData[10];
+            $levelSet->downloads = max($levelSet->downloads, (int) $rowData[11]);
             $levelSet->description = $rowData[12];
             // 13: tags
-            $levelSet->overall_rating = (float)$rowData[14];
-            $levelSet->overall_rating_count = (int)$rowData[15];
-            $levelSet->fun_rating = (float)$rowData[16];
-            $levelSet->fun_rating_count = (int)$rowData[17];
-            $levelSet->graphics_rating = (float)$rowData[18];
-            $levelSet->graphics_rating_count = (int)$rowData[19];
+            $levelSet->overall_rating = (float) $rowData[14];
+            $levelSet->overall_rating_count = (int) $rowData[15];
+            $levelSet->fun_rating = (float) $rowData[16];
+            $levelSet->fun_rating_count = (int) $rowData[17];
+            $levelSet->graphics_rating = (float) $rowData[18];
+            $levelSet->graphics_rating_count = (int) $rowData[19];
 //            $level->similarLevels = array_map(function ($id) {
 //                return (int)$id;
 //            }, array_filter(explode(';', $rowData[20])));
 
             if (Str::startsWith($levelSet->image_url, 'cache/')) {
                 $parts = explode('/', $levelSet->image_url);
-                $levelSet->round_to_get_image_from = (int)Str::before(end($parts), '.jpg');
+                $levelSet->round_to_get_image_from = (int) Str::before(end($parts), '.jpg');
             }
 
             $this->repairCatalogItem($levelSet);
@@ -135,10 +136,6 @@ class ConvertCatalogxDotBin extends Command
         $this->info('Done.');
     }
 
-    /**
-     * @param string $url
-     * @return string
-     */
     private function convertImageUrl(string $url): string
     {
         $url = rawurldecode($url);
@@ -155,7 +152,6 @@ class ConvertCatalogxDotBin extends Command
      *
      * https://gitlab.com/ngyikp/ricochet-levels/issues/9
      *
-     * @param LevelSet $levelSet
      * @return LevelSet
      */
     private function repairCatalogItem(LevelSet $levelSet)

@@ -24,15 +24,15 @@ class LevelDownloadController extends Controller
 
         // First try the usual UTF-8, then try decode legacy encoding to UTF-8
         $levelSet = $this->tryUtf8($file);
-        if (!$levelSet) {
+        if (! $levelSet) {
             $levelSet = $this->tryLegacyEncoding($file);
-            if (!$levelSet) {
+            if (! $levelSet) {
                 throw new NotFoundHttpException;
             }
         }
 
-        $fileName = $levelSet->name . $levelSet->getFileExtension();
-        $fileUrl = rawurlencode($levelSet->name) . $levelSet->getFileExtension();
+        $fileName = $levelSet->name.$levelSet->getFileExtension();
+        $fileUrl = rawurlencode($levelSet->name).$levelSet->getFileExtension();
 
         $disk = $storage->disk('levels');
         if ($disk->exists($fileName)) {
@@ -51,7 +51,6 @@ class LevelDownloadController extends Controller
     }
 
     /**
-     * @param string $file
      * @return LevelSet|\Illuminate\Database\Eloquent\Model|null|object
      */
     private function tryUtf8(string $file)
@@ -62,7 +61,6 @@ class LevelDownloadController extends Controller
     }
 
     /**
-     * @param string $file
      * @return LevelSet|\Illuminate\Database\Eloquent\Model|null|object
      */
     private function tryLegacyEncoding(string $file)
@@ -70,10 +68,6 @@ class LevelDownloadController extends Controller
         return $this->tryUtf8(TextEncoderForGame::toUtf8($file));
     }
 
-    /**
-     * @param string $file
-     * @return string
-     */
     private function stripFileParameterPrefixAndSuffix(string $file): string
     {
         $file = Str::after($file, 'downloads/raw/');

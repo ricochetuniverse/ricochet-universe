@@ -67,13 +67,10 @@ class RepairLevelSetInfo extends Command
         $this->info('Job dispatched.');
     }
 
-    /**
-     * @param LevelSet $levelSet
-     */
     private function deleteFile(LevelSet $levelSet): void
     {
         $disk = Storage::disk('levels');
-        $fileName = $levelSet->name . $levelSet->getFileExtension();
+        $fileName = $levelSet->name.$levelSet->getFileExtension();
 
         if ($disk->exists($fileName)) {
             $disk->delete($fileName);
@@ -81,7 +78,6 @@ class RepairLevelSetInfo extends Command
     }
 
     /**
-     * @param LevelSet $levelSet
      * @throws \Exception
      */
     private function deleteRounds(LevelSet $levelSet): void

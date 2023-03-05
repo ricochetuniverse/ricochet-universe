@@ -4,8 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
 use Sentry\Laravel\Integration;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -52,7 +52,6 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Throwable  $exception
      * @return void
      *
      * @throws \Throwable
@@ -66,7 +65,6 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Throwable
@@ -80,7 +78,6 @@ class Handler extends ExceptionHandler
      * Convert an authentication exception into a response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Auth\AuthenticationException  $exception
      * @return \Illuminate\Http\Response
      */
     protected function unauthenticated($request, AuthenticationException $exception)

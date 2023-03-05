@@ -10,7 +10,7 @@ class ImageToCanvasController extends Controller
     {
         $available = app()->environment('local');
 
-        if (!$available) {
+        if (! $available) {
             throw new NotFoundHttpException;
         }
 

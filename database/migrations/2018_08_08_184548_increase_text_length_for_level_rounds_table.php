@@ -29,7 +29,7 @@ class IncreaseTextLengthForLevelRoundsTable extends Migration
             // https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
             //
             // The index key prefix length limit is 3072 bytes for InnoDB tables that use DYNAMIC or COMPRESSED row format.
-            $table->index([DB::raw('name(' . (3072 / 4) . ')')], 'level_rounds_name_index');
+            $table->index([DB::raw('name('.(3072 / 4).')')], 'level_rounds_name_index');
         });
     }
 

@@ -21,33 +21,21 @@ class LevelSetUploadProcessor
 
     private ?Carbon $datePosted = null;
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @param string $url
-     */
     public function setUrl(string $url): void
     {
         $this->url = $url;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -61,9 +49,6 @@ class LevelSetUploadProcessor
         return $this->datePosted;
     }
 
-    /**
-     * @param Carbon $datePosted
-     */
     public function setDatePosted(Carbon $datePosted): void
     {
         $this->datePosted = $datePosted;
@@ -72,7 +57,6 @@ class LevelSetUploadProcessor
     private int $legacyIdAddition = 10000;
 
     /**
-     * @return \App\LevelSet
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -86,7 +70,7 @@ class LevelSetUploadProcessor
                 'required',
                 'url',
                 function ($attribute, $value, $fail) {
-                    if (!Str::endsWith($value, ['.RicochetI', '.RicochetLW'])) {
+                    if (! Str::endsWith($value, ['.RicochetI', '.RicochetLW'])) {
                         return $fail('The URL must end with a .RicochetI or .RicochetLW file extension.');
                     }
                 },
@@ -97,7 +81,7 @@ class LevelSetUploadProcessor
             'name' => 'level set name',
         ]);
 
-        $fileName = $this->name . $this->getFileExtension($this->url);
+        $fileName = $this->name.$this->getFileExtension($this->url);
         $path = $this->downloadAndSaveFile($this->url, $fileName);
 
         $levelSet = new \App\LevelSet;
@@ -131,9 +115,6 @@ class LevelSetUploadProcessor
     }
 
     /**
-     * @param string $url
-     * @param string $name
-     * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function downloadAndSaveFile(string $url, string $name): string
@@ -147,10 +128,6 @@ class LevelSetUploadProcessor
         return $disk->path($name);
     }
 
-    /**
-     * @param string $url
-     * @return string
-     */
     private function getFileExtension(string $url): string
     {
         if (Str::endsWith($url, '.RicochetI')) {
@@ -162,10 +139,6 @@ class LevelSetUploadProcessor
         throw new DomainException('The URL must end with a .RicochetI or .RicochetLW file extension.');
     }
 
-    /**
-     * @param string $fileName
-     * @return int
-     */
     private function getGameVersion(string $fileName): int
     {
         if (Str::endsWith($fileName, '.RicochetI')) {
@@ -177,7 +150,7 @@ class LevelSetUploadProcessor
         throw new DomainException('File name must end with .RicochetI or .RicochetLW file extension.');
     }
 
-    private function parseLevelSet(\App\LevelSet $levelSet, $file): \App\Services\LevelSetParser\LevelSet
+    private function parseLevelSet(\App\LevelSet $levelSet, $file): LevelSetParser\LevelSet
     {
         $decompressor = new LevelSetDecompressService;
         $levelSetData = $decompressor->decompress($file);
@@ -192,7 +165,7 @@ class LevelSetUploadProcessor
 
             $imageFileName = '';
             if ($round->thumbnail !== '') {
-                $imageFileName = $levelSet->name . '/' . $count . '.jpg';
+                $imageFileName = $levelSet->name.'/'.$count.'.jpg';
             }
 
             $roundToSave = new LevelRound;
@@ -218,7 +191,7 @@ class LevelSetUploadProcessor
 
         $levelSet->rounds = count($rounds);
         $levelSet->author = $result->author;
-        $levelSet->image_url = 'cache/' . rawurlencode($levelSet->name) . '/' . $result->roundToGetImageFrom . '.jpg';
+        $levelSet->image_url = 'cache/'.rawurlencode($levelSet->name).'/'.$result->roundToGetImageFrom.'.jpg';
         $levelSet->description = $result->description;
         $levelSet->round_to_get_image_from = $result->roundToGetImageFrom;
 

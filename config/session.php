@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 return [
 
     /*
@@ -126,7 +124,7 @@ return [
     |
     */
 
-    'cookie' => (env('SESSION_SECURE_COOKIE', false) ? '__Host-' : '') . env('SESSION_COOKIE', 'ricochet_universe_session'),
+    'cookie' => (env('SESSION_SECURE_COOKIE', false) ? '__Host-' : '').env('SESSION_COOKIE', 'ricochet_universe_session'),
 
     /*
     |--------------------------------------------------------------------------

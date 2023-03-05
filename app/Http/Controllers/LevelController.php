@@ -31,7 +31,7 @@ class LevelController extends Controller
 
         $orderDirection = in_array($orderDirection, ['DESC', 'ASC']) ? $orderDirection : 'ASC';
 
-        if (!$orderBy) {
+        if (! $orderBy) {
             $orderBy = 'downloads';
             $orderDirection = 'DESC';
         }
@@ -54,22 +54,22 @@ class LevelController extends Controller
         }
 
         if (strlen($search) > 0) {
-            $levelSets->where('name', 'like', '%' . $search . '%')
-                ->orWhere('author', 'like', '%' . $search . '%');
+            $levelSets->where('name', 'like', '%'.$search.'%')
+                ->orWhere('author', 'like', '%'.$search.'%');
         }
 
         $levelSets = $levelSets->paginate(10)
             ->appends([
-                'author'   => $author,
-                'tag'      => $tag,
-                'search'   => $search,
-                'orderBy'  => $orderBy,
+                'author' => $author,
+                'tag' => $tag,
+                'search' => $search,
+                'orderBy' => $orderBy,
                 'orderDir' => $orderDirection,
             ]);
 
         return view('levels.index', [
-            'levelSets'      => $levelSets,
-            'orderBy'        => $orderBy,
+            'levelSets' => $levelSets,
+            'orderBy' => $orderBy,
             'orderDirection' => $orderDirection,
         ]);
     }
@@ -99,7 +99,7 @@ class LevelController extends Controller
             $roundsWithAuthor = 0;
             $roundsWithNullAuthor = 0;
             foreach ($levelSet->levelRounds as $round) {
-                if (!$round->image_file_name) {
+                if (! $round->image_file_name) {
                     $brokenLevelSetWarning = true;
                 }
 
@@ -116,9 +116,9 @@ class LevelController extends Controller
         }
 
         return view('levels.show', [
-            'levelSet'                 => $levelSet,
+            'levelSet' => $levelSet,
             'authorIsSameForAllRounds' => $authorIsSameForAllRounds,
-            'brokenLevelSetWarning'    => $brokenLevelSetWarning,
+            'brokenLevelSetWarning' => $brokenLevelSetWarning,
         ]);
     }
 
@@ -144,13 +144,13 @@ class LevelController extends Controller
     private function convertUrlOrderByToDb($orderBy)
     {
         $orders = [
-            'Name'           => 'name',
-            'Author'         => 'author',
-            'Rounds'         => 'rounds',
-            'downloads'      => 'downloads',
-            'Date_Posted'    => 'created_at',
+            'Name' => 'name',
+            'Author' => 'author',
+            'Rounds' => 'rounds',
+            'downloads' => 'downloads',
+            'Date_Posted' => 'created_at',
             'overall_rating' => 'overall_rating',
-            'Stars'          => 'rating',
+            'Stars' => 'rating',
         ];
 
         return $orders[$orderBy] ?? null;

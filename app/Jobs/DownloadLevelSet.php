@@ -21,8 +21,6 @@ class DownloadLevelSet implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
-     * @param LevelSet $levelSet
      */
     public function __construct(LevelSet $levelSet)
     {
@@ -33,17 +31,18 @@ class DownloadLevelSet implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function handle()
     {
-        if (!$this->levelSet->alternate_download_url) {
+        if (! $this->levelSet->alternate_download_url) {
             return;
         }
 
         // Already downloaded?
         $disk = Storage::disk('levels');
-        $fileName = $this->levelSet->name . $this->levelSet->getFileExtension();
+        $fileName = $this->levelSet->name.$this->levelSet->getFileExtension();
 
         if ($disk->exists($fileName)) {
             return;

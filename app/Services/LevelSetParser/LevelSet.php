@@ -30,9 +30,6 @@ class LevelSet
         return $this->rounds;
     }
 
-    /**
-     * @param Round $round
-     */
     public function addRound(Round $round): void
     {
         $this->rounds[] = $round;

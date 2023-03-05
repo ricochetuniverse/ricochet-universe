@@ -24,6 +24,7 @@ use Spatie\Url\Url;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $round_number
  * @property-read \App\LevelSet $levelSet
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound query()
@@ -41,6 +42,7 @@ use Spatie\Url\Url;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereRoundNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelRound whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class LevelRound extends Model
@@ -50,9 +52,6 @@ class LevelRound extends Model
         return $this->belongsTo(LevelSet::class);
     }
 
-    /**
-     * @return string
-     */
     public function getImageUrl(): string
     {
         $original = Storage::disk('round-images')->url(rawurlencode($this->image_file_name));
@@ -61,9 +60,6 @@ class LevelRound extends Model
             ->withQueryParameter('time', $this->updated_at->unix());
     }
 
-    /**
-     * @return bool
-     */
     public function shouldShowViewNotesButton(): bool
     {
         if (strlen($this->note2) > 0 || strlen($this->note3) > 0 || strlen($this->note4) > 0 || strlen($this->note5) > 0) {
@@ -77,6 +73,6 @@ class LevelRound extends Model
             'www.ricochetinfinity.com',
         ];
 
-        return strlen($this->note1) > 0 && !in_array(strtolower($this->note1), $common);
+        return strlen($this->note1) > 0 && ! in_array(strtolower($this->note1), $common);
     }
 }

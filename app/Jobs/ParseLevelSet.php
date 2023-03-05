@@ -24,8 +24,6 @@ class ParseLevelSet implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
-     * @param LevelSet $levelSet
      */
     public function __construct(LevelSet $levelSet)
     {
@@ -36,18 +34,19 @@ class ParseLevelSet implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     *
      * @throws \Exception
      */
     public function handle()
     {
         // Can't do anything if the level set file isn't available
-        if (!$this->levelSet->downloaded_file_name) {
+        if (! $this->levelSet->downloaded_file_name) {
             return;
         }
 
         $disk = Storage::disk('levels');
 
-        if (!$disk->exists($this->levelSet->downloaded_file_name)) {
+        if (! $disk->exists($this->levelSet->downloaded_file_name)) {
             return;
         }
 
@@ -79,7 +78,7 @@ class ParseLevelSet implements ShouldQueue
 
             $imageFileName = '';
             if ($round->thumbnail !== '') {
-                $imageFileName = $this->levelSet->name . '/' . $count . '.jpg';
+                $imageFileName = $this->levelSet->name.'/'.$count.'.jpg';
             }
 
             $roundToSave = new LevelRound;

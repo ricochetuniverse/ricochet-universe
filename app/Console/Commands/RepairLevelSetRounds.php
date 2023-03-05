@@ -52,16 +52,16 @@ class RepairLevelSetRounds extends Command
                 $actual = $levelSet->level_rounds_count;
 
                 if ($claimed < $actual) {
-                    $this->line($levelSet->name . ':');
-                    $this->line('Catalog: ' . $claimed . ' rounds');
-                    $this->line('Actual:  ' . $actual . ' rounds');
-                    $this->line('Download URL: ' . $levelSet->alternate_download_url);
+                    $this->line($levelSet->name.':');
+                    $this->line('Catalog: '.$claimed.' rounds');
+                    $this->line('Actual:  '.$actual.' rounds');
+                    $this->line('Download URL: '.$levelSet->alternate_download_url);
                     $this->line('');
                 } elseif ($claimed > $actual) {
-                    $this->line('Regenerating rounds info for ' . $levelSet->name . '...');
+                    $this->line('Regenerating rounds info for '.$levelSet->name.'...');
                     $this->line('');
 
-                    if (!$dryRun) {
+                    if (! $dryRun) {
                         DB::beginTransaction();
                         $levelSet->levelRounds()->delete();
                         DB::commit();

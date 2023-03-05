@@ -15,14 +15,14 @@ class LevelSubmitController extends Controller
     {
         $upload_available = app()->environment('local');
 
-        if (!$upload_available) {
+        if (! $upload_available) {
             return $this->showResponse(false, 'Level uploads through the game are not supported yet, please upload to #ricocheti-upload-channel on Discord instead.');
         }
 
         $file = $request->file('file');
 
         $original_file_name = $file->getClientOriginalName();
-        if (!Str::endsWith($original_file_name, '.RicochetI')) {
+        if (! Str::endsWith($original_file_name, '.RicochetI')) {
             return $this->showResponse(false, 'The file name must end with a .RicochetI file extension.');
         }
 
@@ -50,7 +50,7 @@ class LevelSubmitController extends Controller
             throw new \InvalidArgumentException('Game will not show error message if it\'s successful');
         }
 
-        $success = (int)$success;
+        $success = (int) $success;
 
         $text = <<<EOF
 CWebResponse

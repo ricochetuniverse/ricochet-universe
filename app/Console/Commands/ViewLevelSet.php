@@ -36,13 +36,14 @@ class ViewLevelSet extends Command
      * Execute the console command.
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function handle()
     {
         $file = $this->argument('file');
 
-        if (!$file) {
+        if (! $file) {
             throw new \Exception('Cannot read file');
         }
 
@@ -56,7 +57,7 @@ class ViewLevelSet extends Command
         $parser = new Parser;
         $levelSet = $parser->parse($levelSetData);
 
-        if (!$this->option('with-picture')) {
+        if (! $this->option('with-picture')) {
             foreach ($levelSet->getRounds() as $round) {
                 unset($round->thumbnail);
             }
@@ -69,7 +70,7 @@ class ViewLevelSet extends Command
             $round = $levelSet->getRounds()[$i];
 
             if ($round->iphoneSpecific) {
-                $this->line(($i + 1) . ': ' . $round->name);
+                $this->line(($i + 1).': '.$round->name);
             }
         }
 

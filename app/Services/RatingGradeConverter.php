@@ -5,6 +5,7 @@ namespace App\Services;
 class RatingGradeConverter
 {
     public const HIGHEST_RATING = 15;
+
     public const LOWEST_RATING = 2;
 
     public static function getGrade(float $rating)

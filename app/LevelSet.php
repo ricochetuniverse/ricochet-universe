@@ -6,7 +6,6 @@ use Conner\Tagging\Taggable;
 use DomainException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Spatie\Url\Url;
 
 /**
@@ -42,6 +41,7 @@ use Spatie\Url\Url;
  * @property-read int|null $mods_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Conner\Tagging\Model\Tagged[] $tagged
  * @property-read int|null $tagged_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet query()
@@ -71,6 +71,7 @@ use Spatie\Url\Url;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withAnyTag($tagNames)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LevelSet withoutTags($tagNames)
  * @method static \Database\Factories\LevelSetFactory factory($count = null, $state = [])
+ *
  * @mixin \Eloquent
  */
 class LevelSet extends Model
@@ -102,7 +103,7 @@ class LevelSet extends Model
 
     public function getImageUrl(): string
     {
-        return Url::fromString(config('app.url') . '/levels/' . $this->image_url)
+        return Url::fromString(config('app.url').'/levels/'.$this->image_url)
             ->withQueryParameter('time', $this->updated_at->unix());
     }
 
@@ -126,9 +127,6 @@ class LevelSet extends Model
         return $this->game_version === 3;
     }
 
-    /**
-     * @return string
-     */
     public function getFileExtension(): string
     {
         if ($this->isDesignedForInfinity()) {

@@ -37,13 +37,14 @@ class ConvertGoogleSheetsTsv extends Command
      * Execute the console command.
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function handle()
     {
         $file = file_get_contents($this->argument('file'));
 
-        if (!$file) {
+        if (! $file) {
             throw new \Exception('Cannot read file');
         }
 
@@ -56,7 +57,7 @@ class ConvertGoogleSheetsTsv extends Command
         for ($i = 0; $i < count($lines); $i += 1) {
             $line = $lines[$i];
 
-            if (!$startProcessing) {
+            if (! $startProcessing) {
                 if (strpos($line, "\tid\t") === 0) {
                     $startProcessing = true;
                 }
@@ -81,18 +82,20 @@ class ConvertGoogleSheetsTsv extends Command
 
             $level = LevelSet::where(['legacy_id' => $legacyId])->first();
 
-            if (!$level) {
-                $this->warn('Legacy ID ' . $legacyId . ' not found in database, skipping:');
+            if (! $level) {
+                $this->warn('Legacy ID '.$legacyId.' not found in database, skipping:');
                 $this->line($line);
                 $this->line('');
+
                 continue;
             }
 
             if ($level->name !== $name) {
-                $this->warn('Name of legacy ID ' . $legacyId . ' does not match, skipping:');
-                $this->line('Database name: ' . $level->name);
-                $this->line('Provided name: ' . $name);
+                $this->warn('Name of legacy ID '.$legacyId.' does not match, skipping:');
+                $this->line('Database name: '.$level->name);
+                $this->line('Provided name: '.$name);
                 $this->line('');
+
                 continue;
             }
 

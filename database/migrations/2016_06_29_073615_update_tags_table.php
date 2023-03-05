@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 
 class UpdateTagsTable extends Migration
 {
@@ -12,7 +11,6 @@ class UpdateTagsTable extends Migration
             $table->foreign('tag_group_id')->references('id')->on('tagging_tag_groups');
         });
     }
-
 
     public function down()
     {
