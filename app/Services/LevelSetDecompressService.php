@@ -4,7 +4,7 @@ namespace App\Services;
 
 class LevelSetDecompressService
 {
-    public function decompress($filename)
+    public function decompress($filename): false|string
     {
         $fp = fopen($filename, 'rb');
         fseek($fp, 9);

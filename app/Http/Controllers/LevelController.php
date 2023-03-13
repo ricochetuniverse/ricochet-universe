@@ -127,7 +127,7 @@ class LevelController extends Controller
         return redirect()->action('LevelController@index', $request->input(), Response::HTTP_MOVED_PERMANENTLY);
     }
 
-    private function addOrderBysForLevelSets(Builder $levelSets, string $orderBy, string $orderDirection)
+    private function addOrderBysForLevelSets(Builder $levelSets, string $orderBy, string $orderDirection): void
     {
         $column = $this->convertUrlOrderByToDb($orderBy);
 
@@ -141,7 +141,7 @@ class LevelController extends Controller
         }
     }
 
-    private function convertUrlOrderByToDb($orderBy)
+    private function convertUrlOrderByToDb($orderBy): ?string
     {
         $orders = [
             'Name' => 'name',

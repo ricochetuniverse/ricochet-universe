@@ -38,11 +38,9 @@ class ConvertCatalogxDotBin extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
-     *
      * @throws \Exception
      */
-    public function handle()
+    public function handle(): void
     {
         $file = file_get_contents($this->argument('file'));
 
@@ -66,7 +64,7 @@ class ConvertCatalogxDotBin extends Command
 
             // The beginning of the file contains CCatalogWebResponse
             if (! $startProcessing) {
-                if (strpos($line, 'id,') === 0) {
+                if (str_starts_with($line, 'id,')) {
                     $startProcessing = true;
                 }
 
@@ -151,10 +149,8 @@ class ConvertCatalogxDotBin extends Command
      * special attention when importing
      *
      * https://gitlab.com/ngyikp/ricochet-levels/issues/9
-     *
-     * @return LevelSet
      */
-    private function repairCatalogItem(LevelSet $levelSet)
+    private function repairCatalogItem(LevelSet $levelSet): void
     {
         // https://gitlab.com/ngyikp/ricochet-levels/issues/10
         $levelSet->name = str_replace(';', ',', $levelSet->name);
@@ -184,7 +180,5 @@ class ConvertCatalogxDotBin extends Command
 
         // Legacy ID 1511
         $levelSet->description = str_replace('â€“', '–', $levelSet->description);
-
-        return $levelSet;
     }
 }

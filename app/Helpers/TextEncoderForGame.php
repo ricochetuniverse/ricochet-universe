@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class TextEncoderForGame
 {
-    public static $legacyEncoding = 'Windows-1252';
+    public static string $legacyEncoding = 'Windows-1252';
 
     public static function toUtf8(string $text): string
     {

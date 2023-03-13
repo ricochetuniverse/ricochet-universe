@@ -35,10 +35,8 @@ class ExportLevelCatalog extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $info = $this->argument('info');
         $filetype = $this->argument('filetype');
@@ -79,8 +77,6 @@ class ExportLevelCatalog extends Command
         }
 
         $this->line($response);
-
-        return 0;
     }
 
     private function exportLevelSets(): array

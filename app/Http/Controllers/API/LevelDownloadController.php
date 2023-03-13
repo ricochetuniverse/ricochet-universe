@@ -22,7 +22,7 @@ class LevelDownloadController extends Controller
             throw new NotFoundHttpException;
         }
 
-        // First try the usual UTF-8, then try decode legacy encoding to UTF-8
+        // First try the usual UTF-8, then try to decode legacy encoding to UTF-8
         $levelSet = $this->tryUtf8($file);
         if (! $levelSet) {
             $levelSet = $this->tryLegacyEncoding($file);
@@ -50,20 +50,14 @@ class LevelDownloadController extends Controller
         throw new NotFoundHttpException;
     }
 
-    /**
-     * @return LevelSet|\Illuminate\Database\Eloquent\Model|null|object
-     */
-    private function tryUtf8(string $file)
+    private function tryUtf8(string $file): ?LevelSet
     {
         $file = $this->stripFileParameterPrefixAndSuffix($file);
 
         return LevelSet::where('name', $file)->first();
     }
 
-    /**
-     * @return LevelSet|\Illuminate\Database\Eloquent\Model|null|object
-     */
-    private function tryLegacyEncoding(string $file)
+    private function tryLegacyEncoding(string $file): ?LevelSet
     {
         return $this->tryUtf8(TextEncoderForGame::toUtf8($file));
     }

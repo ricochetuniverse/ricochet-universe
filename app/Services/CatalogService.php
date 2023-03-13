@@ -7,10 +7,7 @@ use Illuminate\Support\Collection;
 
 class CatalogService
 {
-    /**
-     * @return string
-     */
-    public function getCatalog(bool $isSecure)
+    public function getCatalog(bool $isSecure): string
     {
         $response = $this->getCatalogHeader($isSecure);
 
@@ -30,10 +27,7 @@ class CatalogService
         return $response;
     }
 
-    /**
-     * @return string
-     */
-    private function getCatalogHeader(bool $isSecure)
+    private function getCatalogHeader(bool $isSecure): string
     {
         // $siteUrl = 'http://www.ricochetInfinity.com';
         $siteUrl = config('app.url');
@@ -50,11 +44,11 @@ CCatalogWebResponse
 {
   Success=1
   SessionID=343882
-  Catalog URL=${siteUrl}/gateway/catalog.php
-  Download URL=${siteUrl}/levels/download.php?File=downloads/raw/
-  Submit URL=${siteUrl}/levels/ri_submitform.php
-  Image URL=${imageUrl}
-  Rate URL=${siteUrl}/gateway/syncratings.php
+  Catalog URL={$siteUrl}/gateway/catalog.php
+  Download URL={$siteUrl}/levels/download.php?File=downloads/raw/
+  Submit URL={$siteUrl}/levels/ri_submitform.php
+  Image URL={$imageUrl}
+  Rate URL={$siteUrl}/gateway/syncratings.php
   Can Test PreRelease Levels=
   Can Apply Star Tags=
   New Build Message=Go to www.RicochetInfinity.com to download an update for Ricochet Infinity

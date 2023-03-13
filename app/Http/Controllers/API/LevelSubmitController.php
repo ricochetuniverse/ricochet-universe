@@ -56,8 +56,8 @@ class LevelSubmitController extends Controller
 CWebResponse
 {
   SessionID=343882
-  Success=${success}
-  ErrorMessage=${error}
+  Success={$success}
+  ErrorMessage={$error}
 }
 EOF;
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Url\Url;
 
@@ -47,7 +48,7 @@ use Spatie\Url\Url;
  */
 class LevelRound extends Model
 {
-    public function levelSet()
+    public function levelSet(): BelongsTo
     {
         return $this->belongsTo(LevelSet::class);
     }

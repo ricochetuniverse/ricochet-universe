@@ -14,10 +14,7 @@ class DownloadLevelSet implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * @var LevelSet
-     */
-    protected $levelSet;
+    protected LevelSet $levelSet;
 
     /**
      * Create a new job instance.
@@ -30,11 +27,10 @@ class DownloadLevelSet implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function handle()
+    public function handle(): void
     {
         if (! $this->levelSet->alternate_download_url) {
             return;

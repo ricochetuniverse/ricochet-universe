@@ -35,10 +35,8 @@ class RepairLevelSetRounds extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $dryRun = $this->option('dry-run');
 

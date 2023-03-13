@@ -21,9 +21,8 @@ class LevelSetName implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         // Game editor blocks these symbols: * / \ | " ; : < > ?
 
@@ -32,10 +31,8 @@ class LevelSetName implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'The :attribute contains special/non-alpha-numeric characters that are not allowed, please simplify and remove them.';
     }

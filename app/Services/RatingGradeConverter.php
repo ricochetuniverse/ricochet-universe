@@ -8,7 +8,7 @@ class RatingGradeConverter
 
     public const LOWEST_RATING = 2;
 
-    public static function getGrade(float $rating)
+    public static function getGrade(float $rating): string
     {
         if ($rating >= 14.5001) {
             return 'A+';
@@ -41,7 +41,7 @@ class RatingGradeConverter
         return '';
     }
 
-    public static function getUserGrade(int $rating)
+    public static function getUserGrade(int $rating): string
     {
         $grades = [
             2 => 'F',
@@ -62,7 +62,7 @@ class RatingGradeConverter
         return $grades[$rating];
     }
 
-    public static function getScaledRatingPercentage(float $scaled)
+    public static function getScaledRatingPercentage(float $scaled): float
     {
         return 100 / (static::HIGHEST_RATING - static::LOWEST_RATING) * ($scaled - static::LOWEST_RATING);
     }

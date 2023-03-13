@@ -24,10 +24,8 @@ class AddLevelSet extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $memoryLimit = $this->option('memory_limit');
         if ($memoryLimit) {

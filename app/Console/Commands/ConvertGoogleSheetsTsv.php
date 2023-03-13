@@ -36,11 +36,9 @@ class ConvertGoogleSheetsTsv extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
-     *
      * @throws \Exception
      */
-    public function handle()
+    public function handle(): void
     {
         $file = file_get_contents($this->argument('file'));
 
@@ -58,7 +56,7 @@ class ConvertGoogleSheetsTsv extends Command
             $line = $lines[$i];
 
             if (! $startProcessing) {
-                if (strpos($line, "\tid\t") === 0) {
+                if (str_starts_with($line, "\tid\t")) {
                     $startProcessing = true;
                 }
 

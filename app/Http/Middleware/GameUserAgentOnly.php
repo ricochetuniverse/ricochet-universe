@@ -17,7 +17,7 @@ class GameUserAgentOnly
     public function handle(Request $request, Closure $next)
     {
         $userAgent = $request->userAgent();
-        if (strpos($userAgent, 'Ricochet ') === 0 || strpos($userAgent, 'Rebound ') === 0) {
+        if (str_starts_with($userAgent, 'Ricochet ') || str_starts_with($userAgent, 'Rebound ')) {
             return $next($request);
         }
 

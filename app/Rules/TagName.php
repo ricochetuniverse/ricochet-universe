@@ -22,9 +22,8 @@ class TagName implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         // In-game catalog uses these characters as a delimiter
         return ! Str::contains($value, [',', ';']);
@@ -32,10 +31,8 @@ class TagName implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'The :attribute cannot contain commas or semicolons.';
     }

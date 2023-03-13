@@ -40,10 +40,8 @@ class RepairLevelSetInfo extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $options = $this->options();
         if ($options['id'] !== null && $options['legacy_id'] !== null) {

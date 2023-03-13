@@ -17,10 +17,7 @@ class ParseLevelSet implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * @var LevelSet
-     */
-    protected $levelSet;
+    protected LevelSet $levelSet;
 
     /**
      * Create a new job instance.
@@ -33,11 +30,10 @@ class ParseLevelSet implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
      *
      * @throws \Exception
      */
-    public function handle()
+    public function handle(): void
     {
         // Can't do anything if the level set file isn't available
         if (! $this->levelSet->downloaded_file_name) {

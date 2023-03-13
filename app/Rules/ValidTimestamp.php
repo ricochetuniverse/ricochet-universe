@@ -22,19 +22,16 @@ class ValidTimestamp implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         return filter_var($value, FILTER_VALIDATE_INT) !== false && $value >= 0 && $value <= Carbon::now()->addYear()->getTimestamp();
     }
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'The :attribute must be a valid timestamp.';
     }
