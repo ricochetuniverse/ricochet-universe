@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateTagGroupsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('tagging_tag_groups', function (Blueprint $table) {
             $table->increments('id');
@@ -14,7 +14,7 @@ class CreateTagGroupsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::drop('tagging_tag_groups');
     }

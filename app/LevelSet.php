@@ -74,10 +74,6 @@ use Spatie\Url\Url;
  * @method static \Illuminate\Database\Eloquent\Builder|LevelSet withAnyTag($tagNames)
  * @method static \Illuminate\Database\Eloquent\Builder|LevelSet withoutTags($tagNames)
  *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelRound> $levelRounds
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Mod> $mods
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tagged> $tagged
- *
  * @mixin \Eloquent
  */
 class LevelSet extends Model

@@ -8,10 +8,8 @@ class AddAlternateDownloadUrlColumnToLevelsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('level_sets', function (Blueprint $table) {
             $table->string('alternate_download_url')->default('');
@@ -20,10 +18,8 @@ class AddAlternateDownloadUrlColumnToLevelsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('level_sets', function (Blueprint $table) {
             $table->dropColumn('alternate_download_url');

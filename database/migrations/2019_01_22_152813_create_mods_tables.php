@@ -8,10 +8,8 @@ class CreateModsTables extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('mods', function (Blueprint $table) {
             $table->increments('id');
@@ -35,10 +33,8 @@ class CreateModsTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('level_sets_mods');
         Schema::dropIfExists('mods');

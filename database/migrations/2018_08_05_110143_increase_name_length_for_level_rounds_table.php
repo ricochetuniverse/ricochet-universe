@@ -8,10 +8,8 @@ class IncreaseNameLengthForLevelRoundsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('level_rounds', function (Blueprint $table) {
             $table->string('name', 550)->change();
@@ -20,10 +18,8 @@ class IncreaseNameLengthForLevelRoundsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('level_rounds', function (Blueprint $table) {
             $table->string('name', 255)->change();
