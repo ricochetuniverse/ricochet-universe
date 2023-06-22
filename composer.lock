@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7fca8f5160627adff7b6afdc483d37e8",
+    "content-hash": "7e76b1a536df69dd02c6d5f1288c9d7a",
     "packages": [
         {
             "name": "brick/math",
@@ -3269,6 +3269,7 @@
                 "issues": "https://github.com/php-http/message-factory/issues",
                 "source": "https://github.com/php-http/message-factory/tree/master"
             },
+            "abandoned": "psr/http-factory",
             "time": "2015-12-19T14:08:53+00:00"
         },
         {
@@ -10692,7 +10693,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2.3",
+        "php": "^8.2.7",
         "ext-zlib": "*"
     },
     "platform-dev": [],

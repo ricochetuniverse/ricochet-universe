@@ -17,7 +17,7 @@
         "docs": "https://gitlab.com/ngyikp/ricochet-levels"
     },
     "require": {
-        "php": "^8.2.3",
+        "php": "^8.2.7",
         "ext-zlib": "*",
         "doctrine/dbal": "^3.6",
         "guzzlehttp/guzzle": "^7.5",
