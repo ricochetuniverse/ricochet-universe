@@ -1,36 +1,23 @@
 // @flow
 
-import nullthrows from 'nullthrows';
+const trackingId = document
+    .getElementById('google-analytics-tracking-id')
+    ?.getAttribute('content');
 
-declare var ga: any;
+if (trackingId != null && trackingId !== '') {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + trackingId;
+    document.body?.appendChild(script);
 
-const trackingId = document.getElementById('google-analytics-tracking-id');
-if (trackingId) {
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        (i[r] =
-            i[r] ||
-            function () {
-                (i[r].q = i[r].q || []).push(arguments);
-            }),
-            (i[r].l = 1 * new Date());
-        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
-        a.async = true;
-        a.src = g;
-        nullthrows(m.parentNode).insertBefore(a, m);
-    })(
-        window,
-        document,
-        'script',
-        'https://www.google-analytics.com/analytics.js',
-        'ga'
-    );
+    window.dataLayer = window.dataLayer || [];
+    // eslint-disable-next-line no-inner-declarations
+    function gtag() {
+        window.dataLayer.push(arguments);
+    }
+    // $FlowFixMe[extra-arg]
+    gtag('js', new Date());
 
-    ga('create', {
-        trackingId: trackingId.getAttribute('content'),
-        cookieDomain: 'auto',
-        siteSpeedSampleRate: 100,
-    });
-    ga('set', 'transport', 'beacon');
-    ga('send', 'pageview');
+    // $FlowFixMe[extra-arg]
+    gtag('config', trackingId);
 }
