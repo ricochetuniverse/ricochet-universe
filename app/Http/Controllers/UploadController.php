@@ -21,6 +21,7 @@ class UploadController extends Controller
         // url and name parameters are validated inside the processor
         $this->validate($request, [
             'url' => ['required', 'string', 'unique:App\\LevelSet,alternate_download_url'],
+            'name' => ['required', 'string'],
             'timestamp' => ['required', 'integer', new ValidTimestamp],
         ], [
             'url.unique' => 'The level set URL is already submitted.',

@@ -100,7 +100,7 @@
 
                     <div class="d-none d-md-flex flex-grow-1">
                         <form class="form-inline my-2 my-md-0 ml-md-2 flex-grow-1 justify-content-end" method="GET" action="{{ action('LevelController@index') }}">
-                            <input class="form-control navbar-search" type="search" name="search" placeholder="Search level sets by name/author" title="Search level sets by name/author" value="{{ request()->input('search') }}">
+                            <input class="form-control navbar-search" type="search" name="search" placeholder="Search level sets by name/author" title="Search level sets by name/author" value="{{ is_string(request()->input('search')) ? request()->input('search') : '' }}">
                             <button class="btn btn-outline-primary ml-2" type="submit">Search</button>
                         </form>
                     </div>

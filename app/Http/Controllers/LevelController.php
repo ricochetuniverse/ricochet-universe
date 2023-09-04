@@ -8,6 +8,7 @@ use App\LevelSet;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LevelController extends Controller
 {
@@ -45,15 +46,15 @@ class LevelController extends Controller
 
         $this->addOrderBysForLevelSets($levelSets, $orderBy, $orderDirection);
 
-        if (strlen($author) > 0) {
+        if (is_string($author) && strlen($author) > 0) {
             $levelSets->where('author', $author);
         }
 
-        if (strlen($tag) > 0) {
+        if (is_string($tag) && strlen($tag) > 0) {
             $levelSets->withAnyTag($tag);
         }
 
-        if (strlen($search) > 0) {
+        if (is_string($search) && strlen($search) > 0) {
             $levelSets->where('name', 'like', '%'.$search.'%')
                 ->orWhere('author', 'like', '%'.$search.'%');
         }
@@ -77,6 +78,10 @@ class LevelController extends Controller
     public function show(Request $request)
     {
         $name = $request->input('levelsetname');
+
+        if (! is_string($name)) {
+            throw new NotFoundHttpException;
+        }
 
         $levelSet = LevelSet::where('name', $name)
             ->with([

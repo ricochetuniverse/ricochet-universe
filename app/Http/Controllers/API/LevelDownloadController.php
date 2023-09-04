@@ -18,7 +18,7 @@ class LevelDownloadController extends Controller
     {
         $file = $request->input('File', '');
 
-        if (strlen($file) <= 0) {
+        if (! is_string($file) || strlen($file) <= 0) {
             throw new NotFoundHttpException;
         }
 

@@ -43,7 +43,7 @@
                     <form action="{{ action('LevelController@index') }}" method="GET" class="form-inline">
                         <input class="form-control w-100" type="search" name="search"
                                placeholder="Search level sets by name/author" title="Search level sets by name/author"
-                               value="{{ request()->input('search') }}">
+                               value="{{ is_string(request()->input('search')) ? request()->input('search') : '' }}">
 
                         <div class="w-100 mb-2"></div>
 
@@ -70,7 +70,7 @@
                         </select>
 
                         @foreach (request()->input() as $name => $value)
-                            @if (!in_array($name, ['search', 'orderBy', 'orderDir']))
+                            @if (is_string($value) && !in_array($name, ['search', 'orderBy', 'orderDir']))
                                 <input type="hidden" name="{{ $name }}" value="{{ $value }}">
                             @endif
                         @endforeach
@@ -238,12 +238,12 @@
                 @else
                     <div class="card">
                         <div class="card-body">
-                            @if (request()->input('search'))
+                            @if (is_string(request()->input('search')) && strlen(request()->input('search') > 0))
                                 No level sets found matching “{{ request()->input('search') }}”.
                                 <a href="{{ action('LevelController@index') }}">Show all level sets</a>
                             @else
                                 No level sets found.
-                                <a href="{{ action('LevelController@index') }}">Go back to main page?</a>
+                                <a href="{{ action('LevelController@index') }}">Go back to main page</a>
                             @endif
                         </div>
                     </div>

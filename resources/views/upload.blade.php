@@ -41,8 +41,7 @@
 
                         <form class="form-inline my-3" method="GET" action="{{ action('LevelController@index') }}">
                             <input class="form-control mr-2" type="search" name="search"
-                                   placeholder="Search levels" aria-label="Search levels"
-                                   value="{{ request()->input('search') }}">
+                                   placeholder="Search levels" aria-label="Search levels">
 
                             <button class="btn btn-outline-primary" type="submit">Search</button>
                         </form>
