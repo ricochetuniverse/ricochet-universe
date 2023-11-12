@@ -13,7 +13,7 @@
 
                     <div class="card-body">
                         <p>
-                            This website is created and hosted by <a href="https://ngyikp.com">Ng Yik Phang</a>.
+                            This website is created and hosted by <a href="https://ngyikp.com">ngyikp</a>.
                             You can check out the
                             <a href="https://gitlab.com/ngyikp/ricochet-levels">open source code at GitLab</a>.
                         </p>
