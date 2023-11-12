@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e76b1a536df69dd02c6d5f1288c9d7a",
+    "content-hash": "4cf6bda92b174c5591f39a8e0fdbabd2",
     "packages": [
         {
             "name": "brick/math",
@@ -4506,16 +4506,16 @@
         },
         {
             "name": "socialiteproviders/discord",
-            "version": "4.1.2",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SocialiteProviders/Discord.git",
-                "reference": "11f6a8ded5b1948723886f2e5413b91139fcce6b"
+                "reference": "c71c379acfdca5ba4aa65a3db5ae5222852a919c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Discord/zipball/11f6a8ded5b1948723886f2e5413b91139fcce6b",
-                "reference": "11f6a8ded5b1948723886f2e5413b91139fcce6b",
+                "url": "https://api.github.com/repos/SocialiteProviders/Discord/zipball/c71c379acfdca5ba4aa65a3db5ae5222852a919c",
+                "reference": "c71c379acfdca5ba4aa65a3db5ae5222852a919c",
                 "shasum": ""
             },
             "require": {
@@ -4552,7 +4552,7 @@
                 "issues": "https://github.com/socialiteproviders/providers/issues",
                 "source": "https://github.com/socialiteproviders/providers"
             },
-            "time": "2023-02-01T08:54:49+00:00"
+            "time": "2023-07-24T23:28:47+00:00"
         },
         {
             "name": "socialiteproviders/manager",

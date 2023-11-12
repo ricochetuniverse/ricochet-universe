@@ -19,6 +19,8 @@ return [
         'client_secret' => env('DISCORD_SECRET'),
         'redirect' => env('DISCORD_REDIRECT_URI'),
         'user_id_whitelist' => explode(',', env('DISCORD_USER_ID_WHITELIST', '')),
+
+        'avatar_default_extension' => 'png',
     ],
 
 ];

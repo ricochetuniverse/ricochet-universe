@@ -27,7 +27,7 @@
         "predis/predis": "^1.1",
         "rtconner/laravel-tagging": "^4.0",
         "sentry/sentry-laravel": "^3.2",
-        "socialiteproviders/discord": "^4.1",
+        "socialiteproviders/discord": "^4.2",
         "spatie/url": "^2.2"
     },
     "require-dev": {
