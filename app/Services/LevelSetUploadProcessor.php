@@ -70,7 +70,8 @@ class LevelSetUploadProcessor
                 'required',
                 'url',
                 function ($attribute, $value, $fail) {
-                    if (! Str::endsWith($value, ['.RicochetI', '.RicochetLW'])) {
+                    $path = parse_url($value, PHP_URL_PATH);
+                    if (! Str::endsWith($path, ['.RicochetI', '.RicochetLW'])) {
                         return $fail('The URL must end with a .RicochetI or .RicochetLW file extension.');
                     }
                 },
@@ -130,9 +131,10 @@ class LevelSetUploadProcessor
 
     private function getFileExtension(string $url): string
     {
-        if (Str::endsWith($url, '.RicochetI')) {
+        $path = parse_url($url, PHP_URL_PATH);
+        if (Str::endsWith($path, '.RicochetI')) {
             return '.RicochetI';
-        } elseif (Str::endsWith($url, '.RicochetLW')) {
+        } elseif (Str::endsWith($path, '.RicochetLW')) {
             return '.RicochetLW';
         }
 
