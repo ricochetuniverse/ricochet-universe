@@ -48,15 +48,15 @@ final class Parser
 
     public function __construct()
     {
-        if (empty(static::$propertyReferencesReversed)) {
-            foreach (static::$propertyReferences as $group => $properties) {
+        if (empty(self::$propertyReferencesReversed)) {
+            foreach (self::$propertyReferences as $group => $properties) {
                 foreach ($properties as $property) {
-                    static::$propertyReferencesReversed[$property] = $group;
+                    self::$propertyReferencesReversed[$property] = $group;
                 }
             }
         }
 
-        if (empty(static::$modInfo)) {
+        if (empty(self::$modInfo)) {
             $this->preloadModInfo();
         }
     }
@@ -109,7 +109,7 @@ final class Parser
                 }
             }
 
-            static::$modInfo[$info['trigger_codename']] = $types;
+            self::$modInfo[$info['trigger_codename']] = $types;
         }
     }
 
@@ -122,7 +122,7 @@ final class Parser
             throw new \Exception('Level sets should start with CRoundSetUserMade as the first line');
         }
 
-        $levelSet = new LevelSet();
+        $levelSet = new LevelSet;
 
         $nested = [];
         $previousKey = '';
@@ -139,7 +139,7 @@ final class Parser
                 $nested[] = ['key' => $previousKey, 'value' => $previousValue];
 
                 if ($previousKey === 'Round') {
-                    $currentWorkingRound = new Round();
+                    $currentWorkingRound = new Round;
                 } elseif ($previousKey === 'Compressed Thumbnail') {
                     $currentWorkingRoundPicture = '';
                 } elseif ($previousKey === 'Condition' && $previousValue === 'CExpressionRecallButtonPressed') {
@@ -207,13 +207,13 @@ final class Parser
 
     private function checkPropertyForModUsage(LevelSet $levelSet, string $key, string $value): void
     {
-        foreach (static::$modInfo as $modName => $modFileTypeGroups) {
+        foreach (self::$modInfo as $modName => $modFileTypeGroups) {
             if (in_array($modName, $levelSet->modsUsed, true)) {
                 continue;
             }
 
-            if (isset(static::$propertyReferencesReversed[$key])) {
-                $type = static::$propertyReferencesReversed[$key];
+            if (isset(self::$propertyReferencesReversed[$key])) {
+                $type = self::$propertyReferencesReversed[$key];
 
                 if (isset($modFileTypeGroups[$type])) {
                     foreach ($modFileTypeGroups[$type] as $file) {

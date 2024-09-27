@@ -41,9 +41,6 @@ class LevelSetUploadProcessor
         $this->name = $name;
     }
 
-    /**
-     * @return Carbon
-     */
     public function getDatePosted(): ?Carbon
     {
         return $this->datePosted;
@@ -120,7 +117,7 @@ class LevelSetUploadProcessor
      */
     private function downloadAndSaveFile(string $url, string $name): string
     {
-        $client = new \GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client;
         $response = $client->request('GET', $url);
 
         $disk = Storage::disk('levels');

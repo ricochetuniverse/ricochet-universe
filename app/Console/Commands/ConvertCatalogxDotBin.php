@@ -92,8 +92,8 @@ class ConvertCatalogxDotBin extends Command
             $levelSet->created_at = Carbon::parse($rowData[4]);
             $levelSet->featured = false; // (bool)$rowData[5];
             $levelSet->game_version = (int) $rowData[6];
-//            $level->prerelease = $rowData[7];
-//            $level->requiredBuild = $rowData[8];
+            // $level->prerelease = $rowData[7];
+            // $level->requiredBuild = $rowData[8];
             $levelSet->image_url = $this->convertImageUrl($rowData[9]);
             $levelSet->rating = (float) $rowData[10];
             $levelSet->downloads = max($levelSet->downloads, (int) $rowData[11]);
@@ -105,9 +105,9 @@ class ConvertCatalogxDotBin extends Command
             $levelSet->fun_rating_count = (int) $rowData[17];
             $levelSet->graphics_rating = (float) $rowData[18];
             $levelSet->graphics_rating_count = (int) $rowData[19];
-//            $level->similarLevels = array_map(function ($id) {
-//                return (int)$id;
-//            }, array_filter(explode(';', $rowData[20])));
+            // $level->similarLevels = array_map(function ($id) {
+            //     return (int)$id;
+            // }, array_filter(explode(';', $rowData[20])));
 
             if (Str::startsWith($levelSet->image_url, 'cache/')) {
                 $parts = explode('/', $levelSet->image_url);

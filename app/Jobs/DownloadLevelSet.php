@@ -49,7 +49,7 @@ class DownloadLevelSet implements ShouldQueue
             return;
         }
 
-        $client = new \GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client;
         $response = $client->request('GET', $this->levelSet->alternate_download_url);
 
         $disk->put($fileName, $response->getBody());

@@ -69,7 +69,7 @@ EOF;
     }
 
     /**
-     * @param $level LevelSet
+     * @param  $level  LevelSet
      * @return string
      */
     private function transformLevelSetToCatalogItem(LevelSet $level)
