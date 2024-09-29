@@ -20,14 +20,14 @@ class CreateLevelSetsTable extends Migration
             $table->boolean('featured')->default(false);
             $table->tinyInteger('game_version', false, true);
             $table->string('image_url');
-            $table->float('rating', 6, 5)->index()->default(0);
+            $table->float('rating', 5)->index()->default(0);
             $table->unsignedInteger('downloads')->index()->default(0);
             $table->text('description');
-            $table->float('overall_rating', 6, 4)->default(0);
+            $table->float('overall_rating', 4)->default(0);
             $table->unsignedInteger('overall_rating_count')->default(0);
-            $table->float('fun_rating', 6, 4)->default(0);
+            $table->float('fun_rating', 4)->default(0);
             $table->unsignedInteger('fun_rating_count')->default(0);
-            $table->float('graphics_rating', 6, 4)->default(0);
+            $table->float('graphics_rating', 4)->default(0);
             $table->unsignedInteger('graphics_rating_count')->default(0);
             $table->timestamps();
         });
