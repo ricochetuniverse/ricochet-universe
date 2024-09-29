@@ -51,6 +51,9 @@ module.exports = {
             {
                 test: /\.(jpg|gif|png|svg|eot|ttf|woff|woff2)$/,
                 loader: 'file-loader',
+                options: {
+                    name: '[md5:contenthash].[ext]',
+                },
             },
         ],
     },

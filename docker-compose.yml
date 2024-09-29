@@ -39,7 +39,7 @@ services:
       - php
 
   node:
-    image: node:14
+    image: node:20
     volumes:
       - .:/var/ricochetuniverse:delegated
     working_dir: /var/ricochetuniverse

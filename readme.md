@@ -4,11 +4,20 @@ Visit the live website at [https://www.ricochetuniverse.com](https://www.ricoche
 
 ## Server requirements
 
-You can use the provided `docker-compose.yml` to easily set up the server environment. Reading that file is also useful if you want to set it up on bare metal too.
+Use the provided `docker-compose.yml` to easily set up the server environment.
 
-Note that the Docker Compose file is relatively new, there are some known issues such as the Content Security Policy being very strict and blocking Laravel Debugbar.
+For bare-metal installs:
 
-You should set up [queue worker](https://laravel.com/docs/6.x/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
+* [Caddy](https://caddyserver.com)
+    * Use Caddy instead of PHP's development server to match production usage as there can be [subtle bugs/differences](https://gitlab.com/ngyikp/ricochet-levels/-/issues/3)
+* [PHP 8.2](https://www.php.net)
+* [Composer](https://getcomposer.org)
+* [MariaDB 10.5](https://mariadb.org)
+* [Node.js v20](https://nodejs.org)
+* [Yarn](https://yarnpkg.com)
+* [Redis 6.2](https://redis.io)
+
+Also consider setting up a [queue worker](https://laravel.com/docs/10.x/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
 
 ## Installation for development
 
@@ -43,6 +52,8 @@ Extra steps:
     ```
 
 ## Some useful info
+
+There are some known issues such as the Content Security Policy being very strict and blocking Laravel Debugbar.
 
 ### User-agent
 
