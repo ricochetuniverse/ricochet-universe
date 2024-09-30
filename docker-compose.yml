@@ -7,7 +7,7 @@ services:
     #   - mariadb
 
   mariadb:
-    image: mariadb:10.5.8
+    image: mariadb:11.4.3
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       MYSQL_DATABASE: ${DB_DATABASE}
