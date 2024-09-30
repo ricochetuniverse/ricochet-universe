@@ -8,14 +8,14 @@ Use the provided `docker-compose.yml` to easily set up the server environment.
 
 For bare-metal installs:
 
-* [Caddy](https://caddyserver.com)
-    * Use Caddy instead of PHP's development server to match production usage as there can be [subtle bugs/differences](https://gitlab.com/ngyikp/ricochet-levels/-/issues/3)
-* [PHP 8.3](https://www.php.net)
-* [Composer](https://getcomposer.org)
-* [MariaDB 11.4](https://mariadb.org)
-* [Node.js v20](https://nodejs.org)
-* [Yarn](https://yarnpkg.com)
-* [Redis 6.2](https://redis.io)
+-   [Caddy](https://caddyserver.com)
+    -   Use Caddy instead of PHP's development server to match production usage as there can be [subtle bugs/differences](https://gitlab.com/ngyikp/ricochet-levels/-/issues/3)
+-   [PHP 8.3](https://www.php.net)
+-   [Composer](https://getcomposer.org)
+-   [MariaDB 11.4](https://mariadb.org)
+-   [Node.js v20](https://nodejs.org)
+-   [Yarn](https://yarnpkg.com)
+-   [Redis 6.2](https://redis.io)
 
 Also consider setting up a [queue worker](https://laravel.com/docs/10.x/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
 
