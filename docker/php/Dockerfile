@@ -1,4 +1,4 @@
-FROM php:8.2.23-fpm-alpine
+FROM php:8.3.12-fpm-alpine
 
 ENV REDIS_VERSION 5.3.7
 

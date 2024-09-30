@@ -10,7 +10,7 @@ For bare-metal installs:
 
 * [Caddy](https://caddyserver.com)
     * Use Caddy instead of PHP's development server to match production usage as there can be [subtle bugs/differences](https://gitlab.com/ngyikp/ricochet-levels/-/issues/3)
-* [PHP 8.2](https://www.php.net)
+* [PHP 8.3](https://www.php.net)
 * [Composer](https://getcomposer.org)
 * [MariaDB 10.5](https://mariadb.org)
 * [Node.js v20](https://nodejs.org)
