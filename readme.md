@@ -16,8 +16,8 @@ For bare-metal installs:
 -   [Node.js v20](https://nodejs.org)
 -   [Yarn](https://yarnpkg.com)
 -   [Redis 6.2](https://redis.io)
-
-Also consider setting up a [queue worker](https://laravel.com/docs/10.x/queues#supervisor-configuration) and set the `QUEUE_DRIVER` to something other than `sync`.
+-   A [queue worker](https://laravel.com/docs/11.x/queues#supervisor-configuration)
+-   A [task scheduler](https://laravel.com/docs/11.x/scheduling#running-the-scheduler)
 
 ## Installation for development
 

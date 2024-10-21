@@ -2,9 +2,29 @@ services:
   php:
     build: ./docker/php
     volumes:
-      - .:/var/ricochetuniverse:delegated
+      - .:/var/ricochetuniverse
     # depends_on:
     #   - mariadb
+
+  queue:
+    build: ./docker/php
+    # https://laravel.com/docs/11.x/queues#running-the-queue-worker
+    command: php artisan queue:listen redis
+    volumes:
+      - .:/var/ricochetuniverse
+    depends_on:
+      - mariadb
+      - redis
+
+  schedule:
+    build: ./docker/php
+    # https://laravel.com/docs/11.x/scheduling#running-the-scheduler-locally
+    command: php artisan schedule:work
+    volumes:
+      - .:/var/ricochetuniverse
+    depends_on:
+      - mariadb
+      - redis
 
   mariadb:
     image: mariadb:11.4.3
@@ -19,7 +39,7 @@ services:
       - mariadb-data:/var/lib/mysql
     # uncomment for debugging
     ports:
-      - '3306:3306'
+      - '127.0.0.1:3306:3306'
 
   caddy:
     image: caddy:2.8.4-alpine
@@ -41,14 +61,14 @@ services:
   node:
     image: node:20
     volumes:
-      - .:/var/ricochetuniverse:delegated
+      - .:/var/ricochetuniverse
     working_dir: /var/ricochetuniverse
 
   redis:
     image: redis:6.2.14-alpine
     # uncomment for debugging
     # ports:
-    #   - '6379:6379'
+    #   - '127.0.0.1:6379:6379'
 
 volumes:
   mariadb-data:
