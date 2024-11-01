@@ -11,10 +11,7 @@ type Props = $ReadOnly<{|
 
 type MonacoEditorComponent = {
     editor: {
-        layout: (dimension?: {|
-            width: number,
-            height: number,
-        |}) => void,
+        layout: (dimension?: {|width: number, height: number|}) => void,
         ...
     },
     ...

@@ -69,7 +69,7 @@ declare module 'preact/hooks' {
     ): void;
 
     declare export function useCallback<
-        T: (...args: $ReadOnlyArray<empty>) => mixed
+        T: (...args: $ReadOnlyArray<empty>) => mixed,
     >(
         callback: T,
         inputs: ?$ReadOnlyArray<mixed>

@@ -13,7 +13,7 @@
   "private": true,
   "license": "MPL-2.0",
   "engines": {
-    "node": ">=14"
+    "node": ">=20"
   },
   "scripts": {
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --mode development --progress",
@@ -69,7 +69,7 @@
     "monaco-editor-webpack-plugin": "1.9.0",
     "postcss": "7.0.32",
     "postcss-loader": "3.0.0",
-    "prettier": "2.6.1",
+    "prettier": "3.3.3",
     "sass": "1.26.8",
     "sass-loader": "8.0.2",
     "style-loader": "2.0.0",

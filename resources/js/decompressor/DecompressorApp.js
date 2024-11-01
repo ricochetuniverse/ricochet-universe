@@ -156,8 +156,8 @@ export default class DecompressorApp extends Component<{||}, State> {
                                   ', '
                               )}`
                             : this.state.modRequirement.mods.length === 1
-                            ? `This level set requires the ${this.state.modRequirement.mods[0]} mod to play.`
-                            : 'This level set requires files that are not available on the base game.'}
+                              ? `This level set requires the ${this.state.modRequirement.mods[0]} mod to play.`
+                              : 'This level set requires files that are not available on the base game.'}
                     </Alert>
                 ) : null}
 

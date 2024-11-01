@@ -1,5 +1,5 @@
-// flow-typed signature: d389a5ff07fdd7c2d87c081248b3c93b
-// flow-typed version: ba379f9a63/webpack_v4.x.x/flow_>=v0.104.x
+// flow-typed signature: e40f3b89b89181fa3b72a3f8cd6519f7
+// flow-typed version: 9224489958/webpack_v4.x.x/flow_>=v0.104.x
 
 declare module 'webpack' {
   import typeof { Server } from 'http';
@@ -17,7 +17,7 @@ declare module 'webpack' {
     hasErrors(): boolean;
     hasWarnings(): boolean;
     toJson(options?: StatsOptions): any;
-    toString(options?: { ...StatsOptions, colors?: boolean, ... }): string;
+    toString(options?: { ...StatsOptionsObject, colors?: boolean, ... }): string;
   }
 
   declare type Callback = (error: WebpackError, stats: Stats) => void;
@@ -192,11 +192,10 @@ declare module 'webpack' {
 
   declare type WebpackPluginFunction = (compiler: WebpackCompiler) => void;
 
-  declare type WebpackPluginInstance = {
-    [k: string]: any,
-    apply: WebpackPluginFunction,
-    ...
-  };
+  declare interface WebpackPluginInstance {
+    apply: WebpackPluginFunction;
+    [k: string]: any;
+  }
 
   declare type OptimizationSplitChunksOptions = {
     automaticNameDelimiter?: string,
@@ -378,10 +377,7 @@ declare module 'webpack' {
 
   declare type FilterTypes = FilterItemTypes | Array<FilterItemTypes>;
 
-  declare type StatsOptions =
-    | boolean
-    | ('none' | 'errors-only' | 'minimal' | 'normal' | 'detailed' | 'verbose')
-    | {
+  declare type StatsOptionsObject = {
     all?: boolean,
     assets?: boolean,
     assetsSort?: string,
@@ -435,6 +431,11 @@ declare module 'webpack' {
     warningsFilter?: FilterTypes,
     ...
   };
+
+  declare type StatsOptions =
+    | boolean
+    | ('none' | 'errors-only' | 'minimal' | 'normal' | 'detailed' | 'verbose')
+    | StatsOptionsObject;
 
   declare type WatchOptions = {
     aggregateTimeout?: number,

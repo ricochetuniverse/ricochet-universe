@@ -1,5 +1,5 @@
-// flow-typed signature: 835cb38ea2a30f3c659cd6fac5b33242
-// flow-typed version: c6154227d1/react-loadable_v5.x.x/flow_>=v0.104.x
+// flow-typed signature: 2c244034b1eb47cf32a751086ebe2e30
+// flow-typed version: 6912183195/react-loadable_v5.x.x/flow_>=v0.104.x <=v0.200.x
 
 declare type $Await<T, P: Promise<T>> = T;
 
