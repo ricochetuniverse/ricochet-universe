@@ -5,6 +5,7 @@ const path = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 
 module.exports = {
@@ -92,5 +93,12 @@ module.exports = {
             filename: '[name].[contenthash].css',
         }),
     ],
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                minify: TerserPlugin.esbuildMinify,
+            }),
+        ],
+    },
     devtool: false,
 };
