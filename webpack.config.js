@@ -3,9 +3,9 @@
 const path = require('path');
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 
 module.exports = {
     entry: {
@@ -50,10 +50,7 @@ module.exports = {
             },
             {
                 test: /\.(jpg|gif|png|svg|eot|ttf|woff|woff2)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[md5:contenthash].[ext]',
-                },
+                type: 'asset/resource',
             },
         ],
     },
@@ -72,7 +69,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
 
-        new ManifestPlugin({
+        new WebpackManifestPlugin({
             basePath: '/',
             fileName: path.resolve(__dirname, 'public/mix-manifest.json'),
         }),
