@@ -3,11 +3,7 @@
 module.exports = (api) => {
     const env = api.env();
 
-    const plugins = [
-        '@babel/plugin-transform-runtime',
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-syntax-dynamic-import',
-    ];
+    const plugins = [];
 
     if (env === 'production') {
         plugins.push([
