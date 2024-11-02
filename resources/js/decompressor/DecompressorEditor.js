@@ -2,8 +2,8 @@
 
 import {Component, createRef, h} from 'preact';
 
-import MonacoEditor from 'react-monaco-editor/lib/editor';
-import 'monaco-editor/esm/vs/base/browser/ui/codiconLabel/codicon/codicon.css'; // https://github.com/microsoft/monaco-editor/issues/1759
+import MonacoEditor from 'react-monaco-editor';
+import 'monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.css'; // https://github.com/microsoft/monaco-editor/issues/1759
 
 type Props = $ReadOnly<{|
     text: string,
@@ -32,7 +32,6 @@ export default class DecompressorEditor extends Component<Props> {
                     value={this.props.text}
                     options={{
                         lineNumbersMinChars: 8,
-                        renderControlCharacters: true,
                         renderWhitespace: 'all',
                         showFoldingControls: 'always',
                     }}
