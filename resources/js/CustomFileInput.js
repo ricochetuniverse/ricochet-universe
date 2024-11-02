@@ -19,6 +19,7 @@ function CustomFileInput(
 ): React.Node {
     return (
         <div className="custom-file">
+            {/* eslint-disable react/no-unknown-property */}
             <input
                 type="file"
                 {...otherProps}
@@ -28,6 +29,7 @@ function CustomFileInput(
                 allowdirs={directory ? directory : undefined}
                 className="custom-file-input"
             />
+            {/* eslint-enable react/no-unknown-property */}
 
             <label className="custom-file-label">
                 {label ||

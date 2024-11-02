@@ -1,23 +1,24 @@
 {
+    "root": true,
     "extends": [
         "eslint:recommended",
-        "plugin:flowtype/recommended",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
+        "plugin:ft-flow/recommended",
         "plugin:jest/recommended",
         "plugin:jest/style",
-        "plugin:jsx-a11y/recommended"
+        "plugin:jsx-a11y/recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended"
     ],
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "rules": {
         // Variables
         "no-unused-vars": ["error", {"varsIgnorePattern": "Fragment"}],
 
-        // eslint-plugin-flowtype
-        "flowtype/array-style-simple-type": ["error", "shorthand"],
-        "flowtype/newline-after-flow-annotation": ["error"],
-        "flowtype/require-indexer-name": ["error"],
-        "flowtype/require-readonly-react-props": ["error"],
+        // eslint-plugin-ft-flow
+        "ft-flow/array-style-simple-type": ["error", "shorthand"],
+        "ft-flow/newline-after-flow-annotation": ["error"],
+        "ft-flow/require-indexer-name": ["error"],
+        "ft-flow/require-readonly-react-props": ["error"],
 
         // eslint-plugin-react
         "react/button-has-type": ["error"],
@@ -27,7 +28,7 @@
         // JSX-specific rules
         "react/jsx-no-target-blank": ["off"]
     },
-    "plugins": ["flowtype", "react", "jest", "jsx-a11y"],
+    "plugins": ["ft-flow", "jest", "jsx-a11y", "react", "react-hooks"],
     "env": {
         "node": true,
         "es6": true,

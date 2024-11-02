@@ -14,7 +14,7 @@ test('ensure no false detection', async () => {
 
     const modRequirement = checkForMods(levelSet);
 
-    expect(modRequirement.result).toEqual(false);
+    expect(modRequirement.result).toBe(false);
 });
 
 test('Neon Environment detection', async () => {
@@ -28,7 +28,7 @@ test('Neon Environment detection', async () => {
 
     const modRequirement = checkForMods(levelSet);
 
-    expect(modRequirement.result).toEqual(true);
+    expect(modRequirement.result).toBe(true);
     expect(modRequirement.mods).toHaveLength(1);
     expect(modRequirement.mods).toEqual(['Neon Environment']);
 });
@@ -44,7 +44,7 @@ test('Heavy Metal Environment detection', async () => {
 
     const modRequirement = checkForMods(levelSet);
 
-    expect(modRequirement.result).toEqual(true);
+    expect(modRequirement.result).toBe(true);
     expect(modRequirement.mods).toHaveLength(1);
     expect(modRequirement.mods).toEqual(['Heavy Metal Environment']);
 });
@@ -60,7 +60,7 @@ test('HEX detection', async () => {
 
     const modRequirement = checkForMods(levelSet);
 
-    expect(modRequirement.result).toEqual(true);
+    expect(modRequirement.result).toBe(true);
     expect(modRequirement.mods).toHaveLength(1);
     expect(modRequirement.mods).toEqual(['HEX']);
 });
@@ -76,7 +76,7 @@ test('mod powerup inside lottery', async () => {
 
     const modRequirement = checkForMods(levelSet);
 
-    expect(modRequirement.result).toEqual(true);
+    expect(modRequirement.result).toBe(true);
     expect(modRequirement.mods).toHaveLength(1);
     expect(modRequirement.mods).toEqual(['Neon Environment']);
 });
