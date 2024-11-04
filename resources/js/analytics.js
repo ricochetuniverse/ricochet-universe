@@ -11,7 +11,6 @@ if (trackingId != null && trackingId !== '') {
     document.body?.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
-    // eslint-disable-next-line no-inner-declarations
     function gtag() {
         window.dataLayer.push(arguments);
     }
