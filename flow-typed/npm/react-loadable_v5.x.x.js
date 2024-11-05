@@ -1,5 +1,5 @@
-// flow-typed signature: 2c244034b1eb47cf32a751086ebe2e30
-// flow-typed version: 6912183195/react-loadable_v5.x.x/flow_>=v0.104.x <=v0.200.x
+// flow-typed signature: c764f73e95196cfd504f1d76060f8f19
+// flow-typed version: 6912183195/react-loadable_v5.x.x/flow_>=v0.201.x
 
 declare type $Await<T, P: Promise<T>> = T;
 
@@ -24,7 +24,7 @@ declare module 'react-loadable' {
 
   declare type OptionsWithoutRender<TProps> = {
     ...CommonOptions,
-    loader(): Promise<React$ComponentType<TProps> | { default: React$ComponentType<TProps>, ... }>,
+    loader(): Promise<React$ComponentType<TProps> | { +default: React$ComponentType<TProps>, ... }>,
     ...
   };
 
@@ -37,9 +37,9 @@ declare module 'react-loadable' {
 
   declare type Options<TProps, TModule> = OptionsWithoutRender<TProps> | OptionsWithRender<TProps, TModule>;
 
-  declare type MapOptions<TProps, TModules: { +[key: string]: *, ... }> = {
+  declare type MapOptions<TProps, TModules: { +[key: string]: any, ... }> = {
     ...CommonOptions,
-    loader: { [key: $Keys<TModules>]: () => Promise<*>, ... },
+    loader: { [key: $Keys<TModules>]: () => Promise<any>, ... },
     render(loaded: TModules, props: TProps): React$Node,
     ...
   };
@@ -49,15 +49,15 @@ declare module 'react-loadable' {
   }
 
   declare type CaptureProps = { report(moduleName: string): void, ... };
-  
+
   /**
   * A type level function like
   * <T>({ [string]: () => Promise<T> }) -> ({ [string]: T })
   * It would be helpful to apply type arguments to Loadable.Map<> like below.
-  * 
+  *
   * Loadable.Map<Props, typeof { A: () => import("a") }>({...});
   */
-  declare type MapModules<L> = $ObjMap<L, <P>(P) => $Await<*, $Call<P>>>;
+  // declare type MapModules<L> = $ObjMap<L, <P>(P) => $Await<any, $Call<P>>>;
 
   declare module.exports: {
     <TProps, TModule>(opts: Options<TProps, TModule>): Class<LoadableComponent<TProps>>,

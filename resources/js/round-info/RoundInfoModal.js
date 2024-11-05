@@ -27,7 +27,7 @@ type Props = $ReadOnly<{|
     imageUrl: string,
 |}>;
 
-function generateRow(label, text) {
+function generateRow(label: string, text: string) {
     if (!text) {
         return null;
     }

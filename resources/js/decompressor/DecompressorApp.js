@@ -109,6 +109,8 @@ export default class DecompressorApp extends Component<{||}, State> {
             return <IncompatibleBrowser />;
         }
 
+        const result = this.state.result;
+
         return (
             <div className="mb-n3">
                 <Card className="mb-3">
@@ -161,7 +163,7 @@ export default class DecompressorApp extends Component<{||}, State> {
                     </Alert>
                 ) : null}
 
-                {this.state.result ? (
+                {result ? (
                     <>
                         {this.state.blobUrls.image !== '' ? (
                             <Card className="mb-3">
@@ -189,7 +191,7 @@ export default class DecompressorApp extends Component<{||}, State> {
                             </Card>
                         ) : null}
 
-                        {this.state.result.utf8 ? (
+                        {result.utf8 ? (
                             <Card className="mb-3">
                                 <CardHeader>
                                     {this.state.blobUrls.image === ''
@@ -229,10 +231,9 @@ export default class DecompressorApp extends Component<{||}, State> {
                                     </Row>
                                 </CardBody>
 
-                                {this.state.result &&
-                                this.state.useBrowserTextEditor ? (
+                                {result && this.state.useBrowserTextEditor ? (
                                     <LoadableDecompressorEditor
-                                        text={this.state.result.utf8}
+                                        text={result.utf8}
                                     />
                                 ) : null}
                             </Card>

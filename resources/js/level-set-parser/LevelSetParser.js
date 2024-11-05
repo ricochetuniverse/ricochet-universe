@@ -156,25 +156,27 @@ export function parse(buffer: Buffer): LevelSet {
         } else if (line === '}') {
             const popped = nested.pop();
 
-            if (popped.key === 'Round') {
-                levelSet.rounds.push(
-                    nullthrows(
-                        currentWorkingRound,
-                        'Expected current working round'
-                    )
-                );
-                currentWorkingRound = null;
-            } else if (popped.key === 'Compressed Thumbnail') {
-                const lastNested = nested[nested.length - 1];
-
-                if (lastNested.key === 'Round') {
-                    nullthrows(
-                        currentWorkingRound,
-                        'Expected current working round'
-                    ).thumbnail = decodeAsciiImage(
-                        Buffer.concat(currentWorkingRoundPictureBuffers)
+            if (popped) {
+                if (popped.key === 'Round') {
+                    levelSet.rounds.push(
+                        nullthrows(
+                            currentWorkingRound,
+                            'Expected current working round'
+                        )
                     );
-                    currentWorkingRoundPictureBuffers = [];
+                    currentWorkingRound = null;
+                } else if (popped.key === 'Compressed Thumbnail') {
+                    const lastNested = nested[nested.length - 1];
+
+                    if (lastNested.key === 'Round') {
+                        nullthrows(
+                            currentWorkingRound,
+                            'Expected current working round'
+                        ).thumbnail = decodeAsciiImage(
+                            Buffer.concat(currentWorkingRoundPictureBuffers)
+                        );
+                        currentWorkingRoundPictureBuffers = [];
+                    }
                 }
             }
         } else {

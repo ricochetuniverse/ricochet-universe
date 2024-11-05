@@ -14,8 +14,8 @@ type Props = $ReadOnly<{
 }>;
 
 function CustomFileInput(
-    {label, directory = false, ...otherProps},
-    ref
+    {label, directory = false, ...otherProps}: Props,
+    ref: React$Ref<'input'>
 ): React.Node {
     return (
         <div className="custom-file">

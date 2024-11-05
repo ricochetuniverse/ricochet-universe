@@ -16,7 +16,7 @@ type State = $ReadOnly<{|
     downloadButtonUrl: string,
 |}>;
 
-function getAssumedDirectoryPrefix(file) {
+function getAssumedDirectoryPrefix(file: File) {
     const path = getFileRelativePath(file);
     const split = path.split('/');
 

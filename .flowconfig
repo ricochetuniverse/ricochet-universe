@@ -7,19 +7,25 @@
 
 [lints]
 deprecated-type=error
-deprecated-utility=error
 implicit-inexact-object=error
 nonstrict-import=error
 sketchy-null=error
 sketchy-number=error
+unclear-type=error
 unnecessary-invariant=error
 unnecessary-optional-chain=error
 unsafe-getters-setters=error
+;untyped-import=error ; too many untyped 3rd party libraries :(
 untyped-type-import=error
+;unused-promise=error
 
 [options]
 emoji=true
 exact_by_default=true
+;casting_syntax=as
+experimental.const_params=true
+jest_integration=true
+use_mixed_in_catch_variables=true
 
 [strict]
 unclear-type

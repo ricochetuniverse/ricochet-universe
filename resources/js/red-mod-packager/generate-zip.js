@@ -2,11 +2,11 @@
 
 import JSZip from 'jszip';
 
-function withoutPrefix(text, prefix) {
+function withoutPrefix(text: string, prefix: string) {
     return text.substring(prefix.length, text.length);
 }
 
-function getSortedFileList(files, stripDirectoryPrefix) {
+function getSortedFileList(files: FileList, stripDirectoryPrefix: string) {
     const sorted: Array<{|path: string, file: File|}> = [];
 
     for (let i = 0, len = files.length; i < len; i += 1) {
