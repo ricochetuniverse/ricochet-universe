@@ -17,7 +17,7 @@ declare module 'reactstrap' {
                 toggle?: () => mixed,
                 tag?: TagPropType,
                 // transition?: FadePropTypes,
-                innerRef?: React.Ref<HTMLElement>,
+                innerRef?: React$RefObject<HTMLElement>,
             |}> {}
 
     declare class Button
@@ -30,7 +30,7 @@ declare module 'reactstrap' {
                 disabled?: boolean,
                 outline?: boolean,
                 tag?: TagPropType,
-                innerRef?: React.Ref<HTMLElement>,
+                innerRef?: React$RefObject<HTMLElement>,
                 onClick?: () => /* e */ mixed,
                 size?: string,
                 children?: React.Node,
@@ -50,7 +50,7 @@ declare module 'reactstrap' {
                 outline?: boolean,
                 className?: string,
                 // cssModule?: PropTypes.object,
-                innerRef?: React.Ref<HTMLElement>,
+                innerRef?: React$RefObject<HTMLElement>,
                 children?: React.Node, // not on PropTypes
                 ...
             }> {}
@@ -61,7 +61,7 @@ declare module 'reactstrap' {
                 tag?: TagPropType,
                 className?: string,
                 // cssModule?: PropTypes.object,
-                innerRef?: React.Ref<HTMLElement>,
+                innerRef?: React$RefObject<HTMLElement>,
                 children?: React.Node, // not on PropTypes
                 ...
             }> {}
@@ -118,7 +118,7 @@ declare module 'reactstrap' {
                 htmlFor?: string,
                 // cssModule?: PropTypes.object,
                 children?: React.Node,
-                innerRef?: React.Ref<HTMLElement>,
+                innerRef?: React$RefObject<HTMLElement>,
                 ...
             }> {}
 

@@ -3,7 +3,7 @@
 module.exports = (api) => {
     const env = api.env();
 
-    const plugins = [];
+    const plugins = ['babel-plugin-syntax-hermes-parser'];
 
     if (env === 'production') {
         plugins.push([

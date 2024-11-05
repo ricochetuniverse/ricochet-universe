@@ -1,4 +1,3 @@
-import babelParser from '@babel/eslint-parser';
 import js from '@eslint/js';
 import flowtype from 'eslint-plugin-ft-flow';
 import jest from 'eslint-plugin-jest';
@@ -6,6 +5,7 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
+import hermesParser from 'hermes-eslint';
 
 export default [
     js.configs.recommended,
@@ -54,7 +54,7 @@ export default [
                 ...globals.node,
                 ...globals.browser,
             },
-            parser: babelParser,
+            parser: hermesParser,
             sourceType: 'module',
         },
 
