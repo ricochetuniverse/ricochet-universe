@@ -1,6 +1,6 @@
 // @flow
 
-import {h, render} from 'preact';
+import {render} from 'preact';
 import Loadable from 'react-loadable';
 import {Card, CardBody, CardHeader} from 'reactstrap';
 

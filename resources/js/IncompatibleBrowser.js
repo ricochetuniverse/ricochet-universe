@@ -1,6 +1,5 @@
 // @flow strict
 
-import {h} from 'preact';
 import {Alert} from 'reactstrap';
 
 export default function IncompatibleBrowser(): React.Node {

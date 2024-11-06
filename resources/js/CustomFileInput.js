@@ -1,6 +1,5 @@
 // @flow strict
 
-import {h} from 'preact';
 import {forwardRef} from 'preact/compat';
 
 // Forked from https://github.com/reactstrap/reactstrap/blob/master/src/CustomFileInput.js

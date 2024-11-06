@@ -1,7 +1,5 @@
 // @flow strict
 
-import {h} from 'preact';
-
 import type {DiscordWidgetMemberType} from './DiscordWidgetMemberType';
 
 type Props = $ReadOnly<{|

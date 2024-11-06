@@ -1,6 +1,6 @@
 // @flow
 
-import {Component, createRef, h} from 'preact';
+import {Component, createRef} from 'preact';
 
 import MonacoEditor from 'react-monaco-editor';
 import 'monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.css'; // https://github.com/microsoft/monaco-editor/issues/1759

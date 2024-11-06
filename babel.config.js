@@ -29,8 +29,8 @@ module.exports = (api) => {
                 '@babel/preset-react',
                 {
                     development: env === 'development',
-                    pragma: 'h',
-                    pragmaFrag: 'Fragment',
+                    runtime: 'automatic',
+                    importSource: 'preact',
                     useBuiltIns: true,
                 },
             ],

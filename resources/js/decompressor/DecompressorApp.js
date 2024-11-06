@@ -3,7 +3,7 @@
 import type {ModRequirement} from './check-for-mods';
 import type {InflateResult} from './inflate-file';
 
-import {Component, Fragment, h} from 'preact';
+import {Component, Fragment} from 'preact';
 import Loadable from 'react-loadable';
 import {
     Alert,

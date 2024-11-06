@@ -1,6 +1,6 @@
 // @flow strict
 
-import {Fragment, h} from 'preact';
+import {Fragment} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
 import {

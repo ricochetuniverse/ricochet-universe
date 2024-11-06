@@ -13,6 +13,7 @@ export default [
     jest.configs['flat/style'],
     jsxA11y.flatConfigs.recommended,
     react.configs.flat.recommended,
+    react.configs.flat['jsx-runtime'],
     {
         plugins: {
             'ft-flow': flowtype,
@@ -61,8 +62,8 @@ export default [
         settings: {
             react: {
                 pragma: 'h',
-                version: '16.12',
-                flowVersion: '0.121.0',
+                version: '18.3.1', // https://github.com/preactjs/preact/blob/main/compat/src/index.js
+                flowVersion: '0.251.1',
             },
         },
     },

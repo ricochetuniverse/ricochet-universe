@@ -1,6 +1,5 @@
 // @flow strict
 
-import {h} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
 import DiscordWidget from './DiscordWidget';

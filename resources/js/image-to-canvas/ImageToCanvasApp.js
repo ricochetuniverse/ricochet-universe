@@ -1,6 +1,6 @@
 // @flow strict
 
-import {Component, h} from 'preact';
+import {Component} from 'preact';
 import {Alert, Button, Card, CardBody, CardHeader} from 'reactstrap';
 
 import CustomFileInput from '../CustomFileInput';

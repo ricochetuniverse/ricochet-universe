@@ -1,6 +1,5 @@
 // @flow strict
 
-import {h} from 'preact';
 import {Button} from 'reactstrap';
 
 type Props = $ReadOnly<{

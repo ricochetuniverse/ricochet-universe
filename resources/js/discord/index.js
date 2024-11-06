@@ -1,6 +1,6 @@
 // @flow strict
 
-import {h, render} from 'preact';
+import {render} from 'preact';
 import DiscordWidgetContainer from './DiscordWidgetContainer';
 
 const root = document.querySelector('.discordWidget__reactWrap');

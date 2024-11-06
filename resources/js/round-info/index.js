@@ -1,7 +1,7 @@
 // @flow strict
 
 import nullthrows from 'nullthrows';
-import {h, render} from 'preact';
+import {render} from 'preact';
 
 import RoundInfoModal from './RoundInfoModal';
 

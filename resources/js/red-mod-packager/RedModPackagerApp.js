@@ -1,6 +1,6 @@
 // @flow
 
-import {Component, createRef, h} from 'preact';
+import {Component, createRef} from 'preact';
 import {Alert, Button, Card, CardBody, CardHeader} from 'reactstrap';
 import Uppie from 'uppie';
 

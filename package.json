@@ -33,7 +33,7 @@
     "nullthrows": "1.1.1",
     "pako": "1.0.11",
     "popper.js": "1.16.1",
-    "preact": "10.4.4",
+    "preact": "10.24.3",
     "react-loadable": "5.5.0",
     "react-monaco-editor": "0.56.2",
     "reactstrap": "8.4.1",
