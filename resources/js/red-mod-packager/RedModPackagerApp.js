@@ -2,7 +2,7 @@
 
 import {Component, createRef} from 'preact';
 import {Alert, Button, Card, CardBody, CardHeader} from 'reactstrap';
-import Uppie from 'uppie';
+import {uppie} from 'uppie';
 
 import CustomFileInput from '../CustomFileInput';
 
@@ -119,8 +119,6 @@ export default class RedModPackagerApp extends Component<{||}, State> {
     }
 
     componentDidMount() {
-        const uppie = new Uppie();
-
         uppie(this.fileInputRef.current, this.onFileChange);
     }
 

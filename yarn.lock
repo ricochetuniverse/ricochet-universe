@@ -3036,10 +3036,10 @@ eslint-plugin-ft-flow@3.0.11:
     lodash "^4.17.21"
     string-natural-compare "^3.0.1"
 
-eslint-plugin-jest@28.8.3:
-  version "28.8.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-28.8.3.tgz#c5699bba0ad06090ad613535e4f1572f4c2567c0"
-  integrity sha512-HIQ3t9hASLKm2IhIOqnu+ifw7uLZkIlR7RYNv7fMcEi/p0CIiJmfriStQS2LDkgtY4nyLbIZAD+JL347Yc2ETQ==
+eslint-plugin-jest@28.9.0:
+  version "28.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-28.9.0.tgz#19168dfaed124339cd2252c4c4d1ac3688aeb243"
+  integrity sha512-rLu1s1Wf96TgUUxSw6loVIkNtUjq1Re7A9QdCCHSohnvXEBAjuL420h0T/fMmkQlNsQP2GhQzEUpYHPfxBkvYQ==
   dependencies:
     "@typescript-eslint/utils" "^6.0.0 || ^7.0.0 || ^8.0.0"
 
@@ -3353,10 +3353,10 @@ flatted@^3.2.9:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.1.tgz#21db470729a6734d4997002f439cb308987f567a"
   integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
 
-flow-bin@0.251.1:
-  version "0.251.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.251.1.tgz#d8dc360b865edaa6e76b3b9edd545f5730e1b520"
-  integrity sha512-zp8NsURU1hY2drz0p5MEVRrUg+0oXNbzD7od3ExOEBqMZsM6oX5ixp8j4U2sv+4v2dJWLgi9wQS4xJ5dnq2Q+Q==
+flow-bin@0.252.0:
+  version "0.252.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.252.0.tgz#a312b8e131391efe2864aab62de241b36f65b47b"
+  integrity sha512-DjWbg5FwSZy+9hO3zzwrxjoak7Fld4pQC0paVji1lF2e8aIqCYvjA2c1Kd4iv3uDmzVDg0MfRSXNKfhR2ql7JQ==
 
 for-each@^0.3.3:
   version "0.3.3"
@@ -4422,10 +4422,10 @@ jiti@^1.20.0:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.21.6.tgz#6c7f7398dd4b3142767f9a168af2f317a428d268"
   integrity sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==
 
-jquery@3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
-  integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
+jquery@3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
@@ -4963,7 +4963,12 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
-pako@1.0.11, pako@~1.0.2:
+pako@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.1.0.tgz#266cc37f98c7d883545d11335c00fbd4062c9a86"
+  integrity sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==
+
+pako@~1.0.2:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
@@ -6356,10 +6361,10 @@ update-browserslist-db@^1.1.1:
     escalade "^3.2.0"
     picocolors "^1.1.0"
 
-uppie@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/uppie/-/uppie-1.1.3.tgz#20dcf4476db654c8066c6c818a7d76cc9b606898"
-  integrity sha512-cB8/E2o1d+aqkHDVEohlRkgv01bJt9WUA8HGH4UBOEtKTY9aRaAV6Mq3Im6dwSc8mSpk0rNOvcmlze/2J+i/Sg==
+uppie@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/uppie/-/uppie-4.0.0.tgz#a8a6bddb7a4ab13c7af58652f7bdce9726549584"
+  integrity sha512-AiV1n8tFfsNOmLDB547P1os56p6NMDsgtMBJ73BIGBlzVgvNZuqbZGMsU7OLZCeMNiSAEdBbeu9KR4TK0TpMMw==
 
 uri-js@^4.2.2:
   version "4.4.1"
