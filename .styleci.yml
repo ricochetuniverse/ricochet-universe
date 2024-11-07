@@ -1,7 +1,0 @@
-preset: laravel
-
-enabled:
-    - linebreak_after_opening_tag
-
-disabled:
-    - phpdoc_summary
