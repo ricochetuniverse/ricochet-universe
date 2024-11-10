@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.26.0",
-    "bootstrap": "4.4.1",
+    "bootstrap": "4.6.2",
     "jquery": "3.7.1",
     "jszip": "3.10.1",
     "monaco-editor": "0.52.0",
@@ -36,7 +36,7 @@
     "preact": "10.24.3",
     "react-loadable": "5.5.0",
     "react-monaco-editor": "0.56.2",
-    "reactstrap": "8.4.1",
+    "reactstrap": "8.10.1",
     "uppie": "4.0.0"
   },
   "devDependencies": {
