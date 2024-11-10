@@ -3,7 +3,7 @@
 namespace Deployer;
 
 require 'contrib/sentry.php';
-require 'contrib/yarn.php';
+require 'contrib/npm.php';
 require 'recipe/laravel.php';
 
 if (file_exists('deployer/sentry.config.php')) {
@@ -42,7 +42,7 @@ import('deployer/hosts.yml');
 
 desc('Compile JS/CSS assets');
 task('webpack:run', function () {
-    $output = run('cd {{release_path}} && yarn run production');
+    $output = run('cd {{release_path}} && npm run production');
     writeln('<info>'.$output.'</info>');
 });
 
@@ -51,8 +51,8 @@ task('ricochet:clear-catalog-cache', function () {
     run('{{bin/php}} {{release_path}}/artisan ricochet:clear-catalog-cache');
 });
 
-after('deploy:vendors', 'yarn:install');
-after('yarn:install', 'webpack:run');
+after('deploy:vendors', 'npm:install');
+after('npm:install', 'webpack:run');
 
 after('deploy', 'ricochet:clear-catalog-cache');
 after('deploy', 'artisan:queue:restart');

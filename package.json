@@ -22,7 +22,7 @@
     "prettier": "prettier .",
     "production": "webpack --node-env=production",
     "test": "jest",
-    "watch": "yarn run development --watch"
+    "watch": "webpack --node-env=development --progress --watch"
   },
   "dependencies": {
     "@babel/runtime": "7.26.0",

@@ -14,7 +14,6 @@ For bare-metal installs:
 -   [Composer](https://getcomposer.org)
 -   [MariaDB 11.4](https://mariadb.org)
 -   [Node.js v20](https://nodejs.org)
--   [Yarn](https://yarnpkg.com)
 -   [Redis 6.2](https://redis.io)
 -   A [queue worker](https://laravel.com/docs/11.x/queues#supervisor-configuration)
 -   A [task scheduler](https://laravel.com/docs/11.x/scheduling#running-the-scheduler)
@@ -34,12 +33,12 @@ After you `git clone` this repo...
 6. Open a terminal window and execute these commands:
     ```bash
     docker-compose run --rm php composer install
-    docker-compose run --rm node yarn
-    docker-compose run --rm node yarn run development
+    docker-compose run --rm node npm install
+    docker-compose run --rm node npm run development
     docker-compose run --rm php php artisan migrate
     docker-compose run --rm php ln -rsTv storage/app/public/ public/storage # php artisan storage:link does not work as it's absolute rather than relative
     ```
-7. Execute `docker-compose run --rm node yarn run watch` and leave the terminal window open to rebuild assets whenever you save
+7. Execute `docker-compose run --rm node npm run watch` and leave the terminal window open to rebuild assets whenever you save
 
 The server runs and listens on `https://ricochet.test:8000`
 

@@ -4,7 +4,7 @@
 
 Use [Prettier](https://prettier.io).
 
-Assuming you have the npm dependencies install, run `yarn run prettier --write` to fix the code style.
+Assuming you have the npm dependencies install, run `npm run prettier -- --write` to fix the code style.
 
 ## Running tests
 
@@ -19,5 +19,5 @@ docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=256M
 Run Node tests:
 
 ```bash
-docker-compose run --rm node sh -c "yarn run flow && yarn run lint && yarn run test && yarn run prettier -l"
+docker-compose run --rm node sh -c "npm run flow && npm run lint && npm test && npm run prettier -- -l"
 ```

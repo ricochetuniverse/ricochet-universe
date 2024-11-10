@@ -21,7 +21,7 @@ stages:
 .setup_node: &setup_node
     image: node:20
 
-yarn:
+npm:
     stage: build
     <<: *setup_node
     cache:
@@ -32,7 +32,7 @@ yarn:
         paths:
             - node_modules/
     script:
-        - yarn
+        - npm ci
 
 composer:
     stage: build
@@ -57,24 +57,24 @@ lint:
     stage: test_js
     <<: *setup_node
     dependencies:
-        - yarn
+        - npm
     script:
-        - yarn run flow
-        - yarn run lint
-        - yarn run test
-        - yarn run prettier -l
+        - npm run flow
+        - npm run lint
+        - npm test
+        - npm run prettier -- -l
 
 webpack:
     stage: test_js
     <<: *setup_node
     dependencies:
-        - yarn
+        - npm
     artifacts:
         paths:
             - public/build/
             - public/mix-manifest.json
     script:
-        - yarn production
+        - npm run production
 
 phpunit:
     stage: test_php
