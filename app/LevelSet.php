@@ -36,7 +36,7 @@ use Spatie\Url\Url;
  * @property string $downloaded_file_name
  * @property int $round_to_get_image_from
  * @property array $tag_names
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Tagged[] $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tag> $tags
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelRound> $levelRounds
  * @property-read int|null $level_rounds_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Mod> $mods

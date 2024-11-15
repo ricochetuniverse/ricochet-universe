@@ -43,7 +43,7 @@ class RepairLevelSetRounds extends Command
         $this->line('Starting...');
 
         LevelSet::withCount('levelRounds')->orderBy('id')->chunk(100, function ($levelSets) use ($dryRun) {
-            /** @var \Illuminate\Database\Eloquent\Collection $levelSets */
+            /** @var \Illuminate\Support\Collection<int, LevelSet> $levelSets */
             $levelSets->each(function ($levelSet) use ($dryRun) {
                 /** @var LevelSet $levelSet */
                 $claimed = $levelSet->rounds;

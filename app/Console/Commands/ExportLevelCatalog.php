@@ -84,7 +84,7 @@ class ExportLevelCatalog extends Command
         $data = [];
 
         LevelSet::orderBy('created_at')->orderBy('id')->chunk(500, function ($levels) use (&$data) {
-            /** @var LevelSet[] $levels */
+            /** @var \Illuminate\Support\Collection<int, LevelSet> $levels */
             foreach ($levels as $level) {
                 $data[] = [
                     'name' => $level->name,
@@ -106,7 +106,7 @@ class ExportLevelCatalog extends Command
         $data = [];
 
         LevelSet::with('levelRounds')->orderBy('created_at')->orderBy('id')->chunk(500, function ($levels) use (&$data) {
-            /** @var LevelSet[] $levels */
+            /** @var \Illuminate\Support\Collection<int, LevelSet> $levels */
             foreach ($levels as $level) {
                 foreach ($level->levelRounds->sortBy('round_number') as $round) {
                     $data[] = [

@@ -17,7 +17,7 @@ class CatalogService
                 $query->orderBy('name');
             },
         ])->chunk(100, function ($levels) use (&$response) {
-            /** @var LevelSet[] $levels */
+            /** @var Collection<int, LevelSet> $levels */
             foreach ($levels as $level) {
                 $response .= $this->transformLevelSetToCatalogItem($level);
                 $response .= "\r\n";
