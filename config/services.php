@@ -16,7 +16,8 @@ return [
 
     'discord' => [
         'client_id' => env('DISCORD_KEY'),
-        'client_secret' => env('DISCORD_SECRET'),
+        'client_secret' => env('DISCORD_SECRET'), // OAuth2 client secret
+        'public_key' => env('DISCORD_PUBLIC_KEY'),
         'redirect' => env('DISCORD_REDIRECT_URI'),
         'user_id_whitelist' => explode(',', env('DISCORD_USER_ID_WHITELIST', '')),
 
