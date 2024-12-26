@@ -36,7 +36,7 @@ After you `git clone` this repo...
     docker-compose run --rm node npm install
     docker-compose run --rm node npm run development
     docker-compose run --rm php php artisan migrate
-    docker-compose run --rm php ln -rsTv storage/app/public/ public/storage # php artisan storage:link does not work as it's absolute rather than relative
+    docker-compose run --rm php php artisan storage:link --relative
     ```
 7. Execute `docker-compose run --rm node npm run watch` and leave the terminal window open to rebuild assets whenever you save
 

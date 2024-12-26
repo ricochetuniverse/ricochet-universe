@@ -42,7 +42,8 @@
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.4",
         "phpunit/phpunit": "^11.3",
-        "spatie/laravel-ignition": "^2.8"
+        "spatie/laravel-ignition": "^2.8",
+        "symfony/filesystem": "^7.2"
     },
     "config": {
         "optimize-autoloader": true,
