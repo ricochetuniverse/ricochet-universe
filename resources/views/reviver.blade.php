@@ -14,8 +14,8 @@
 
                     <div class="card-body">
                         <p>
-                            Follow these steps to restore the in-game level catalog so you can browse and download new
-                            levels right in the game.
+                            Follow these steps to restore the in-game level catalog on Ricochet Infinity so you can
+                            browse and download new levels inside the game.
                         </p>
 
                         <p>
@@ -41,6 +41,27 @@
                 </div>
 
                 @if (isset($os))
+                    @if ($os === \App\Http\Controllers\ReviverController::MACOS)
+                        <div class="alert alert-warning mb-3" role="alert">
+                            <p>
+                                The Mac version of Ricochet Infinity
+                                <a href="https://support.apple.com/en-us/103076" class="alert-link">does not work on
+                                    macOS Catalina 10.15 or later</a>.
+                            </p>
+
+                            <p>
+                                If you don’t have an older Mac, you need to use alternatives to play the Windows
+                                version of Ricochet Infinity.
+                            </p>
+
+                            <p class="mb-0">
+                                After you finish set up,
+                                <a href="{{ action('ReviverController@show', ['os' => \App\Http\Controllers\ReviverController::WINDOWS10]) }}"
+                                   class="alert-link">refer to the Windows instructions to restore the level catalog</a>.
+                            </p>
+                        </div>
+                    @endif
+
                     @if ($os === \App\Http\Controllers\ReviverController::WINDOWS10)
                         <div class="card mb-3">
                             <div class="card-header">Update curl</div>
@@ -52,8 +73,10 @@
                                     <a href="https://en.wikipedia.org/wiki/CURL">Wikipedia article</a>.
                                 </p>
 
-                                <p>The curl version bundled with Ricochet Infinity is outdated and cannot handle modern HTTPS
-                                    connections, we need to update curl to connect to today’s web.</p>
+                                <p>
+                                    The curl version bundled with Ricochet Infinity is outdated and cannot handle modern
+                                    HTTPS connections, we need to update curl to connect to today’s web.
+                                </p>
 
                                 <p>
                                     Download the new version of <code><a href="{{ asset('misc/libcurl.dll') }}">libcurl.dll</a></code>
@@ -129,7 +152,8 @@
 
                         <div class="card-body">
                             <p class="m-0">
-                                That’s all the steps needed to restore the in-game level catalog. Launch the game and enjoy!
+                                That’s all the steps needed to restore the in-game level catalog. Launch the game and
+                                enjoy!
                             </p>
                         </div>
                     </div>
