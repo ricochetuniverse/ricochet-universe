@@ -27,7 +27,7 @@ services:
       - redis
 
   mariadb:
-    image: mariadb:11.4.3
+    image: mariadb:11.4.5
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -42,7 +42,7 @@ services:
       - '127.0.0.1:3306:3306'
 
   caddy:
-    image: caddy:2.8.4-alpine
+    image: caddy:2.9.1-alpine
     environment:
       - CADDY_TLS_MODE
       - CADDY_TLS_EMAIL
@@ -65,7 +65,7 @@ services:
     working_dir: /var/ricochetuniverse
 
   redis:
-    image: redis:6.2.14-alpine
+    image: redis:6.2.17-alpine
     # uncomment for debugging
     # ports:
     #   - '127.0.0.1:6379:6379'
