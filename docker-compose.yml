@@ -3,25 +3,21 @@ services:
     build: ./docker/php
     volumes:
       - .:/var/ricochetuniverse
-    # depends_on:
-    #   - mariadb
 
   queue:
-    build: ./docker/php
+    extends:
+      service: php
     # https://laravel.com/docs/11.x/queues#running-the-queue-worker
     command: php artisan queue:listen redis
-    volumes:
-      - .:/var/ricochetuniverse
     depends_on:
       - mariadb
       - redis
 
   schedule:
-    build: ./docker/php
+    extends:
+      service: php
     # https://laravel.com/docs/11.x/scheduling#running-the-scheduler-locally
     command: php artisan schedule:work
-    volumes:
-      - .:/var/ricochetuniverse
     depends_on:
       - mariadb
       - redis

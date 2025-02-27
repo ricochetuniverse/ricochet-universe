@@ -1,6 +1,6 @@
-FROM php:8.3.12-fpm-alpine
+FROM php:8.3.17-fpm-alpine
 
-ENV REDIS_VERSION 5.3.7
+ENV REDIS_VERSION 6.1.0
 
 RUN apk update && apk upgrade && \
     apk add --no-cache git && \
@@ -15,6 +15,6 @@ RUN apk update && apk upgrade && \
 
 COPY extra.ini $PHP_INI_DIR/conf.d/
 
-COPY --from=composer:2.7.9 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.8.5 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/ricochetuniverse

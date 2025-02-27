@@ -18,7 +18,7 @@
         "docs": "https://gitlab.com/ngyikp/ricochet-levels"
     },
     "require": {
-        "php": "^8.3.12",
+        "php": "^8.3.17",
         "ext-sodium": "*",
         "ext-zlib": "*",
         "guzzlehttp/guzzle": "^7.9",
