@@ -21,3 +21,19 @@ Run Node tests:
 ```bash
 docker-compose run --rm node sh -c "npm run flow && npm run lint && npm test && npm run prettier -- -l"
 ```
+
+## Creating test database
+
+Enter the MariaDB Docker container, use the root password at `docker/secrets/mariadb_root_password.txt`:
+
+```bash
+docker-compose exec -it mariadb mariadb -uroot -p
+```
+
+Execute MariaDB commands:
+
+```
+CREATE DATABASE ricochetlevels_test;
+GRANT ALL PRIVILEGES ON ricochetlevels_test.* TO 'ricochetlevels_test'@'%' IDENTIFIED BY '123';
+FLUSH PRIVILEGES;
+```
