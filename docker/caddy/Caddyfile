@@ -7,9 +7,8 @@ https://ricochet.test:8000 {
 		Strict-Transport-Security "max-age=31536000"
 		Referrer-Policy strict-origin-when-cross-origin
 		Cross-Origin-Opener-Policy same-origin
-		Cross-Origin-Resource-Policy same-site
-		Permissions-Policy "interest-cohort=()"
-		Feature-Policy "accelerometer 'none';ambient-light-sensor 'none';battery 'none';camera 'none';display-capture 'none';geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';usb 'none';xr-spatial-tracking 'none';"
+		Cross-Origin-Resource-Policy same-origin
+		Permissions-Policy "accelerometer=(),bluetooth=(),camera=(),display-capture=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),publickey-credentials-create=(),publickey-credentials-get=(),serial=(),usb=(),xr-spatial-tracking=()"
 
 		# Needed for Monaco editor
 		# https://github.com/Microsoft/monaco-editor/issues/271
@@ -27,16 +26,22 @@ https://ricochet.test:8000 {
 		#
 		# script-src: 'unsafe-inline'
 
-		Content-Security-Policy "default-src 'self';script-src 'self' https://www.googletagmanager.com/gtag/js;img-src 'self' data: blob: https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/ https://cdn.discordapp.com/avatars/ https://cdn.discordapp.com/widget-avatars/ https://*.google-analytics.com https://*.googletagmanager.com;style-src 'self' 'unsafe-inline';connect-src 'self' https://discordapp.com/api/guilds/295184393109110785/widget.json https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;frame-src https://www.youtube.com/embed/;font-src 'self';frame-ancestors 'none';base-uri 'none';manifest-src 'none';media-src 'none';object-src 'none';worker-src 'none'"
+		?Content-Security-Policy "default-src 'self';script-src 'self' https://www.googletagmanager.com/gtag/js;img-src 'self' data: blob: https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/ https://cdn.discordapp.com/avatars/ https://cdn.discordapp.com/widget-avatars/ https://*.google-analytics.com https://*.googletagmanager.com;style-src 'self' 'unsafe-inline';connect-src 'self' https://discordapp.com/api/guilds/295184393109110785/widget.json https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;frame-src https://www.youtube.com/embed/;font-src 'self';frame-ancestors 'none';base-uri 'none';manifest-src 'none';media-src 'none';object-src 'none';worker-src 'none'"
 	}
+
+	header /build/* Content-Security-Policy "default-src 'none'"
+	header /images/* Content-Security-Policy "default-src 'none'"
+	header /storage/* Content-Security-Policy "default-src 'none'"
 
 	header /build/* Cache-Control "public, max-age=31536000, immutable"
 	header /images/* Cache-Control "public, max-age=31536000"
+	header /storage/legacy-levelset-images/* Cache-Control "public, max-age=86400"
+	header /storage/levels/* Cache-Control "public, max-age=86400"
 	header /storage/round-images/* Cache-Control "public, max-age=86400"
 	respond /mix-manifest.json 404
 
 	@not_php {
-		not path /storage/* *#*
+		not path /build/* /images/* /storage/* *#*
 	}
 	root * /var/ricochetuniverse/public
 	file_server
@@ -67,8 +72,4 @@ https://ricochet.test:8000 {
 	}
 
 	file_server /storage/levels/* browse
-	header /storage/levels/* {
-		Cache-Control "public, max-age=86400"
-		Content-Security-Policy "default-src 'self';script-src 'self' 'unsafe-inline';style-src 'self' 'unsafe-inline';object-src 'none'"
-	}
 }
