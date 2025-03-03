@@ -10,24 +10,46 @@ use Spatie\Url\Url;
 
 class LevelSetImageController extends Controller
 {
+    public const string FALLBACK_URL = 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/';
+
     /**
-     * Early RLW levels (before 2006-11) stored their level set images at `images/`
+     * Early RLW levels uploaded before November 2006 are screenshot manually by the level approvers, rather than
+     * picking an existing level thumbnail, there are ~196 of these images archived at
+     * https://web.archive.org/web/%2A/http://www.ricochetInfinity.com/levels/images/%2A
      *
-     * We haven't captured/saved these images to the server yet, so redirect to archive.org and hope they got a saved
-     * copy
+     * First, check if we already saved these images on our server
+     * If not, redirect to archive.org and hope they got a saved copy (likely unsuccessful as we already attempted to
+     * save them all)
+     *
+     * URL path: /levels/images/{name}.jpg
+     *
+     * @see https://gitlab.com/ngyikp/ricochet-levels/-/issues/14
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function showVersion1(Request $request, string $fileName)
+    public function showVersion1(Request $request, string $name)
     {
-        return RedirectForGame::to(
-            $request->isSecure(),
-            $this->getArchiveOrgFallbackUrl().'images/'.$fileName.'.jpg'
-        );
+        $isSecure = $request->isSecure();
+
+        $fileName = rawurldecode($name).'.jpg';
+
+        $disk = Storage::disk('legacy-levelset-images');
+        if ($disk->exists($fileName)) {
+            return RedirectForGame::to(
+                $isSecure,
+                Url::fromString($disk->url($fileName))
+                    ->withQueryParameter('time', $disk->lastModified($fileName))
+            );
+        }
+
+        // todo remove this redirect after archive is finished
+        return RedirectForGame::to($isSecure, self::FALLBACK_URL.'images/'.$name.'.jpg');
     }
 
     /**
      * These level sets use thumbnails from the rounds
+     *
+     * URL path: /levels/cache/{name}/{number}.jpg
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -46,11 +68,8 @@ class LevelSetImageController extends Controller
             return RedirectForGame::to($isSecure, $url);
         }
 
-        return RedirectForGame::to($isSecure, $this->getArchiveOrgFallbackUrl().'cache/'.$fileUrl);
-    }
-
-    private function getArchiveOrgFallbackUrl(): string
-    {
-        return 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/';
+        // todo is this redirect really needed? can we just fail it?
+        // throw new \Exception('Level set image '.$fileName.' not found');
+        return RedirectForGame::to($isSecure, self::FALLBACK_URL.'cache/'.$fileUrl);
     }
 }

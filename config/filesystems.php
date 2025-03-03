@@ -78,6 +78,14 @@ return [
             'throw' => true,
         ],
 
+        'legacy-levelset-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/legacy-levelset-images'),
+            'url' => env('APP_URL').'/storage/legacy-levelset-images',
+            'visibility' => 'public',
+            'throw' => true,
+        ],
+
     ],
 
     /*

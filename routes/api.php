@@ -22,7 +22,7 @@ Route::get('/opensearch.xml', 'OpensearchController@index');
 Route::get('/gateway/catalog.php', 'CatalogController@index');
 Route::post('/gateway/catalog.php', 'CatalogController@index')->middleware('game');
 
-Route::get('/levels/images/{fileName}.jpg', 'LevelSetImageController@showVersion1')->middleware('cache.headers:public;max_age=600');
+Route::get('/levels/images/{name}.jpg', 'LevelSetImageController@showVersion1')->middleware('cache.headers:public;max_age=600');
 Route::get('/levels/cache/{name}/{number}.jpg', 'LevelSetImageController@showVersion2')->middleware('cache.headers:public;max_age=600');
 
 Route::get('/levels/download.php', 'LevelDownloadController@download')->middleware('cache.headers:public;max_age=600');
