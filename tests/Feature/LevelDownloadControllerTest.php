@@ -11,7 +11,7 @@ class LevelDownloadControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testValidFile(): void
+    public function test_valid_file(): void
     {
         $disk = Storage::fake('levels');
 
@@ -24,7 +24,7 @@ class LevelDownloadControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testInvalidFile(): void
+    public function test_invalid_file(): void
     {
         $response = $this->get('/levels/download.php?File=downloads/raw/no');
         $response->assertNotFound();

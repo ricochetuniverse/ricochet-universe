@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class ValidTimestampRuleTest extends TestCase
 {
-    public function testRule(): void
+    public function test_rule(): void
     {
         $rule = new ValidTimestamp;
 

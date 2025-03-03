@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class LevelSetParserTest extends TestCase
 {
-    public function testLostWorldLevelSet(): void
+    public function test_lost_world_level_set(): void
     {
         $levelSetData = file_get_contents(__DIR__.'/../fixtures/Reflexive B Sides.RicochetLW.txt');
 
@@ -28,7 +28,7 @@ class LevelSetParserTest extends TestCase
         $this->assertEquals('Ion/Reflexive B Sides/1', $rounds[0]->source);
     }
 
-    public function testInfinityLevelSet(): void
+    public function test_infinity_level_set(): void
     {
         $levelSetData = file_get_contents(__DIR__.'/../fixtures/Rico at the Brick Factory/Rico at the Brick Factory.RicochetI.txt');
         $thumbnail = file_get_contents(__DIR__.'/../fixtures/Rico at the Brick Factory/thumbnail.jpg');
@@ -50,7 +50,7 @@ class LevelSetParserTest extends TestCase
         $this->assertEquals($thumbnail, $rounds[0]->thumbnail);
     }
 
-    public function testNeonEnvironmentDetection(): void
+    public function test_neon_environment_detection(): void
     {
         $levelSetData = file_get_contents(__DIR__.'/../fixtures/Neon Environment Detection Test.txt');
 
@@ -60,7 +60,7 @@ class LevelSetParserTest extends TestCase
         $this->assertContains('Neon Environment', $levelSet->modsUsed);
     }
 
-    public function testHeavyMetalEnvironment(): void
+    public function test_heavy_metal_environment(): void
     {
         $levelSetData = file_get_contents(__DIR__.'/../fixtures/Heavy Metal Environment Detection Test.txt');
 
@@ -70,7 +70,7 @@ class LevelSetParserTest extends TestCase
         $this->assertContains('Heavy Metal Environment', $levelSet->modsUsed);
     }
 
-    public function testHEXDetection(): void
+    public function test_hex_detection(): void
     {
         $levelSetData = file_get_contents(__DIR__.'/../fixtures/HEX Detection Test.txt');
 
@@ -80,7 +80,7 @@ class LevelSetParserTest extends TestCase
         $this->assertContains('HEX', $levelSet->modsUsed);
     }
 
-    public function testModsUsedFalseDetection(): void
+    public function test_mods_used_false_detection(): void
     {
         $levelSetData = file_get_contents(__DIR__.'/../fixtures/Level Editor Template.txt');
 
@@ -89,7 +89,7 @@ class LevelSetParserTest extends TestCase
         $this->assertEmpty($levelSet->modsUsed);
     }
 
-    public function testThumbnailOfLevelRoundWithCustomBrickLayerEffect(): void
+    public function test_thumbnail_of_level_round_with_custom_brick_layer_effect(): void
     {
         $levelSetData = file_get_contents(__DIR__.'/../fixtures/custom-brick-layer-thumbnail-test/Level.txt');
         $thumbnail = file_get_contents(__DIR__.'/../fixtures/custom-brick-layer-thumbnail-test/thumbnail.jpg');
@@ -101,7 +101,7 @@ class LevelSetParserTest extends TestCase
         $this->assertEquals($thumbnail, $rounds[0]->thumbnail);
     }
 
-    public function testModPowerupInsideLottery(): void
+    public function test_mod_powerup_inside_lottery(): void
     {
         $levelSetData = file_get_contents(__DIR__.'/../fixtures/Mod powerup inside lottery.txt');
 

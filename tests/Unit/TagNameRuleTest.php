@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class TagNameRuleTest extends TestCase
 {
-    public function testRule(): void
+    public function test_rule(): void
     {
         $rule = new TagName;
 

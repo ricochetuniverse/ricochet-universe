@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class LevelSetNameRuleTest extends TestCase
 {
-    public function testRule(): void
+    public function test_rule(): void
     {
         $names = [
             'Reflexive B Sides',

@@ -15,7 +15,7 @@ set('application', 'ricochet-levels');
 
 // Project repository
 set('repository', 'git@gitlab.com:ngyikp/ricochet-levels.git');
-//set('branch', 'deploy');
+// set('branch', 'deploy');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', false);

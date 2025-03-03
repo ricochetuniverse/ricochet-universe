@@ -36,7 +36,7 @@ class CatalogService
             $siteUrl = preg_replace('/^https\:\/\//', 'http://', $siteUrl);
         }
 
-        //$imageUrl = 'http://www.ricochetInfinity.com/levels/';
+        // $imageUrl = 'http://www.ricochetInfinity.com/levels/';
         $imageUrl = $siteUrl.'/levels/';
 
         $header = <<<EOF
