@@ -134,7 +134,7 @@
                                     Infinity.
                                 @else
                                     Designed for Ricochet Lost Worlds. This level set can be played in Ricochet Lost
-                                    Worlds, Ricochet Recharged and Ricochet Infinity.
+                                    Worlds, Ricochet Lost Worlds: Recharged and Ricochet Infinity.
                                 @endif
                             </div>
                         </div>

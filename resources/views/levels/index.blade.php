@@ -133,7 +133,7 @@
                                     @else
                                         <img src="{{ asset('images/RLW.gif') }}"
                                              alt="Ricochet Lost Worlds logo"
-                                             title="Designed for Ricochet Lost Worlds. Can be played in Ricochet Lost Worlds, Ricochet Recharged and Ricochet Infinity."
+                                             title="Designed for Ricochet Lost Worlds. Can be played in Ricochet Lost Worlds, Ricochet Lost Worlds: Recharged and Ricochet Infinity."
                                              width="32"
                                              height="32"
                                              class="float-right ml-3"
