@@ -29,6 +29,7 @@
         "rtconner/laravel-tagging": "^4.1",
         "sentry/sentry-laravel": "^4.9",
         "socialiteproviders/discord": "^4.2",
+        "spatie/laravel-csp": "^2.10",
         "spatie/url": "^2.4"
     },
     "require-dev": {

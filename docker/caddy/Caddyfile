@@ -10,23 +10,8 @@ https://ricochet.test:8000 {
 		Cross-Origin-Resource-Policy same-origin
 		Permissions-Policy "accelerometer=(),bluetooth=(),camera=(),display-capture=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),publickey-credentials-create=(),publickey-credentials-get=(),serial=(),usb=(),xr-spatial-tracking=()"
 
-		# Needed for Monaco editor
-		# https://github.com/Microsoft/monaco-editor/issues/271
-		#
-		# style-src: 'unsafe-inline'
-		# font-src: 'self'
-
-		# Needed for Laravel Debugbar
-		#
-		# script-src: 'unsafe-inline'
-		# connect-src: 'unsafe-inline'
-		# font-src: data:
-
-		# Needed for Ignition
-		#
-		# script-src: 'unsafe-inline'
-
-		?Content-Security-Policy "default-src 'self';script-src 'self' https://www.googletagmanager.com/gtag/js;img-src 'self' data: blob: https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/ https://cdn.discordapp.com/avatars/ https://cdn.discordapp.com/widget-avatars/ https://*.google-analytics.com https://*.googletagmanager.com;style-src 'self' 'unsafe-inline';connect-src 'self' https://discordapp.com/api/guilds/295184393109110785/widget.json https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;frame-src https://www.youtube.com/embed/;font-src 'self';frame-ancestors 'none';base-uri 'none';manifest-src 'none';media-src 'none';object-src 'none';worker-src 'none'"
+		# This CSP is used by default if a route doesn't match (e.g. 404)
+		?Content-Security-Policy "default-src 'self';script-src 'self' https://www.googletagmanager.com/gtag/js;img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com;style-src 'self';connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;frame-src 'none';font-src 'none';frame-ancestors 'none';base-uri 'none';manifest-src 'none';media-src 'none';object-src 'none';worker-src 'none'"
 	}
 
 	header /build/* Content-Security-Policy "default-src 'none'"
