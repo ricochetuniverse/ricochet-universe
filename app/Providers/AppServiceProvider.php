@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // https://planetscale.com/blog/laravels-safety-mechanisms
+        Model::preventLazyLoading(! $this->app->isProduction());
+        Model::preventAccessingMissingAttributes();
+        Model::preventSilentlyDiscardingAttributes();
+
         Paginator::useBootstrap();
     }
 }
