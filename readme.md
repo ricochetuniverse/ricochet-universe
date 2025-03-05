@@ -1,5 +1,9 @@
 # Ricochet Universe
 
+<img alt="Ricochet Universe logo" align="right" src="./icon.png" width="128" />
+
+Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community.
+
 Visit the live website at [https://www.ricochetuniverse.com](https://www.ricochetuniverse.com)
 
 ## Server requirements
@@ -38,11 +42,8 @@ After you `git clone` this repo...
     docker-compose run --rm php php artisan migrate
     docker-compose run --rm php php artisan storage:link --relative
     ```
-7. Execute `docker-compose run --rm node npm run watch` and leave the terminal window open to rebuild assets whenever you save
 
-The server runs and listens on `https://ricochet.test:8000`
-
-Extra steps:
+Optional:
 
 -   [Laravel IDE Helper](https://github.com/barryvdh/laravel-ide-helper) is installed, you can generate helper files by executing these commands:
     ```bash
@@ -50,9 +51,13 @@ Extra steps:
     docker-compose run --rm php php artisan ide-helper:meta
     ```
 
-## Some useful info
+## Day-to-day development
 
-There are some known issues such as the Content Security Policy being very strict and blocking Laravel Debugbar.
+Execute `docker-compose up -d` to start the services, you can access the website at `https://ricochet.test:8000`
+
+Execute `docker-compose run --rm node npm run watch` and leave the terminal window open to rebuild assets whenever you save.
+
+## Misc info
 
 ### User-agent
 

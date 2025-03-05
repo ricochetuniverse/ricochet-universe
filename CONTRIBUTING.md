@@ -1,22 +1,32 @@
 ## Code style
 
+### PHP
+
+Use [Laravel Pint](https://laravel.com/docs/pint).
+
+```bash
+docker-compose run --rm php ./vendor/bin/pint
+```
+
 ### SCSS/JavaScript/Markdown/YAML
 
 Use [Prettier](https://prettier.io).
 
-Assuming you have the npm dependencies install, run `npm run prettier -- --write` to fix the code style.
+```bash
+docker-compose run --rm node npm run prettier -- --write
+```
 
 ## Running tests
 
-Run PHP tests:
+### PHP
 
 ```bash
 docker-compose run --rm php ./vendor/bin/phpunit
-docker-compose run --rm php ./vendor/bin/pint
 docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=256M
+docker-compose run --rm php ./vendor/bin/pint --test
 ```
 
-Run Node tests:
+### Node.js
 
 ```bash
 docker-compose run --rm node sh -c "npm run flow && npm run lint && npm test && npm run prettier -- -l"
@@ -37,3 +47,7 @@ CREATE DATABASE ricochetlevels_test;
 GRANT ALL PRIVILEGES ON ricochetlevels_test.* TO 'ricochetlevels_test'@'%' IDENTIFIED BY '123';
 FLUSH PRIVILEGES;
 ```
+
+## Xdebug
+
+[Xdebug](https://xdebug.org) is already preinstalled on the Docker container.
