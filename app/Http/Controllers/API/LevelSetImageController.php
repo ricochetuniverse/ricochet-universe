@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\RedirectForGame;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Url\Url;
@@ -27,44 +28,35 @@ class LevelSetImageController extends Controller
      * URL path: /levels/images/{name}.jpg
      *
      * @see https://gitlab.com/ngyikp/ricochet-levels/-/issues/14
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function showVersion1(Request $request, string $name)
+    public function showVersion1(Request $request, string $name): RedirectResponse
     {
         // 9 level sets have this...
         if ($name === 'none') {
             throw new NotFoundHttpException;
         }
 
-        $isSecure = $request->isSecure();
-
         $fileName = rawurldecode($name).'.jpg';
 
         $disk = Storage::disk('legacy-levelset-images');
         if ($disk->exists($fileName)) {
-            return RedirectForGame::to(
-                $isSecure,
-                Url::fromString($disk->url($fileName))
-                    ->withQueryParameter('time', $disk->lastModified($fileName))
-            );
+            $url = Url::fromString($disk->url($fileName))
+                ->withQueryParameter('time', $disk->lastModified($fileName));
+        } else {
+            // todo remove this redirect after archive is finished
+            $url = self::FALLBACK_URL.'images/'.$name.'.jpg';
         }
 
-        // todo remove this redirect after archive is finished
-        return RedirectForGame::to($isSecure, self::FALLBACK_URL.'images/'.$name.'.jpg');
+        return $this->setCacheHeaders(RedirectForGame::to($request->isSecure(), $url));
     }
 
     /**
      * These level sets use thumbnails from the rounds
      *
      * URL path: /levels/cache/{name}/{number}.jpg
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function showVersion2(Request $request, string $name, int $number)
+    public function showVersion2(Request $request, string $name, int $number): RedirectResponse
     {
-        $isSecure = $request->isSecure();
-
         $fileName = $name.'/'.$number.'.jpg';
         $fileUrl = rawurlencode($name).'/'.$number.'.jpg';
 
@@ -72,12 +64,24 @@ class LevelSetImageController extends Controller
         if ($disk->exists($fileName)) {
             $url = Url::fromString($disk->url($fileUrl))
                 ->withQueryParameter('time', $disk->lastModified($fileName));
-
-            return RedirectForGame::to($isSecure, $url);
+        } else {
+            // todo is this redirect really needed? can we just fail it?
+            // throw new \Exception('Level set image '.$fileName.' not found');
+            $url = self::FALLBACK_URL.'cache/'.$fileUrl;
         }
 
-        // todo is this redirect really needed? can we just fail it?
-        // throw new \Exception('Level set image '.$fileName.' not found');
-        return RedirectForGame::to($isSecure, self::FALLBACK_URL.'cache/'.$fileUrl);
+        return $this->setCacheHeaders(RedirectForGame::to($request->isSecure(), $url));
+    }
+
+    /**
+     * Laravel's default SetCacheHeaders middleware does not run on redirects,
+     * see https://github.com/laravel/framework/commit/94bfff1d057c9c53d24ad0c3b66294e4c0a81bb7
+     */
+    private function setCacheHeaders(RedirectResponse $redirect): RedirectResponse
+    {
+        return $redirect->setCache([
+            'public' => true,
+            'max_age' => 600,
+        ]);
     }
 }

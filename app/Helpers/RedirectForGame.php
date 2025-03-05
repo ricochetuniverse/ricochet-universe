@@ -2,17 +2,17 @@
 
 namespace App\Helpers;
 
+use Illuminate\Http\RedirectResponse;
+
 class RedirectForGame
 {
     /**
      * Games with old libcurl.dll cannot use HTTPS, and the HTML response content must be blank
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public static function to(bool $isSecure, string $url)
+    public static function to(bool $isSecure, string $url): RedirectResponse
     {
         if (! $isSecure) {
-            $url = preg_replace('/^https\:\/\//', 'http://', $url);
+            $url = preg_replace('/^https:\/\//', 'http://', $url);
         }
 
         $response = redirect($url);

@@ -7,6 +7,7 @@ use App\Helpers\TextEncoderForGame;
 use App\Http\Controllers\Controller;
 use App\LevelSet;
 use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Spatie\Url\Url;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LevelDownloadController extends Controller
 {
-    public function download(Request $request, FilesystemManager $storage)
+    public function download(Request $request, FilesystemManager $storage): RedirectResponse
     {
         $file = $request->input('File', '');
 
