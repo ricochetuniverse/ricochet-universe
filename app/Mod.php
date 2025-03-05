@@ -20,18 +20,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSet> $levelSets
  * @property-read int|null $level_sets_count
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Mod newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Mod newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Mod query()
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereAuthor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereDownloadLink($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereTriggerCodename($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod whereVideoEmbedSource($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereAuthor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereDownloadLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereTriggerCodename($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mod whereVideoEmbedSource($value)
  *
  * @mixin \Eloquent
  */
