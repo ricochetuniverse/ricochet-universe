@@ -7,15 +7,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Url\Url;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LevelSetImageController extends Controller
 {
     public const string FALLBACK_URL = 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/';
+    // public const string FALLBACK_URL = 'https://web.archive.org/web/20171205000449im_/http://www.ricochetlostworlds.com/levels/';
 
     /**
      * Early RLW levels uploaded before November 2006 are screenshot manually by the level approvers, rather than
-     * picking an existing level thumbnail, there are ~196 of these images archived at
+     * picking an existing level thumbnail, these images are archived at
      * https://web.archive.org/web/%2A/http://www.ricochetInfinity.com/levels/images/%2A
+     * https://web.archive.org/web/%2A/http://www.ricochetlostworlds.com/levels/images/%2A
      *
      * First, check if we already saved these images on our server
      * If not, redirect to archive.org and hope they got a saved copy (likely unsuccessful as we already attempted to
@@ -29,6 +32,11 @@ class LevelSetImageController extends Controller
      */
     public function showVersion1(Request $request, string $name)
     {
+        // 9 level sets have this...
+        if ($name === 'none') {
+            throw new NotFoundHttpException;
+        }
+
         $isSecure = $request->isSecure();
 
         $fileName = rawurldecode($name).'.jpg';
