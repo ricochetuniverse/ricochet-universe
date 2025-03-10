@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\GameUserAgent;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,7 @@ class GameUserAgentOnly
      */
     public function handle(Request $request, Closure $next)
     {
-        $userAgent = $request->userAgent();
-        if (str_starts_with($userAgent, 'Ricochet ') || str_starts_with($userAgent, 'Rebound ')) {
+        if (GameUserAgent::checkRequest($request)) {
             return $next($request);
         }
 

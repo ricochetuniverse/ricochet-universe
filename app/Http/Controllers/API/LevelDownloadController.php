@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\GameUserAgent;
 use App\Helpers\RedirectForGame;
 use App\Helpers\TextEncoderForGame;
 use App\Http\Controllers\Controller;
+use App\Jobs\CreateLevelSetDownloadLog;
 use App\LevelSet;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +42,8 @@ class LevelDownloadController extends Controller
             throw new NotFoundHttpException;
         }
 
+        $this->maybeAddDownloadCount($request, $levelSet);
+
         $url = Url::fromString($disk->url($fileUrl))
             ->withQueryParameter('time', $disk->lastModified($fileName));
 
@@ -65,5 +69,53 @@ class LevelDownloadController extends Controller
         $file = Str::beforeLast($file, '.RicochetI');
 
         return $file;
+    }
+
+    private function maybeAddDownloadCount(Request $request, LevelSet $levelSet): void
+    {
+        // Don't count hits from known bots
+        if (Str::contains($request->userAgent(), 'bot', true)) {
+            return;
+        }
+
+        // Only count Ricochet user-agents OR modern browsers that send Sec-Fetch-Site header
+        //
+        // Every browser send slightly different headers
+        //
+        // Chrome 136:
+        //   Left-click:
+        //     Sec-Fetch-Dest: document
+        //     Sec-Fetch-Mode: navigate
+        //     Sec-Fetch-Site: same-origin
+        //     Sec-Fetch-User: ?1
+        //   Right-click > Save Link As:
+        //     Sec-Fetch-Dest: empty
+        //     Sec-Fetch-Mode: navigate
+        //     Sec-Fetch-Site: same-origin
+        //
+        // Firefox 138:
+        //   Left-click:
+        //     Sec-Fetch-Dest: document
+        //     Sec-Fetch-Mode: navigate
+        //     Sec-Fetch-Site: same-origin
+        //     Sec-Fetch-User: ?1
+        //   Right-click > Save Link As:
+        //     Sec-Fetch-Dest: empty
+        //     Sec-Fetch-Mode: no-cors
+        //     Sec-Fetch-Site: same-origin
+        //
+        // Safari 18.4:
+        //   Left-click:
+        //     Sec-Fetch-Dest: document
+        //     Sec-Fetch-Mode: navigate
+        //     Sec-Fetch-Site: same-origin
+        //   Right-click > Download Linked File:
+        //     No Sec-Fetch headers are sent
+        //
+        if (! GameUserAgent::checkRequest($request) && $request->header('Sec-Fetch-Site') !== 'same-origin') {
+            return;
+        }
+
+        CreateLevelSetDownloadLog::dispatchAfterResponse($levelSet->id, $request->ip());
     }
 }

@@ -74,6 +74,9 @@ use Spatie\Url\Url;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet withAnyTag($tagNames)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet withoutTags($tagNames)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetDownloadLog> $downloadLogs
+ * @property-read int|null $download_logs_count
+ *
  * @mixin \Eloquent
  */
 class LevelSet extends Model
@@ -117,6 +120,11 @@ class LevelSet extends Model
     public function mods(): BelongsToMany
     {
         return $this->belongsToMany(Mod::class);
+    }
+
+    public function downloadLogs(): HasMany
+    {
+        return $this->hasMany(LevelSetDownloadLog::class);
     }
 
     public function isDesignedForLostWorlds(): bool
