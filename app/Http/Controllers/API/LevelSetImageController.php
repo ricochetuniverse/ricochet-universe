@@ -21,10 +21,6 @@ class LevelSetImageController extends Controller
      * https://web.archive.org/web/%2A/http://www.ricochetInfinity.com/levels/images/%2A
      * https://web.archive.org/web/%2A/http://www.ricochetlostworlds.com/levels/images/%2A
      *
-     * First, check if we already saved these images on our server
-     * If not, redirect to archive.org and hope they got a saved copy (likely unsuccessful as we already attempted to
-     * save them all)
-     *
      * URL path: /levels/images/{name}.jpg
      *
      * @see https://gitlab.com/ngyikp/ricochet-levels/-/issues/14
@@ -38,14 +34,14 @@ class LevelSetImageController extends Controller
 
         $fileName = rawurldecode($name).'.jpg';
 
+        // We already saved images from archive.org on our server, redirecting to archive.org wpn't help
         $disk = Storage::disk('legacy-levelset-images');
-        if ($disk->exists($fileName)) {
-            $url = Url::fromString($disk->url($fileName))
-                ->withQueryParameter('time', $disk->lastModified($fileName));
-        } else {
-            // todo remove this redirect after archive is finished
-            $url = self::FALLBACK_URL.'images/'.$name.'.jpg';
+        if (! $disk->exists($fileName)) {
+            throw new NotFoundHttpException;
         }
+
+        $url = Url::fromString($disk->url($fileName))
+            ->withQueryParameter('time', $disk->lastModified($fileName));
 
         return $this->setCacheHeaders(RedirectForGame::to($request->isSecure(), $url));
     }
@@ -66,8 +62,8 @@ class LevelSetImageController extends Controller
                 ->withQueryParameter('time', $disk->lastModified($fileName));
         } else {
             // todo is this redirect really needed? can we just fail it?
-            // throw new \Exception('Level set image '.$fileName.' not found');
-            $url = self::FALLBACK_URL.'cache/'.$fileUrl;
+            throw new MissingLevelSetImageException('Level set image '.$fileName.' not found');
+            // $url = self::FALLBACK_URL.'cache/'.$fileUrl;
         }
 
         return $this->setCacheHeaders(RedirectForGame::to($request->isSecure(), $url));
@@ -85,3 +81,5 @@ class LevelSetImageController extends Controller
         ]);
     }
 }
+
+class MissingLevelSetImageException extends \Exception {}

@@ -36,19 +36,14 @@ class LevelDownloadController extends Controller
         $fileUrl = rawurlencode($levelSet->name).$levelSet->getFileExtension();
 
         $disk = $storage->disk('levels');
-        if ($disk->exists($fileName)) {
-            $url = Url::fromString($disk->url($fileUrl))
-                ->withQueryParameter('time', $disk->lastModified($fileName));
-
-            return RedirectForGame::to($request->isSecure(), $url);
+        if (! $disk->exists($fileName)) {
+            throw new NotFoundHttpException;
         }
 
-        if ($levelSet->alternate_download_url) {
-            // Alternate download server wouldn't accept non-HTTPS...
-            return redirect($levelSet->alternate_download_url);
-        }
+        $url = Url::fromString($disk->url($fileUrl))
+            ->withQueryParameter('time', $disk->lastModified($fileName));
 
-        throw new NotFoundHttpException;
+        return RedirectForGame::to($request->isSecure(), $url);
     }
 
     private function tryUtf8(string $file): ?LevelSet

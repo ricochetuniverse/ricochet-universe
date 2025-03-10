@@ -19,7 +19,6 @@ class Standard extends Policy
             ->addDirective(Directive::SCRIPT, URL::to('/build/').'/')
             ->addDirective(Directive::IMG, Keyword::SELF)
             ->addDirective(Directive::IMG, 'data:') // Bootstrap 4 -__-
-            ->addDirective(Directive::IMG, 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/')
             ->addDirective(Directive::STYLE, URL::to('/build/').'/')
             ->addDirective(Directive::CONNECT, Keyword::NONE)
             ->addDirective(Directive::FRAME, Keyword::NONE)
