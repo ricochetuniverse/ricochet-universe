@@ -6,7 +6,7 @@ use App\Helpers\GameUserAgent;
 use Closure;
 use Illuminate\Http\Request;
 
-class GameUserAgentOnly
+class AllowOnlyGameUserAgent
 {
     /**
      * Handle an incoming request.

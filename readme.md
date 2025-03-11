@@ -61,16 +61,6 @@ See CONTRIBUTING.md for more tips and commands!
 
 ## Misc info
 
-### User-agent
-
-Windows edition:
-
--   Ricochet Infinity Version 3 Build 62
-
-Mac edition:
-
--   Ricochet Lost Worlds Version 3 Build 71
-
 ### web.archive.org
 
 -   https://web.archive.org/web/20171128131900/http://www.ricochetinfinity.com
