@@ -1,3 +1,21 @@
+## Connecting the game to local site
+
+Ensure the system already has an entry for `ricochet.test` on the `hosts` file.
+
+[Install the certificate authority into the system.](https://github.com/FiloSottile/mkcert#installing-the-ca-on-other-systems)
+
+Edit `Data2.dat` in the Ricochet Infinity game folder to point to the local site.
+
+```
+Catalog URL=https://ricochet.test:8000/gateway/catalog.php
+```
+
+If `libcurl.dll` cannot be updated for whatever reason, there is a fallback to non-HTTPS.
+
+```
+Catalog URL=http://ricochet.test:8001/gateway/catalog.php
+```
+
 ## Code style
 
 ### PHP

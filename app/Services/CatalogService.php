@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\LevelSet;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\URL;
 
 class CatalogService
 {
@@ -30,10 +31,10 @@ class CatalogService
     private function getCatalogHeader(bool $isSecure): string
     {
         // $siteUrl = 'http://www.ricochetInfinity.com';
-        $siteUrl = config('app.url');
+        $siteUrl = URL::to('/');
 
         if (! $isSecure) {
-            $siteUrl = preg_replace('/^https\:\/\//', 'http://', $siteUrl);
+            $siteUrl = preg_replace('/^https:\/\//', 'http://', $siteUrl);
         }
 
         // $imageUrl = 'http://www.ricochetInfinity.com/levels/';

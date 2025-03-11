@@ -57,6 +57,8 @@ Execute `docker-compose up -d` to start the services, you can access the website
 
 Execute `docker-compose run --rm node npm run watch` and leave the terminal window open to rebuild assets whenever you save.
 
+See CONTRIBUTING.md for more tips and commands!
+
 ## Misc info
 
 ### User-agent
