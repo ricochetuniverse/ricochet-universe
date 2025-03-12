@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Str;
 use App\Jobs\DownloadLevelSet;
 use App\Jobs\ParseLevelSet;
 use App\LevelSet;
@@ -55,8 +56,8 @@ class LevelController extends Controller
         }
 
         if (is_string($search) && strlen($search) > 0) {
-            $levelSets->where('name', 'like', '%'.$search.'%')
-                ->orWhere('author', 'like', '%'.$search.'%');
+            $levelSets->where('name', 'LIKE', '%'.Str::escapeLike($search).'%')
+                ->orWhere('author', 'LIKE', '%'.Str::escapeLike($search).'%');
         }
 
         $levelSets = $levelSets->paginate(10)
