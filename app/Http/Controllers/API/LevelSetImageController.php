@@ -56,6 +56,11 @@ class LevelSetImageController extends Controller
         $fileName = $name.'/'.$number.'.jpg';
         $fileUrl = rawurlencode($name).'/'.$number.'.jpg';
 
+        if (str_contains($fileName, '%20')) {
+            // filter out dumb scrapers that don't understand URL encoding
+            throw new NotFoundHttpException;
+        }
+
         $disk = Storage::disk('round-images');
         if ($disk->exists($fileName)) {
             $url = Url::fromString($disk->url($fileUrl))
