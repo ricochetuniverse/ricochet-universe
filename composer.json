@@ -19,6 +19,7 @@
     },
     "require": {
         "php": "^8.3.19",
+        "ext-intl": "*",
         "ext-sodium": "*",
         "ext-zlib": "*",
         "guzzlehttp/guzzle": "^7.9",
