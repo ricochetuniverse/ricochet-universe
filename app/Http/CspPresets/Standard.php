@@ -77,14 +77,16 @@ class Standard implements Preset
     }
 
     /*
-    public function addForIgnition(Policy $policy): void
+    public function addForExceptionPage(Policy $policy): void
     {
         $policy
             ->add(Directive::DEFAULT, Keyword::NONE)
+            ->add(Directive::SCRIPT, Keyword::UNSAFE_EVAL)
             ->add(Directive::SCRIPT, Keyword::UNSAFE_INLINE)
+            ->add(Directive::STYLE, 'https://fonts.bunny.net')
             ->add(Directive::STYLE, Keyword::UNSAFE_INLINE)
-            ->add(Directive::CONNECT, URL::to('/_ignition/').'/')
-            ->add(Directive::IMG, 'data:');
+            ->add(Directive::IMG, 'data:')
+            ->add(Directive::FONT, 'https://fonts.bunny.net');
     }
     */
 }
