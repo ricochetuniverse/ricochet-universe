@@ -29,9 +29,9 @@ class LevelController extends Controller
             'Date_Posted',
             'overall_rating',
             'Stars',
-        ]) ? $orderBy : null;
+        ], true) ? $orderBy : null;
 
-        $orderDirection = in_array($orderDirection, ['DESC', 'ASC']) ? $orderDirection : 'ASC';
+        $orderDirection = in_array($orderDirection, ['DESC', 'ASC'], true) ? $orderDirection : 'ASC';
 
         if (! $orderBy) {
             $orderBy = 'downloads';
@@ -49,27 +49,35 @@ class LevelController extends Controller
 
         if (is_string($author) && strlen($author) > 0) {
             $levelSets->where('author', $author);
+        } else {
+            $author = null;
         }
 
         if (is_string($tag) && strlen($tag) > 0) {
             $levelSets->withAnyTag($tag);
+        } else {
+            $tag = null;
         }
 
         if (is_string($search) && strlen($search) > 0) {
             $levelSets->where('name', 'LIKE', '%'.Str::escapeLike($search).'%')
                 ->orWhere('author', 'LIKE', '%'.Str::escapeLike($search).'%');
+        } else {
+            $search = null;
         }
 
-        $levelSets = $levelSets->paginate(10)
-            ->appends([
-                'author' => $author,
-                'tag' => $tag,
-                'search' => $search,
-                'orderBy' => $orderBy,
-                'orderDir' => $orderDirection,
-            ]);
+        $filteredInput = [
+            'author' => $author,
+            'tag' => $tag,
+            'search' => $search,
+            'orderBy' => $orderBy,
+            'orderDir' => $orderDirection,
+        ];
+
+        $levelSets = $levelSets->paginate(10)->appends($filteredInput);
 
         return view('levels.index', [
+            'filteredInput' => $filteredInput,
             'levelSets' => $levelSets,
             'orderBy' => $orderBy,
             'orderDirection' => $orderDirection,

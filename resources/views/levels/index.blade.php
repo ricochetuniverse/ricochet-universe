@@ -39,7 +39,7 @@
                     <form action="{{ action('LevelController@index') }}" method="GET" class="form-inline">
                         <input class="form-control w-100" type="search" name="search"
                                placeholder="Search level sets by name/author" title="Search level sets by name/author"
-                               value="{{ is_string(request()->input('search')) ? request()->input('search') : '' }}">
+                               value="{{ $filteredInput['search'] }}">
 
                         <div class="w-100 mb-2"></div>
 
@@ -65,7 +65,7 @@
                             @endforeach
                         </select>
 
-                        @foreach (request()->input() as $name => $value)
+                        @foreach ($filteredInput as $name => $value)
                             @if (is_string($value) && !in_array($name, ['search', 'orderBy', 'orderDir']))
                                 <input type="hidden" name="{{ $name }}" value="{{ $value }}">
                             @endif
@@ -82,31 +82,31 @@
                         <thead class="d-none d-md-table-header-group thead-light thead-clickable">
                         <tr>
                             <th>
-                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'ASC' ? 'DESC' : 'ASC'])) }}"
+                                <a href="{{ action('LevelController@index', array_merge($filteredInput, ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by name">
                                     Name
                                 </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
+                                <a href="{{ action('LevelController@index', array_merge($filteredInput, ['orderBy' => 'Rounds', 'orderDir' => $orderBy === 'Rounds' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by level count">
                                     Levels
                                 </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'downloads', 'orderDir' => $orderBy === 'downloads' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
+                                <a href="{{ action('LevelController@index', array_merge($filteredInput, ['orderBy' => 'downloads', 'orderDir' => $orderBy === 'downloads' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by downloads">
                                     Downloads
                                 </a>
                             </th>
                             <th class="text-nowrap">
-                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
+                                <a href="{{ action('LevelController@index', array_merge($filteredInput, ['orderBy' => 'Date_Posted', 'orderDir' => $orderBy === 'Date_Posted' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by date posted">
                                     Date posted
                                 </a>
                             </th>
                             <th>
-                                <a href="{{ action('LevelController@index', array_merge(request()->input(), ['orderBy' => 'overall_rating', 'orderDir' => $orderBy === 'overall_rating' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
+                                <a href="{{ action('LevelController@index', array_merge($filteredInput, ['orderBy' => 'overall_rating', 'orderDir' => $orderBy === 'overall_rating' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
                                    title="Sort by overall grade">
                                     Ratings
                                 </a>
@@ -234,8 +234,8 @@
                 @else
                     <div class="card">
                         <div class="card-body">
-                            @if (is_string(request()->input('search')) && strlen(request()->input('search') > 0))
-                                No level sets found matching “{{ request()->input('search') }}”.
+                            @if (strlen($filteredInput['search'] > 0))
+                                No level sets found matching “{{ $filteredInput['search'] }}”.
                                 <a href="{{ action('LevelController@index') }}">Show all level sets</a>
                             @else
                                 No level sets found.
