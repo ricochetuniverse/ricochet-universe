@@ -23,7 +23,7 @@
         "ext-zlib": "*",
         "guzzlehttp/guzzle": "^7.9",
         "laracasts/flash": "^3.2",
-        "laravel/framework": "^11.44",
+        "laravel/framework": "^12.3",
         "laravel/tinker": "^2.10",
         "predis/predis": "^2.3",
         "rtconner/laravel-tagging": "^4.1",
