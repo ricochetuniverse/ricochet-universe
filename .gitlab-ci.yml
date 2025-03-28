@@ -15,8 +15,8 @@ stages:
         MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
     before_script:
         - apk update && apk upgrade
-        - apk add --no-cache git
-        - docker-php-ext-install pdo_mysql
+        - apk add --no-cache git icu-dev
+        - docker-php-ext-install intl pdo_mysql
 
 .setup_node: &setup_node
     image: node:20
