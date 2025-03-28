@@ -2,6 +2,7 @@
 
 namespace App\Services\LevelSetParser;
 
+use App\Helpers\TextEncoderForGame;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -336,7 +337,7 @@ final class Parser
      */
     private function fixEncoding(string $value): string
     {
-        $converted = mb_convert_encoding($value, 'UTF-8', 'Windows-1252');
+        $converted = TextEncoderForGame::toUtf8($value);
         if ($converted === false) {
             throw new \Exception('Cannot convert string to proper encoding');
         }

@@ -57,7 +57,7 @@ class ViewLevelSet extends Command
 
         if (! $this->option('with-picture')) {
             foreach ($levelSet->getRounds() as $round) {
-                unset($round->thumbnail);
+                $round->thumbnail = '';
             }
         }
 
