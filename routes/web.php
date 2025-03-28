@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\CspPolicies;
+use App\Http\CspPresets;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
 
@@ -8,7 +8,7 @@ $cache = 'cache.headers:private;max_age=300';
 
 Route::group(['middleware' => $cache], function () {
     Route::get('/', 'HomeController@index')
-        ->middleware(AddCspHeaders::class.':'.CspPolicies\Home::class);
+        ->middleware(AddCspHeaders::class.':'.CspPresets\Home::class);
 
     Route::get('/levels', 'LevelController@redirectMain');
     Route::get('/levels/index.php', 'LevelController@index');
@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/mods', 'ModsController@index')
     ->middleware($cache)
-    ->middleware(AddCspHeaders::class.':'.CspPolicies\Mods::class);
+    ->middleware(AddCspHeaders::class.':'.CspPresets\Mods::class);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/mods/create', 'ModsController@create');
     Route::post('/mods', 'ModsController@store');
@@ -39,7 +39,7 @@ Route::group(['middleware' => $cache], function () {
 
     Route::get('/tools', 'ToolsController@index');
     Route::get('/decompressor', 'DecompressorController@index')
-        ->middleware(AddCspHeaders::class.':'.CspPolicies\Decompressor::class);
+        ->middleware(AddCspHeaders::class.':'.CspPresets\Decompressor::class);
     Route::get('/red-mod-packager', 'RedModPackagerController@index');
     Route::get('/image-to-canvas', 'ImageToCanvasController@index');
     Route::get('/about', 'AboutController@index');
