@@ -33,7 +33,9 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'serve' => false,
             'throw' => true,
+            'report' => false,
         ],
 
         'public' => [
@@ -41,7 +43,9 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'serve' => false,
             'throw' => true,
+            'report' => false,
         ],
 
         's3' => [
@@ -54,12 +58,15 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => true,
+            'report' => false,
         ],
 
         'mod-info' => [
             'driver' => 'local',
             'root' => resource_path('mod-info'),
+            'serve' => false,
             'throw' => true,
+            'report' => false,
         ],
 
         'levels' => [
@@ -67,7 +74,9 @@ return [
             'root' => storage_path('app/public/levels'),
             'url' => env('APP_URL').'/storage/levels',
             'visibility' => 'public',
+            'serve' => false,
             'throw' => true,
+            'report' => false,
         ],
 
         'round-images' => [
@@ -75,7 +84,9 @@ return [
             'root' => storage_path('app/public/round-images'),
             'url' => env('APP_URL').'/storage/round-images',
             'visibility' => 'public',
+            'serve' => false,
             'throw' => true,
+            'report' => false,
         ],
 
         'legacy-levelset-images' => [
@@ -83,7 +94,9 @@ return [
             'root' => storage_path('app/public/legacy-levelset-images'),
             'url' => env('APP_URL').'/storage/legacy-levelset-images',
             'visibility' => 'public',
+            'serve' => false,
             'throw' => true,
+            'report' => false,
         ],
 
     ],

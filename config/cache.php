@@ -36,14 +36,14 @@ return [
         'array' => [
             'driver' => 'array',
             'serialize' => false,
-            'lock_connection' => null,
         ],
 
         'database' => [
             'driver' => 'database',
+            'connection' => env('DB_CACHE_CONNECTION'),
             'table' => env('DB_CACHE_TABLE', 'cache'),
-            'connection' => null,
-            'lock_connection' => null,
+            'lock_connection' => env('DB_CACHE_LOCK_CONNECTION'),
+            'lock_table' => env('DB_CACHE_LOCK_TABLE'),
         ],
 
         'file' => [
