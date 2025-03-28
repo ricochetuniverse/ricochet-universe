@@ -189,8 +189,11 @@
                                         @if ($round->image_file_name)
                                             <img
                                                 src="{{ $round->getImageUrl() }}"
-                                                alt="Screenshot of “{{ $round->name }}”" width="105" height="80"
-                                                class="roundInfo__image">
+                                                alt="Screenshot of “{{ $round->name }}”"
+                                                width="105"
+                                                height="80"
+                                                class="roundInfo__image"
+                                                loading="lazy">
                                         @endif
 
                                         <span class="roundInfo__name">
