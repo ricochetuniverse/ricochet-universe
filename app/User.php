@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Url\Url;
+use Illuminate\Support\Uri;
 
 /**
  * App\User
@@ -68,9 +68,7 @@ class User extends Authenticatable
 
     public function getAvatarUrl(int $size): string
     {
-        $url = Url::fromString($this->discord_avatar_url);
-        $url = $url->withQueryParameter('size', $size);
-
-        return $url;
+        return Uri::of($this->discord_avatar_url)
+            ->withQuery(['size' => $size]);
     }
 }

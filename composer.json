@@ -30,8 +30,7 @@
         "rtconner/laravel-tagging": "^4.1",
         "sentry/sentry-laravel": "^4.13",
         "socialiteproviders/discord": "^4.2",
-        "spatie/laravel-csp": "^3.5",
-        "spatie/url": "^2.4"
+        "spatie/laravel-csp": "^3.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

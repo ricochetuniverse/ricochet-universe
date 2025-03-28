@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Url\Url;
+use Illuminate\Support\Uri;
 
 /**
  * App\LevelRound
@@ -57,8 +57,8 @@ class LevelRound extends Model
     {
         $original = Storage::disk('round-images')->url(rawurlencode($this->image_file_name));
 
-        return Url::fromString($original)
-            ->withQueryParameter('time', $this->updated_at->unix());
+        return Uri::of($original)
+            ->withQuery(['time' => $this->updated_at->unix()]);
     }
 
     public function shouldShowViewNotesButton(): bool

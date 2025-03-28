@@ -12,7 +12,7 @@ use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Spatie\Url\Url;
+use Illuminate\Support\Uri;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LevelDownloadController extends Controller
@@ -44,8 +44,8 @@ class LevelDownloadController extends Controller
 
         $this->maybeAddDownloadCount($request, $levelSet);
 
-        $url = Url::fromString($disk->url($fileUrl))
-            ->withQueryParameter('time', $disk->lastModified($fileName));
+        $url = Uri::of($disk->url($fileUrl))
+            ->withQuery(['time' => $disk->lastModified($fileName)]);
 
         return RedirectForGame::to($request->isSecure(), $url);
     }

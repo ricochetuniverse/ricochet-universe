@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Url\Url;
+use Illuminate\Support\Uri;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LevelSetImageController extends Controller
@@ -40,8 +40,8 @@ class LevelSetImageController extends Controller
             throw new NotFoundHttpException;
         }
 
-        $url = Url::fromString($disk->url($fileName))
-            ->withQueryParameter('time', $disk->lastModified($fileName));
+        $url = Uri::of($disk->url($fileName))
+            ->withQuery(['time', $disk->lastModified($fileName)]);
 
         return $this->setCacheHeaders(RedirectForGame::to($request->isSecure(), $url));
     }
@@ -63,8 +63,8 @@ class LevelSetImageController extends Controller
 
         $disk = Storage::disk('round-images');
         if ($disk->exists($fileName)) {
-            $url = Url::fromString($disk->url($fileUrl))
-                ->withQueryParameter('time', $disk->lastModified($fileName));
+            $url = Uri::of($disk->url($fileUrl))
+                ->withQuery(['time' => $disk->lastModified($fileName)]);
         } else {
             // todo is this redirect really needed? can we just fail it?
             throw new MissingLevelSetImageException('Level set image '.$fileName.' not found');
