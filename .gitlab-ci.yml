@@ -56,7 +56,7 @@ composer:
 lint:
     extends: .setup_node
     stage: test_js
-    dependencies:
+    needs:
         - npm
     script:
         - npm run flow
@@ -67,7 +67,7 @@ lint:
 webpack:
     extends: .setup_node
     stage: test_js
-    dependencies:
+    needs:
         - npm
     artifacts:
         paths:
@@ -81,7 +81,7 @@ phpunit:
     stage: test_php
     script:
         - php ./vendor/bin/phpunit
-    dependencies:
+    needs:
         - composer
         - webpack
 
@@ -90,7 +90,7 @@ pint:
     stage: test_php
     script:
         - php ./vendor/bin/pint --test
-    dependencies:
+    needs:
         - composer
 
 phpstan:
@@ -98,5 +98,5 @@ phpstan:
     stage: test_php
     script:
         - php ./vendor/bin/phpstan analyse --memory-limit=256M
-    dependencies:
+    needs:
         - composer
