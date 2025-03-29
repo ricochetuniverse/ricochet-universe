@@ -3,7 +3,7 @@ stages:
     - test_js
     - test_php
 
-.setup_php: &setup_php
+.setup_php:
     image: php:8.4.5-alpine
     services:
         - mariadb:11.4.5
@@ -18,12 +18,12 @@ stages:
         - apk add --no-cache git icu-dev
         - docker-php-ext-install intl pdo_mysql
 
-.setup_node: &setup_node
+.setup_node:
     image: node:20
 
 npm:
+    extends: .setup_node
     stage: build
-    <<: *setup_node
     cache:
         key: nodejs
         paths:
@@ -35,8 +35,8 @@ npm:
         - npm ci
 
 composer:
+    extends: .setup_php
     stage: build
-    <<: *setup_php
     cache:
         key: php
         paths:
@@ -54,8 +54,8 @@ composer:
         - php artisan migrate
 
 lint:
+    extends: .setup_node
     stage: test_js
-    <<: *setup_node
     dependencies:
         - npm
     script:
@@ -65,8 +65,8 @@ lint:
         - npm run prettier -- -l
 
 webpack:
+    extends: .setup_node
     stage: test_js
-    <<: *setup_node
     dependencies:
         - npm
     artifacts:
@@ -77,33 +77,26 @@ webpack:
         - npm run production
 
 phpunit:
+    extends: .setup_php
     stage: test_php
-    <<: *setup_php
     script:
         - php ./vendor/bin/phpunit
     dependencies:
         - composer
         - webpack
-    needs:
-        - composer
-        - webpack
 
 pint:
+    image: php:8.4.5-alpine
     stage: test_php
-    <<: *setup_php
     script:
         - php ./vendor/bin/pint --test
     dependencies:
         - composer
-    needs:
-        - composer
 
 phpstan:
+    image: php:8.4.5-alpine
     stage: test_php
-    <<: *setup_php
     script:
         - php ./vendor/bin/phpstan analyse --memory-limit=256M
     dependencies:
-        - composer
-    needs:
         - composer
