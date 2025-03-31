@@ -14,21 +14,18 @@ type Props = $ReadOnly<{
 
 function CustomFileInput(
     {label, directory = false, ...otherProps}: Props,
-    ref: React$RefSetter<HTMLInputElement>
+    ref: React.RefSetter<HTMLInputElement>
 ): React.Node {
     return (
         <div className="custom-file">
-            {/* eslint-disable react/no-unknown-property */}
+            {/* $FlowFixMe[incompatible-type] webkitdirectory is not on flow-typed */}
             <input
                 type="file"
                 {...otherProps}
                 ref={ref}
-                directory={directory ? directory : undefined}
                 webkitdirectory={directory ? directory : undefined}
-                allowdirs={directory ? directory : undefined}
                 className="custom-file-input"
             />
-            {/* eslint-enable react/no-unknown-property */}
 
             <label className="custom-file-label">
                 {label ||

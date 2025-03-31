@@ -62,7 +62,7 @@ export default [
             react: {
                 pragma: 'h',
                 version: '18.3.1', // https://github.com/preactjs/preact/blob/main/compat/src/index.js
-                flowVersion: '0.251.1',
+                flowVersion: '0.266.1',
             },
         },
     },

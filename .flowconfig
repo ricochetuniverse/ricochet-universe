@@ -24,6 +24,7 @@ emoji=true
 ;casting_syntax=as
 experimental.const_params=true
 jest_integration=true
+;no_unchecked_indexed_access=true
 react.runtime=automatic
 use_mixed_in_catch_variables=true
 

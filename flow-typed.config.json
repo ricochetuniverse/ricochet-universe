@@ -1,3 +1,15 @@
 {
-    "ignore": ["lodash"]
+    "env": [
+        "node",
+        "dom",
+        "bom",
+        "intl",
+        "cssom",
+        "indexeddb",
+        "serviceworkers",
+        "streams",
+        "webassembly",
+        "jsx"
+    ],
+    "ignore": ["lodash", "prettier"]
 }

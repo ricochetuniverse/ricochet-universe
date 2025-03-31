@@ -14,7 +14,7 @@ declare module 'react-loadable' {
   };
 
   declare type CommonOptions = {
-    loading: React$ComponentType<LoadingProps>,
+    loading: React.ComponentType<LoadingProps>,
     delay?: number,
     timeout?: number,
     modules?: Array<string>,
@@ -24,7 +24,7 @@ declare module 'react-loadable' {
 
   declare type OptionsWithoutRender<TProps> = {
     ...CommonOptions,
-    loader(): Promise<React$ComponentType<TProps> | { +default: React$ComponentType<TProps>, ... }>,
+    loader(): Promise<React.ComponentType<TProps> | { +default: React.ComponentType<TProps>, ... }>,
     ...
   };
 
@@ -44,7 +44,7 @@ declare module 'react-loadable' {
     ...
   };
 
-  declare class LoadableComponent<TProps> extends React$Component<TProps> {
+  declare class LoadableComponent<TProps> extends React.Component<TProps> {
     static preload(): Promise<void>
   }
 
@@ -62,7 +62,7 @@ declare module 'react-loadable' {
   declare module.exports: {
     <TProps, TModule>(opts: Options<TProps, TModule>): Class<LoadableComponent<TProps>>,
     Map<TProps, TModules>(opts: MapOptions<TProps, TModules>): Class<LoadableComponent<TProps>>,
-    Capture: React$ComponentType<CaptureProps>,
+    Capture: React.ComponentType<CaptureProps>,
     preloadAll(): Promise<void>,
     preloadReady(): Promise<void>,
     ...

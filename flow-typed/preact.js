@@ -2,7 +2,7 @@
 
 declare module 'preact' {
     declare export const h: React$CreateElement;
-    declare export const Component: typeof React$Component;
+    declare export const Component: typeof React.Component;
     declare export const Fragment: typeof React.Fragment;
 
     declare export function render<ElementType: React$ElementType>(

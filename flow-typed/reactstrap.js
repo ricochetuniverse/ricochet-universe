@@ -5,7 +5,7 @@ declare module 'reactstrap' {
 
     declare class Alert
         extends
-            React$Component<{|
+            React.Component<{|
                 children?: React.Node,
                 className?: string,
                 closeClassName?: string,
@@ -22,7 +22,7 @@ declare module 'reactstrap' {
 
     declare class Button
         extends
-            React$Component<{
+            React.Component<{
                 active?: boolean,
                 'aria-label'?: string,
                 block?: boolean,
@@ -42,7 +42,7 @@ declare module 'reactstrap' {
 
     declare class Card
         extends
-            React$Component<{
+            React.Component<{
                 tag?: TagPropType,
                 inverse?: boolean,
                 color?: string,
@@ -57,7 +57,7 @@ declare module 'reactstrap' {
 
     declare class CardBody
         extends
-            React$Component<{
+            React.Component<{
                 tag?: TagPropType,
                 className?: string,
                 // cssModule?: PropTypes.object,
@@ -68,7 +68,7 @@ declare module 'reactstrap' {
 
     declare class CardHeader
         extends
-            React$Component<{
+            React.Component<{
                 tag?: TagPropType,
                 className?: string,
                 // cssModule?: PropTypes.object,
@@ -90,7 +90,7 @@ declare module 'reactstrap' {
 
     declare class Col
         extends
-            React$Component<{
+            React.Component<{
                 tag?: TagPropType,
                 xs?: ColumnProps,
                 sm?: ColumnProps,
@@ -106,7 +106,7 @@ declare module 'reactstrap' {
 
     declare class CustomInput
         extends
-            React$Component<{
+            React.Component<{
                 className?: string,
                 id: string | number,
                 type: string,
@@ -124,7 +124,7 @@ declare module 'reactstrap' {
 
     declare class FormGroup
         extends
-            React$Component<{|
+            React.Component<{|
                 children?: React.Node,
                 row?: boolean,
                 check?: boolean,
@@ -140,7 +140,7 @@ declare module 'reactstrap' {
 
     declare class Row
         extends
-            React$Component<{
+            React.Component<{
                 tag?: TagPropType,
                 noGutters?: boolean,
                 className?: string,
@@ -163,7 +163,7 @@ declare module 'reactstrap' {
 
     declare class Modal
         extends
-            React$Component<{|
+            React.Component<{|
                 isOpen?: boolean,
                 autoFocus?: boolean,
                 centered?: boolean,
@@ -198,7 +198,7 @@ declare module 'reactstrap' {
 
     declare class ModalBody
         extends
-            React$Component<{
+            React.Component<{
                 tag?: TagPropType,
                 className?: string,
                 // cssModule?: PropTypes.object,
@@ -207,7 +207,7 @@ declare module 'reactstrap' {
 
     declare class ModalFooter
         extends
-            React$Component<{
+            React.Component<{
                 tag?: TagPropType,
                 className?: string,
                 // cssModule?: PropTypes.object,
@@ -216,7 +216,7 @@ declare module 'reactstrap' {
 
     declare class ModalHeader
         extends
-            React$Component<{
+            React.Component<{
                 tag?: TagPropType,
                 wrapTag?: TagPropType,
                 toggle?: () => mixed,
