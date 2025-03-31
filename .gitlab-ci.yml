@@ -3,26 +3,14 @@ stages:
     - test_js
     - test_php
 
-.setup_php:
+.php_image:
     image: php:8.4.5-alpine
-    services:
-        - mariadb:11.4.5
-    variables:
-        # from .env.testing, needs to be here as .env isn't copied yet
-        MYSQL_DATABASE: ricochetlevels_test
-        MYSQL_USER: ricochetlevels_test
-        MYSQL_PASSWORD: '123'
-        MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-    before_script:
-        - apk update && apk upgrade
-        - apk add --no-cache git icu-dev
-        - docker-php-ext-install intl pdo_mysql
 
-.setup_node:
+.node_image:
     image: node:22
 
 npm:
-    extends: .setup_node
+    extends: .node_image
     stage: build
     cache:
         key: nodejs
@@ -35,7 +23,7 @@ npm:
         - npm ci
 
 composer:
-    extends: .setup_php
+    extends: .php_image
     stage: build
     cache:
         key: php
@@ -47,14 +35,13 @@ composer:
             - .env
     script:
         - curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-        - composer install --no-progress
+        - composer install --no-progress --ignore-platform-req=ext-intl
 
         - cp .env.testing .env
         - php artisan key:generate
-        - php artisan migrate
 
 lint:
-    extends: .setup_node
+    extends: .node_image
     stage: test_js
     needs:
         - npm
@@ -65,7 +52,7 @@ lint:
         - npm run prettier -- -l
 
 webpack:
-    extends: .setup_node
+    extends: .node_image
     stage: test_js
     needs:
         - npm
@@ -77,15 +64,28 @@ webpack:
         - npm run production
 
 phpunit:
-    extends: .setup_php
+    extends: .php_image
     stage: test_php
+    services:
+        - mariadb:11.4.5
+    variables:
+        # from .env.testing, needs to be here to initialize MariaDB container
+        MYSQL_DATABASE: ricochetlevels_test
+        MYSQL_USER: ricochetlevels_test
+        MYSQL_PASSWORD: '123'
+        MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    before_script:
+        - apk update && apk upgrade
+        - apk add --no-cache git icu-dev
+        - docker-php-ext-install intl pdo_mysql
     script:
+        - php artisan migrate
         - php ./vendor/bin/phpunit
     needs:
         - composer
 
 pint:
-    image: php:8.4.5-alpine
+    extends: .php_image
     stage: test_php
     script:
         - php ./vendor/bin/pint --test
@@ -93,7 +93,7 @@ pint:
         - composer
 
 phpstan:
-    image: php:8.4.5-alpine
+    extends: .php_image
     stage: test_php
     script:
         - php ./vendor/bin/phpstan analyse --memory-limit=256M
