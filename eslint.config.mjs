@@ -14,16 +14,15 @@ export default [
     jsxA11y.flatConfigs.recommended,
     react.configs.flat.recommended,
     react.configs.flat['jsx-runtime'],
+    reactHooks.configs['recommended-latest'],
     {
         plugins: {
             'ft-flow': flowtype,
-            'react-hooks': reactHooks,
         },
     },
     {
         rules: {
             ...flowtype.configs.recommended.rules,
-            ...reactHooks.configs.recommended.rules,
 
             // Variables
             'no-unused-vars': [
