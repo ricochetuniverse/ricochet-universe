@@ -16,5 +16,7 @@ abstract class TestCase extends BaseTestCase
 
         // https://laravel-news.com/laravel-http-client-tips#content-preventing-stray-requests-in-tests
         Http::preventStrayRequests();
+
+        $this->withoutMix();
     }
 }

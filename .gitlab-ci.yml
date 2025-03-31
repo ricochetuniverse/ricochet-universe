@@ -83,7 +83,6 @@ phpunit:
         - php ./vendor/bin/phpunit
     needs:
         - composer
-        - webpack
 
 pint:
     image: php:8.4.5-alpine
