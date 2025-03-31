@@ -19,7 +19,7 @@ stages:
         - docker-php-ext-install intl pdo_mysql
 
 .setup_node:
-    image: node:20
+    image: node:22
 
 npm:
     extends: .setup_node

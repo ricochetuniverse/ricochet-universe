@@ -17,7 +17,7 @@ For bare-metal installs:
 - [PHP 8.4](https://www.php.net)
 - [Composer](https://getcomposer.org)
 - [MariaDB 11.4](https://mariadb.org)
-- [Node.js v20](https://nodejs.org)
+- [Node.js v22](https://nodejs.org)
 - [Redis 6.2](https://redis.io)
 - A [queue worker](https://laravel.com/docs/11.x/queues#supervisor-configuration)
 - A [task scheduler](https://laravel.com/docs/11.x/scheduling#running-the-scheduler)
