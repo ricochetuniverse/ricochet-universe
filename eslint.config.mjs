@@ -67,6 +67,9 @@ export default [
         },
     },
     {
+        files: ['**/*.js', '**/*.jsx'],
+    },
+    {
         ignores: [
             'flow-typed/',
             'vendor/',
