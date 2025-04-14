@@ -18,7 +18,7 @@
 	respond /mix-manifest.json 404
 
 	@not_php {
-		not path /build/* /images/* /storage/* *#*
+		not path /build/* /images/* /storage/*
 	}
 	root * /var/ricochetuniverse/public
 	file_server
