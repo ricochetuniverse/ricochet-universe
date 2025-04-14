@@ -1,5 +1,5 @@
-// flow-typed signature: 55ecba8ef75a2fea4e55942d10192b0f
-// flow-typed version: 40e7dfcbd5/cssom/flow_>=v0.261.x
+// flow-typed signature: 1721cf37ce84fe2251d1efabc2320bfb
+// flow-typed version: f5bf96644f/cssom/flow_>=v0.261.x
 
 declare class StyleSheet {
   disabled: boolean;
@@ -446,7 +446,7 @@ type EffectTiming = {
   ...
 }
 
-type OptionalEffectTiming = $Rest<EffectTiming, {...}>
+type OptionalEffectTiming = Partial<EffectTiming>
 
 type ComputedEffectTiming = EffectTiming & {
   endTime: number;
@@ -488,7 +488,7 @@ type PropertyIndexedKeyframes = {
   ...
 }
 
-type KeyframeEffectOptions = $Rest<EffectTiming, {...}> & {
+type KeyframeEffectOptions = Partial<EffectTiming> & {
   iterationComposite?: IterationCompositeOperation;
   composite?: CompositeOperation;
   ...
