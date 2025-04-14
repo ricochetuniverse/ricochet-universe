@@ -4,7 +4,7 @@ stages:
     - test_php
 
 .php_image:
-    image: php:8.4.5-alpine
+    image: php:8.4.6-alpine
 
 .node_image:
     image: node:22
