@@ -3,7 +3,7 @@ import path from 'path';
 
 import generateZip from '../generate-zip';
 
-test('Neon Environment detection', async () => {
+test('generates RED file', async () => {
     const sequence = new Uint8Array(
         await fs.readFile(
             path.resolve(
