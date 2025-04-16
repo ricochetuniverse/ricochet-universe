@@ -25,7 +25,7 @@ class SyncRatingsController extends Controller
             throw new BadRequestHttpException;
         }
 
-        Log::debug(print_r($request->input(), true));
+        // Log::debug(print_r($request->input(), true));
 
         $ratings = RatingDataParser::parse($request->input('ratings'));
         Log::debug(print_r($ratings, true));

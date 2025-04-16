@@ -20,11 +20,9 @@ final class Parser
      */
     public static function parse(string $data): array
     {
-        // @todo need to fix text encoding? e.g. level set name
-        // $data = TextEncoderForGame::toUtf8($data);
-
         $result = [];
 
+        $data = TextEncoderForGame::toUtf8($data);
         foreach (Str::readTextAsStream($data) as $i => $line) {
             // Ensure first line starts with a known header
             if ($i === 0) {

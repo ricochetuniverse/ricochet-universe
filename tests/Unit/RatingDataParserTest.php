@@ -16,6 +16,7 @@ class RatingDataParserTest extends TestCase
 PlayerAAA,10 auto levels of fun,0,0,0,Autoplay,100
 PlayerBBB,Reflexive B Sides,14,11,8,Awesome;Classic Style;Strategy,5
 PlayerCCC,Rico's High Sea Adventures,14,14,15,Movie;Artistic;Pictures;Creative,100
+
 EOF;
         $ratings = RatingDataParser::parse($data);
 
@@ -50,10 +51,21 @@ EOF;
 {$this->getHeader()}
 PlayerAAA,Shamaar,s No Help Levels,9,9,9,Bombs,100
 PlayerCCC,Rico's High Sea Adventures,14,14,15,Movie;Artistic;Pictures;Creative,100
+
 EOF;
         $ratings = RatingDataParser::parse($data);
 
         $this->assertCount(1, $ratings);
+    }
+
+    public function test_legacy_encoding(): void
+    {
+        $data = file_get_contents(__DIR__.'/../fixtures/rating-data/legacy-encoding.txt');
+        $ratings = RatingDataParser::parse($data);
+
+        $this->assertCount(2, $ratings);
+        $this->assertEquals('#########Pack VL n°1', $ratings[0]->levelSetName);
+        $this->assertEquals('Eragoncola³s levels', $ratings[1]->levelSetName);
     }
 
     private function getHeader(): string

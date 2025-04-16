@@ -1,0 +1,3 @@
+player_name,roundset_name,overall_rating,fun_rating,graphics_rating,tags,percent_complete
+PlayerAAA,#########Pack VL n°1,0,0,13,,8
+PlayerBBB,Eragoncola³s levels,10,10,10,Easy,100
