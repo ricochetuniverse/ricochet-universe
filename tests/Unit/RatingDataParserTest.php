@@ -68,6 +68,22 @@ EOF;
         $this->assertEquals('Eragoncola³s levels', $ratings[1]->levelSetName);
     }
 
+    public function test_prevent_mod_prefix_tags(): void
+    {
+        $data = <<<EOF
+{$this->getHeader()}
+PlayerAAA,Neon Premiere,0,0,0,Mod: Neon Environment V3.2.0.3,5
+PlayerBBB,Neon Premiere,0,0,0,Awesome;Mod: Neon Environment V3.2.0.3,5
+
+EOF;
+        $ratings = RatingDataParser::parse($data);
+
+        $this->assertCount(2, $ratings);
+        $this->assertCount(0, $ratings[0]->tags);
+        $this->assertCount(1, $ratings[1]->tags);
+        $this->assertEquals('Awesome', $ratings[1]->tags[0]);
+    }
+
     private function getHeader(): string
     {
         return 'player_name,roundset_name,overall_rating,fun_rating,graphics_rating,tags,percent_complete';

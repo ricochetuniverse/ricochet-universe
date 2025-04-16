@@ -59,11 +59,11 @@ final class Parser
             $ratingData = new RatingData;
             $ratingData->player = $data[0];
             $ratingData->levelSetName = $data[1];
-            $ratingData->overallRating = self::sanitizeUserGrade($data[2]);
-            $ratingData->funRating = self::sanitizeUserGrade($data[3]);
-            $ratingData->graphicsRating = self::sanitizeUserGrade($data[4]);
-            $ratingData->tags = $data[5] !== '' ? explode(';', $data[5]) : [];
-            $ratingData->percentComplete = self::sanitizePercentComplete($data[6]);
+            $ratingData->overallRating = self::processUserGrade($data[2]);
+            $ratingData->funRating = self::processUserGrade($data[3]);
+            $ratingData->graphicsRating = self::processUserGrade($data[4]);
+            $ratingData->tags = self::processTags($data[5]);
+            $ratingData->percentComplete = self::processPercentComplete($data[6]);
 
             $result[] = $ratingData;
         }
@@ -74,7 +74,7 @@ final class Parser
     /**
      * @throws RatingDataParserException
      */
-    private static function sanitizeUserGrade(string $raw): ?int
+    private static function processUserGrade(string $raw): ?int
     {
         if (! ctype_digit($raw)) {
             throw new RatingDataParserException('Grade rating is invalid');
@@ -93,10 +93,25 @@ final class Parser
         return $rating;
     }
 
+    private static function processTags(string $raw): array
+    {
+        if ($raw === '') {
+            return [];
+        }
+
+        $tags = explode(';', $raw);
+
+        return array_filter($tags, function ($value) {
+            // Prevent adding tags with "Mod:" prefix as this tag is automatically added
+            // and there is no way to prevent people from adding in-game anyway
+            return ! str_starts_with($value, 'Mod:');
+        });
+    }
+
     /**
      * @throws RatingDataParserException
      */
-    private static function sanitizePercentComplete(string $raw): int
+    private static function processPercentComplete(string $raw): int
     {
         if (! ctype_digit($raw)) {
             throw new RatingDataParserException('Percent complete is invalid');
