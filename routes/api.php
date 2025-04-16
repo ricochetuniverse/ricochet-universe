@@ -18,6 +18,6 @@ Route::get('/levels/download.php', 'LevelDownloadController@download');
 
 Route::post('/levels/ri_submitform.php', 'LevelSubmitController@submit')->middleware('game');
 
-// Route::post('/gateway/syncratings.php', '')->middleware('game');
+Route::post('/gateway/syncratings.php', 'SyncRatingsController@sync')->middleware('game');
 
 Route::post('/api/discord-interactions-webhook', 'DiscordInteractionsWebhookController@processWebhook');

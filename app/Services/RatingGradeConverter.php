@@ -4,9 +4,9 @@ namespace App\Services;
 
 class RatingGradeConverter
 {
-    public const HIGHEST_RATING = 15;
+    public const int HIGHEST_RATING = 15;
 
-    public const LOWEST_RATING = 2;
+    public const int LOWEST_RATING = 2;
 
     public static function getGrade(float $rating): string
     {
@@ -41,7 +41,7 @@ class RatingGradeConverter
         return '';
     }
 
-    public static function getUserGrade(int $rating): string
+    public static function getUserGrade(int $rating): ?string
     {
         $grades = [
             2 => 'F',
@@ -59,7 +59,7 @@ class RatingGradeConverter
             15 => 'A+',
         ];
 
-        return $grades[$rating];
+        return $grades[$rating] ?? null;
     }
 
     public static function getScaledRatingPercentage(float $scaled): float

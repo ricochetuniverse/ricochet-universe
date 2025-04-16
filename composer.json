@@ -26,6 +26,7 @@
         "laracasts/flash": "^3.2",
         "laravel/framework": "^12.8",
         "laravel/tinker": "^2.10",
+        "league/flysystem-memory": "^3.29",
         "predis/predis": "^2.3",
         "rtconner/laravel-tagging": "^4.1",
         "sentry/sentry-laravel": "^4.13",
