@@ -37,11 +37,13 @@ final class Parser
 
             $data = explode(',', $line);
             if (count($data) !== 7) {
-                // @todo Unfortunately, if the level set has commas, this breaks the expectation that
-                //       there are only 7 fields (like a CSV comma injection)
+                // @todo Unfortunately, if the player name or level set has commas, this breaks the
+                //       expectation that there are only 7 fields (like a CSV comma injection)
                 //
                 // This may be resolved in the future, but we will skip for now, similar to these
                 // level sets on the old catalog are already lacking ratings/tags
+                //
+                // Custom tags are not an issue as the game blocks typing comma and semicolon
                 //
                 // Example:
                 //   PlayerAAA,Shamaar,s No Help Levels,9,9,9,Bombs,100
