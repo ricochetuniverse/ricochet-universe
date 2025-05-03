@@ -25,7 +25,7 @@
     "watch": "webpack --node-env=development --progress --watch"
   },
   "dependencies": {
-    "@babel/runtime": "7.27.0",
+    "@babel/runtime": "7.27.1",
     "bootstrap": "4.6.2",
     "jquery": "3.7.1",
     "jszip": "3.10.1",
@@ -40,11 +40,11 @@
     "uppie": "4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.26.10",
-    "@babel/preset-env": "7.26.9",
-    "@babel/preset-flow": "7.25.9",
-    "@babel/preset-react": "7.26.3",
-    "@eslint/js": "9.25.1",
+    "@babel/core": "7.27.1",
+    "@babel/preset-env": "7.27.1",
+    "@babel/preset-flow": "7.27.1",
+    "@babel/preset-react": "7.27.1",
+    "@eslint/js": "9.26.0",
     "autoprefixer": "10.4.21",
     "babel-loader": "10.0.0",
     "babel-plugin-syntax-hermes-parser": "0.28.1",
@@ -53,7 +53,7 @@
     "css-loader": "7.1.2",
     "cssnano": "7.0.6",
     "esbuild": "0.25.3",
-    "eslint": "9.25.1",
+    "eslint": "9.26.0",
     "eslint-plugin-ft-flow": "3.0.11",
     "eslint-plugin-jest": "28.11.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
