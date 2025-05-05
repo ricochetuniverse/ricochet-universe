@@ -3,20 +3,6 @@
 module.exports = (api) => {
     const env = api.env();
 
-    const plugins = [];
-
-    if (env === 'production') {
-        plugins.push([
-            'transform-imports',
-            {
-                reactstrap: {
-                    transform: 'reactstrap/lib/${member}',
-                    preventFullImport: true,
-                },
-            },
-        ]);
-    }
-
     return {
         presets: [
             [
@@ -36,6 +22,5 @@ module.exports = (api) => {
             ],
             '@babel/preset-typescript',
         ],
-        plugins: plugins,
     };
 };

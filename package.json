@@ -52,7 +52,6 @@
     "@types/react-loadable": "5.5.11",
     "autoprefixer": "10.4.21",
     "babel-loader": "10.0.0",
-    "babel-plugin-transform-imports": "2.0.0",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "7.1.2",
     "cssnano": "7.0.6",
