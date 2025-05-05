@@ -1,4 +1,3 @@
-
 import {Component} from 'preact';
 import Loadable from 'react-loadable';
 import {

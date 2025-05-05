@@ -3,7 +3,6 @@ import nullthrows from 'nullthrows';
 import LevelSet from './LevelSet';
 import Round from './Round';
 
-
 type Nested = {
     key: string;
     value: string;
