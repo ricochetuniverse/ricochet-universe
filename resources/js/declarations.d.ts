@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 declare module '*.css';
+declare module '*.scss';
 
 // todo maybe switch to pako module?
 declare module 'pako/lib/inflate' {

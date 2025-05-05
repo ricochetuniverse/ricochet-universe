@@ -1,5 +1,7 @@
 'use strict';
 
+import {type Configuration} from 'webpack';
+
 const path = require('path');
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
@@ -8,9 +10,9 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 
-module.exports = {
+const config: Configuration = {
     entry: {
-        app: './resources/js/app.js',
+        app: './resources/js/app.ts',
     },
     output: {
         path: path.resolve(__dirname, 'public/build/'),
@@ -68,6 +70,15 @@ module.exports = {
                     __dirname,
                     './resources/js/helpers/TextDecoder.browser.ts'
                 ),
+
+            ...(process.env.NODE_ENV === 'production'
+                ? {
+                      [path.resolve(
+                          __dirname,
+                          './resources/js/preact-debug.ts'
+                      )]: false,
+                  }
+                : null),
         },
     },
     plugins: [
@@ -105,3 +116,5 @@ module.exports = {
     },
     devtool: false,
 };
+
+module.exports = config;

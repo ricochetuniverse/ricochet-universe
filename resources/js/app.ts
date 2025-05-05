@@ -1,16 +1,16 @@
 import '../sass/app.scss';
 
-import $ from 'jquery';
-
-// Bootstrap
+import type {TooltipOption} from 'bootstrap';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/tooltip';
 
+import $ from 'jquery';
+
 $('[data-toggle="tooltip"], .js-with-tooltip').each(function () {
     const $base = $(this);
 
-    const options = {};
+    const options: TooltipOption = {};
     if ($base.closest('.navbar').length) {
         options.template =
             '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner text-nowrap"></div></div>';
@@ -29,15 +29,10 @@ $('[data-toggle="dropdown"]').each(function () {
         });
 });
 
-// Preact
-if (process.env.NODE_ENV === 'development') {
-    // todo convert this file to TS
-    require('preact/debug');
-}
-
 // Website stuff
 import './analytics';
 
+import './preact-debug';
 import './discord/index';
 import './round-info/index';
 import './decompressor/index';
