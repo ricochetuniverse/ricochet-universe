@@ -1,4 +1,5 @@
 import {render} from 'preact';
+
 import DiscordWidgetContainer from './DiscordWidgetContainer';
 
 const root = document.querySelector('.discordWidget__reactWrap');

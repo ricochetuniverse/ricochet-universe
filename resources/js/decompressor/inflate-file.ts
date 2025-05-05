@@ -1,4 +1,5 @@
 import {Inflate} from 'pako/lib/inflate';
+
 import TextDecoder from '../helpers/TextDecoder';
 
 export type InflateResult = {

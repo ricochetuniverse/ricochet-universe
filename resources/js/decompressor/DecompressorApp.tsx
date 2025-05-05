@@ -1,5 +1,3 @@
-import type {ModRequirement} from './check-for-mods';
-import type {InflateResult} from './inflate-file';
 
 import {Component} from 'preact';
 import Loadable from 'react-loadable';
@@ -19,7 +17,9 @@ import CustomFileInput from '../CustomFileInput';
 import IncompatibleBrowser from '../IncompatibleBrowser';
 import LoadingComponent from '../LoadingComponent';
 
+import type {ModRequirement} from './check-for-mods';
 import checkForMods from './check-for-mods';
+import type {InflateResult} from './inflate-file';
 import {inflateFile} from './inflate-file';
 
 type State = Readonly<{

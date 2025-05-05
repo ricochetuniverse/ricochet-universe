@@ -1,5 +1,5 @@
-import {promises as fs} from 'fs';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 import {inflateFile, decodeFromUint8Array} from '../inflate-file';
 

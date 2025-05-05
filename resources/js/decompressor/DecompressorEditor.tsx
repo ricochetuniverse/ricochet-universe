@@ -1,7 +1,6 @@
-import {Component, createRef} from 'preact';
-
-import MonacoEditor from 'react-monaco-editor';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import {Component, createRef} from 'preact';
+import MonacoEditor from 'react-monaco-editor';
 import 'monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.css'; // https://github.com/microsoft/monaco-editor/issues/1759
 
 type Props = Readonly<{

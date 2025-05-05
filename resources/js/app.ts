@@ -4,8 +4,17 @@ import type {TooltipOption} from 'bootstrap';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/tooltip';
-
 import $ from 'jquery';
+
+// Website stuff
+import './analytics';
+
+import './preact-debug';
+import './discord/index';
+import './round-info/index';
+import './decompressor/index';
+import './red-mod-packager/index';
+import './image-to-canvas/index';
 
 $('[data-toggle="tooltip"], .js-with-tooltip').each(function () {
     const $base = $(this);
@@ -28,13 +37,3 @@ $('[data-toggle="dropdown"]').each(function () {
             $(ev.relatedTarget).tooltip('enable');
         });
 });
-
-// Website stuff
-import './analytics';
-
-import './preact-debug';
-import './discord/index';
-import './round-info/index';
-import './decompressor/index';
-import './red-mod-packager/index';
-import './image-to-canvas/index';
