@@ -47,7 +47,7 @@ docker-compose run --rm php ./vendor/bin/pint --test
 ### Node.js
 
 ```bash
-docker-compose run --rm node sh -c "npm run flow && npm run lint && npm test && npm run prettier -- -l"
+docker-compose run --rm node sh -c "npm run tsc -- -b && npm run lint && npm test && npm run prettier -- -c"
 ```
 
 ## Creating test database

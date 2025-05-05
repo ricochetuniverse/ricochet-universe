@@ -1,5 +1,3 @@
-flow-typed/environments/
-flow-typed/npm/
 vendor/
 
 public/build/

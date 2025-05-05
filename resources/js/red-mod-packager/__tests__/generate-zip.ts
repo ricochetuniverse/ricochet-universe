@@ -1,0 +1,47 @@
+import assert from 'node:assert/strict';
+import {promises as fs} from 'fs';
+import path from 'path';
+
+import generateZip from '../generate-zip';
+
+test('generates RED file', async () => {
+    const sequence = new Uint8Array(
+        await fs.readFile(
+            path.resolve(
+                __dirname,
+                './fixtures/Cache/Resources/Player Ship/Player Shot.Sequence'
+            )
+        )
+    ).buffer;
+
+    const packaged = await fs.readFile(
+        path.resolve(__dirname, './fixtures/packaged.red')
+    );
+
+    // Construct the file...
+    const file = new File([sequence], 'Player Shot.Sequence', {
+        type: '',
+        lastModified: 1185540378000,
+    });
+    // @ts-expect-error https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath
+    file.webkitRelativePath =
+        'Cache/Resources/Player Ship/Player Shot.Sequence';
+
+    // Zip it...
+    // @ts-expect-error function should be changed to File[] instead of FileList
+    const zipBlob = await generateZip([file], '');
+
+    const zipArrayBuffer: ArrayBuffer = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            assert(ev.target);
+            resolve(ev.target.result as ArrayBuffer);
+        };
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(zipBlob);
+    });
+
+    expect(new Uint8Array(zipArrayBuffer)).toStrictEqual(
+        new Uint8Array(packaged)
+    );
+});

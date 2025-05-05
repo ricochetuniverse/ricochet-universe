@@ -3,7 +3,7 @@
 module.exports = (api) => {
     const env = api.env();
 
-    const plugins = ['babel-plugin-syntax-hermes-parser'];
+    const plugins = [];
 
     if (env === 'production') {
         plugins.push([
@@ -34,7 +34,7 @@ module.exports = (api) => {
                     useBuiltIns: true,
                 },
             ],
-            '@babel/preset-flow',
+            '@babel/preset-typescript',
         ],
         plugins: plugins,
     };

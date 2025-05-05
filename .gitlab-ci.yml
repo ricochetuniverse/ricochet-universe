@@ -46,10 +46,10 @@ lint:
     needs:
         - npm
     script:
-        - npm run flow
+        - npm run tsc -- --build
         - npm run lint
         - npm test
-        - npm run prettier -- -l
+        - npm run prettier -- --check
 
 webpack:
     extends: .node_image

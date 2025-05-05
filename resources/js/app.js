@@ -31,6 +31,7 @@ $('[data-toggle="dropdown"]').each(function () {
 
 // Preact
 if (process.env.NODE_ENV === 'development') {
+    // todo convert this file to TS
     require('preact/debug');
 }
 
