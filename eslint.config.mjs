@@ -57,7 +57,7 @@ export default tseslint.config(
         },
     },
     {
-        files: ['**/*.js', '**/*.cjs', 'webpack.config.ts'],
+        files: ['**/*.js', '**/*.cjs'],
         rules: {
             '@typescript-eslint/no-require-imports': 'off',
         },

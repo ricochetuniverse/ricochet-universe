@@ -1,6 +1,13 @@
-import type {Config} from 'jest';
+// @ts-check
 
-const config: Config = {
+/**
+ * @import {Config} from 'jest'
+ */
+
+'use strict';
+
+/** @type {Config} */
+const config = {
     // extensionsToTreatAsEsm: ['.ts', '.tsx'],
     moduleNameMapper: {
         '^react$': 'preact/compat',
@@ -16,4 +23,4 @@ const config: Config = {
     ],
 };
 
-export default config;
+module.exports = config;

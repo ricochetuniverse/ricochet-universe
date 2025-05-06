@@ -1,6 +1,10 @@
-'use strict';
+// @ts-check
 
-import {type Configuration} from 'webpack';
+/**
+ * @import {Configuration} from 'webpack'
+ */
+
+'use strict';
 
 const path = require('node:path');
 
@@ -10,7 +14,8 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 
-const config: Configuration = {
+/** @type {Configuration} */
+const config = {
     entry: {
         app: './resources/js/app.ts',
     },
