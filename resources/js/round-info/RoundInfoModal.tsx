@@ -10,16 +10,16 @@ import {
 } from 'reactstrap';
 
 type Props = Readonly<{
-    launchTime: number;
-    name: string | undefined;
-    author: string | undefined;
-    note1: string | undefined;
-    note2: string | undefined;
-    note3: string | undefined;
-    note4: string | undefined;
-    note5: string | undefined;
-    source: string | undefined;
-    imageUrl: string | undefined;
+    launchTime?: number;
+    name?: string;
+    author?: string;
+    note1?: string;
+    note2?: string;
+    note3?: string;
+    note4?: string;
+    note5?: string;
+    source?: string;
+    imageUrl?: string;
 }>;
 
 function generateRow(label: string, text: string | undefined) {
