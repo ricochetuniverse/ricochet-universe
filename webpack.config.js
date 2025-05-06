@@ -8,7 +8,10 @@
 
 const path = require('node:path');
 
+const browserslist = require('browserslist');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const lightningcss = require('lightningcss');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -46,21 +49,7 @@ const config = {
             },
             {
                 test: /\.(css|scss)$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            postcssOptions: {
-                                config: path.resolve(
-                                    __dirname,
-                                    'postcss.config.js'
-                                ),
-                            },
-                        },
-                    },
-                ],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
                 test: /\.scss$/,
@@ -124,6 +113,14 @@ const config = {
         minimizer: [
             new TerserPlugin({
                 minify: TerserPlugin.esbuildMinify,
+            }),
+
+            new CssMinimizerPlugin({
+                minify: CssMinimizerPlugin.lightningCssMinify,
+                minimizerOptions: {
+                    // @ts-expect-error this is not cssnano
+                    targets: lightningcss.browserslistToTargets(browserslist()),
+                },
             }),
         ],
     },
