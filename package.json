@@ -25,7 +25,6 @@
     "watch": "webpack --config-node-env development --progress --watch"
   },
   "dependencies": {
-    "@babel/runtime": "7.27.1",
     "@swc/helpers": "0.5.17",
     "bootstrap": "4.6.2",
     "jquery": "3.7.1",
@@ -41,10 +40,6 @@
     "uppie": "4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.27.1",
-    "@babel/preset-env": "7.27.1",
-    "@babel/preset-react": "7.27.1",
-    "@babel/preset-typescript": "7.27.1",
     "@eslint-react/eslint-plugin": "1.48.5",
     "@eslint/js": "9.26.0",
     "@swc/jest": "0.2.38",
