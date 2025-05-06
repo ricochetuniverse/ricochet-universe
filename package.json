@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.27.1",
+    "@swc/helpers": "0.5.17",
     "bootstrap": "4.6.2",
     "jquery": "3.7.1",
     "jszip": "3.10.1",
@@ -74,6 +75,7 @@
     "sass-embedded": "1.87.0",
     "sass-loader": "16.0.5",
     "style-loader": "4.0.0",
+    "swc-loader": "0.2.6",
     "terser-webpack-plugin": "5.3.14",
     "ts-jest": "29.3.2",
     "typescript": "5.8.3",

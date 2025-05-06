@@ -24,12 +24,19 @@ const config: Configuration = {
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: 'swc-loader',
                 resolve: {
                     extensions: ['.ts', '.tsx', '.js'],
                 },
                 options: {
-                    cacheDirectory: true,
+                    jsc: {
+                        transform: {
+                            react: {
+                                development:
+                                    process.env.NODE_ENV === 'development',
+                            },
+                        },
+                    },
                 },
             },
             {

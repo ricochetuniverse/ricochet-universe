@@ -1,4 +1,5 @@
 # see also Bootstrap's own list: https://github.com/twbs/bootstrap/blob/v4-dev/.browserslistrc
+# sync with .swcrc
 
 # this is browserslist `defaults` but copied here due to https://github.com/babel/babel/issues/10867
 > 0.5%
