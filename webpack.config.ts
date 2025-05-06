@@ -2,7 +2,7 @@
 
 import {type Configuration} from 'webpack';
 
-const path = require('path');
+const path = require('node:path');
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -22,7 +22,7 @@ const config: Configuration = {
     module: {
         rules: [
             {
-                test: /\.[jt]sx?$/,
+                test: /\.tsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 resolve: {
@@ -37,7 +37,17 @@ const config: Configuration = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'postcss-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                config: path.resolve(
+                                    __dirname,
+                                    'postcss.config.js'
+                                ),
+                            },
+                        },
+                    },
                 ],
             },
             {
@@ -80,6 +90,7 @@ const config: Configuration = {
                   }
                 : null),
         },
+        symlinks: false,
     },
     plugins: [
         new CleanWebpackPlugin(),
