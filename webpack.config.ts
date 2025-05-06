@@ -59,17 +59,7 @@ const config: Configuration = {
             },
             {
                 test: /\.scss$/,
-                use: [
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            // https://github.com/webpack-contrib/sass-loader/issues/763
-                            sassOptions: {
-                                outputStyle: 'expanded',
-                            },
-                        },
-                    },
-                ],
+                use: 'sass-loader',
             },
             {
                 test: /\.(jpg|gif|png|svg|eot|ttf|woff|woff2)$/,
