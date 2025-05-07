@@ -19,5 +19,5 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true
     },
-    "include": ["jest.config.js", "webpack.config.js"]
+    "include": ["jest.config.js", "rspack.config.js"]
 }

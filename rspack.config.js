@@ -1,23 +1,30 @@
 // @ts-check
 
-/**
- * @import {Configuration} from 'webpack'
- */
-
 'use strict';
 
+const fs = require('node:fs');
 const path = require('node:path');
 
+const {rspack} = require('@rspack/core');
 const browserslist = require('browserslist');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const lightningcss = require('lightningcss');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const {RspackManifestPlugin} = require('rspack-manifest-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 
-/** @type {Configuration} */
+// External .swcrc file is still required for jest
+function getSwcLoaderOptions() {
+    /** @type {import('@rspack/core').SwcLoaderOptions} */
+    const options = JSON.parse(
+        fs.readFileSync(path.resolve(__dirname, '.swcrc'), 'utf-8')
+    );
+
+    // @ts-expect-error reading from .swcrc
+    delete options['$schema'];
+    return options;
+}
+
+/** @type {import('@rspack/cli').Configuration} */
 const config = {
     entry: {
         app: './resources/js/app.ts',
@@ -32,28 +39,24 @@ const config = {
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                loader: 'swc-loader',
+                loader: 'builtin:swc-loader',
                 resolve: {
                     extensions: ['.ts', '.tsx', '.js'],
                 },
-                options: {
-                    jsc: {
-                        transform: {
-                            react: {
-                                development:
-                                    process.env.NODE_ENV === 'development',
-                            },
-                        },
-                    },
-                },
+                options: getSwcLoaderOptions(),
             },
             {
                 test: /\.(css|scss)$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+                use: [rspack.CssExtractRspackPlugin.loader, 'css-loader'],
+                type: 'javascript/auto',
             },
             {
                 test: /\.scss$/,
                 use: 'sass-loader',
+                options: {
+                    api: 'modern-compiler',
+                    implementation: require.resolve('sass-embedded'),
+                },
             },
             {
                 test: /\.(jpg|gif|png|svg|eot|ttf|woff|woff2)$/,
@@ -86,7 +89,7 @@ const config = {
     plugins: [
         new CleanWebpackPlugin(),
 
-        new WebpackManifestPlugin({
+        new RspackManifestPlugin({
             basePath: '/',
             fileName: path.resolve(__dirname, 'public/mix-manifest.json'),
         }),
@@ -105,7 +108,7 @@ const config = {
             ],
         }),
 
-        new MiniCssExtractPlugin({
+        new rspack.CssExtractRspackPlugin({
             filename: '[name].[contenthash].css',
         }),
     ],
@@ -115,11 +118,11 @@ const config = {
                 minify: TerserPlugin.esbuildMinify,
             }),
 
-            new CssMinimizerPlugin({
-                minify: CssMinimizerPlugin.lightningCssMinify,
+            new rspack.LightningCssMinimizerRspackPlugin({
                 minimizerOptions: {
-                    // @ts-expect-error this is not cssnano
-                    targets: lightningcss.browserslistToTargets(browserslist()),
+                    targets: browserslist.loadConfig({
+                        path: path.resolve(__dirname),
+                    }),
                 },
             }),
         ],

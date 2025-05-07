@@ -14,15 +14,5 @@
         },
         "externalHelpers": true
     },
-    "env": {
-        "targets": [
-            // sync with .browserslistrc
-            "> 0.5%",
-            "last 2 versions",
-            "Firefox ESR",
-            "not dead",
-            "Chrome >= 49",
-            "Firefox >= 52"
-        ]
-    }
+    "env": {}
 }
