@@ -52,10 +52,18 @@ const config = {
             },
             {
                 test: /\.scss$/,
-                use: 'sass-loader',
+                loader: 'sass-loader',
                 options: {
                     api: 'modern-compiler',
                     implementation: require.resolve('sass-embedded'),
+                    sassOptions: {
+                        silenceDeprecations: [
+                            'mixed-decls',
+                            'color-functions',
+                            'global-builtin',
+                            'import',
+                        ],
+                    },
                 },
             },
             {
@@ -128,6 +136,10 @@ const config = {
         ],
     },
     devtool: false,
+    ignoreWarnings: [
+        // caused by monaco-editor
+        /Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
+    ],
 };
 
 module.exports = config;
