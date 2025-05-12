@@ -127,15 +127,18 @@
                     @auth
                         <ul class="navbar-nav ms-md-2">
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle d-flex align-items-center"
-                                   id="accountNavbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false" title="{{ Auth::user()->name }}">
-                                    <img src="{{ Auth::user()->getAvatarUrl(64) }}"
-                                         width="24"
-                                         height="24"
-                                         alt="{{ Auth::user()->name }}’s avatar"
-                                         class="navbar-avatar">
-                                </a>
+                                <div id="accountNavbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a href="#"
+                                       class="nav-link dropdown-toggle js-with-tooltip d-flex align-items-center"
+                                       title="Signed in as {{ Auth::user()->name }}"
+                                       role="button">
+                                        <img src="{{ Auth::user()->getAvatarUrl(64) }}"
+                                             width="24"
+                                             height="24"
+                                             alt="{{ Auth::user()->name }}’s avatar"
+                                             class="navbar-avatar">
+                                    </a>
+                                </div>
 
                                 <div class="dropdown-menu dropdown-menu-end"
                                      aria-labelledby="accountNavbarDropdownMenuLink">
