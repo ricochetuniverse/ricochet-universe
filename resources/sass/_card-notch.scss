@@ -1,0 +1,23 @@
+.card,
+.card > :first-child {
+    $size: 15px;
+    clip-path: polygon(
+        0 $size,
+        $size 0,
+        calc(100% - $size) 0,
+        100% $size,
+        100% 100%,
+        0 100%
+    );
+}
+
+.card {
+    background: var(--bs-card-border-color);
+}
+
+.card > :not(.card-header),
+//.card-body,
+//.card > .list-group
+{
+    background: var(--bs-card-bg);
+}

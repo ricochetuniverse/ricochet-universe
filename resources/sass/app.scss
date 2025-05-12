@@ -85,7 +85,8 @@ body {
     cursor: auto;
 }
 
-// Bootstrap
+@import 'card-notch';
+
 .card-header {
     text-align: center;
     font-weight: bold;
