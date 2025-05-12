@@ -39,8 +39,8 @@
                             the catalog must have a unique name.
                         </p>
 
-                        <form class="form-inline my-3" method="GET" action="{{ action('LevelController@index') }}">
-                            <input class="form-control mr-2" type="search" name="search"
+                        <form class="d-flex my-3" method="GET" action="{{ action('LevelController@index') }}">
+                            <input class="form-control me-2" type="search" name="search"
                                    placeholder="Search levels" aria-label="Search levels">
 
                             <button class="btn btn-outline-primary" type="submit">Search</button>
@@ -88,7 +88,7 @@
                             <form action="{{ action('UploadController@store') }}" method="POST">
                                 {{ csrf_field() }}
 
-                                <div class="form-group row">
+                                <div class="row mb-3">
                                     <label for="url" class="col-sm-3 col-form-label">Level set URL</label>
 
                                     <div class="col-sm-9">
@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <div class="row mb-3">
                                     <label for="name" class="col-sm-3 col-form-label">Name</label>
 
                                     <div class="col-sm-9">
@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <div class="row mb-3">
                                     <label for="timestamp" class="col-sm-3 col-form-label">Unix timestamp</label>
 
                                     <div class="col-sm-9">
@@ -113,9 +113,9 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <div class="row">
                                     <div class="col-sm offset-sm-3">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-outline-primary">Submit</button>
                                     </div>
                                 </div>
                             </form>

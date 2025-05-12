@@ -26,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
         Model::preventAccessingMissingAttributes();
         Model::preventSilentlyDiscardingAttributes();
 
-        Paginator::useBootstrap();
+        Paginator::useBootstrapFour();
     }
 }

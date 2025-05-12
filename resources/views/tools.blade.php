@@ -16,7 +16,7 @@
                         <li class="list-group-item p-3">
                             <div>
                                 <a href="{{ action('DecompressorController@index') }}"
-                                   class="text-secondary font-weight-bold">Decompressor</a>
+                                   class="link-secondary fw-bold">Decompressor</a>
                             </div>
 
                             <div>
@@ -27,7 +27,7 @@
                         <li class="list-group-item p-3">
                             <div>
                                 <a href="{{ action('RedModPackagerController@index') }}"
-                                   class="text-secondary font-weight-bold">RED mod packager</a>
+                                   class="link-secondary fw-bold">RED mod packager</a>
                             </div>
 
                             <div>

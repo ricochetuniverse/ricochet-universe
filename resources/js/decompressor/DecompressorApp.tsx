@@ -7,8 +7,9 @@ import {
     CardBody,
     CardHeader,
     Col,
-    CustomInput,
     FormGroup,
+    Input,
+    Label,
     Row,
 } from 'reactstrap';
 
@@ -123,18 +124,19 @@ export default class DecompressorApp extends Component<{}, State> {
                             data.
                         </p>
 
-                        <FormGroup>
-                            <CustomInput
+                        <FormGroup check className="mb-3">
+                            <Input
                                 type="checkbox"
                                 id="useBrowserTextEditor"
                                 checked={this.state.useBrowserTextEditor}
-                                label="View text in browser"
                                 onChange={this.onViewInBrowserOptionChange}
                             />
+                            <Label check for="useBrowserTextEditor">
+                                View text in browser
+                            </Label>
                         </FormGroup>
 
                         <CustomFileInput
-                            label={this.state.fileName}
                             accept=".RicochetI,.RicochetLW,.Sequence,.Frame,.dat"
                             onChange={this.onFileChange}
                         />

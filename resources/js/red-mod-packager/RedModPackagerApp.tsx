@@ -56,8 +56,7 @@ export default class RedModPackagerApp extends Component<{}, State> {
 
                         <div className="d-flex">
                             <CustomFileInput
-                                label={this.state.folderName}
-                                directory
+                                directory={true}
                                 ref={this.fileInputRef}
                             />
 
@@ -65,7 +64,7 @@ export default class RedModPackagerApp extends Component<{}, State> {
                                 outline
                                 color="primary"
                                 disabled={!this.state.downloadButtonUrl}
-                                className="flex-shrink-0 ml-3"
+                                className="ms-2"
                                 onClick={this.resetButtonClicked}
                             >
                                 Reset

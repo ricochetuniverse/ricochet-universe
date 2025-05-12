@@ -19,7 +19,7 @@ export default function LoadingComponent({
                 <Button
                     outline
                     color="primary"
-                    className="ml-3"
+                    className="ms-3"
                     onClick={retry}
                 >
                     Retry
@@ -36,7 +36,7 @@ export default function LoadingComponent({
                 <Button
                     outline
                     color="primary"
-                    className="ml-3"
+                    className="ms-3"
                     onClick={retry}
                 >
                     Retry

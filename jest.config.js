@@ -1,12 +1,8 @@
 // @ts-check
 
-/**
- * @import {Config} from 'jest'
- */
-
 'use strict';
 
-/** @type {Config} */
+/** @type {import('jest').Config} */
 const config = {
     // extensionsToTreatAsEsm: ['.ts', '.tsx'],
     moduleNameMapper: {
@@ -14,6 +10,13 @@ const config = {
         '^react-dom$': 'preact/compat',
     },
     testEnvironment: 'jsdom',
+    testPathIgnorePatterns: [
+        '/node_modules/',
+
+        // Reactstrap issue
+        // TypeError: Cannot assign to read only property 'name' of function
+        'resources/js/round-info/',
+    ],
     transform: {
         '^.+\\.m?(t|j)sx?$': '@swc/jest',
     },

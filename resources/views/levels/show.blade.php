@@ -24,7 +24,7 @@
 
                 <div class="card mt-3">
                     <div class="card-body">
-                        <div class="text-secondary font-weight-bold">
+                        <div class="text-secondary fw-bold">
                             {{ $levelSet->name }}
                         </div>
 
@@ -33,30 +33,30 @@
                                   title="Find level sets created by {{ $levelSet->author }}">{{ $levelSet->author }}</a>
                         </div>
 
-                        <div class="media mt-3">
+                        <div class="d-flex mt-3">
                             <img
                                 src="{{ $levelSet->getImageUrl() }}"
                                 alt="Screenshot of {{ $levelSet->name }}" width="105" height="80"
-                                class="d-block mr-3">
+                                class="d-block me-3">
 
-                            <p class="media-body m-0 cursor-auto">{{ $levelSet->description }}</p>
+                            <p class="m-0 cursor-auto">{{ $levelSet->description }}</p>
                         </div>
 
                         <div class="d-table mt-3">
                             <div class="d-table-row">
-                                <div class="d-table-cell pr-2">Number of rounds:</div>
+                                <div class="d-table-cell pe-2">Number of rounds:</div>
                                 <div class="d-table-cell">{{ $levelSet->rounds }}</div>
                             </div>
 
                             @if ($levelSet->downloads > 0)
                                 <div class="d-table-row">
-                                    <div class="d-table-cell pr-2">Downloads:</div>
+                                    <div class="d-table-cell pe-2">Downloads:</div>
                                     <div class="d-table-cell">{{ number_format($levelSet->downloads) }}</div>
                                 </div>
                             @endif
 
                             <div class="d-table-row">
-                                <div class="d-table-cell pr-2">Date posted:</div>
+                                <div class="d-table-cell pe-2">Date posted:</div>
                                 <div class="d-table-cell">
                                     <time datetime="{{ $levelSet->created_at->format('Y-m-d') }}">
                                         {{ $levelSet->created_at->format('Y-m-d') }}
@@ -66,10 +66,10 @@
                         </div>
 
                         @if ($levelSet->overall_rating)
-                            <div class="row no-gutters mt-3">
-                                <span class="col-auto mr-2">Ratings:</span>
+                            <div class="d-flex no-gutters mt-3">
+                                <span class="me-2">Ratings:</span>
 
-                                <div class="col">
+                                <div>
                                     @include('levels._ratings', [
                                         'levelSet' => $levelSet,
                                         'showTooltipExplanation' => false,
@@ -82,10 +82,10 @@
                         @endif
 
                         @if (count($levelSet->tagged) > 0)
-                            <div class="media mt-3">
-                                <span class="mr-2">Tags:</span>
+                            <div class="d-flex mt-3">
+                                <span class="me-2">Tags:</span>
 
-                                <div class="media-body">
+                                <div>
                                     @foreach ($levelSet->tagged as $tagged)
                                         <a href="{{ action('LevelController@index', ['tag' => $tagged->tag_name]) }}"
                                            title="Find other level sets with the {{ $tagged->tag_name }} tag"
@@ -115,7 +115,7 @@
                             </div>
                         @endif
 
-                        <div class="media align-items-center mt-3">
+                        <div class="d-flex align-items-center mt-3">
                             @if ($levelSet->isDesignedForInfinity())
                                 <img src="{{ asset('images/RI.gif') }}"
                                      alt="Ricochet Infinity logo"
@@ -128,7 +128,7 @@
                                      height="32">
                             @endif
 
-                            <div class="media-body ml-3">
+                            <div class="ms-3">
                                 @if ($levelSet->isDesignedForInfinity())
                                     Designed for Ricochet Infinity. This level set can only be played in Ricochet
                                     Infinity.
@@ -150,7 +150,7 @@
                                      alt=""
                                      width="38"
                                      height="38"
-                                     class="mr-1">
+                                     class="me-1">
                                 Download this level set
                             </a>
                         </div>
@@ -173,7 +173,7 @@
                         </noscript>
 
                         @unless ($levelSet->levelRounds->isEmpty())
-                            <div class="row roundInfo__wrapper">
+                            <div class="roundInfo__wrapper">
                                 @foreach ($levelSet->levelRounds as $round)
                                     <a href="#" class="roundInfo__link"
                                        data-round-count="{{ $loop->index + 1 }}"

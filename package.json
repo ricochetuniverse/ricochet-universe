@@ -25,18 +25,17 @@
     "watch": "rspack --nodeEnv development --mode development --watch"
   },
   "dependencies": {
+    "@popperjs/core": "2.11.8",
     "@swc/helpers": "0.5.17",
-    "bootstrap": "4.6.2",
-    "jquery": "3.7.1",
+    "bootstrap": "5.3.6",
     "jszip": "3.10.1",
     "monaco-editor": "0.52.2",
     "nullthrows": "1.1.1",
     "pako": "2.1.0",
-    "popper.js": "1.16.1",
     "preact": "10.26.5",
     "react-loadable": "5.5.0",
     "react-monaco-editor": "0.58.0",
-    "reactstrap": "8.10.1",
+    "reactstrap": "9.2.3",
     "uppie": "4.0.0"
   },
   "devDependencies": {
@@ -47,9 +46,8 @@
     "@swc/jest": "0.2.38",
     "@testing-library/preact": "3.2.4",
     "@tsconfig/node22": "22.0.1",
-    "@types/bootstrap": "4.5.0",
+    "@types/bootstrap": "5.2.10",
     "@types/jest": "29.5.14",
-    "@types/jquery": "3.5.32",
     "@types/pako": "2.0.3",
     "@types/react-loadable": "5.5.11",
     "browserslist": "4.24.5",

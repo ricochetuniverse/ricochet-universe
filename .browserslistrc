@@ -1,11 +1,16 @@
-# see also Bootstrap's own list: https://github.com/twbs/bootstrap/blob/v4-dev/.browserslistrc
+# See Bootstrap's own list: https://github.com/twbs/bootstrap/blob/v5.3.6/.browserslistrc
 
-# this is browserslist `defaults` but copied here due to https://github.com/babel/babel/issues/10867
-> 0.5%
-last 2 versions
-Firefox ESR
+>= 0.5%
+last 2 major versions
 not dead
+Chrome >= 60
+Firefox >= 60
+Firefox ESR
+iOS >= 12
+Safari >= 12
+not Explorer <= 11
+not kaios <= 2.5 # fix floating label issues in Firefox (see https://github.com/postcss/autoprefixer/issues/1533)
 
-# Windows XP / Vista
+# Windows XP / Vista (maybe, no guarantee)
 Chrome >= 49
 Firefox >= 52

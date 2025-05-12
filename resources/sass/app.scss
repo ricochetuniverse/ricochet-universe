@@ -1,25 +1,21 @@
-$body-bg: #000;
-$body-color: #fff;
+$body-bg-dark: #000;
+$body-color-dark: #fff;
 
 $primary: #00fffe;
 $secondary: #ffed11;
 
 $font-family-sans-serif: Verdana, Arial, Helvetica, sans-serif;
 
-$link-decoration: underline;
-$link-hover-color: #fff;
+$link-color-dark: $primary;
+$link-hover-color-dark: #fff;
 
-$component-active-bg: #095352;
+$component-active-bg: #095352; // images/table/top.jpg
 
-$card-border-color: #01ffff;
-$card-cap-bg: #095352;
-$card-bg: $body-bg;
+$card-border-color: #01ffff; // images/table/dot.jpg
+$card-cap-bg: #095352; // images/table/top.jpg
 
 $table-border-color: #00eeff;
-$table-head-bg: #004040;
-$table-head-color: #fff;
 
-$pagination-bg: $body-bg;
 $pagination-border-color: $card-border-color;
 $pagination-hover-bg: $component-active-bg;
 $pagination-hover-border-color: $pagination-border-color;
@@ -28,36 +24,59 @@ $pagination-disabled-color: #fff;
 $pagination-disabled-bg: $component-active-bg;
 $pagination-disabled-border-color: $pagination-border-color;
 
-$tooltip-bg: $component-active-bg;
-
-$modal-content-bg: #000;
 $modal-content-border-color: $card-border-color;
 $modal-header-border-color: $card-border-color;
-
-$close-color: #fff;
-$close-text-shadow: none;
-
-$custom-control-indicator-checked-bg: $card-cap-bg;
 
 $list-group-bg: transparent;
 $list-group-border-color: $card-border-color;
 
-// https://github.com/twbs/bootstrap/pull/27910
-/* prettier-ignore */
-$embed-responsive-aspect-ratios: (
-    (21 9),
-    (16 9),
-    (4 3),
-    (1 1)
-);
+$table-cell-padding-y: 0.75rem;
+$table-cell-padding-x: 0.75rem;
+
+$tooltip-opacity: 0.95;
+
+$code-font-size: inherit;
 
 $enable-rounded: false;
 $enable-transitions: false;
+$enable-smooth-scroll: false;
 
 @import '~bootstrap/scss/bootstrap';
 
+@mixin parent-hover-affects-btn() {
+    &:hover .btn {
+        color: var(--bs-btn-hover-color);
+        background-color: var(--bs-btn-hover-bg);
+        border-color: var(--bs-btn-hover-border-color);
+    }
+
+    &:focus-visible .btn {
+        color: var(--bs-btn-hover-color);
+        @include gradient-bg(var(--bs-btn-hover-bg));
+        border-color: var(--bs-btn-hover-border-color);
+        outline: 0;
+        box-shadow: var(--bs-btn-focus-box-shadow);
+    }
+
+    &:active .btn {
+        color: var(--bs-btn-active-color);
+        background-color: var(--bs-btn-active-bg);
+        border-color: var(--bs-btn-active-border-color);
+        @include box-shadow(var(--bs-btn-active-shadow));
+
+        &:focus-visible {
+            box-shadow: var(--bs-btn-focus-box-shadow);
+        }
+    }
+}
+
+@include color-mode(dark) {
+    body {
+        background-image: url('./stars.jpg');
+    }
+}
+
 body {
-    background-image: url('./stars.jpg');
     cursor: default;
 }
 
@@ -66,29 +85,10 @@ body {
     cursor: auto;
 }
 
-.thead-clickable {
-    th {
-        padding: 0;
-    }
-
-    a {
-        display: block;
-        padding: $table-cell-padding;
-    }
-}
-
 // Bootstrap
-.btn {
-    text-decoration: none;
-}
-
 .card-header {
     text-align: center;
     font-weight: bold;
-}
-
-.table {
-    background: $body-bg;
 }
 
 .table thead {
@@ -101,24 +101,12 @@ body {
     }
 }
 
-.table-bordered thead th {
-    border-bottom-width: 1px;
-}
-
 .page-item.disabled {
     opacity: 0.4;
 }
 
-.page-item.active .page-link {
-    cursor: default;
-}
-
-.page-link {
-    text-decoration: none;
-}
-
 .modal-header {
-    background: $table-head-bg;
+    background: $card-cap-bg;
 }
 
 .modal-title {
@@ -130,39 +118,27 @@ body {
 }
 
 .tooltip-inner {
-    box-shadow: 0 0 0 1px #000;
+    box-shadow: 0 0 0 1px #444;
 
     &.text-nowrap {
         max-width: none;
     }
 }
 
-.custom-control-label,
-.custom-file-input,
-.custom-select,
 label[for] {
     cursor: pointer;
 }
 
 // Navbar
-.navbar a {
-    text-decoration: none;
-}
-
-.nav-link-discord > svg {
+.nav-link-discord > svg,
+.nav-link-gitlab > svg {
     width: 20px;
     height: 20px;
-    fill: $navbar-dark-color;
+    fill: var(--bs-nav-link-color);
 }
 
 .nav-link-discord:hover > svg {
     fill: #5865f2;
-}
-
-.nav-link-gitlab > svg {
-    width: 20px;
-    height: 20px;
-    fill: $navbar-dark-color;
 }
 
 .nav-link-gitlab:hover > svg {
@@ -170,7 +146,6 @@ label[for] {
 }
 
 .navbar-search {
-    flex: 1;
     min-width: 0;
     max-width: 324px;
 }
@@ -182,14 +157,27 @@ label[for] {
     margin-right: map-get($spacers, 1);
 }
 
-input.dropdown-item {
-    cursor: pointer;
-}
-
 // Home page
 @import './discord';
 
 // Levels table
+@include color-mode(dark) {
+    .levelsTable__thead {
+        --bs-table-bg: #004040;
+    }
+}
+
+.levelsTable__thead {
+    th {
+        padding: 0;
+    }
+
+    a {
+        display: block;
+        padding: $table-cell-padding-y $table-cell-padding-x;
+    }
+}
+
 .levelsTable__ratingColumn {
     .levelsRatings__wrap {
         margin: 0 auto;
@@ -218,10 +206,6 @@ input.dropdown-item {
 }
 
 // Level set info
-.roundInfo__wrapper {
-    margin: 0;
-}
-
 .roundInfo__link {
     padding-top: map-get($spacers, 2);
     padding-bottom: map-get($spacers, 2);
@@ -239,29 +223,12 @@ input.dropdown-item {
         @include make-col(2);
     }
 
-    &:focus {
-        .btn-outline-primary {
-            box-shadow: 0 0 0 $btn-focus-width rgba($primary, 0.5);
-        }
-    }
+    @include parent-hover-affects-btn();
 
     &:hover,
+    &:focus-visible,
     &:active {
         background: $component-active-bg;
-
-        text-decoration: none;
-
-        .btn-outline-primary {
-            color: color-yiq($primary);
-            background-color: $primary;
-            border-color: $primary;
-        }
-
-        &:focus {
-            .btn-outline-primary {
-                box-shadow: 0 0 0 $btn-focus-width rgba($primary, 0.5);
-            }
-        }
     }
 }
 
@@ -286,8 +253,7 @@ input.dropdown-item {
     }
 
     .roundInfo__link {
-        flex: auto;
-        max-width: none;
+        width: auto;
     }
 }
 

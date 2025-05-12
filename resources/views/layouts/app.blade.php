@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="utf-8">
     <title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}@if (Request::is('/')) - Download and play custom Ricochet Infinity levels @endif</title>
@@ -37,80 +37,99 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <div class="d-none d-md-block">
-                <a class="navbar-brand js-with-tooltip d-flex mr-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}">
-                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
-                </a>
-            </div>
+        <nav class="navbar navbar-expand-md bg-dark" data-bs-theme="dark">
+            <div class="container-fluid">
+                <div class="d-none d-md-block">
+                    <a class="navbar-brand js-with-tooltip d-flex me-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}">
+                        <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
+                    </a>
+                </div>
 
-            <div class="d-md-none">
-                <a class="navbar-brand d-flex mr-2" href="{{ action('HomeController@index') }}">
-                    <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}"><span class="ml-2">{{ config('app.name') }}</span>
-                </a>
-            </div>
+                <div class="d-md-none">
+                    <a class="navbar-brand d-flex me-2" href="{{ action('HomeController@index') }}">
+                        <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
+                        <span class="ms-2">{{ config('app.name') }}</span>
+                    </a>
+                </div>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown @if (($selected_navbar_item ?? '') === 'levels')active @endif">
-                            <a href="#" class="nav-link dropdown-toggle js-with-tooltip"
-                               id="levelsNavbarDropdownMenuLink" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false"
-                               title="Explore, download and play level sets created by the community">
-                                Levels
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="levelsNavbarDropdownMenuLink">
-                                <a href="{{ action('LevelController@index') }}" class="dropdown-item">Most downloaded</a>
-                                <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}" class="dropdown-item">Latest</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="{{ action('UploadController@index') }}" class="dropdown-item">Upload</a>
+                        <li class="nav-item dropdown">
+                            <div id="levelsNavbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a href="#"
+                                   class="nav-link dropdown-toggle js-with-tooltip @if (($selected_navbar_item ?? '') === 'levels')active @endif"
+                                   title="Explore, download and play level sets created by the community"
+                                   role="button">
+                                    Levels
+                                </a>
                             </div>
+
+                            <ul class="dropdown-menu" aria-labelledby="levelsNavbarDropdownMenuLink">
+                                <li><a href="{{ action('LevelController@index') }}" class="dropdown-item">Most downloaded</a></li>
+                                <li><a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}" class="dropdown-item">Latest</a>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a href="{{ action('UploadController@index') }}" class="dropdown-item">Upload</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item @if (($selected_navbar_item ?? '') === 'mods')active @endif">
-                            <a class="nav-link js-with-tooltip" href="{{ action('ModsController@index') }}" title="Play new environments, custom content and modifications">Mods</a>
-                        </li>
-                        <li class="nav-item @if (($selected_navbar_item ?? '') === 'reviver')active @endif">
-                            <a class="nav-link js-with-tooltip" href="{{ action('ReviverController@index') }}" title="Restore the in-game level catalog in Ricochet Infinity">Reviver</a>
-                        </li>
-                        <li class="nav-item @if (($selected_navbar_item ?? '') === 'tools')active @endif">
-                            <a class="nav-link js-with-tooltip" href="{{ action('ToolsController@index') }}" title="Use various utilities that are useful for tinkerers">Tools</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link js-with-tooltip" href="https://wiki.ricochetuniverse.com" title="Learn more about the Ricochet game series in the fan wiki">Wiki</a>
-                        </li>
-                        <li class="nav-item @if (($selected_navbar_item ?? '') === 'about')active @endif">
-                            <a class="nav-link js-with-tooltip" href="{{ action('AboutController@index') }}" title="Learn more about this website">About</a>
-                        </li>
+                        @include('layouts.navbar-item', [
+                            'key' => 'mods',
+                            'href' => action('ModsController@index'),
+                            'title' => 'Play new environments, custom content and modifications',
+                            'text' => 'Mods'
+                        ])
+                        @include('layouts.navbar-item', [
+                            'key' => 'reviver',
+                            'href' => action('ReviverController@index'),
+                            'title' => 'Restore the in-game level catalog in Ricochet Infinity',
+                            'text' => 'Reviver'
+                        ])
+                        @include('layouts.navbar-item', [
+                            'key' => 'tools',
+                            'href' => action('ToolsController@index'),
+                            'title' => 'Use various utilities that are useful for tinkerers',
+                            'text' => 'Tools'
+                        ])
+                        @include('layouts.navbar-item', [
+                            'key' => 'wiki',
+                            'href' => 'https://wiki.ricochetuniverse.com',
+                            'title' => 'Learn more about the Ricochet game series in the fan wiki',
+                            'text' => 'Wiki'
+                        ])
+                        @include('layouts.navbar-item', [
+                            'key' => 'about',
+                            'href' => action('AboutController@index'),
+                            'title' => 'Learn more about this website',
+                            'text' => 'About'
+                        ])
                         <li class="nav-item">
                             <a class="nav-link js-with-tooltip nav-link-discord" href="{{ action('DiscordRedirectController@index') }}" title="Join other players on the Ricochet Players Discord">
-                                @include('icons.discord')<span class="d-md-none ml-2">Discord</span>
+                                @include('icons.discord')<span class="d-md-none ms-2">Discord</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-with-tooltip nav-link-gitlab" href="https://gitlab.com/ngyikp/ricochet-levels" title="View the website source code on GitLab">
-                                @include('icons.gitlab')<span class="d-md-none ml-2">GitLab</span>
+                                @include('icons.gitlab')<span class="d-md-none ms-2">GitLab</span>
                             </a>
                         </li>
                     </ul>
 
-                    <div class="d-none d-md-flex flex-grow-1">
-                        <form class="form-inline my-2 my-md-0 ml-md-2 flex-grow-1 justify-content-end" method="GET" action="{{ action('LevelController@index') }}">
+                    <div class="d-none d-md-block flex-grow-1">
+                        <form class="d-flex flex-grow-1 justify-content-end my-0 ms-2" method="GET" action="{{ action('LevelController@index') }}">
                             <input class="form-control navbar-search" type="search" name="search" placeholder="Search level sets by name/author" title="Search level sets by name/author" value="{{ is_string(request()->input('search')) ? request()->input('search') : '' }}">
-                            <button class="btn btn-outline-primary ml-2" type="submit">Search</button>
+                            <button class="btn btn-outline-primary ms-2" type="submit">Search</button>
                         </form>
                     </div>
 
                     @auth
-                        <ul class="navbar-nav ml-md-2">
+                        <ul class="navbar-nav ms-md-2">
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle d-flex align-items-center"
-                                   id="accountNavbarDropdownMenuLink" role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false" title="{{ Auth::user()->name }}">
+                                   id="accountNavbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false" title="{{ Auth::user()->name }}">
                                     <img src="{{ Auth::user()->getAvatarUrl(64) }}"
                                          width="24"
                                          height="24"
@@ -118,7 +137,7 @@
                                          class="navbar-avatar">
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right"
+                                <div class="dropdown-menu dropdown-menu-end"
                                      aria-labelledby="accountNavbarDropdownMenuLink">
                                     <h6 class="dropdown-header">{{ Auth::user()->name }}</h6>
                                     <div class="dropdown-divider"></div>
@@ -133,6 +152,7 @@
                         </ul>
                     @endauth
                 </div>
+            </div>
         </nav>
 
         @include('layouts.errors')

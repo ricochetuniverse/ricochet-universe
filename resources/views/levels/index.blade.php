@@ -35,15 +35,15 @@
                     @endif
                 @endif
 
-                <div class="d-md-none mb-3">
-                    <form action="{{ action('LevelController@index') }}" method="GET" class="form-inline">
+                <div class="d-md-none mb-3 container-fluid">
+                    <form action="{{ action('LevelController@index') }}" method="GET" class="row row-cols-auto">
                         <input class="form-control w-100" type="search" name="search"
                                placeholder="Search level sets by name/author" title="Search level sets by name/author"
                                value="{{ $filteredInput['search'] }}">
 
                         <div class="w-100 mb-2"></div>
 
-                        <select class="custom-select w-auto flex-grow-1" name="orderBy" title="Sort by">
+                        <select class="form-select w-auto flex-grow-1" name="orderBy" title="Sort by">
                             @foreach ([
                                 'Name' => 'Name',
                                 'Rounds' => 'Level count',
@@ -57,7 +57,7 @@
                             @endforeach
                         </select>
 
-                        <select class="custom-select w-auto flex-grow-1 ml-2" name="orderDir" title="Order by">
+                        <select class="form-select w-auto flex-grow-1 ms-2" name="orderDir" title="Order by">
                             @foreach (['ASC' => 'Ascending', 'DESC' => 'Descending'] as $value => $text)
                                 <option value="{{ $value }}" {{ $orderDirection === $value ? 'selected' : '' }}>
                                     {{ $text }}
@@ -73,13 +73,13 @@
 
                         <div class="w-100 mb-2"></div>
 
-                        <button type="submit" class="btn btn-outline-primary ml-auto">Search</button>
+                        <button type="submit" class="btn btn-outline-primary ms-auto">Search</button>
                     </form>
                 </div>
 
                 @unless ($levelSets->isEmpty())
                     <table class="table table-bordered">
-                        <thead class="d-none d-md-table-header-group thead-light thead-clickable">
+                        <thead class="d-none d-md-table-header-group levelsTable__thead">
                         <tr>
                             <th>
                                 <a href="{{ action('LevelController@index', array_merge($filteredInput, ['orderBy' => 'Name', 'orderDir' => $orderBy === 'Name' && $orderDirection === 'DESC' ? 'ASC' : 'DESC'])) }}"
@@ -124,21 +124,21 @@
                                              title="Designed for Ricochet Infinity. Can only be played in Ricochet Infinity."
                                              width="32"
                                              height="32"
-                                             class="float-right ml-3"
-                                             data-toggle="tooltip">
+                                             class="float-end ms-3"
+                                             data-bs-toggle="tooltip">
                                     @else
                                         <img src="{{ asset('images/RLW.gif') }}"
                                              alt="Ricochet Lost Worlds logo"
                                              title="Designed for Ricochet Lost Worlds. Can be played in Ricochet Lost Worlds, Ricochet Lost Worlds: Recharged and Ricochet Infinity."
                                              width="32"
                                              height="32"
-                                             class="float-right ml-3"
-                                             data-toggle="tooltip">
+                                             class="float-end ms-3"
+                                             data-bs-toggle="tooltip">
                                     @endif
 
                                     <p class="m-0">
                                         <a href="{{ $levelSet->getPermalink() }}"
-                                           class="text-secondary font-weight-bold">{{ $levelSet->name }}</a><span
+                                           class="link-secondary fw-bold">{{ $levelSet->name }}</a><span
                                             class="d-md-none"> ({{ $levelSet->rounds }}&nbsp;rounds)</span>
                                     </p>
 
@@ -153,23 +153,23 @@
                                         </span>
                                     </p>
 
-                                    <div class="media mt-2">
+                                    <div class="d-flex mt-2">
                                         <a href="{{ $levelSet->getPermalink() }}"
-                                           class="mr-2" tabindex="-1">
+                                           class="me-2" tabindex="-1">
                                             <img
                                                 src="{{ $levelSet->getImageUrl() }}"
                                                 alt="Screenshot of {{ $levelSet->name }}" width="105" height="80"
                                                 class="d-block">
                                         </a>
 
-                                        <p class="media-body m-0 cursor-auto">{{ $levelSet->description }}</p>
+                                        <p class="m-0 cursor-auto">{{ $levelSet->description }}</p>
                                     </div>
 
                                     @if (count($levelSet->mods) > 0)
-                                        <div class="media mt-2">
-                                            <strong class="mr-2">Mods:</strong>
+                                        <div class="d-flex mt-2">
+                                            <strong class="me-2">Mods:</strong>
 
-                                            <div class="media-body">
+                                            <div>
                                                 <a href="{{ action('ModsController@index') }}">
                                                     @foreach ($levelSet->mods as $mod)
                                                         {{ $mod->name }}{{ !$loop->last ? ', ' : '' }}
@@ -180,10 +180,10 @@
                                     @endif
 
                                     @if (count($levelSet->tagged) > 0)
-                                        <div class="media mt-2">
-                                            <strong class="mr-2">Tags:</strong>
+                                        <div class="d-flex mt-2">
+                                            <strong class="me-2">Tags:</strong>
 
-                                            <div class="media-body">
+                                            <div>
                                                 @foreach ($levelSet->tagged as $tagged)
                                                     <a href="{{ action('LevelController@index', ['tag' => $tagged->tag_name]) }}"
                                                        title="Find other level sets with the {{ $tagged->tag_name }} tag"
@@ -196,7 +196,7 @@
                                     @if ($levelSet->overall_rating)
                                         <div class="d-md-none">
                                             <div class="row no-gutters mt-3">
-                                                <span class="col-auto mr-2">Ratings:</span>
+                                                <span class="col-auto">Ratings:</span>
 
                                                 <div class="col">
                                                     @include('levels._ratings', ['levelSet' => $levelSet])

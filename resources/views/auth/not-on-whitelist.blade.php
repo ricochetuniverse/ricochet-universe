@@ -15,7 +15,7 @@
 
                         <p class="m-0">
                             If you believe you should have access, mention your Discord user ID
-                            <span class="text-monospace">{{ $discordUserId }}</span> to the site administrator to be
+                            <span class="font-monospace">{{ $discordUserId }}</span> to the site administrator to be
                             whitelisted.
                         </p>
                     </div>

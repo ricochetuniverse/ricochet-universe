@@ -31,7 +31,7 @@
 
         @auth
             <div class="row mt-3">
-                <div class="col text-right">
+                <div class="col text-end">
                     <a href="{{ action('ModsController@create') }}" class="btn btn-outline-secondary">Add new mod</a>
                 </div>
             </div>
@@ -42,17 +42,16 @@
                 <div class="col-md-6 col-xl-4 mt-3">
                     <div class="card">
                         <div class="card-body">
-                            <span class="text-secondary font-weight-bold">{{ $mod->name }}</span> by {{ $mod->author }}
+                            <span class="text-secondary fw-bold">{{ $mod->name }}</span> by {{ $mod->author }}
 
                             @if ($mod->description)
                                 <p>{{ $mod->description }}</p>
                             @endif
 
                             @if ($mod->video_embed_source)
-                                <div class="embed-responsive embed-responsive-4by3">
+                                <div class="ratio ratio-4x3">
                                     <iframe width="316" height="240" src="{{ $mod->video_embed_source }}"
-                                            allow="picture-in-picture" allowfullscreen
-                                            class="embed-responsive-item"></iframe>
+                                            allow="picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             @endif
 
@@ -64,7 +63,7 @@
                                              alt=""
                                              width="38"
                                              height="38"
-                                             class="mr-1">
+                                             class="me-1">
                                         Download
                                     </a>
                                 </div>

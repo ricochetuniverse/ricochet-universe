@@ -2,8 +2,8 @@
     <div class="levelsRatings__row"
          @if ($showTooltipExplanation)
          title="Average {{ $gradeExplanation }} grade from {{ number_format($totalCount) }} players: {{ \App\Services\RatingGradeConverter::getGrade($rating) }}. Level sets are graded in Ricochet Infinity."
-         data-toggle="tooltip"
-         data-placement="left"
+         data-bs-toggle="tooltip"
+         data-bs-placement="left"
          @endif
     >
         <div class="levelsRatings__cell">

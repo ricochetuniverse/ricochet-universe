@@ -1,10 +1,9 @@
+/* eslint-disable no-unused-vars */
 import '../sass/app.scss';
 
-import type {TooltipOption} from 'bootstrap';
-import 'bootstrap/js/dist/collapse';
-import 'bootstrap/js/dist/dropdown';
-import 'bootstrap/js/dist/tooltip';
-import $ from 'jquery';
+// @ts-expect-error loading Bootstrap components
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {Collapse, Dropdown, Tooltip} from 'bootstrap';
 
 // Website stuff
 import './analytics';
@@ -16,24 +15,42 @@ import './decompressor/index';
 import './red-mod-packager/index';
 import './image-to-canvas/index';
 
-$('[data-toggle="tooltip"], .js-with-tooltip').each(function () {
-    const $base = $(this);
+// todo stop using js-with-tooltip
+document
+    .querySelectorAll('[data-bs-toggle="tooltip"], .js-with-tooltip')
+    .forEach((ele) => {
+        const options: Partial<Tooltip.Options> = {};
 
-    const options: TooltipOption = {};
-    if ($base.closest('.navbar').length) {
-        options.template =
-            '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner text-nowrap"></div></div>';
-    }
-    $base.tooltip(options);
-});
+        if (ele.closest('.navbar')) {
+            options.template =
+                '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner text-nowrap"></div></div>';
+            options.fallbackPlacements = ['bottom'];
+        }
 
-$('[data-toggle="dropdown"]').each(function () {
-    $(this)
-        .parent()
-        .on('show.bs.dropdown', (ev) => {
-            $(ev.relatedTarget).tooltip('hide').tooltip('disable');
-        })
-        .on('hide.bs.dropdown', (ev) => {
-            $(ev.relatedTarget).tooltip('enable');
+        new Tooltip(ele, options);
+    });
+
+document
+    .querySelectorAll('.navbar [data-bs-toggle="dropdown"]')
+    .forEach((dropdown) => {
+        const tooltipEle = dropdown.querySelector('.js-with-tooltip');
+        if (!tooltipEle) {
+            return;
+        }
+
+        const tooltipInstance = Tooltip.getInstance(tooltipEle);
+        if (!tooltipInstance) {
+            return;
+        }
+
+        dropdown.addEventListener('show.bs.dropdown', () => {
+            tooltipEle.classList.add('show');
+            tooltipInstance.hide();
+            tooltipInstance.disable();
         });
-});
+
+        dropdown.addEventListener('hide.bs.dropdown', () => {
+            tooltipEle.classList.remove('show');
+            tooltipInstance.enable();
+        });
+    });

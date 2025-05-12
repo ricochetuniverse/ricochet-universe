@@ -17,7 +17,7 @@
         </div>
 
         <div class="row mt-3">
-            <div class="col-md pr-md-0">
+            <div class="col-md pe-md-0">
                 <div class="card">
                     <div class="card-header">Most downloaded level sets</div>
 
@@ -28,12 +28,12 @@
                     </ul>
                 </div>
 
-                <div class="mt-3 text-right">
+                <div class="mt-3 text-end">
                     <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">View more</a>
                 </div>
             </div>
 
-            <div class="col-md mt-3 mt-md-0 pr-xl-0">
+            <div class="col-md mt-3 mt-md-0 pe-xl-0">
                 <div class="card">
                     <div class="card-header">Recent level sets</div>
 
@@ -44,7 +44,7 @@
                     </ul>
                 </div>
 
-                <div class="mt-3 text-right">
+                <div class="mt-3 text-end">
                     <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}"
                        class="btn btn-outline-primary">View more</a>
                 </div>
@@ -54,7 +54,7 @@
                 <div class="discordWidget__root">
                     <a href="{{ action('DiscordRedirectController@index') }}" class="discordWidget__header">
                         <div class="discordWidget__logo">
-                            <span class="sr-only">Discord</span>
+                            <span class="visually-hidden">Discord</span>
                         </div>
 
                         <span class="btn btn-outline-secondary">Join</span>
