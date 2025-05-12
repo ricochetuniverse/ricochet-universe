@@ -195,7 +195,7 @@
 
                                     @if ($levelSet->overall_rating)
                                         <div class="d-md-none">
-                                            <div class="row no-gutters mt-3">
+                                            <div class="row mt-3">
                                                 <span class="col-auto">Ratings:</span>
 
                                                 <div class="col">
@@ -214,7 +214,7 @@
                                         {{ $levelSet->created_at->format('Y-m-d') }}
                                     </time>
                                 </td>
-                                <td class="d-none d-md-table-cell no-gutters levelsTable__ratingColumn">
+                                <td class="d-none d-md-table-cell levelsTable__ratingColumn">
                                     @include('levels._ratings', ['levelSet' => $levelSet])
                                 </td>
                             </tr>

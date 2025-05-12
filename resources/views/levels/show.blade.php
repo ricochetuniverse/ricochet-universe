@@ -66,7 +66,7 @@
                         </div>
 
                         @if ($levelSet->overall_rating)
-                            <div class="d-flex no-gutters mt-3">
+                            <div class="d-flex mt-3">
                                 <span class="me-2">Ratings:</span>
 
                                 <div>
