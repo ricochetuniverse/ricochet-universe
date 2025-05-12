@@ -21,7 +21,6 @@ class Standard implements Preset
             ->add(Directive::DEFAULT, Keyword::SELF)
             ->add(Directive::SCRIPT, URL::to('/build/').'/')
             ->add(Directive::IMG, Keyword::SELF)
-            ->add(Directive::IMG, 'data:') // Bootstrap 4 -__-
             ->add(Directive::STYLE, URL::to('/build/').'/')
             ->add(Directive::CONNECT, Keyword::NONE)
             ->add(Directive::FRAME, Keyword::NONE)

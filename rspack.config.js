@@ -31,7 +31,7 @@ const config = {
     },
     output: {
         path: path.resolve(__dirname, 'public/build/'),
-        filename: '[name].[chunkhash].js',
+        filename: '[name].[contenthash].js',
         publicPath: '/build/',
     },
     module: {
@@ -68,6 +68,15 @@ const config = {
             },
             {
                 test: /\.(jpg|gif|png|svg|eot|ttf|woff|woff2)$/,
+                type: 'asset/resource',
+            },
+            // https://getbootstrap.com/docs/5.3/getting-started/webpack/#extracting-svg-files
+            {
+                scheme: 'data',
+                mimetype: 'image/svg+xml',
+                generator: {
+                    filename: '[contenthash].svg',
+                },
                 type: 'asset/resource',
             },
         ],

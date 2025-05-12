@@ -51,7 +51,7 @@ https://ricochet.test:8000 {
 	import common
 
 	# This CSP is used by default if a route doesn't match (e.g. 404)
-	header ?Content-Security-Policy "default-src 'self';script-src 'self' https://www.googletagmanager.com/gtag/js;img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com;style-src 'self';connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;frame-src 'none';font-src 'none';frame-ancestors 'none';base-uri 'none';manifest-src 'none';media-src 'none';object-src 'none';worker-src 'none'"
+	header ?Content-Security-Policy "default-src 'self';script-src 'self' https://www.googletagmanager.com/gtag/js;img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com;style-src 'self';connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;frame-src 'none';font-src 'none';frame-ancestors 'none';base-uri 'none';manifest-src 'none';media-src 'none';object-src 'none';worker-src 'none'"
 
 	header /build/* Content-Security-Policy "default-src 'none'"
 	header /images/* Content-Security-Policy "default-src 'none'"
