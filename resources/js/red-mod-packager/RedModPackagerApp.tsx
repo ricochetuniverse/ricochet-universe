@@ -85,9 +85,10 @@ export default class RedModPackagerApp extends Component<{}, State> {
 
                         <CardBody>
                             <p>
-                                Packaged on {this.state.packageTime.toString()},
-                                reset this tool to re-package any new or
-                                modified files.
+                                Packaged the{' '}
+                                <code>{this.state.folderName}</code> folder on{' '}
+                                {this.state.packageTime.toString()}, reset this
+                                tool to re-package any new or modified files.
                             </p>
 
                             <p>
@@ -134,7 +135,7 @@ export default class RedModPackagerApp extends Component<{}, State> {
             }
 
             const files = fileInput.files;
-            if (!files) {
+            if (!files || files.length === 0) {
                 return;
             }
 
