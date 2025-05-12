@@ -1,5 +1,7 @@
 import {Component, createRef} from 'preact';
-import {Alert, Button, Card, CardBody, CardHeader} from 'reactstrap';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import {uppie} from 'uppie';
 
 import CustomFileInput from '../CustomFileInput';
@@ -41,9 +43,9 @@ export default class RedModPackagerApp extends Component<{}, State> {
         return (
             <div className="mb-n3">
                 <Card className="mb-3">
-                    <CardHeader>RED mod packager</CardHeader>
+                    <Card.Header>RED mod packager</Card.Header>
 
-                    <CardBody>
+                    <Card.Body>
                         <p>
                             Select your mod’s folder to package it to a{' '}
                             <code>.RED</code> file.
@@ -61,8 +63,7 @@ export default class RedModPackagerApp extends Component<{}, State> {
                             />
 
                             <Button
-                                outline
-                                color="primary"
+                                variant="outline-primary"
                                 disabled={!this.state.downloadButtonUrl}
                                 className="ms-2"
                                 onClick={this.resetButtonClicked}
@@ -70,20 +71,18 @@ export default class RedModPackagerApp extends Component<{}, State> {
                                 Reset
                             </Button>
                         </div>
-                    </CardBody>
+                    </Card.Body>
                 </Card>
 
                 {this.state.error ? (
-                    <Alert color="danger" fade={false}>
-                        {this.state.error}
-                    </Alert>
+                    <Alert variant="danger">{this.state.error}</Alert>
                 ) : null}
 
                 {this.state.packageTime && this.state.downloadButtonUrl ? (
                     <Card className="mb-3">
-                        <CardHeader>Package ready</CardHeader>
+                        <Card.Header>Package ready</Card.Header>
 
-                        <CardBody>
+                        <Card.Body>
                             <p>
                                 Packaged the{' '}
                                 <code>{this.state.folderName}</code> folder on{' '}
@@ -99,15 +98,14 @@ export default class RedModPackagerApp extends Component<{}, State> {
                             </p>
 
                             <Button
-                                tag="a"
+                                as="a"
                                 href={this.state.downloadButtonUrl}
                                 download={this.state.folderName + '.red'}
-                                outline
-                                color="primary"
+                                variant="outline-primary"
                             >
                                 Download
                             </Button>
-                        </CardBody>
+                        </Card.Body>
                     </Card>
                 ) : null}
             </div>

@@ -1,6 +1,8 @@
 import nullthrows from 'nullthrows';
 import {Component} from 'preact';
-import {Alert, Button, Card, CardBody, CardHeader} from 'reactstrap';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 import CustomFileInput from '../CustomFileInput';
 
@@ -83,44 +85,38 @@ export default class ImageToCanvasApp extends Component<{}, State> {
         return (
             <div className="mb-n3">
                 <Card className="mb-3">
-                    <CardHeader>Image to canvas</CardHeader>
+                    <Card.Header>Image to canvas</Card.Header>
 
-                    <CardBody>
+                    <Card.Body>
                         <CustomFileInput
-                            label="Select..."
                             accept=".jpg,.jpeg,.gif,.png"
                             onChange={this.onFileChange}
                         />
-                    </CardBody>
+                    </Card.Body>
                 </Card>
 
                 {this.state.loading ? (
-                    <Alert color="info" fade={false}>
-                        Loading...
-                    </Alert>
+                    <Alert variant="info">Loading...</Alert>
                 ) : null}
 
                 {this.state.error ? (
-                    <Alert color="danger" fade={false}>
-                        {this.state.error}
-                    </Alert>
+                    <Alert variant="danger">{this.state.error}</Alert>
                 ) : null}
 
                 {this.state.result ? (
                     <Card className="mb-3">
-                        <CardHeader>Scrapbook result</CardHeader>
+                        <Card.Header>Scrapbook result</Card.Header>
 
-                        <CardBody>
+                        <Card.Body>
                             <Button
-                                tag="a"
+                                as="a"
                                 href={this.state.result}
                                 download="Scrap Book.object.txt"
-                                outline
-                                color="primary"
+                                variant="outline-primary"
                             >
                                 Download
                             </Button>
-                        </CardBody>
+                        </Card.Body>
                     </Card>
                 ) : null}
             </div>

@@ -1,8 +1,8 @@
-import {Alert} from 'reactstrap';
+import Alert from 'react-bootstrap/Alert';
 
 export default function IncompatibleBrowser() {
     return (
-        <Alert color="danger" fade={false} className="m-0">
+        <Alert variant="danger" className="m-0">
             Sorry, your browser isn’t supported by this tool. Please use another
             browser such as the latest{' '}
             <a

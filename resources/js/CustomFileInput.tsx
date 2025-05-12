@@ -1,8 +1,6 @@
 import preact from 'preact';
 import {forwardRef} from 'preact/compat';
 
-// Forked from https://github.com/reactstrap/reactstrap/blob/master/src/CustomFileInput.js
-
 type Props = Readonly<
     {
         label?: string;

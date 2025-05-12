@@ -13,8 +13,7 @@ const config = {
     testPathIgnorePatterns: [
         '/node_modules/',
 
-        // Reactstrap issue
-        // TypeError: Cannot assign to read only property 'name' of function
+        // todo module loading trouble
         'resources/js/round-info/',
     ],
     transform: {

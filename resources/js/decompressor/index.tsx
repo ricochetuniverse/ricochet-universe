@@ -1,6 +1,6 @@
 import {render} from 'preact';
+import Card from 'react-bootstrap/Card';
 import Loadable from 'react-loadable';
-import {Card, CardBody, CardHeader} from 'reactstrap';
 
 import LoadingComponent from '../LoadingComponent';
 
@@ -9,13 +9,13 @@ const LoadableDecompressorApp = Loadable({
     loading(props) {
         return (
             <Card className="mb-3">
-                <CardHeader>Decompressor</CardHeader>
+                <Card.Header>Decompressor</Card.Header>
 
-                <CardBody>
+                <Card.Body>
                     <p className="m-0">
                         <LoadingComponent {...props} />
                     </p>
-                </CardBody>
+                </Card.Body>
             </Card>
         );
     },

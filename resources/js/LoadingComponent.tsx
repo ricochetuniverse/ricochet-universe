@@ -1,4 +1,4 @@
-import {Button} from 'reactstrap';
+import Button from 'react-bootstrap/Button';
 
 type Props = Readonly<
     LoadableExport.LoadingComponentProps & {
@@ -17,8 +17,7 @@ export default function LoadingComponent({
             <div className="d-flex align-items-center">
                 Failed to load
                 <Button
-                    outline
-                    color="primary"
+                    variant="outline-primary"
                     className="ms-3"
                     onClick={retry}
                 >
@@ -34,8 +33,7 @@ export default function LoadingComponent({
                 This is loading longer than expected... You can continue to wait
                 or
                 <Button
-                    outline
-                    color="primary"
+                    variant="outline-primary"
                     className="ms-3"
                     onClick={retry}
                 >

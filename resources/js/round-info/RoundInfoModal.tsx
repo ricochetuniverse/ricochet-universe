@@ -1,13 +1,8 @@
 import {useEffect, useState} from 'preact/hooks';
-import {
-    Button,
-    Col,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    ModalHeader,
-    Row,
-} from 'reactstrap';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
+import Row from 'react-bootstrap/Row';
 
 type Props = Readonly<{
     launchTime?: number;
@@ -39,8 +34,8 @@ function generateRow(label: string, text: string | undefined) {
 export default function RoundInfoModal(props: Props) {
     const [isOpen, setIsOpen] = useState(true);
 
-    function toggleModal() {
-        setIsOpen(!isOpen);
+    function hideModal() {
+        setIsOpen(false);
     }
 
     useEffect(() => {
@@ -49,16 +44,15 @@ export default function RoundInfoModal(props: Props) {
 
     return (
         <Modal
-            isOpen={isOpen}
-            toggle={toggleModal}
-            fade={false}
-            labelledBy="levelInfoModalTitle"
+            show={isOpen}
+            onHide={hideModal}
+            aria-labelledby="levelInfoModalTitle"
         >
-            <ModalHeader toggle={toggleModal} id="levelInfoModalTitle">
-                {props.name}
-            </ModalHeader>
+            <Modal.Header closeButton id="levelInfoModalTitle">
+                <Modal.Title>{props.name}</Modal.Title>
+            </Modal.Header>
 
-            <ModalBody>
+            <Modal.Body>
                 {props.imageUrl ? (
                     <img
                         src={props.imageUrl}
@@ -82,13 +76,13 @@ export default function RoundInfoModal(props: Props) {
                     {generateRow('Note 5', props.note5)}
                     {generateRow('Source', props.source)}
                 </Row>
-            </ModalBody>
+            </Modal.Body>
 
-            <ModalFooter>
-                <Button outline color="primary" onClick={toggleModal}>
+            <Modal.Footer>
+                <Button variant="outline-primary" onClick={hideModal}>
                     Close
                 </Button>
-            </ModalFooter>
+            </Modal.Footer>
         </Modal>
     );
 }

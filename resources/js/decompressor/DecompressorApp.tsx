@@ -1,17 +1,11 @@
 import {Component} from 'preact';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import Loadable from 'react-loadable';
-import {
-    Alert,
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    FormGroup,
-    Input,
-    Label,
-    Row,
-} from 'reactstrap';
 
 import CustomFileInput from '../CustomFileInput';
 import IncompatibleBrowser from '../IncompatibleBrowser';
@@ -57,9 +51,9 @@ const LoadableDecompressorEditor = Loadable({
         ),
     loading(props) {
         return (
-            <CardBody>
+            <Card.Body>
                 <LoadingComponent {...props} text="Loading text viewer..." />
-            </CardBody>
+            </Card.Body>
         );
     },
     timeout: 10000,
@@ -73,11 +67,10 @@ function DownloadButton(
 ) {
     return (
         <Button
-            tag="a"
+            as="a"
             href={props.blobUrl}
             download={props.fileName}
-            outline
-            color="primary"
+            variant="outline-primary"
         >
             Download
         </Button>
@@ -111,9 +104,9 @@ export default class DecompressorApp extends Component<{}, State> {
         return (
             <div className="mb-n3">
                 <Card className="mb-3">
-                    <CardHeader>Decompressor</CardHeader>
+                    <Card.Header>Decompressor</Card.Header>
 
-                    <CardBody>
+                    <Card.Body>
                         <p>
                             Decompress Ricochet levels (<code>.RicochetI</code>/
                             <code>.RicochetLW</code>
@@ -124,33 +117,29 @@ export default class DecompressorApp extends Component<{}, State> {
                             data.
                         </p>
 
-                        <FormGroup check className="mb-3">
-                            <Input
+                        <Form.Group className="mb-3">
+                            <Form.Check
                                 type="checkbox"
                                 id="useBrowserTextEditor"
                                 checked={this.state.useBrowserTextEditor}
                                 onChange={this.onViewInBrowserOptionChange}
+                                label="View text in browser"
                             />
-                            <Label check for="useBrowserTextEditor">
-                                View text in browser
-                            </Label>
-                        </FormGroup>
+                        </Form.Group>
 
                         <CustomFileInput
                             accept=".RicochetI,.RicochetLW,.Sequence,.Frame,.dat"
                             onChange={this.onFileChange}
                         />
-                    </CardBody>
+                    </Card.Body>
                 </Card>
 
                 {this.state.error ? (
-                    <Alert color="danger" fade={false}>
-                        {this.state.error}
-                    </Alert>
+                    <Alert variant="danger">{this.state.error}</Alert>
                 ) : null}
 
                 {this.state.modRequirement.result ? (
-                    <Alert color="info" fade={false}>
+                    <Alert variant="info">
                         {this.state.modRequirement.mods.length >= 2
                             ? `This level set requires these mods to play: ${this.state.modRequirement.mods.join(
                                   ', '
@@ -165,9 +154,9 @@ export default class DecompressorApp extends Component<{}, State> {
                     <>
                         {this.state.blobUrls.image !== '' ? (
                             <Card className="mb-3">
-                                <CardHeader>Decompressed image</CardHeader>
+                                <Card.Header>Decompressed image</Card.Header>
 
-                                <CardBody>
+                                <Card.Body>
                                     <DownloadButton
                                         blobUrl={this.state.blobUrls.image}
                                         fileName={
@@ -177,7 +166,7 @@ export default class DecompressorApp extends Component<{}, State> {
                                             ) + '.jpg'
                                         }
                                     />
-                                </CardBody>
+                                </Card.Body>
 
                                 <div>
                                     <img
@@ -191,13 +180,13 @@ export default class DecompressorApp extends Component<{}, State> {
 
                         {result.utf8 ? (
                             <Card className="mb-3">
-                                <CardHeader>
+                                <Card.Header>
                                     {this.state.blobUrls.image === ''
                                         ? 'Decompressed text'
                                         : 'Image metadata'}
-                                </CardHeader>
+                                </Card.Header>
 
-                                <CardBody>
+                                <Card.Body>
                                     <Row className="align-items-center">
                                         {this.state.blobUrls.text !== '' ? (
                                             <Col xs="auto">
@@ -227,7 +216,7 @@ export default class DecompressorApp extends Component<{}, State> {
                                             </Col>
                                         ) : null}
                                     </Row>
-                                </CardBody>
+                                </Card.Body>
 
                                 {result && this.state.useBrowserTextEditor ? (
                                     <LoadableDecompressorEditor
