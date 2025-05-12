@@ -124,12 +124,12 @@
                             @endif
 
                             <p class="m-0">Find this line at the bottom:</p>
-                            <div class="mb-3">
+                            <div class="mb-3 cursor-auto">
                                 <code>Catalog URL=http://www.ricochetinfinity.com/gateway/catalog.php</code>
                             </div>
 
                             <p class="m-0">Change it to:</p>
-                            <div class="mb-3">
+                            <div class="mb-3 cursor-auto">
                                 @if ($os === \App\Http\Controllers\ReviverController::WINDOWS10)
                                     <code>Catalog URL={{ action('API\\CatalogController@index') }}</code>
                                 @else
