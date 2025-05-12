@@ -40,7 +40,7 @@
         <nav class="navbar navbar-expand-md bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
                 <div class="d-none d-md-block">
-                    <a class="navbar-brand js-with-tooltip d-flex me-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}">
+                    <a class="navbar-brand d-flex me-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}" data-bs-toggle="tooltip">
                         <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
                     </a>
                 </div>
@@ -61,8 +61,9 @@
                         <li class="nav-item dropdown">
                             <div id="levelsNavbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <a href="#"
-                                   class="nav-link dropdown-toggle js-with-tooltip @if (($selected_navbar_item ?? '') === 'levels')active @endif"
+                                   class="nav-link dropdown-toggle @if (($selected_navbar_item ?? '') === 'levels')active @endif"
                                    title="Explore, download and play level sets created by the community"
+                                   data-bs-toggle="tooltip"
                                    role="button">
                                     Levels
                                 </a>
@@ -106,12 +107,12 @@
                             'text' => 'About'
                         ])
                         <li class="nav-item">
-                            <a class="nav-link js-with-tooltip nav-link-discord" href="{{ action('DiscordRedirectController@index') }}" title="Join other players on the Ricochet Players Discord">
+                            <a class="nav-link nav-link-discord" href="{{ action('DiscordRedirectController@index') }}" title="Join other players on the Ricochet Players Discord" data-bs-toggle="tooltip">
                                 @include('icons.discord')<span class="d-md-none ms-2">Discord</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-with-tooltip nav-link-gitlab" href="https://gitlab.com/ngyikp/ricochet-levels" title="View the website source code on GitLab">
+                            <a class="nav-link nav-link-gitlab" href="https://gitlab.com/ngyikp/ricochet-levels" title="View the website source code on GitLab" data-bs-toggle="tooltip">
                                 @include('icons.gitlab')<span class="d-md-none ms-2">GitLab</span>
                             </a>
                         </li>
@@ -129,8 +130,9 @@
                             <li class="nav-item dropdown">
                                 <div id="accountNavbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     <a href="#"
-                                       class="nav-link dropdown-toggle js-with-tooltip d-flex align-items-center"
+                                       class="nav-link dropdown-toggle d-flex align-items-center"
                                        title="Signed in as {{ Auth::user()->name }}"
+                                       data-bs-toggle="tooltip"
                                        role="button">
                                         <img src="{{ Auth::user()->getAvatarUrl(64) }}"
                                              width="24"

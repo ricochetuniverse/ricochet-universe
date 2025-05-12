@@ -5,8 +5,9 @@
 @endphp
 <li class="nav-item">
     <a href="{{ $href }}"
-       class="nav-link js-with-tooltip @if ($active)active @endif"
+       class="nav-link @if ($active)active @endif"
        title="{{ $title }}"
+       data-bs-toggle="tooltip"
        @if ($active)aria-current="page" @endif>
         {{ $text }}
     </a>
