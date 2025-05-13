@@ -28,11 +28,17 @@
 }
 
 .discordWidget__body {
-    background: #1e2124;
+    background: #fff;
     padding: 20px;
 
     font-size: 14px;
     line-height: 14px;
+}
+
+@include color-mode(dark) {
+    .discordWidget__body {
+        background: #1e2124;
+    }
 }
 
 .discordWidget__heading {
@@ -83,11 +89,11 @@
 }
 
 .discordMemberStatus--online {
-    background: rgb(36, 147, 78);
+    background: rgb(35, 165, 90);
 }
 
 .discordMemberStatus--idle {
-    background: rgb(175, 118, 21);
+    background: rgb(240, 178, 50);
 }
 
 .discordMemberStatus--offline {
@@ -95,5 +101,19 @@
 }
 
 .discordMemberStatus--dnd {
-    background: rgb(218, 55, 60);
+    background: rgb(242, 63, 67);
+}
+
+@include color-mode(dark) {
+    .discordMemberStatus--online {
+        background: rgb(36, 147, 78);
+    }
+
+    .discordMemberStatus--idle {
+        background: rgb(175, 118, 21);
+    }
+
+    .discordMemberStatus--dnd {
+        background: rgb(218, 55, 60);
+    }
 }
