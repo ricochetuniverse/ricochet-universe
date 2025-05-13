@@ -29,7 +29,7 @@
                     @if ($rounds->count() > 0)
                         @if ($rounds->total() > $rounds->count())
                             <p>
-                                Showing {{ number_format($rounds->firstItem()) }}-{{ number_format($rounds->lastItem()) }}
+                                Showing {{ number_format($rounds->firstItem()).'-'.number_format($rounds->lastItem()) }}
                                 of {{ number_format($rounds->total()) }} rounds
                             </p>
                         @elseif ($rounds->count() > 1)
@@ -39,29 +39,44 @@
                         @endif
                     @endif
 
+                    <noscript>
+                        <div class="alert alert-danger" role="alert">
+                            Please enable JavaScript to view more round info.
+                        </div>
+                    </noscript>
+
                     <div class="card mb-3">
                         <ul class="list-group list-group-flush">
                             @foreach ($rounds as $round)
                                 <li class="list-group-item p-3">
                                     <div class="d-flex align-items-center">
-                                        <img
-                                            src="{{ $round->getImageUrl() }}"
-                                            alt="Screenshot of “{{ $round->name }}”"
-                                            width="105"
-                                            height="80"
-                                            loading="lazy">
+                                        <a href="#" class="me-3 js-open-round-info-modal"
+                                           data-round-info="{{ $round->toRoundInfoJson() }}">
+                                            @if ($round->image_file_name)
+                                                <img
+                                                    src="{{ $round->getImageUrl() }}"
+                                                    alt="Screenshot of “{{ $round->name }}”"
+                                                    width="105"
+                                                    height="80"
+                                                    loading="lazy">
+                                            @endif
+                                        </a>
 
-                                        <div class="ms-3">
-                                            <p class="cursor-auto">
-                                                {{ $round->name }}
+                                        <div>
+                                            <p>
+                                                <a href="#" class="js-open-round-info-modal"
+                                                   data-round-info="{{ $round->toRoundInfoJson() }}">
+                                                    {{ $round->name }}
+                                                </a>
                                             </p>
 
                                             <p class="m-0">
                                                 #{{ $round->round_number }} on
-                                                <a href="{{ $round->levelSet->getPermalink() }}" class="link-secondary fw-bold">{{ $round->levelSet->name }}</a>
+                                                <a href="{{ $round->levelSet->getPermalink() }}"
+                                                   class="link-secondary fw-bold">{{ $round->levelSet->name }}</a>
                                                 by
                                                 <a href="{{ action('LevelController@index', ['author' => $round->levelSet->author]) }}"
-                                                    title="Find level sets created by {{ $round->levelSet->author }}">{{ $round->levelSet->author }}</a>
+                                                   title="Find level sets created by {{ $round->levelSet->author }}">{{ $round->levelSet->author }}</a>
                                             </p>
                                         </div>
                                     </div>

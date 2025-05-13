@@ -26,7 +26,7 @@
                 @if ($levelSets->count() > 0)
                     @if ($levelSets->total() > $levelSets->count())
                         <p>
-                            Showing {{ number_format($levelSets->firstItem()) }}-{{ number_format($levelSets->lastItem()) }}
+                            Showing {{ number_format($levelSets->firstItem()).'-'.number_format($levelSets->lastItem()) }}
                             of {{ number_format($levelSets->total()) }} level sets
                         </p>
                     @elseif ($levelSets->count() > 1)

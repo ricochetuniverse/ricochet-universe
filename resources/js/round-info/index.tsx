@@ -19,7 +19,7 @@ const schema = z
 
 let modalWrap: HTMLDivElement | null;
 
-const links = document.getElementsByClassName('roundInfo__link');
+const links = document.getElementsByClassName('js-open-round-info-modal');
 for (let i = 0, len = links.length; i < len; i += 1) {
     links[i].addEventListener('click', (ev) => {
         ev.preventDefault();
@@ -31,7 +31,7 @@ for (let i = 0, len = links.length; i < len; i += 1) {
 
         const raw = link.dataset.roundInfo;
         if (raw == null) {
-            return;
+            throw new Error('No round info found.');
         }
 
         const roundInfo = schema.parse(JSON.parse(raw));

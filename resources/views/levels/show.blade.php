@@ -175,7 +175,8 @@
                         @unless ($levelSet->levelRounds->isEmpty())
                             <div class="roundInfo__wrapper">
                                 @foreach ($levelSet->levelRounds as $round)
-                                    <a href="#" class="roundInfo__link" data-round-info="{{ $round->toRoundInfoJson() }}">
+                                    <a href="#" class="roundInfo__link js-open-round-info-modal"
+                                       data-round-info="{{ $round->toRoundInfoJson() }}">
                                         @if ($round->image_file_name)
                                             <img
                                                 src="{{ $round->getImageUrl() }}"
