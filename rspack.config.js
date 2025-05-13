@@ -12,7 +12,6 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const {RspackManifestPlugin} = require('rspack-manifest-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
-// External .swcrc file is still required for jest
 function getSwcLoaderOptions() {
     /** @type {import('@rspack/core').SwcLoaderOptions} */
     const options = JSON.parse(

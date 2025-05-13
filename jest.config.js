@@ -4,25 +4,31 @@
 
 /** @type {import('jest').Config} */
 const config = {
-    // extensionsToTreatAsEsm: ['.ts', '.tsx'],
     moduleNameMapper: {
-        '^react$': 'preact/compat',
-        '^react-dom$': 'preact/compat',
+        '^preact$': 'react',
+        '^preact/hooks$': 'react',
     },
     testEnvironment: 'jsdom',
-    testPathIgnorePatterns: [
-        '/node_modules/',
-
-        // todo module loading trouble
-        'resources/js/round-info/',
-    ],
     transform: {
-        '^.+\\.m?(t|j)sx?$': '@swc/jest',
+        '^.+\\.m?(t|j)sx?$': [
+            '@swc/jest',
+
+            // Merged with .swcrc
+            {
+                jsc: {
+                    transform: {
+                        react: {
+                            // Need to test against React for now instead of
+                            // Preact due to numerous issues/headache trying
+                            // to set it up
+                            importSource: 'react',
+                        },
+                    },
+                },
+                env: {},
+            },
+        ],
     },
-    transformIgnorePatterns: [
-        // '/node_modules/',
-        '\\.pnp\\.[^\\/]+$',
-    ],
 };
 
 module.exports = config;
