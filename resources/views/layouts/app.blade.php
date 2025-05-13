@@ -73,6 +73,10 @@
                                 <li><a href="{{ action('LevelController@index') }}" class="dropdown-item">Most downloaded</a></li>
                                 <li><a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}" class="dropdown-item">Latest</a>
                                 <li><hr class="dropdown-divider"></li>
+
+                                <li><a href="{{ action('RoundsController@index') }}" class="dropdown-item">Search rounds</a></li>
+                                <li><hr class="dropdown-divider"></li>
+
                                 <li><a href="{{ action('UploadController@index') }}" class="dropdown-item">Upload</a></li>
                             </ul>
                         </li>
@@ -120,7 +124,7 @@
 
                     <div class="d-none d-md-block flex-grow-1">
                         <form class="d-flex flex-grow-1 justify-content-end my-0 ms-2" method="GET" action="{{ action('LevelController@index') }}">
-                            <input class="form-control navbar-search" type="search" name="search" placeholder="Search level sets by name/author" title="Search level sets by name/author" value="{{ is_string(request()->input('search')) ? request()->input('search') : '' }}">
+                            <input class="form-control navbar-search" type="search" name="search" placeholder="Search level sets by name/author" title="Search level sets by name/author" value="{{ $navbar_search ?? '' }}">
                             <button class="btn btn-outline-primary ms-2" type="submit">Search</button>
                         </form>
                     </div>

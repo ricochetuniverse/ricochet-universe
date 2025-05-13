@@ -20,6 +20,7 @@ Route::permanentRedirect('/levels/submitform.php', '/upload');
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/upload', 'UploadController@store');
 });
+Route::get('/rounds', 'RoundsController@index');
 
 Route::get('/mods', 'ModsController@index')
     ->middleware($cache)
