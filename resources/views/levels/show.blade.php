@@ -175,17 +175,7 @@
                         @unless ($levelSet->levelRounds->isEmpty())
                             <div class="roundInfo__wrapper">
                                 @foreach ($levelSet->levelRounds as $round)
-                                    <a href="#" class="roundInfo__link"
-                                       data-round-count="{{ $loop->index + 1 }}"
-                                       data-round-name="{{ $round->name }}"
-                                       @if (strlen($round->author) > 0)data-round-author="{{ $round->author }}" @endif
-                                       @if (strlen($round->note1) > 0)data-round-note-1="{{ $round->note1 }}" @endif
-                                       @if (strlen($round->note2) > 0)data-round-note-2="{{ $round->note2 }}" @endif
-                                       @if (strlen($round->note3) > 0)data-round-note-3="{{ $round->note3 }}" @endif
-                                       @if (strlen($round->note4) > 0)data-round-note-4="{{ $round->note4 }}" @endif
-                                       @if (strlen($round->note5) > 0)data-round-note-5="{{ $round->note5 }}" @endif
-                                       @if (strlen($round->source) > 0)data-round-source="{{ $round->source }}" @endif
-                                       @if ($round->image_file_name)data-round-image-url="{{ $round->getImageUrl() }}" @endif>
+                                    <a href="#" class="roundInfo__link" data-round-info="{{ $round->toRoundInfoJson() }}">
                                         @if ($round->image_file_name)
                                             <img
                                                 src="{{ $round->getImageUrl() }}"
