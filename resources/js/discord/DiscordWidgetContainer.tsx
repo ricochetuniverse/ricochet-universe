@@ -1,12 +1,26 @@
 import {useEffect, useState} from 'preact/hooks';
+import type {z} from 'zod';
 
 import DiscordWidget from './DiscordWidget';
-import type {DiscordWidgetMemberType} from './DiscordWidgetMemberType';
+import {
+    DiscordWidgetApiSchema,
+    DiscordWidgetMemberSchema,
+} from './DiscordWidgetMemberType';
+
+const bots = [
+    'AmariBot',
+    '[pls] Dank Memer',
+    '[!] Mee6',
+    '[.] NotSoBot',
+    '[r!] Rythm',
+];
 
 export default function DiscordWidgetContainer() {
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
-    const [members, setMembers] = useState<DiscordWidgetMemberType[]>([]);
+    const [members, setMembers] = useState<
+        z.infer<typeof DiscordWidgetMemberSchema>[]
+    >([]);
     const [presenceCount, setPresenceCount] = useState(0);
 
     useEffect(() => {
@@ -22,7 +36,9 @@ export default function DiscordWidgetContainer() {
         request.onload = () => {
             let json;
             try {
-                json = JSON.parse(request.responseText);
+                json = DiscordWidgetApiSchema.parse(
+                    JSON.parse(request.responseText)
+                );
             } catch (ex) {
                 console.error(ex);
 
@@ -32,23 +48,9 @@ export default function DiscordWidgetContainer() {
                 return;
             }
 
-            if (!json.members) {
-                setIsLoading(false);
-                setIsError(true);
-                return;
-            }
-
-            const members = (json.members as DiscordWidgetMemberType[])
+            const members = json.members
                 .filter((member) => {
-                    const bots = [
-                        'AmariBot',
-                        '[pls] Dank Memer',
-                        '[!] Mee6',
-                        '[.] NotSoBot',
-                        '[r!] Rythm',
-                    ];
-
-                    return bots.indexOf(member.username) === -1;
+                    return !bots.includes(member.username);
                 })
                 .sort((a, b) => {
                     const nameA = a.username.toLowerCase();

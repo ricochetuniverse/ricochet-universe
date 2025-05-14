@@ -1,9 +1,11 @@
-import type {DiscordWidgetMemberType} from './DiscordWidgetMemberType';
+import type {z} from 'zod';
+
+import {DiscordWidgetMemberSchema} from './DiscordWidgetMemberType';
 
 type Props = Readonly<{
     loading: boolean;
     error: boolean;
-    members: DiscordWidgetMemberType[];
+    members: z.infer<typeof DiscordWidgetMemberSchema>[];
     presenceCount: number;
 }>;
 
