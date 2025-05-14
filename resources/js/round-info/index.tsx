@@ -1,21 +1,7 @@
 import {render} from 'preact';
-import {z} from 'zod';
 
 import RoundInfoModal from './RoundInfoModal';
-
-const schema = z
-    .object({
-        name: z.string(),
-        author: z.string(),
-        note1: z.string(),
-        note2: z.string(),
-        note3: z.string(),
-        note4: z.string(),
-        note5: z.string(),
-        source: z.string(),
-        imageUrl: z.string().url(),
-    })
-    .partial();
+import {RoundInfoSchema} from './RoundInfoType';
 
 let modalWrap: HTMLDivElement | null;
 
@@ -34,7 +20,7 @@ for (let i = 0, len = links.length; i < len; i += 1) {
             throw new Error('No round info found.');
         }
 
-        const roundInfo = schema.parse(JSON.parse(raw));
+        const roundInfo = RoundInfoSchema.parse(JSON.parse(raw));
 
         if (!modalWrap) {
             modalWrap = document.createElement('div');
@@ -42,7 +28,7 @@ for (let i = 0, len = links.length; i < len; i += 1) {
         }
 
         render(
-            <RoundInfoModal launchTime={Date.now()} {...roundInfo} />,
+            <RoundInfoModal launchTime={Date.now()} roundInfo={roundInfo} />,
             modalWrap
         );
     });
