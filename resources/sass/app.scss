@@ -85,6 +85,10 @@ body {
     cursor: auto;
 }
 
+.break-word {
+    word-break: break-word;
+}
+
 @import 'card-notch';
 
 .card-header {
@@ -108,6 +112,10 @@ body {
 
 .modal-header {
     background: $card-cap-bg;
+
+    .btn-close {
+        flex-shrink: 0;
+    }
 }
 
 .modal-title {

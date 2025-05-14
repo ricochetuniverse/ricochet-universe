@@ -64,7 +64,7 @@
 
                                         <div>
                                             <p>
-                                                <a href="#" class="js-open-round-info-modal"
+                                                <a href="#" class="break-word js-open-round-info-modal"
                                                    data-round-info="{{ $round->toRoundInfoJson() }}">
                                                     {{ $round->name }}
                                                 </a>
@@ -81,7 +81,6 @@
                                         </div>
                                     </div>
                                 </li>
-
                             @endforeach
                         </ul>
                     </div>

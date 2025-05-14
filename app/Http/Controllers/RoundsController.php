@@ -25,7 +25,9 @@ class RoundsController extends Controller
             $rounds = LevelRound::where('name', 'LIKE', '%'.Str::escapeLike($search).'%')
                 ->with('levelSet')
                 ->orderBy('name')
-                ->orderBy('created_at')
+                ->orderBy('round_number')
+                ->orderBy('level_set_id')
+                ->orderBy('id')
                 ->paginate(50)
                 ->appends([
                     'search' => $search,
