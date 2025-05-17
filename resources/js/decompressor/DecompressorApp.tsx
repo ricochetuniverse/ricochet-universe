@@ -8,7 +8,6 @@ import Row from 'react-bootstrap/Row';
 import Loadable from 'react-loadable';
 
 import CustomFileInput from '../CustomFileInput';
-import IncompatibleBrowser from '../IncompatibleBrowser';
 import LoadingComponent from '../LoadingComponent';
 
 import type {ModRequirement} from './check-for-mods';
@@ -29,15 +28,6 @@ type State = Readonly<{
 
     useBrowserTextEditor: boolean;
 }>;
-
-function isBrowserCompatible() {
-    return (
-        typeof FileReader !== 'undefined' &&
-        typeof Blob !== 'undefined' &&
-        typeof TextDecoder !== 'undefined' &&
-        typeof String.prototype.endsWith !== 'undefined'
-    );
-}
 
 function generateBlobUrl(raw: Uint8Array, type: string): string {
     const blob = new Blob([raw], {type});
@@ -95,10 +85,6 @@ export default class DecompressorApp extends Component<{}, State> {
     };
 
     render() {
-        if (!isBrowserCompatible()) {
-            return <IncompatibleBrowser />;
-        }
-
         const result = this.state.result;
 
         return (
