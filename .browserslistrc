@@ -3,14 +3,10 @@
 >= 0.5%
 last 2 major versions
 not dead
-Chrome >= 60
-Firefox >= 60
+Chrome >= 100
+Firefox >= 115 # Firefox ESR for Windows 7
 Firefox ESR
-iOS >= 12
-Safari >= 12
+iOS >= 17
+Safari >= 17
 not Explorer <= 11
 not kaios <= 2.5 # fix floating label issues in Firefox (see https://github.com/postcss/autoprefixer/issues/1533)
-
-# Windows XP / Vista (maybe, no guarantee)
-Chrome >= 49
-Firefox >= 52
