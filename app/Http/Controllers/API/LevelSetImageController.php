@@ -54,22 +54,20 @@ class LevelSetImageController extends Controller
     public function showVersion2(Request $request, string $name, int $number): RedirectResponse
     {
         $fileName = $name.'/'.$number.'.jpg';
-        $fileUrl = rawurlencode($name).'/'.$number.'.jpg';
-
         if (str_contains($fileName, '%20')) {
             // filter out dumb scrapers that don't understand URL encoding
             throw new NotFoundHttpException;
         }
 
         $disk = Storage::disk('round-images');
-        if ($disk->exists($fileName)) {
-            $url = Uri::of($disk->url($fileUrl))
-                ->withQuery(['time' => $disk->lastModified($fileName)]);
-        } else {
-            // todo is this redirect really needed? can we just fail it?
-            throw new MissingLevelSetImageException('Level set image '.$fileName.' not found');
+        if (! $disk->exists($fileName)) {
+            throw new NotFoundHttpException;
             // $url = self::FALLBACK_URL.'cache/'.$fileUrl;
         }
+
+        $fileUrl = rawurlencode($name).'/'.$number.'.jpg';
+        $url = Uri::of($disk->url($fileUrl))
+            ->withQuery(['time' => $disk->lastModified($fileName)]);
 
         return $this->setCacheHeaders(RedirectForGame::to($request->isSecure(), $url));
     }
@@ -86,5 +84,3 @@ class LevelSetImageController extends Controller
         ]);
     }
 }
-
-class MissingLevelSetImageException extends \Exception {}
