@@ -15,7 +15,7 @@ test('renders the modal', async () => {
         />
     );
 
-    screen.getByText('My great level');
+    expect(screen.getByText('My great level')).not.toBeNull();
 
     fireEvent.click(screen.getByLabelText('Close'));
     await waitForElementToBeRemoved(() => screen.getByText('My great level'));

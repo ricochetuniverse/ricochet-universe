@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import eslintReact from '@eslint-react/eslint-plugin';
 import importPlugin from 'eslint-plugin-import';
+import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
@@ -11,6 +12,8 @@ export default tseslint.config(
     tseslint.configs.strict,
 
     importPlugin.flatConfigs.typescript,
+    jest.configs['flat/recommended'],
+    jest.configs['flat/style'],
     jsxA11y.flatConfigs.recommended,
     eslintReact.configs['recommended-typescript'],
     reactHooks.configs['recommended-latest'],
