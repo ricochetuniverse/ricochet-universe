@@ -4,6 +4,7 @@ import importPlugin from 'eslint-plugin-import';
 import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
+import testingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -69,6 +70,13 @@ export default tseslint.config(
                 ...globals.node,
             },
         },
+    },
+    {
+        files: [
+            '**/__tests__/**/*.[jt]s?(x)',
+            '**/?(*.)+(spec|test).[jt]s?(x)',
+        ],
+        ...testingLibrary.configs['flat/react'],
     },
     {
         ignores: ['vendor/', 'public/build/', 'public/storage/', 'storage/'],
