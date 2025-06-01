@@ -1,8 +1,8 @@
-import {z} from 'zod';
+import {z} from 'zod/v4-mini';
 
 export const DiscordWidgetMemberSchema = z.object({
     // avatar: null;
-    avatar_url: z.string().url(),
+    avatar_url: z.url(),
     // discriminator: '0000';
     // game?: {
     //     name: string;
@@ -13,6 +13,6 @@ export const DiscordWidgetMemberSchema = z.object({
 });
 
 export const DiscordWidgetApiSchema = z.object({
-    members: DiscordWidgetMemberSchema.array(),
+    members: z.array(DiscordWidgetMemberSchema),
     presence_count: z.number(),
 });

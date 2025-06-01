@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'preact/hooks';
-import type {z} from 'zod';
+import type {z} from 'zod/v4-mini';
 
 import DiscordWidget from './DiscordWidget';
 import {

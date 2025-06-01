@@ -1,7 +1,7 @@
-import {z} from 'zod';
+import {z} from 'zod/v4-mini';
 
-export const RoundInfoSchema = z
-    .object({
+export const RoundInfoSchema = z.partial(
+    z.object({
         name: z.string(),
         author: z.string(),
         note1: z.string(),
@@ -10,6 +10,6 @@ export const RoundInfoSchema = z
         note4: z.string(),
         note5: z.string(),
         source: z.string(),
-        imageUrl: z.string().url(),
+        imageUrl: z.url(),
     })
-    .partial();
+);
