@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Support\Uri;
 use Spatie\Url\Url;
 
@@ -109,8 +111,18 @@ class LevelSet extends Model
 
     public function getImageUrl(): string
     {
-        return Uri::of(config('app.url').'/levels/'.$this->image_url)
-            ->withQuery(['time' => $this->updated_at->unix()]);
+        // Optimize version 2 of the image URLs as we get redirected at the end anyway
+        if (str_starts_with($this->image_url, 'cache/')) {
+            $disk = Storage::disk('round-images');
+            $fileName = Str::after($this->image_url, 'cache/');
+
+            $uri = Uri::of($disk->url($fileName));
+        } else {
+            // This leads to LevelSetImageController
+            $uri = Uri::of(config('app.url').'/levels/'.$this->image_url);
+        }
+
+        return $uri->withQuery(['time' => $this->updated_at->unix()]);
     }
 
     public function levelRounds(): HasMany
