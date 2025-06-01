@@ -10,7 +10,6 @@ const browserslist = require('browserslist');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const {RspackManifestPlugin} = require('rspack-manifest-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 function getSwcLoaderOptions() {
     /** @type {import('@rspack/core').SwcLoaderOptions} */
@@ -130,9 +129,7 @@ const config = {
     ],
     optimization: {
         minimizer: [
-            new TerserPlugin({
-                minify: TerserPlugin.esbuildMinify,
-            }),
+            new rspack.SwcJsMinimizerRspackPlugin({}),
 
             new rspack.LightningCssMinimizerRspackPlugin({
                 minimizerOptions: {
