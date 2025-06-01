@@ -23,7 +23,6 @@ export default tseslint.config(
             import: importPlugin,
         },
         rules: {
-            // Variables
             'no-var': 'error',
             'no-unused-vars': 'error',
             'prefer-const': 'warn',
