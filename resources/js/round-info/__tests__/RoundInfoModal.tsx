@@ -8,12 +8,7 @@ import {
 import RoundInfoModal from '../RoundInfoModal';
 
 test('renders the modal', async () => {
-    render(
-        <RoundInfoModal
-            launchTime={Date.now()}
-            roundInfo={{name: 'My great level'}}
-        />
-    );
+    render(<RoundInfoModal roundInfo={{name: 'My great level'}} />);
 
     expect(screen.getByText('My great level')).not.toBeNull();
 

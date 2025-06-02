@@ -28,7 +28,7 @@ for (let i = 0, len = links.length; i < len; i += 1) {
         }
 
         render(
-            <RoundInfoModal launchTime={Date.now()} roundInfo={roundInfo} />,
+            <RoundInfoModal key={Date.now()} roundInfo={roundInfo} />,
             modalWrap
         );
     });

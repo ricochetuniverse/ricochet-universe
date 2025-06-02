@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'preact/hooks';
+import {useId, useState} from 'preact/hooks';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
@@ -8,7 +8,6 @@ import type {z} from 'zod/v4-mini';
 import {RoundInfoSchema} from './RoundInfoType';
 
 type Props = Readonly<{
-    launchTime?: number;
     roundInfo: z.infer<typeof RoundInfoSchema>;
 }>;
 
@@ -29,24 +28,16 @@ function generateRow(label: string, text: string | undefined) {
 export default function RoundInfoModal(props: Props) {
     const {name, author, note1, note2, note3, note4, note5, source, imageUrl} =
         props.roundInfo;
-
     const [isOpen, setIsOpen] = useState(true);
+    const titleId = useId();
 
     function hideModal() {
         setIsOpen(false);
     }
 
-    useEffect(() => {
-        setIsOpen(true);
-    }, [props.launchTime]);
-
     return (
-        <Modal
-            show={isOpen}
-            onHide={hideModal}
-            aria-labelledby="levelInfoModalTitle"
-        >
-            <Modal.Header closeButton id="levelInfoModalTitle">
+        <Modal show={isOpen} onHide={hideModal} aria-labelledby={titleId}>
+            <Modal.Header closeButton id={titleId}>
                 <Modal.Title>{name}</Modal.Title>
             </Modal.Header>
 
