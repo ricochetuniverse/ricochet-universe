@@ -1,5 +1,6 @@
 import type {z} from 'zod/v4-mini';
 
+import DiscordWidgetMember from './DiscordWidgetMember';
 import {DiscordWidgetMemberSchema} from './DiscordWidgetMemberType';
 
 type Props = Readonly<{
@@ -28,27 +29,7 @@ export default function DiscordWidget(props: Props) {
             <ul className="discordWidget__memberList">
                 {props.members.map((member) => {
                     return (
-                        <li className="discordWidget__member" key={member.id}>
-                            <div className="discordWidget__member__avatar">
-                                <img
-                                    src={member.avatar_url}
-                                    alt={member.username + '’s avatar'}
-                                    width={16}
-                                    height={16}
-                                    className="discordWidget__member__avatar__image"
-                                    loading="lazy"
-                                />
-                                <span
-                                    className={
-                                        'discordWidget__member__avatar__status discordMemberStatus--' +
-                                        member.status
-                                    }
-                                />
-                            </div>
-                            <span className="text-truncate">
-                                {member.username}
-                            </span>
-                        </li>
+                        <DiscordWidgetMember key={member.id} member={member} />
                     );
                 })}
             </ul>
