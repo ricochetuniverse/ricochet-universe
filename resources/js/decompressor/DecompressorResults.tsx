@@ -34,7 +34,7 @@ export default function DecompressorResults(props: Props) {
                         />
                     </Card.Body>
 
-                    <div>
+                    <div className="overflow-x-auto">
                         <img
                             src={props.blobUrls.image}
                             alt="Decompressed result"
