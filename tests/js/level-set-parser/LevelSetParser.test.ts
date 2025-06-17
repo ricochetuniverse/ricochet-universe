@@ -1,14 +1,13 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import {parse} from '../LevelSetParser';
+import {parse} from '../../../resources/js/level-set-parser/LevelSetParser';
+
+const FIXTURE_DIR = path.resolve(__dirname, '../../fixtures/');
 
 test('parses Lost Worlds level set', async () => {
     const levelSet = await fs.readFile(
-        path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Reflexive B Sides.RicochetLW.txt'
-        )
+        path.resolve(FIXTURE_DIR, './Reflexive B Sides.RicochetLW.txt')
     );
 
     const results = parse(levelSet);
@@ -28,16 +27,13 @@ test('parses Lost Worlds level set', async () => {
 test('parses Infinity level set', async () => {
     const levelSet = await fs.readFile(
         path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Rico at the Brick Factory/Rico at the Brick Factory.RicochetI.txt'
+            FIXTURE_DIR,
+            './Rico at the Brick Factory/Rico at the Brick Factory.RicochetI.txt'
         )
     );
 
     const thumbnail = await fs.readFile(
-        path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Rico at the Brick Factory/thumbnail.jpg'
-        )
+        path.resolve(FIXTURE_DIR, './Rico at the Brick Factory/thumbnail.jpg')
     );
 
     const results = parse(levelSet);
@@ -57,15 +53,15 @@ test('parses Infinity level set', async () => {
 test('thumbnail of round with custom brick layer effect', async () => {
     const levelSet = await fs.readFile(
         path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/custom-brick-layer-thumbnail-test/Level.txt'
+            FIXTURE_DIR,
+            './custom-brick-layer-thumbnail-test/Level.txt'
         )
     );
 
     const thumbnail = await fs.readFile(
         path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/custom-brick-layer-thumbnail-test/thumbnail.jpg'
+            FIXTURE_DIR,
+            './custom-brick-layer-thumbnail-test/thumbnail.jpg'
         )
     );
 

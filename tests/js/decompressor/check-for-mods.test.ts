@@ -2,14 +2,13 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import checkForMods from '../check-for-mods';
+import checkForMods from '../../../resources/js/decompressor/check-for-mods';
+
+const FIXTURE_DIR = path.resolve(__dirname, '../../fixtures/');
 
 test('ensure no false detection', async () => {
     const levelSet = await fs.readFile(
-        path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Level Editor Template.txt'
-        ),
+        path.resolve(FIXTURE_DIR, './Level Editor Template.txt'),
         'utf-8'
     );
 
@@ -20,10 +19,7 @@ test('ensure no false detection', async () => {
 
 test('Neon Environment detection', async () => {
     const levelSet = await fs.readFile(
-        path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Neon Environment Detection Test.txt'
-        ),
+        path.resolve(FIXTURE_DIR, './Neon Environment Detection Test.txt'),
         'utf-8'
     );
 
@@ -38,8 +34,8 @@ test('Neon Environment detection', async () => {
 test('Heavy Metal Environment detection', async () => {
     const levelSet = await fs.readFile(
         path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Heavy Metal Environment Detection Test.txt'
+            FIXTURE_DIR,
+            './Heavy Metal Environment Detection Test.txt'
         ),
         'utf-8'
     );
@@ -54,10 +50,7 @@ test('Heavy Metal Environment detection', async () => {
 
 test('HEX detection', async () => {
     const levelSet = await fs.readFile(
-        path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/HEX Detection Test.txt'
-        ),
+        path.resolve(FIXTURE_DIR, './HEX Detection Test.txt'),
         'utf-8'
     );
 
@@ -71,10 +64,7 @@ test('HEX detection', async () => {
 
 test('mod powerup inside lottery', async () => {
     const levelSet = await fs.readFile(
-        path.resolve(
-            __dirname,
-            '../../../../tests/fixtures/Mod powerup inside lottery.txt'
-        ),
+        path.resolve(FIXTURE_DIR, './Mod powerup inside lottery.txt'),
         'utf-8'
     );
 

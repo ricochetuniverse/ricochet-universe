@@ -1,9 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import {inflateFile, decodeFromUint8Array} from '../inflate-file';
+import {
+    inflateFile,
+    decodeFromUint8Array,
+} from '../../../resources/js/decompressor/inflate-file';
 
-const FIXTURE_DIR = path.resolve(__dirname, '../../../../tests/fixtures/');
+const FIXTURE_DIR = path.resolve(__dirname, '../../fixtures/');
 
 test('level sets', async () => {
     const compressed = await fs.readFile(

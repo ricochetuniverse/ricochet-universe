@@ -5,7 +5,7 @@ import {
     waitForElementToBeRemoved,
 } from '@testing-library/preact';
 
-import RoundInfoModal from '../RoundInfoModal';
+import RoundInfoModal from '../../../resources/js/round-info/RoundInfoModal';
 
 test('renders the modal', async () => {
     render(<RoundInfoModal roundInfo={{name: 'My great level'}} />);

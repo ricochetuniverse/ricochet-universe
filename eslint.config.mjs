@@ -71,10 +71,7 @@ export default tseslint.config(
         },
     },
     {
-        files: [
-            '**/__tests__/**/*.[jt]s?(x)',
-            '**/?(*.)+(spec|test).[jt]s?(x)',
-        ],
+        files: ['**/?(*.)+(spec|test).[jt]s?(x)'],
         ...testingLibrary.configs['flat/react'],
     },
     {

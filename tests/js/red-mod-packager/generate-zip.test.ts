@@ -2,20 +2,22 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import generateZip from '../generate-zip';
+import generateZip from '../../../resources/js/red-mod-packager/generate-zip';
+
+const FIXTURE_DIR = path.resolve(__dirname, '../../fixtures/');
 
 test('generates RED file', async () => {
     const sequence = new Uint8Array(
         await fs.readFile(
             path.resolve(
-                __dirname,
-                './fixtures/Cache/Resources/Player Ship/Player Shot.Sequence'
+                FIXTURE_DIR,
+                './red-mod-packager/Cache/Resources/Player Ship/Player Shot.Sequence'
             )
         )
     ).buffer;
 
     const packaged = await fs.readFile(
-        path.resolve(__dirname, './fixtures/packaged.red')
+        path.resolve(FIXTURE_DIR, './red-mod-packager/packaged.red')
     );
 
     // Construct the file...

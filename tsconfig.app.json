@@ -30,5 +30,5 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true
     },
-    "include": ["resources/js/"]
+    "include": ["resources/js/", "tests/js/"]
 }
