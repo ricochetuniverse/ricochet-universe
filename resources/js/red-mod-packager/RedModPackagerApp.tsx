@@ -6,7 +6,7 @@ import {uppie} from 'uppie';
 
 import CustomFileInput from '../CustomFileInput';
 
-import generateZip from './generate-zip';
+import generateZip, {type FileWithPath} from './generate-zip';
 
 type State = Readonly<{
     folderName: string;
@@ -14,6 +14,7 @@ type State = Readonly<{
 
     packageTime: Date | null;
     downloadButtonUrl: string;
+    files: FileWithPath[];
 }>;
 
 function getAssumedDirectoryPrefix(file: File) {
@@ -30,6 +31,7 @@ export default class RedModPackagerApp extends Component<{}, State> {
 
         packageTime: null,
         downloadButtonUrl: '',
+        files: [],
     };
 
     fileInputRef = createRef<HTMLInputElement>();
@@ -98,8 +100,22 @@ export default class RedModPackagerApp extends Component<{}, State> {
                                 download={this.state.folderName + '.red'}
                                 variant="outline-primary"
                             >
-                                Download
+                                Download {this.state.folderName + '.red'}
                             </Button>
+                        </Card.Body>
+                    </Card>
+                ) : null}
+
+                {this.state.files.length > 0 ? (
+                    <Card className="mb-3">
+                        <Card.Header>Packaged files</Card.Header>
+
+                        <Card.Body>
+                            <ol class="m-0">
+                                {this.state.files.map((file) => {
+                                    return <li key={file.path}>{file.path}</li>;
+                                })}
+                            </ol>
                         </Card.Body>
                     </Card>
                 ) : null}
@@ -121,7 +137,7 @@ export default class RedModPackagerApp extends Component<{}, State> {
     }
 
     onFileChange = (fileInputEvent: Event /*, formData, files*/) => {
-        this.reset(() => {
+        this.reset(async () => {
             const fileInput = fileInputEvent.target;
             if (!(fileInput instanceof HTMLInputElement)) {
                 throw new Error('Expected HTMLInputElement');
@@ -158,11 +174,15 @@ export default class RedModPackagerApp extends Component<{}, State> {
                 ),
             });
 
-            generateZip(Array.from(files), directoryPrefix).then((blob) => {
-                this.setState({
-                    packageTime: new Date(),
-                    downloadButtonUrl: window.URL.createObjectURL(blob),
-                });
+            const result = await generateZip(
+                Array.from(files),
+                directoryPrefix
+            );
+
+            this.setState({
+                packageTime: new Date(),
+                downloadButtonUrl: window.URL.createObjectURL(result.zip),
+                files: result.files,
             });
         });
     };
@@ -175,6 +195,7 @@ export default class RedModPackagerApp extends Component<{}, State> {
 
                 packageTime: null,
                 downloadButtonUrl: '',
+                files: [],
             },
             callback
         );

@@ -1,14 +1,16 @@
 import JSZip from 'jszip';
 
+export type FileWithPath = {
+    path: string;
+    file: File;
+};
+
 function withoutPrefix(text: string, prefix: string) {
     return text.substring(prefix.length, text.length);
 }
 
 function getSortedFileList(files: File[], stripDirectoryPrefix: string) {
-    const sorted: Array<{
-        path: string;
-        file: File;
-    }> = [];
+    const sorted: Array<FileWithPath> = [];
 
     for (let i = 0, len = files.length; i < len; i += 1) {
         const file = files[i];
@@ -42,13 +44,14 @@ function getSortedFileList(files: File[], stripDirectoryPrefix: string) {
 export default async function generateZip(
     files: File[],
     stripDirectoryPrefix: string
-): Promise<Blob> {
+): Promise<{zip: Blob; files: Array<FileWithPath>}> {
     const zip = new JSZip();
 
     // Files need to be added alphabetically *in sequence* for the game's zip
     // engine, doing `await`s inside a `for of` loop seems inefficient, but
     // we are doing this to avoid race conditions
-    for (const fileInfo of getSortedFileList(files, stripDirectoryPrefix)) {
+    const filesWithPath = getSortedFileList(files, stripDirectoryPrefix);
+    for (const fileInfo of filesWithPath) {
         await new Promise((resolve, reject) => {
             const reader = new FileReader();
 
@@ -72,8 +75,11 @@ export default async function generateZip(
 
     // The original instructions used the Unix `zip` utility
     // It's proven to work reliably, so let's reuse that fact
-    return await zip.generateAsync({
-        type: 'blob',
-        platform: 'UNIX',
-    });
+    return {
+        zip: await zip.generateAsync({
+            type: 'blob',
+            platform: 'UNIX',
+        }),
+        files: filesWithPath,
+    };
 }

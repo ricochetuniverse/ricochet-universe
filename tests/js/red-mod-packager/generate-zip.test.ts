@@ -25,12 +25,12 @@ test('generates RED file', async () => {
         'Cache/Resources/Player Ship/Player Shot.Sequence';
 
     // Zip it...
-    const zip = await generateZip([file], '');
+    const result = await generateZip([file], '');
 
     // Assert
     const packaged = await fs.readFile(
         path.resolve(FIXTURE_DIR, './red-mod-packager/packaged.red')
     );
 
-    expect(await zip.arrayBuffer()).toStrictEqual(packaged.buffer);
+    expect(await result.zip.arrayBuffer()).toStrictEqual(packaged.buffer);
 });
