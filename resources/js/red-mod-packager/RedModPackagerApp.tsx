@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import {uppie} from 'uppie';
 
 import CustomFileInput from '../CustomFileInput';
+import useObjectURL from '../helpers/useObjectURL';
 
 import generateZip, {type FileWithPath} from './generate-zip';
 
@@ -26,6 +27,8 @@ export default function RedModPackagerApp() {
     const [files, setFiles] = useState<FileWithPath[]>([]);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useObjectURL(downloadButtonUrl);
 
     const onFileChange = useCallback(async function (fileInputEvent: Event) {
         reset();
@@ -110,16 +113,6 @@ export default function RedModPackagerApp() {
             uppie(ref, onFileChange);
         }
     }, [onFileChange]);
-
-    const [prevDownloadButtonUrl, setPrevDownloadButtonUrl] =
-        useState(downloadButtonUrl);
-    if (
-        downloadButtonUrl !== prevDownloadButtonUrl &&
-        prevDownloadButtonUrl != null
-    ) {
-        window.URL.revokeObjectURL(prevDownloadButtonUrl);
-        setPrevDownloadButtonUrl(downloadButtonUrl);
-    }
 
     return (
         <div className="mb-n3">

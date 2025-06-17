@@ -56,7 +56,11 @@ export default async function generateZip(
             const reader = new FileReader();
 
             reader.onload = () => {
-                zip.file(fileInfo.path, reader.result as ArrayBuffer, {
+                if (!(reader.result instanceof ArrayBuffer)) {
+                    throw new Error('Expected ArrayBuffer');
+                }
+
+                zip.file(fileInfo.path, reader.result, {
                     binary: true,
                     createFolders: false,
                     date: new Date(fileInfo.file.lastModified),
@@ -65,9 +69,7 @@ export default async function generateZip(
                 resolve(true);
             };
 
-            reader.onerror = (err) => {
-                reject(err);
-            };
+            reader.onerror = reject;
 
             reader.readAsArrayBuffer(fileInfo.file);
         });
