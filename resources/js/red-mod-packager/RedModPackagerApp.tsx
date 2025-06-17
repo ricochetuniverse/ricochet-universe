@@ -138,52 +138,60 @@ export default class RedModPackagerApp extends Component<{}, State> {
 
     onFileChange = (fileInputEvent: Event /*, formData, files*/) => {
         this.reset(async () => {
-            const fileInput = fileInputEvent.target;
-            if (!(fileInput instanceof HTMLInputElement)) {
-                throw new Error('Expected HTMLInputElement');
-            }
+            try {
+                const fileInput = fileInputEvent.target;
+                if (!(fileInput instanceof HTMLInputElement)) {
+                    throw new Error('Expected HTMLInputElement');
+                }
 
-            const files = fileInput.files;
-            if (!files || files.length === 0) {
-                return;
-            }
+                const files = fileInput.files;
+                if (!files || files.length === 0) {
+                    return;
+                }
 
-            // Get the first file's directory prefix, and use it for all
-            const directoryPrefix = getAssumedDirectoryPrefix(files[0]);
+                // Get the first file's directory prefix, and use it for all
+                const directoryPrefix = getAssumedDirectoryPrefix(files[0]);
 
-            // Sanity checking...
-            for (let i = 0, len = files.length; i < len; i += 1) {
-                const file = files[i];
-                const path = file.webkitRelativePath;
+                // Sanity checking...
+                for (let i = 0, len = files.length; i < len; i += 1) {
+                    const file = files[i];
+                    const path = file.webkitRelativePath;
 
-                if (
-                    path.substring(0, directoryPrefix.length) !==
+                    if (
+                        path.substring(0, directoryPrefix.length) !==
+                        directoryPrefix
+                    ) {
+                        throw new Error(
+                            'Unexpected directory prefix, should be ' +
+                                directoryPrefix
+                        );
+                    }
+                }
+
+                this.setState({
+                    folderName: directoryPrefix.substring(
+                        0,
+                        directoryPrefix.length - 1
+                    ),
+                });
+
+                const result = await generateZip(
+                    Array.from(files),
                     directoryPrefix
-                ) {
-                    throw new Error(
-                        'Unexpected directory prefix, should be ' +
-                            directoryPrefix
-                    );
+                );
+
+                this.setState({
+                    packageTime: new Date(),
+                    downloadButtonUrl: window.URL.createObjectURL(result.zip),
+                    files: result.files,
+                });
+            } catch (err) {
+                if (err instanceof Error) {
+                    this.setState({error: err.message});
+                } else {
+                    this.setState({error: err?.toString()});
                 }
             }
-
-            this.setState({
-                folderName: directoryPrefix.substring(
-                    0,
-                    directoryPrefix.length - 1
-                ),
-            });
-
-            const result = await generateZip(
-                Array.from(files),
-                directoryPrefix
-            );
-
-            this.setState({
-                packageTime: new Date(),
-                downloadButtonUrl: window.URL.createObjectURL(result.zip),
-                files: result.files,
-            });
         });
     };
 
