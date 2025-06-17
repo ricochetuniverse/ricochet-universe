@@ -18,35 +18,34 @@ Catalog URL=http://ricochet.test:8001/gateway/catalog.php
 
 ## Code style
 
-### PHP
+- PHP: Use [Laravel Pint](https://laravel.com/docs/pint). Run `docker-compose run --rm php ./vendor/bin/pint` to auto-fix.
+- SCSS/JavaScript/Markdown/YAML: Use [Prettier](https://prettier.io). Run `docker-compose run --rm node npm run prettier -- --write` to auto-fix.
 
-Use [Laravel Pint](https://laravel.com/docs/pint).
+## Type-checking
 
-```bash
-docker-compose run --rm php ./vendor/bin/pint
-```
+- Node.js: Use [TypeScript](https://www.typescriptlang.org), previously used [Flow](https://flow.org). Run `docker-compose run --rm node npm run tsc -- -b` to see errors.
 
-### SCSS/JavaScript/Markdown/YAML
+## Static analysis
 
-Use [Prettier](https://prettier.io).
+- PHP: Use [PHPStan](https://phpstan.org). Run `docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=256M` to see errors.
 
-```bash
-docker-compose run --rm node npm run prettier -- --write
-```
+## Linting
 
-## Running tests
+- Node.js: Use [ESLint](https://eslint.org). Run `docker-compose run --rm node npm run lint` to see errors.
 
-### PHP
+## Tests
+
+- PHP: Use [PHPUnit](https://phpunit.de). Run `docker-compose run --rm php ./vendor/bin/phpunit` to run the tests.
+- Node.js: Use [Jest](https://jestjs.io). Run `docker-compose run --rm node npm test` to run the tests.
+
+## Running all tests
+
+The test suites are run on every push, it's best to run them on your system to avoid CI failures afterwards:
 
 ```bash
 docker-compose run --rm php ./vendor/bin/phpunit
 docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=256M
 docker-compose run --rm php ./vendor/bin/pint --test
-```
-
-### Node.js
-
-```bash
 docker-compose run --rm node sh -c "npm run tsc -- -b && npm run lint && npm test && npm run prettier -- -c"
 ```
 
