@@ -26,7 +26,7 @@ export default function DiscordWidget(props: Props) {
                 {props.presenceCount} Members Online
             </div>
 
-            <ul className="discordWidget__memberList">
+            <ul className="discordWidget__memberList" data-testid="members">
                 {props.members.map((member) => {
                     return (
                         <DiscordWidgetMember key={member.id} member={member} />
