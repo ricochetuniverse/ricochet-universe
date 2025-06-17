@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -20,10 +15,6 @@ test('generates RED file', async () => {
         )
     ).buffer;
 
-    const packaged = await fs.readFile(
-        path.resolve(FIXTURE_DIR, './red-mod-packager/packaged.red')
-    );
-
     // Construct the file...
     const file = new File([sequence], 'Player Shot.Sequence', {
         type: '',
@@ -34,20 +25,12 @@ test('generates RED file', async () => {
         'Cache/Resources/Player Ship/Player Shot.Sequence';
 
     // Zip it...
-    // @ts-expect-error function should be changed to File[] instead of FileList
-    const zipBlob = await generateZip([file], '');
+    const zip = await generateZip([file], '');
 
-    const zipArrayBuffer: ArrayBuffer = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            assert(ev.target);
-            resolve(ev.target.result as ArrayBuffer);
-        };
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(zipBlob);
-    });
-
-    expect(new Uint8Array(zipArrayBuffer)).toStrictEqual(
-        new Uint8Array(packaged)
+    // Assert
+    const packaged = await fs.readFile(
+        path.resolve(FIXTURE_DIR, './red-mod-packager/packaged.red')
     );
+
+    expect(await zip.arrayBuffer()).toStrictEqual(packaged.buffer);
 });

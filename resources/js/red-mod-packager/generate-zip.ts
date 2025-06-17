@@ -4,7 +4,7 @@ function withoutPrefix(text: string, prefix: string) {
     return text.substring(prefix.length, text.length);
 }
 
-function getSortedFileList(files: FileList, stripDirectoryPrefix: string) {
+function getSortedFileList(files: File[], stripDirectoryPrefix: string) {
     const sorted: Array<{
         path: string;
         file: File;
@@ -39,54 +39,41 @@ function getSortedFileList(files: FileList, stripDirectoryPrefix: string) {
     });
 }
 
-export default function generateZip(
-    files: FileList,
+export default async function generateZip(
+    files: File[],
     stripDirectoryPrefix: string
 ): Promise<Blob> {
     const zip = new JSZip();
 
-    let sequence = Promise.resolve();
+    // Files need to be added alphabetically *in sequence* for the game's zip
+    // engine, doing `await`s inside a `for of` loop seems inefficient, but
+    // we are doing this to avoid race conditions
+    for (const fileInfo of getSortedFileList(files, stripDirectoryPrefix)) {
+        await new Promise((resolve, reject) => {
+            const reader = new FileReader();
 
-    // Files need to be added alphabetically in sequence for the game's zip engine
-    getSortedFileList(files, stripDirectoryPrefix).forEach((fileInfo) => {
-        sequence = sequence.then(() => {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
+            reader.onload = () => {
+                zip.file(fileInfo.path, reader.result as ArrayBuffer, {
+                    binary: true,
+                    createFolders: false,
+                    date: new Date(fileInfo.file.lastModified),
+                });
 
-                reader.onload = () => {
-                    zip.file(fileInfo.path, reader.result as ArrayBuffer, {
-                        binary: true,
-                        createFolders: false,
-                        date: new Date(fileInfo.file.lastModified),
-                    });
+                resolve(true);
+            };
 
-                    resolve();
-                };
+            reader.onerror = (err) => {
+                reject(err);
+            };
 
-                reader.onerror = (ex) => {
-                    throw ex;
-                };
-
-                reader.readAsArrayBuffer(fileInfo.file);
-            });
+            reader.readAsArrayBuffer(fileInfo.file);
         });
-    });
+    }
 
-    // @ts-expect-error todo fix later
-    sequence = sequence.then(() => {
-        // The original instructions used the Unix `zip` utility
-        // It's proven to work reliably, so let's reuse that fact
-        return zip
-            .generateAsync({type: 'blob', platform: 'UNIX'})
-            .then((content) => {
-                return Promise.resolve(
-                    new Blob([content], {
-                        type: 'application/zip',
-                    })
-                );
-            });
+    // The original instructions used the Unix `zip` utility
+    // It's proven to work reliably, so let's reuse that fact
+    return await zip.generateAsync({
+        type: 'blob',
+        platform: 'UNIX',
     });
-
-    // @ts-expect-error todo fix later
-    return sequence;
 }

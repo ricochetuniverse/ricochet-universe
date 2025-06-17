@@ -17,15 +17,10 @@ type State = Readonly<{
 }>;
 
 function getAssumedDirectoryPrefix(file: File) {
-    const path = getFileRelativePath(file);
+    const path = file.webkitRelativePath;
     const split = path.split('/');
 
     return split[0] + '/';
-}
-
-// todo inline this
-function getFileRelativePath(file: File): string {
-    return file.webkitRelativePath;
 }
 
 export default class RedModPackagerApp extends Component<{}, State> {
@@ -143,10 +138,11 @@ export default class RedModPackagerApp extends Component<{}, State> {
             // Sanity checking...
             for (let i = 0, len = files.length; i < len; i += 1) {
                 const file = files[i];
-                const path = getFileRelativePath(file);
+                const path = file.webkitRelativePath;
 
                 if (
-                    path.substr(0, directoryPrefix.length) !== directoryPrefix
+                    path.substring(0, directoryPrefix.length) !==
+                    directoryPrefix
                 ) {
                     throw new Error(
                         'Unexpected directory prefix, should be ' +
@@ -156,13 +152,13 @@ export default class RedModPackagerApp extends Component<{}, State> {
             }
 
             this.setState({
-                folderName: directoryPrefix.substr(
+                folderName: directoryPrefix.substring(
                     0,
                     directoryPrefix.length - 1
                 ),
             });
 
-            generateZip(files, directoryPrefix).then((blob: Blob) => {
+            generateZip(Array.from(files), directoryPrefix).then((blob) => {
                 this.setState({
                     packageTime: new Date(),
                     downloadButtonUrl: window.URL.createObjectURL(blob),
