@@ -33,11 +33,49 @@ function processFile(file: File) {
     });
 }
 
+function readFileReaderBuffer(fileName: string, buffer: ProgressEvent) {
+    const reader = buffer.currentTarget;
+    if (
+        !(reader instanceof FileReader) ||
+        !(reader.result instanceof ArrayBuffer)
+    ) {
+        throw new Error();
+    }
+
+    let inflateResult: InflateResult;
+    try {
+        inflateResult = inflateFile(reader.result);
+    } catch (ex) {
+        console.error(ex);
+
+        inflateResult = {
+            raw: null,
+            utf8: '',
+            image: null,
+        };
+    }
+
+    if (!inflateResult.raw && !inflateResult.image) {
+        let error = 'This file isn’t supported by the decompressor yet.';
+        if (fileName.endsWith('.Sequence')) {
+            error =
+                'This file seems to be a Sequence but can’t be decompressed, please report this bug.';
+        } else if (fileName.endsWith('.Frame')) {
+            error =
+                'This file seems to be a Frame but can’t be decompressed, please report this bug.';
+        }
+
+        throw new Error(error);
+    }
+
+    return inflateResult;
+}
+
 export default function DecompressorApp() {
-    const [fileName, setFileName] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const [result, setResult] = useState<InflateResult | null>(null);
+    const [fileName, setFileName] = useState('');
     const [blobUrls, setBlobUrls] = useState<DecompressorBlobUrls>({
         text: null,
         image: null,
@@ -62,46 +100,30 @@ export default function DecompressorApp() {
         }
     }, []);
 
-    const onFileReaderFile = useCallback(
-        (fileName: string, buffer: ProgressEvent) => {
-            const reader = buffer.currentTarget;
-            if (
-                !(reader instanceof FileReader) ||
-                !(reader.result instanceof ArrayBuffer)
-            ) {
-                throw new Error();
+    const onFileChange = useCallback(async (ev: Event) => {
+        setError(null);
+
+        setResult(null);
+        setFileName('');
+        setBlobUrls({text: null, image: null});
+
+        try {
+            const fileInput = ev.currentTarget;
+            if (!(fileInput instanceof HTMLInputElement)) {
+                throw new Error('Expected HTMLInputElement');
             }
 
-            setFileName(fileName);
-
-            let inflateResult: InflateResult;
-            try {
-                inflateResult = inflateFile(reader.result);
-            } catch (ex) {
-                console.error(ex);
-
-                inflateResult = {
-                    raw: null,
-                    utf8: '',
-                    image: null,
-                };
+            const files = fileInput.files;
+            if (!files || files.length === 0) {
+                return;
             }
 
-            if (!inflateResult.raw && !inflateResult.image) {
-                let error =
-                    'This file isn’t supported by the decompressor yet.';
-                if (fileName.endsWith('.Sequence')) {
-                    error =
-                        'This file seems to be a Sequence but can’t be decompressed, please report this bug.';
-                } else if (fileName.endsWith('.Frame')) {
-                    error =
-                        'This file seems to be a Frame but can’t be decompressed, please report this bug.';
-                }
-
-                throw new Error(error);
-            }
+            const file = files[0];
+            const buffer = await processFile(file);
+            const inflateResult = readFileReaderBuffer(file.name, buffer);
 
             setResult(inflateResult);
+            setFileName(file.name);
             setBlobUrls({
                 text: inflateResult.raw
                     ? generateBlobUrl(inflateResult.raw, 'text/plain')
@@ -110,45 +132,19 @@ export default function DecompressorApp() {
                     ? generateBlobUrl(inflateResult.image, 'image/jpeg')
                     : null,
             });
-        },
-        []
-    );
+        } catch (ex) {
+            console.error(ex);
 
-    const onFileChange = useCallback(
-        async (ev: Event) => {
-            setFileName('');
-            setError(null);
-
-            setResult(null);
-
-            try {
-                const fileInput = ev.currentTarget;
-                if (!(fileInput instanceof HTMLInputElement)) {
-                    throw new Error('Expected HTMLInputElement');
-                }
-
-                const files = fileInput.files;
-                if (!files || files.length === 0) {
-                    return;
-                }
-
-                const buffer = await processFile(files[0]);
-                onFileReaderFile(files[0].name, buffer);
-            } catch (ex) {
-                console.error(ex);
-
-                if (ex instanceof Error) {
-                    setError(ex.message);
-                } else {
-                    setError(
-                        ex?.toString() ??
-                            'There was a problem decompressing the file.'
-                    );
-                }
+            if (ex instanceof Error) {
+                setError(ex.message);
+            } else {
+                setError(
+                    ex?.toString() ??
+                        'There was a problem decompressing the file.'
+                );
             }
-        },
-        [onFileReaderFile]
-    );
+        }
+    }, []);
 
     return (
         <div className="mb-n3">
