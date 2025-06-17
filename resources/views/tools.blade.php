@@ -36,7 +36,7 @@
                             </div>
                         </li>
 
-                        @if (app()->environment('local'))
+                        @if (\App\Http\Controllers\ImageToCanvasController::canAccess())
                             <li class="list-group-item p-3">
                                 <div>
                                     <a href="{{ action('ImageToCanvasController@index') }}"

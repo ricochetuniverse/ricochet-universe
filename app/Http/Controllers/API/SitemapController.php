@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ImageToCanvasController;
+use App\Http\Controllers\ReviverController;
 use App\LevelSet;
 use Illuminate\Support\Facades\Cache;
 
@@ -15,7 +17,22 @@ class SitemapController extends Controller
                 ->orderBy('id')
                 ->get();
 
-            return view('sitemap', ['levelSets' => $levelSets])->render();
+            $otherLinks = array_filter([
+                action('HomeController@index'),
+                action('UploadController@index'),
+                action('ModsController@index'),
+                action('ReviverController@index'),
+                action('ReviverController@show', ['os' => ReviverController::WINDOWS10]),
+                action('ReviverController@show', ['os' => ReviverController::LEGACY_WINDOWS]),
+                action('ReviverController@show', ['os' => ReviverController::MACOS]),
+                action('ToolsController@index'),
+                action('DecompressorController@index'),
+                action('RedModPackagerController@index'),
+                ImageToCanvasController::canAccess() ? action('ImageToCanvasController@index') : null,
+                action('AboutController@index'),
+            ]);
+
+            return view('sitemap', ['levelSets' => $levelSets, 'otherLinks' => $otherLinks])->render();
         });
 
         return response($xml)
