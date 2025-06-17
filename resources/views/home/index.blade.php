@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('og:url', action('HomeController@index'))
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

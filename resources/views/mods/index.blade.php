@@ -3,6 +3,7 @@
 ])
 
 @section('title', 'Mods')
+@section('og:url', action('ModsController@index'))
 @section('description', 'Explore and play new environments, custom content and modifications for Ricochet Infinity.')
 
 @section('content')

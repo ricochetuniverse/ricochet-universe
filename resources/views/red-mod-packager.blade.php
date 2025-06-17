@@ -3,6 +3,7 @@
 ])
 
 @section('title', 'RED Mod Packager')
+@section('og:url', action('RedModPackagerController@index'))
 @section('description', 'Package your Ricochet mods to a .RED file for easier distribution.')
 
 @section('content')

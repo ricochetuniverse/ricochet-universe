@@ -3,7 +3,9 @@
 ])
 
 @section('title', 'Search rounds')
-@section('og:title', 'Ricochet Universe')
+@if (strlen($search) <= 0)
+    @section('og:url', action('RoundsController@index'))
+@endif
 @section('robots', 'noindex,follow')
 
 @section('content')

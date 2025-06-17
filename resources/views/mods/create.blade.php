@@ -3,6 +3,7 @@
 ])
 
 @section('title', 'Add new mod')
+@section('og:url', action('ModsController@create'))
 
 @section('content')
     <div class="container-fluid">

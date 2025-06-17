@@ -3,6 +3,7 @@
 ])
 
 @section('title', 'Decompressor')
+@section('og:url', action('DecompressorController@index'))
 @section('description', 'Decompress Ricochet levels, stats and other data.')
 
 @section('content')

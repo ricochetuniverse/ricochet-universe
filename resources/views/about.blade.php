@@ -3,6 +3,7 @@
 ])
 
 @section('title', 'About')
+@section('og:url', action('AboutController@index'))
 
 @section('content')
     <div class="container-fluid">

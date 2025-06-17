@@ -3,6 +3,7 @@
 ])
 
 @section('title', 'Upload')
+@section('og:url', action('UploadController@index'))
 @section('description', 'Upload and share your Ricochet level sets.')
 
 @section('content')

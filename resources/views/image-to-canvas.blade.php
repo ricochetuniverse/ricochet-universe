@@ -3,6 +3,7 @@
 ])
 
 @section('title', 'Image to Canvas')
+@section('og:url', action('ImageToCanvasController@index'))
 @section('description', '')
 
 @section('content')

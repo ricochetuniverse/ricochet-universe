@@ -3,6 +3,11 @@
 ])
 
 @section('title', 'Reviver')
+@if (isset($os))
+    @section('og:url', action('ReviverController@show', ['os' => $os]))
+@else
+    @section('og:url', action('ReviverController@index'))
+@endif
 @section('description', 'Restore the in-game level catalog in Ricochet Infinity.')
 
 @section('content')
