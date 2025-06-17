@@ -35,6 +35,15 @@
                                 Package your Ricochet mods to a <code>.RED</code> file for easier distribution.
                             </div>
                         </li>
+
+                        @if (app()->environment('local'))
+                            <li class="list-group-item p-3">
+                                <div>
+                                    <a href="{{ action('ImageToCanvasController@index') }}"
+                                       class="link-secondary fw-bold">Image to canvas</a> (DEV)
+                                </div>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
