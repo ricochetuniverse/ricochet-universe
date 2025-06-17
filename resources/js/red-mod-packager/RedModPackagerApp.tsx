@@ -138,7 +138,11 @@ export default function RedModPackagerApp() {
                     </p>
 
                     <div className="d-flex">
-                        <CustomFileInput directory={true} ref={fileInputRef} />
+                        <CustomFileInput
+                            data-testid="file"
+                            directory={true}
+                            ref={fileInputRef}
+                        />
 
                         <Button
                             variant="outline-primary"

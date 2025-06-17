@@ -48,6 +48,7 @@
     "@swc/jest": "0.2.38",
     "@testing-library/dom": "10.4.0",
     "@testing-library/preact": "3.2.4",
+    "@testing-library/user-event": "14.6.1",
     "@tsconfig/node22": "22.0.2",
     "@types/bootstrap": "5.2.10",
     "@types/jest": "30.0.0",

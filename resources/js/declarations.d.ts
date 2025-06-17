@@ -22,7 +22,7 @@ declare module 'pako/lib/inflate' {
 declare module 'uppie' {
     function uppie(
         node: Node | Node[] | NodeList,
-        callback: (event: Event, formData: FormData, files: File[]) => void
+        callback: (event: Event, formData: FormData, files: string[]) => void
     ): void;
 
     function uppie(
@@ -30,6 +30,6 @@ declare module 'uppie' {
         opts: {
             name?: string;
         },
-        callback: (event: Event, formData: FormData, files: File[]) => void
+        callback: (event: Event, formData: FormData, files: string[]) => void
     ): void;
 }
