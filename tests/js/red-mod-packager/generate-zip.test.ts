@@ -10,7 +10,7 @@ test('generates RED file', async () => {
         await fs.readFile(
             path.resolve(
                 FIXTURE_DIR,
-                './red-mod-packager/Cache/Resources/Player Ship/Player Shot.Sequence'
+                './game-data/Cache/Resources/Player Ship/Player Shot.Sequence'
             )
         )
     ).buffer;

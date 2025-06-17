@@ -29,7 +29,7 @@ test('sequences', async () => {
     const original = await fs.readFile(
         path.resolve(
             FIXTURE_DIR,
-            './decompressor/Sequence1/Ball Rail Small.Sequence'
+            './game-data/Cache/Resources/Power Ups/Ball Rail Small.Sequence'
         )
     );
 
@@ -58,7 +58,7 @@ test('frames', async () => {
     const original = await fs.readFile(
         path.resolve(
             FIXTURE_DIR,
-            './decompressor/Frame/MainMenuShipShield.Frame'
+            './game-data/Cache/Resources/Interface/MainMenuShipShield.Frame'
         )
     );
 
