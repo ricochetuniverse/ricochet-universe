@@ -1,20 +1,23 @@
 // @ts-check
 
-'use strict';
+import {readFileSync} from 'node:fs';
+import {resolve, dirname} from 'node:path';
+import {fileURLToPath} from 'node:url';
 
-const fs = require('node:fs');
-const path = require('node:path');
+import {rspack} from '@rspack/core';
+import browserslist from 'browserslist';
+import {CleanWebpackPlugin} from 'clean-webpack-plugin';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import {RspackManifestPlugin} from 'rspack-manifest-plugin';
 
-const {rspack} = require('@rspack/core');
-const browserslist = require('browserslist');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const {RspackManifestPlugin} = require('rspack-manifest-plugin');
+// https://stackoverflow.com/a/64383997
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 function getSwcLoaderOptions() {
     /** @type {import('@rspack/core').SwcLoaderOptions} */
     const options = JSON.parse(
-        fs.readFileSync(path.resolve(__dirname, '.swcrc'), 'utf-8')
+        readFileSync(resolve(__dirname, '.swcrc'), 'utf-8')
     );
 
     // @ts-expect-error reading from .swcrc
@@ -23,12 +26,12 @@ function getSwcLoaderOptions() {
 }
 
 /** @type {import('@rspack/cli').Configuration} */
-const config = {
+export default {
     entry: {
         app: './resources/js/app.ts',
     },
     output: {
-        path: path.resolve(__dirname, 'public/build/'),
+        path: resolve(__dirname, 'public/build/'),
         filename: '[name].[contenthash].js',
         publicPath: '/build/',
     },
@@ -53,7 +56,6 @@ const config = {
                 loader: 'sass-loader',
                 options: {
                     api: 'modern-compiler',
-                    implementation: require.resolve('sass-embedded'),
                     sassOptions: {
                         silenceDeprecations: [
                             'mixed-decls',
@@ -84,18 +86,16 @@ const config = {
             react: 'preact/compat',
             'react-dom': 'preact/compat',
 
-            [path.resolve(__dirname, './resources/js/helpers/TextDecoder.ts')]:
-                path.resolve(
+            [resolve(__dirname, './resources/js/helpers/TextDecoder.ts')]:
+                resolve(
                     __dirname,
                     './resources/js/helpers/TextDecoder.browser.ts'
                 ),
 
             ...(process.env.NODE_ENV === 'production'
                 ? {
-                      [path.resolve(
-                          __dirname,
-                          './resources/js/preact-debug.ts'
-                      )]: false,
+                      [resolve(__dirname, './resources/js/preact-debug.ts')]:
+                          false,
                   }
                 : null),
         },
@@ -106,7 +106,7 @@ const config = {
 
         new RspackManifestPlugin({
             basePath: '/',
-            fileName: path.resolve(__dirname, 'public/mix-manifest.json'),
+            fileName: resolve(__dirname, 'public/mix-manifest.json'),
         }),
 
         new MonacoWebpackPlugin({
@@ -134,7 +134,7 @@ const config = {
             new rspack.LightningCssMinimizerRspackPlugin({
                 minimizerOptions: {
                     targets: browserslist.loadConfig({
-                        path: path.resolve(__dirname),
+                        path: resolve(__dirname),
                     }),
                 },
             }),
@@ -146,5 +146,3 @@ const config = {
         /Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
     ],
 };
-
-module.exports = config;

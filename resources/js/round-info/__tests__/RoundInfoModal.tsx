@@ -3,7 +3,7 @@ import {
     render,
     screen,
     waitForElementToBeRemoved,
-} from '@testing-library/react';
+} from '@testing-library/preact';
 
 import RoundInfoModal from '../RoundInfoModal';
 

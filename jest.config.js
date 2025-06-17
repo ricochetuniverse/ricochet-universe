@@ -1,34 +1,17 @@
 // @ts-check
 
-'use strict';
-
 /** @type {import('jest').Config} */
-const config = {
+export default {
     moduleNameMapper: {
-        '^preact$': 'react',
-        '^preact/hooks$': 'react',
+        '^react$': 'preact/compat',
+        '^react/jsx-runtime$': 'preact/jsx-runtime',
+        '^react-dom$': 'preact/compat',
     },
     testEnvironment: 'jsdom',
+    transformIgnorePatterns: [
+        // should be blank to transform `preact/jsx-runtime/dist/jsxRuntime.module.js`
+    ],
     transform: {
-        '^.+\\.m?(t|j)sx?$': [
-            '@swc/jest',
-
-            // Merged with .swcrc
-            {
-                jsc: {
-                    transform: {
-                        react: {
-                            // Need to test against React for now instead of
-                            // Preact due to numerous issues/headache trying
-                            // to set it up
-                            importSource: 'react',
-                        },
-                    },
-                },
-                env: {},
-            },
-        ],
+        '^.+\\.m?(t|j)sx?$': '@swc/jest',
     },
 };
-
-module.exports = config;

@@ -10,6 +10,7 @@
     "email": "ngyikp@gmail.com",
     "url": "https://ngyikp.com"
   },
+  "type": "module",
   "private": true,
   "license": "MPL-2.0",
   "engines": {
@@ -46,7 +47,7 @@
     "@rspack/core": "1.3.15",
     "@swc/jest": "0.2.38",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/preact": "3.2.4",
     "@tsconfig/node22": "22.0.2",
     "@types/bootstrap": "5.2.10",
     "@types/jest": "30.0.0",
@@ -68,8 +69,6 @@
     "jest-environment-jsdom": "30.0.0",
     "monaco-editor-webpack-plugin": "7.1.0",
     "prettier": "3.5.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
     "rspack-manifest-plugin": "5.0.3",
     "sass-embedded": "1.89.2",
     "sass-loader": "16.0.5",
