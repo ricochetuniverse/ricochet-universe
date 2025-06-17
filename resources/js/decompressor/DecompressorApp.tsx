@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'preact/hooks';
+import {useCallback, useMemo, useState} from 'preact/hooks';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -61,9 +61,10 @@ export default function DecompressorApp() {
         text: string | null;
         image: string | null;
     }>({text: null, image: null});
-    const [modRequirement, setModRequirement] = useState<ModRequirement>({
-        result: false,
-    });
+    const modRequirement = useMemo<ModRequirement>(() => {
+        const text = result?.utf8 ?? '';
+        return text !== '' ? checkForMods(text) : {result: false};
+    }, [result?.utf8]);
 
     const [enableBrowserTextEditor, setEnableBrowserTextEditor] =
         useState(false);
@@ -132,7 +133,6 @@ export default function DecompressorApp() {
                     ? generateBlobUrl(inflateResult.image, 'image/jpeg')
                     : null,
             });
-            setModRequirement(checkForMods(inflateResult.utf8));
         },
         []
     );
@@ -143,7 +143,6 @@ export default function DecompressorApp() {
             setError(null);
 
             setResult(null);
-            setModRequirement({result: false});
 
             try {
                 const fileInput = ev.currentTarget;
@@ -210,13 +209,24 @@ export default function DecompressorApp() {
 
             {modRequirement.result ? (
                 <Alert variant="info">
-                    {modRequirement.mods.length >= 2
-                        ? `This level set requires these mods to play: ${modRequirement.mods.join(
-                              ', '
-                          )}`
-                        : modRequirement.mods.length === 1
-                          ? `This level set requires the ${modRequirement.mods[0]} mod to play.`
-                          : 'This level set requires files that are not available on the base game.'}
+                    {modRequirement.mods.length >= 2 ? (
+                        <>
+                            This level set requires these mods to play:{' '}
+                            <a href="/mods" className="alert-link">
+                                {modRequirement.mods.join(', ')}
+                            </a>
+                        </>
+                    ) : modRequirement.mods.length === 1 ? (
+                        <>
+                            This level set requires the{' '}
+                            <a href="/mods" className="alert-link">
+                                {modRequirement.mods[0]} mod
+                            </a>{' '}
+                            to play.
+                        </>
+                    ) : (
+                        'This level set requires files that are not available on the base game.'
+                    )}
                 </Alert>
             ) : null}
 
