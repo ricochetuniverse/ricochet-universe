@@ -1,20 +1,16 @@
-import {useCallback, useMemo, useState} from 'preact/hooks';
+import {useCallback, useState} from 'preact/hooks';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Loadable from 'react-loadable';
 
 import CustomFileInput from '../CustomFileInput';
 import useObjectURL from '../helpers/useObjectURL';
-import LoadingComponent from '../LoadingComponent';
 
-import type {ModRequirement} from './check-for-mods';
-import checkForMods from './check-for-mods';
-import DownloadButton from './DownloadButton';
+import type {DecompressorBlobUrls} from './DecompressorBlobUrlsType';
+import DecompressorResults from './DecompressorResults';
 import type {InflateResult} from './inflate-file';
 import {inflateFile} from './inflate-file';
+import LoadableDecompressorEditor from './LoadableDecompressorEditor';
 
 function generateBlobUrl(raw: Uint8Array, type: string): string {
     const blob = new Blob([raw], {type});
@@ -37,34 +33,15 @@ function processFile(file: File) {
     });
 }
 
-const LoadableDecompressorEditor = Loadable({
-    loader: () =>
-        import(
-            /* webpackChunkName: "decompressor-editor" */ './DecompressorEditor'
-        ),
-    loading(props) {
-        return (
-            <Card.Body>
-                <LoadingComponent {...props} text="Loading text viewer..." />
-            </Card.Body>
-        );
-    },
-    timeout: 10000,
-});
-
 export default function DecompressorApp() {
     const [fileName, setFileName] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const [result, setResult] = useState<InflateResult | null>(null);
-    const [blobUrls, setBlobUrls] = useState<{
-        text: string | null;
-        image: string | null;
-    }>({text: null, image: null});
-    const modRequirement = useMemo<ModRequirement>(() => {
-        const text = result?.utf8 ?? '';
-        return text !== '' ? checkForMods(text) : {result: false};
-    }, [result?.utf8]);
+    const [blobUrls, setBlobUrls] = useState<DecompressorBlobUrls>({
+        text: null,
+        image: null,
+    });
 
     const [enableBrowserTextEditor, setEnableBrowserTextEditor] =
         useState(false);
@@ -207,100 +184,13 @@ export default function DecompressorApp() {
 
             {error ? <Alert variant="danger">{error}</Alert> : null}
 
-            {modRequirement.result ? (
-                <Alert variant="info">
-                    {modRequirement.mods.length >= 2 ? (
-                        <>
-                            This level set requires these mods to play:{' '}
-                            <a href="/mods" className="alert-link">
-                                {modRequirement.mods.join(', ')}
-                            </a>
-                        </>
-                    ) : modRequirement.mods.length === 1 ? (
-                        <>
-                            This level set requires the{' '}
-                            <a href="/mods" className="alert-link">
-                                {modRequirement.mods[0]} mod
-                            </a>{' '}
-                            to play.
-                        </>
-                    ) : (
-                        'This level set requires files that are not available on the base game.'
-                    )}
-                </Alert>
-            ) : null}
-
             {result ? (
-                <>
-                    {blobUrls.image != null ? (
-                        <Card className="mb-3">
-                            <Card.Header>Decompressed image</Card.Header>
-
-                            <Card.Body>
-                                <DownloadButton
-                                    blobUrl={blobUrls.image}
-                                    fileName={
-                                        fileName.replace(/\.Sequence$/, '') +
-                                        '.jpg'
-                                    }
-                                />
-                            </Card.Body>
-
-                            <div>
-                                <img
-                                    src={blobUrls.image}
-                                    alt="Decompressed result"
-                                    className="decompressor__image"
-                                />
-                            </div>
-                        </Card>
-                    ) : null}
-
-                    {result.utf8 ? (
-                        <Card className="mb-3">
-                            <Card.Header>
-                                {blobUrls.image == null
-                                    ? 'Decompressed text'
-                                    : 'Image metadata'}
-                            </Card.Header>
-
-                            <Card.Body>
-                                <Row className="align-items-center">
-                                    {blobUrls.text != null ? (
-                                        <Col xs="auto">
-                                            <DownloadButton
-                                                blobUrl={blobUrls.text}
-                                                fileName={
-                                                    fileName.replace(
-                                                        /\.Ricochet(I|LW)$/,
-                                                        ''
-                                                    ) + ' (decompressed).txt'
-                                                }
-                                            />
-                                        </Col>
-                                    ) : null}
-
-                                    {!blobUrls.image ? (
-                                        <Col>
-                                            If you’re manually editing this file
-                                            with a text editor, be sure to save
-                                            the file with Windows (CRLF) line
-                                            endings and Windows-1252 text
-                                            encoding to ensure game
-                                            compatibility.
-                                        </Col>
-                                    ) : null}
-                                </Row>
-                            </Card.Body>
-
-                            {enableBrowserTextEditor ? (
-                                <LoadableDecompressorEditor
-                                    text={result.utf8}
-                                />
-                            ) : null}
-                        </Card>
-                    ) : null}
-                </>
+                <DecompressorResults
+                    blobUrls={blobUrls}
+                    enableBrowserTextEditor={enableBrowserTextEditor}
+                    fileName={fileName}
+                    result={result}
+                />
             ) : null}
         </div>
     );
