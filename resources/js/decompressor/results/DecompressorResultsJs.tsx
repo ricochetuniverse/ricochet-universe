@@ -2,23 +2,27 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import type {DecompressorBlobUrls} from './DecompressorBlobUrlsType';
-import DecompressorModRequirementAlert from './DecompressorModRequirementAlert';
-import DownloadButton from './DownloadButton';
-import type {InflateResult} from './inflate-file';
-import LoadableDecompressorEditor from './LoadableDecompressorEditor';
+import DecompressorModRequirementAlert from '../DecompressorModRequirementAlert';
+import type {
+    DecompressorBlobUrls,
+    DecompressorResultJs,
+} from '../DecompressorTypes';
+import DownloadButton from '../DownloadButton';
+import LoadableDecompressorTextEditor from '../LoadableDecompressorTextEditor';
 
 type Props = Readonly<{
     blobUrls: DecompressorBlobUrls;
     enableBrowserTextEditor: boolean;
     fileName: string;
-    result: InflateResult;
+    result: DecompressorResultJs;
 }>;
 
-export default function DecompressorResults(props: Props) {
+export default function DecompressorResultsJs(props: Props) {
     return (
         <>
-            <DecompressorModRequirementAlert textResult={props.result.utf8} />
+            <DecompressorModRequirementAlert
+                textResult={props.result.text ?? ''}
+            />
 
             {props.blobUrls.image != null ? (
                 <Card className="mb-3">
@@ -38,13 +42,13 @@ export default function DecompressorResults(props: Props) {
                         <img
                             src={props.blobUrls.image}
                             alt="Decompressed result"
-                            className="decompressor__image"
+                            className="decompressor__image decompressor__image--checkerboard"
                         />
                     </div>
                 </Card>
             ) : null}
 
-            {props.result.utf8 ? (
+            {props.result.text ? (
                 <Card className="mb-3">
                     <Card.Header>
                         {props.blobUrls.image == null
@@ -80,7 +84,9 @@ export default function DecompressorResults(props: Props) {
                     </Card.Body>
 
                     {props.enableBrowserTextEditor ? (
-                        <LoadableDecompressorEditor text={props.result.utf8} />
+                        <LoadableDecompressorTextEditor
+                            text={props.result.text}
+                        />
                     ) : null}
                 </Card>
             ) : null}

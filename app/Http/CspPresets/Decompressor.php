@@ -25,5 +25,10 @@ class Decompressor extends Standard
         // For viewing decompressed images
         $policy
             ->add(Directive::IMG, 'blob:');
+
+        // For .NET / NuVelocity Unpacker
+        $policy
+            ->add(Directive::SCRIPT, Keyword::UNSAFE_WEB_ASSEMBLY_EXECUTION)
+            ->add(Directive::CONNECT, URL::to('/build/').'/');
     }
 }

@@ -6,45 +6,25 @@ import Form from 'react-bootstrap/Form';
 import CustomFileInput from '../CustomFileInput';
 import useObjectURL from '../helpers/useObjectURL';
 
-import type {DecompressorBlobUrls} from './DecompressorBlobUrlsType';
-import DecompressorResults from './DecompressorResults';
+import type {
+    DecompressorBlobUrls,
+    DecompressorResult,
+} from './DecompressorTypes';
 import type {InflateResult} from './inflate-file';
 import {inflateFile} from './inflate-file';
-import LoadableDecompressorEditor from './LoadableDecompressorEditor';
+import LoadableDecompressorTextEditor from './LoadableDecompressorTextEditor';
+import DecompressorResultsJs from './results/DecompressorResultsJs';
+import DecompressorResultsNuVelocity from './results/DecompressorResultsNuVelocity';
 
 function generateBlobUrl(raw: Uint8Array, type: string): string {
     const blob = new Blob([raw], {type});
     return window.URL.createObjectURL(blob);
 }
 
-function processFile(file: File) {
-    // should be unknown
-    if (file.type !== '' && file.type !== 'application/ms-tnef') {
-        throw new Error(
-            'File should be .RicochetI, .RicochetLW, .Sequence, .Frame or .dat'
-        );
-    }
-
-    return new Promise<ProgressEvent>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = resolve;
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(file);
-    });
-}
-
-function readFileReaderBuffer(fileName: string, buffer: ProgressEvent) {
-    const reader = buffer.currentTarget;
-    if (
-        !(reader instanceof FileReader) ||
-        !(reader.result instanceof ArrayBuffer)
-    ) {
-        throw new Error();
-    }
-
+function readFileReaderBuffer(fileName: string, buffer: ArrayBuffer) {
     let inflateResult: InflateResult;
     try {
-        inflateResult = inflateFile(reader.result);
+        inflateResult = inflateFile(buffer);
     } catch (ex) {
         console.error(ex);
 
@@ -71,10 +51,14 @@ function readFileReaderBuffer(fileName: string, buffer: ProgressEvent) {
     return inflateResult;
 }
 
-export default function DecompressorApp() {
+type Props = Readonly<{
+    dotnetLoaderUrl: string;
+}>;
+
+export default function DecompressorApp(props: Props) {
     const [error, setError] = useState<string | null>(null);
 
-    const [result, setResult] = useState<InflateResult | null>(null);
+    const [result, setResult] = useState<DecompressorResult | null>(null);
     const [fileName, setFileName] = useState('');
     const [blobUrls, setBlobUrls] = useState<DecompressorBlobUrls>({
         text: null,
@@ -87,6 +71,8 @@ export default function DecompressorApp() {
     useObjectURL(blobUrls.text);
     useObjectURL(blobUrls.image);
 
+    const enableNewImageUnpacker = props.dotnetLoaderUrl !== '';
+
     const changeViewInBrowserOption = useCallback((ev: Event) => {
         const checkbox = ev.target;
         if (!(checkbox instanceof HTMLInputElement)) {
@@ -96,55 +82,80 @@ export default function DecompressorApp() {
 
         setEnableBrowserTextEditor(checked);
         if (checked) {
-            LoadableDecompressorEditor.preload();
+            LoadableDecompressorTextEditor.preload();
         }
     }, []);
 
-    const onFileChange = useCallback(async (ev: Event) => {
-        setError(null);
+    const onFileChange = useCallback(
+        async (ev: Event) => {
+            setError(null);
 
-        setResult(null);
-        setFileName('');
-        setBlobUrls({text: null, image: null});
+            setResult(null);
+            setFileName('');
+            setBlobUrls({text: null, image: null});
 
-        try {
-            const fileInput = ev.currentTarget;
-            if (!(fileInput instanceof HTMLInputElement)) {
-                throw new Error('Expected HTMLInputElement');
+            try {
+                const fileInput = ev.currentTarget;
+                if (!(fileInput instanceof HTMLInputElement)) {
+                    throw new Error('Expected HTMLInputElement');
+                }
+
+                const files = fileInput.files;
+                if (!files || files.length === 0) {
+                    return;
+                }
+                const file = files[0];
+
+                // should be unknown
+                if (file.type !== '' && file.type !== 'application/ms-tnef') {
+                    throw new Error(
+                        'File should be .RicochetI, .RicochetLW, .Sequence, .Frame or .dat'
+                    );
+                }
+
+                const buffer = await file.arrayBuffer();
+
+                setFileName(file.name);
+                if (file.name.endsWith('.Sequence') && enableNewImageUnpacker) {
+                    // Use new unpacker
+                    setResult({
+                        unpacker: 'NUVELOCITY',
+                        bytes: new Uint8Array(buffer),
+                    });
+                    return;
+                }
+
+                const inflateResult = readFileReaderBuffer(file.name, buffer);
+
+                setResult({
+                    unpacker: 'JS',
+                    text: inflateResult.utf8,
+                    image: inflateResult.image ?? undefined,
+                });
+
+                setBlobUrls({
+                    text: inflateResult.raw
+                        ? generateBlobUrl(inflateResult.raw, 'text/plain')
+                        : null,
+                    image: inflateResult.image
+                        ? generateBlobUrl(inflateResult.image, 'image/jpeg')
+                        : null,
+                });
+            } catch (ex) {
+                console.error(ex);
+
+                if (ex instanceof Error) {
+                    setError(ex.message);
+                } else {
+                    setError(
+                        ex?.toString() ??
+                            'There was a problem decompressing the file.'
+                    );
+                }
             }
-
-            const files = fileInput.files;
-            if (!files || files.length === 0) {
-                return;
-            }
-
-            const file = files[0];
-            const buffer = await processFile(file);
-            const inflateResult = readFileReaderBuffer(file.name, buffer);
-
-            setResult(inflateResult);
-            setFileName(file.name);
-            setBlobUrls({
-                text: inflateResult.raw
-                    ? generateBlobUrl(inflateResult.raw, 'text/plain')
-                    : null,
-                image: inflateResult.image
-                    ? generateBlobUrl(inflateResult.image, 'image/jpeg')
-                    : null,
-            });
-        } catch (ex) {
-            console.error(ex);
-
-            if (ex instanceof Error) {
-                setError(ex.message);
-            } else {
-                setError(
-                    ex?.toString() ??
-                        'There was a problem decompressing the file.'
-                );
-            }
-        }
-    }, []);
+        },
+        [enableNewImageUnpacker]
+    );
 
     return (
         <div className="mb-n3">
@@ -164,7 +175,7 @@ export default function DecompressorApp() {
                     <Form.Group className="mb-3">
                         <Form.Check
                             type="checkbox"
-                            id="useBrowserTextEditor"
+                            id="decompressor-enableBrowserTextEditor"
                             checked={enableBrowserTextEditor}
                             onChange={changeViewInBrowserOption}
                             label="View text in browser"
@@ -180,11 +191,18 @@ export default function DecompressorApp() {
 
             {error ? <Alert variant="danger">{error}</Alert> : null}
 
-            {result ? (
-                <DecompressorResults
+            {result?.unpacker === 'JS' ? (
+                <DecompressorResultsJs
                     blobUrls={blobUrls}
                     enableBrowserTextEditor={enableBrowserTextEditor}
                     fileName={fileName}
+                    result={result}
+                />
+            ) : null}
+
+            {result?.unpacker === 'NUVELOCITY' ? (
+                <DecompressorResultsNuVelocity
+                    dotnetLoaderUrl={props.dotnetLoaderUrl}
                     result={result}
                 />
             ) : null}

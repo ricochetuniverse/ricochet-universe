@@ -14,7 +14,7 @@
                     « Return to tools list
                 </a>
 
-                <div id="decompressor-root"></div>
+                <div id="decompressor-root" data-dotnet-loader-url="{{ $dotnetLoaderUrl }}"></div>
 
                 <noscript>
                     <div class="alert alert-danger m-0" role="alert">

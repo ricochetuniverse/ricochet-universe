@@ -12,9 +12,7 @@ const LoadableImageToCanvasApp = Loadable({
                 <Card.Header>Image to Canvas</Card.Header>
 
                 <Card.Body>
-                    <p className="m-0">
-                        <LoadingComponent {...props} />
-                    </p>
+                    <LoadingComponent {...props} />
                 </Card.Body>
             </Card>
         );

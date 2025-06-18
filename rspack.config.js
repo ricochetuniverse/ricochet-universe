@@ -1,7 +1,7 @@
 // @ts-check
 
 import {readFileSync} from 'node:fs';
-import {resolve, dirname} from 'node:path';
+import {dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import {rspack} from '@rspack/core';
@@ -13,6 +13,10 @@ import {RspackManifestPlugin} from 'rspack-manifest-plugin';
 // https://stackoverflow.com/a/64383997
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const unpackerVersion = JSON.parse(readFileSync('package.json', 'utf-8'))[
+    'dependencies'
+]['@ricochetuniverse/nuvelocity-unpacker'];
 
 function getSwcLoaderOptions() {
     /** @type {import('@rspack/core').SwcLoaderOptions} */
@@ -31,7 +35,7 @@ export default {
         app: './resources/js/app.ts',
     },
     output: {
-        path: resolve(__dirname, 'public/build/'),
+        path: join(__dirname, 'public/build/'),
         filename: '[name].[contenthash].js',
         publicPath: '/build/',
     },
@@ -125,6 +129,20 @@ export default {
 
         new rspack.CssExtractRspackPlugin({
             filename: '[name].[contenthash].css',
+        }),
+
+        new rspack.CopyRspackPlugin({
+            patterns: [
+                {
+                    from: 'node_modules/@ricochetuniverse/nuvelocity-unpacker/dotnet/_framework/',
+                    to: join(
+                        __dirname,
+                        'public/build/nuvelocity-unpacker/',
+                        unpackerVersion,
+                        '/[name][ext]'
+                    ),
+                },
+            ],
         }),
     ],
     optimization: {

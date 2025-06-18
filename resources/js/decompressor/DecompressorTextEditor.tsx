@@ -8,7 +8,7 @@ type Props = Readonly<{
     text: string;
 }>;
 
-export default function DecompressorEditor(props: Props) {
+export default function DecompressorTextEditor(props: Props) {
     // const monacoRef = useRef<monaco.editor.IStandaloneCodeEditor>();
 
     // function updateDimensions() {

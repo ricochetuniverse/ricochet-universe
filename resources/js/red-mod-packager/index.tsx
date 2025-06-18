@@ -12,9 +12,7 @@ const LoadableRedModCreatorApp = Loadable({
                 <Card.Header>RED mod packager</Card.Header>
 
                 <Card.Body>
-                    <p className="m-0">
-                        <LoadingComponent {...props} />
-                    </p>
+                    <LoadingComponent {...props} />
                 </Card.Body>
             </Card>
         );

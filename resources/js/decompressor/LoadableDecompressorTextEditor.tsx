@@ -6,7 +6,7 @@ import LoadingComponent from '../LoadingComponent';
 export default Loadable({
     loader: () =>
         import(
-            /* webpackChunkName: "decompressor-editor" */ './DecompressorEditor'
+            /* webpackChunkName: "decompressor-editor" */ '././DecompressorTextEditor'
         ),
     loading(props) {
         return (

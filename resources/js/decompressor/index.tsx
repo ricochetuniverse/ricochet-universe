@@ -12,9 +12,7 @@ const LoadableDecompressorApp = Loadable({
                 <Card.Header>Decompressor</Card.Header>
 
                 <Card.Body>
-                    <p className="m-0">
-                        <LoadingComponent {...props} />
-                    </p>
+                    <LoadingComponent {...props} />
                 </Card.Body>
             </Card>
         );
@@ -25,5 +23,10 @@ const LoadableDecompressorApp = Loadable({
 const root = document.getElementById('decompressor-root');
 
 if (root) {
-    render(<LoadableDecompressorApp />, root);
+    render(
+        <LoadableDecompressorApp
+            dotnetLoaderUrl={root.dataset['dotnetLoaderUrl'] ?? ''}
+        />,
+        root
+    );
 }

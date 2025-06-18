@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@popperjs/core": "2.11.8",
+    "@ricochetuniverse/nuvelocity-unpacker": "1.0.0",
     "@swc/helpers": "0.5.17",
     "bootstrap": "5.3.6",
     "jszip": "3.10.1",
