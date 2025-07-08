@@ -21,8 +21,8 @@ use Illuminate\Support\Uri;
  * @property string $note5
  * @property string $source
  * @property string $image_file_name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonInterface|null $created_at
+ * @property \Carbon\CarbonInterface|null $updated_at
  * @property int $round_number
  * @property-read \App\LevelSet $levelSet
  *

@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $level_set_id
  * @property string $ip_address
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonInterface|null $created_at
+ * @property \Carbon\CarbonInterface|null $updated_at
  * @property-read \App\LevelSet $levelSet
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSetDownloadLog newModelQuery()

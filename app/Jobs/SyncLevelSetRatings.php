@@ -19,7 +19,7 @@ class SyncLevelSetRatings implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param  Collection<LevelSet>  $levelSets
+     * @param  Collection<array-key, LevelSet>  $levelSets
      */
     public function __construct(
         public Collection $levelSets

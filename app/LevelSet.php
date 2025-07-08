@@ -34,19 +34,24 @@ use Spatie\Url\Url;
  * @property int $fun_rating_count
  * @property float $graphics_rating
  * @property int $graphics_rating_count
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonInterface|null $created_at
+ * @property \Carbon\CarbonInterface|null $updated_at
  * @property string $alternate_download_url
  * @property string $downloaded_file_name
  * @property int $round_to_get_image_from
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetDownloadLog> $downloadLogs
+ * @property-read int|null $download_logs_count
  * @property array $tag_names
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tag> $tags
+ * @property-read \App\LevelSetLegacyRating|null $legacyRating
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelRound> $levelRounds
  * @property-read int|null $level_rounds_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Mod> $mods
  * @property-read int|null $mods_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tagged> $tagged
  * @property-read int|null $tagged_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetUserRating> $userRatings
+ * @property-read int|null $user_ratings_count
  *
  * @method static \Database\Factories\LevelSetFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet newModelQuery()
@@ -77,12 +82,6 @@ use Spatie\Url\Url;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet withAllTags($tagNames)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet withAnyTag($tagNames)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet withoutTags($tagNames)
- *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetDownloadLog> $downloadLogs
- * @property-read int|null $download_logs_count
- * @property-read \App\LevelSetLegacyRating|null $legacyRating
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetUserRating> $userRatings
- * @property-read int|null $user_ratings_count
  *
  * @mixin \Eloquent
  */

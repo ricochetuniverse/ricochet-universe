@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $overall_grade
  * @property int|null $fun_grade
  * @property int|null $graphics_grade
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonInterface|null $created_at
+ * @property \Carbon\CarbonInterface|null $updated_at
  * @property-read \App\LevelSet $levelSet
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSetUserRating newModelQuery()

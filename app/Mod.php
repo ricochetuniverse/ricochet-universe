@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $video_embed_source
  * @property string $download_link
  * @property string $trigger_codename
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonInterface|null $created_at
+ * @property \Carbon\CarbonInterface|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSet> $levelSets
  * @property-read int|null $level_sets_count
  *
