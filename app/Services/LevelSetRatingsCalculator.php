@@ -21,15 +21,15 @@ final class LevelSetRatingsCalculator
 
         return [
             'overall' => [
-                'grade' => $merged['overall']['cumulative'] / $merged['overall']['count'],
+                'grade' => ($merged['overall']['count'] > 0) ? $merged['overall']['cumulative'] / $merged['overall']['count'] : 0,
                 'count' => $merged['overall']['count'],
             ],
             'fun' => [
-                'grade' => $merged['fun']['cumulative'] / $merged['fun']['count'],
+                'grade' => ($merged['fun']['count'] > 0) ? $merged['fun']['cumulative'] / $merged['fun']['count'] : 0,
                 'count' => $merged['fun']['count'],
             ],
             'graphics' => [
-                'grade' => $merged['graphics']['cumulative'] / $merged['graphics']['count'],
+                'grade' => ($merged['graphics']['count'] > 0) ? $merged['graphics']['cumulative'] / $merged['graphics']['count'] : 0,
                 'count' => $merged['graphics']['count'],
             ],
         ];

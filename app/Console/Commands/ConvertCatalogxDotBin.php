@@ -119,6 +119,17 @@ class ConvertCatalogxDotBin extends Command
             $levelSet->save();
 
             $levelSet->retag(array_filter(explode(';', $rowData[13])));
+
+            if ($levelSet->overall_rating_count > 0 || $levelSet->fun_rating_count > 0 || $levelSet->graphics_rating_count > 0) {
+                $levelSet->legacyRating()->upsert([
+                    'overall_rating' => $levelSet->overall_rating,
+                    'overall_weight' => $levelSet->overall_rating_count,
+                    'fun_rating' => $levelSet->fun_rating,
+                    'fun_weight' => $levelSet->fun_rating_count,
+                    'graphics_rating' => $levelSet->graphics_rating,
+                    'graphics_weight' => $levelSet->graphics_rating_count,
+                ], 'level_set_id');
+            }
         }
 
         if ($this->option('dry-run')) {

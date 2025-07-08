@@ -53,6 +53,13 @@ class LevelSetLegacyRating extends Model
      */
     public $timestamps = false;
 
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'level_set_id';
+
     public function levelSet(): BelongsTo
     {
         return $this->belongsTo(LevelSet::class);

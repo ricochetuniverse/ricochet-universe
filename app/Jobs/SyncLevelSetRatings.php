@@ -7,6 +7,7 @@ namespace App\Jobs;
 use App\LevelSet;
 use App\Services\LevelSetRatingsCalculator;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Queue\Queueable;
 
 class SyncLevelSetRatings implements ShouldQueue
@@ -17,9 +18,12 @@ class SyncLevelSetRatings implements ShouldQueue
 
     /**
      * Create a new job instance.
+     *
+     * @param  Collection<LevelSet>  $levelSets
      */
-    public function __construct(public LevelSet $levelSet)
-    {
+    public function __construct(
+        public Collection $levelSets
+    ) {
         //
     }
 
@@ -28,32 +32,36 @@ class SyncLevelSetRatings implements ShouldQueue
      */
     public function handle(): void
     {
-        $result = LevelSetRatingsCalculator::calculate($this->levelSet);
+        $this->levelSets->load('legacyRating', 'userRatings');
 
-        if ($result['overall']['count'] >= self::MIN_RATING_COUNT) {
-            $this->levelSet->overall_rating = $result['overall']['total'];
-            $this->levelSet->overall_rating_count = $result['overall']['count'];
-        } else {
-            $this->levelSet->overall_rating = 0;
-            $this->levelSet->overall_rating_count = 0;
+        foreach ($this->levelSets as $levelSet) {
+            $result = LevelSetRatingsCalculator::calculate($levelSet);
+
+            if ($result['overall']['count'] >= self::MIN_RATING_COUNT) {
+                $levelSet->overall_rating = $result['overall']['grade'];
+                $levelSet->overall_rating_count = $result['overall']['count'];
+            } else {
+                $levelSet->overall_rating = 0;
+                $levelSet->overall_rating_count = 0;
+            }
+
+            if ($result['fun']['count'] >= self::MIN_RATING_COUNT) {
+                $levelSet->fun_rating = $result['fun']['grade'];
+                $levelSet->fun_rating_count = $result['fun']['count'];
+            } else {
+                $levelSet->fun_rating = 0;
+                $levelSet->fun_rating_count = 0;
+            }
+
+            if ($result['graphics']['count'] >= self::MIN_RATING_COUNT) {
+                $levelSet->graphics_rating = $result['graphics']['grade'];
+                $levelSet->graphics_rating_count = $result['graphics']['count'];
+            } else {
+                $levelSet->graphics_rating = 0;
+                $levelSet->graphics_rating_count = 0;
+            }
+
+            $levelSet->save();
         }
-
-        if ($result['fun']['count'] >= self::MIN_RATING_COUNT) {
-            $this->levelSet->fun_rating = $result['fun']['total'];
-            $this->levelSet->fun_rating_count = $result['fun']['count'];
-        } else {
-            $this->levelSet->fun_rating = 0;
-            $this->levelSet->fun_rating_count = 0;
-        }
-
-        if ($result['graphics']['count'] >= self::MIN_RATING_COUNT) {
-            $this->levelSet->graphics_rating = $result['graphics']['total'];
-            $this->levelSet->graphics_rating_count = $result['graphics']['count'];
-        } else {
-            $this->levelSet->graphics_rating = 0;
-            $this->levelSet->graphics_rating_count = 0;
-        }
-
-        $this->levelSet->save();
     }
 }

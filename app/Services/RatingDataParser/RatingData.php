@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\RatingDataParser;
 
-use App\LevelSet;
-
 class RatingData
 {
     public string $player;
@@ -26,9 +24,4 @@ class RatingData
 
     /** @var int<0, 100> */
     public int $percentComplete;
-
-    public function getLevelSet(): ?LevelSet
-    {
-        return LevelSet::where('name', $this->levelSetName)->first();
-    }
 }
