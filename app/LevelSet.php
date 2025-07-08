@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Uri;
@@ -79,6 +80,9 @@ use Spatie\Url\Url;
  *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetDownloadLog> $downloadLogs
  * @property-read int|null $download_logs_count
+ * @property-read \App\LevelSetLegacyRating|null $legacyRating
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetUserRating> $userRatings
+ * @property-read int|null $user_ratings_count
  *
  * @mixin \Eloquent
  */
@@ -138,6 +142,16 @@ class LevelSet extends Model
     public function downloadLogs(): HasMany
     {
         return $this->hasMany(LevelSetDownloadLog::class);
+    }
+
+    public function legacyRating(): HasOne
+    {
+        return $this->hasOne(LevelSetLegacyRating::class);
+    }
+
+    public function userRatings(): HasMany
+    {
+        return $this->hasMany(LevelSetUserRating::class);
     }
 
     public function isDesignedForLostWorlds(): bool
