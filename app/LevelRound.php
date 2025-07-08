@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Uri;
 
 /**
- * App\LevelRound
+ * A round inside a Ricochet level set
  *
  * @property int $id
  * @property int $level_set_id

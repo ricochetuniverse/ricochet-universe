@@ -39,7 +39,7 @@
         "barryvdh/laravel-ide-helper": "^3.5",
         "deployer/deployer": "^7.5",
         "fakerphp/faker": "^1.24",
-        "larastan/larastan": "^3.4",
+        "larastan/larastan": "^3.5",
         "laravel/pail": "^1.2",
         "laravel/pint": "^1.22",
         "mockery/mockery": "^1.6",

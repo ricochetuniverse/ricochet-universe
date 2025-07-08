@@ -15,6 +15,6 @@ class LevelSetDecompressServiceTest extends TestCase
         $decompressor = new LevelSetDecompressService;
         $levelSetData = $decompressor->decompress($originalFile);
 
-        $this->assertEquals($levelSetData, $decompressedFile);
+        $this->assertEquals($decompressedFile, $levelSetData);
     }
 }

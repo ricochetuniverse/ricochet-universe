@@ -8,8 +8,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Uri;
 
 /**
- * App\User
- *
  * @property int $id
  * @property string $name
  * @property string $email

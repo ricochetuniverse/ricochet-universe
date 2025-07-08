@@ -17,7 +17,6 @@ class LevelDownloadControllerTest extends TestCase
     {
         $disk = Storage::fake('levels');
 
-        /** @var LevelSet $levelSet */
         $levelSet = LevelSet::factory()->create();
 
         $fileName = $levelSet->name.$levelSet->getFileExtension();

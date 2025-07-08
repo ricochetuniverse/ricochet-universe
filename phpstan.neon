@@ -1,5 +1,6 @@
 includes:
-    - ./vendor/larastan/larastan/extension.neon
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
 
 parameters:
 
@@ -15,5 +16,3 @@ parameters:
 
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php
-#
-#    checkMissingIterableValueType: false

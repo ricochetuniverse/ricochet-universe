@@ -15,7 +15,6 @@ class LevelSetRatingsCalculatorTest extends TestCase
 
     public function test_legacy_rating_calculation(): void
     {
-        /** @var LevelSet $levelSet */
         $levelSet = LevelSet::factory()->create();
 
         $levelSet->legacyRating()->create([
@@ -39,7 +38,6 @@ class LevelSetRatingsCalculatorTest extends TestCase
 
     public function test_user_ratings_calculation(): void
     {
-        /** @var LevelSet $levelSet */
         $levelSet = LevelSet::factory()->create();
 
         $levelSet->userRatings()->create([
@@ -68,7 +66,6 @@ class LevelSetRatingsCalculatorTest extends TestCase
 
     public function test_legacy_and_user_ratings_calculation(): void
     {
-        /** @var LevelSet $levelSet */
         $levelSet = LevelSet::factory()->create();
 
         $levelSet->legacyRating()->create([

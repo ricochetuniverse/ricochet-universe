@@ -88,7 +88,6 @@ EOF,
     {
         DB::enableQueryLog();
 
-        /** @var LevelSet $levelSet */
         $levelSet = LevelSet::factory()->create();
 
         // 1st time

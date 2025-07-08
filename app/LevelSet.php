@@ -15,7 +15,7 @@ use Illuminate\Support\Uri;
 use Spatie\Url\Url;
 
 /**
- * App\LevelSet
+ * A Ricochet level set
  *
  * @property int $id
  * @property int $legacy_id
@@ -88,12 +88,13 @@ use Spatie\Url\Url;
  */
 class LevelSet extends Model
 {
+    /** @use HasFactory<\Database\Factories\LevelSetFactory> */
     use HasFactory, Taggable;
 
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'featured' => 'boolean',
