@@ -49,7 +49,7 @@ EOF,
             'fun_grade' => 14,
             'graphics_grade' => 13,
         ]);
-        $this->assertDatabaseCount('level_set_user_ratings', 11);
+        $this->assertDatabaseCount('level_set_user_ratings', 10);
 
         $levelSets = $levelSets->fresh();
 
@@ -82,5 +82,53 @@ EOF,
         ], ['User-Agent' => 'Ricochet Infinity Version 3 Build 62']);
 
         $response->assertNotFound();
+    }
+
+    public function test_edit_existing_rating(): void
+    {
+        DB::enableQueryLog();
+
+        /** @var LevelSet $levelSet */
+        $levelSet = LevelSet::factory()->create();
+
+        // 1st time
+        $response = $this->post('/gateway/syncratings.php', [
+            'action' => 'update',
+            'SessionID' => 343882,
+            'ratings' => <<<EOF
+player_name,roundset_name,overall_rating,fun_rating,graphics_rating,tags,percent_complete
+PlayerAAA,{$levelSet->name},15,14,13,Awesome;Classic Style;Strategy,5
+
+EOF,
+        ], ['User-Agent' => 'Ricochet Infinity Version 3 Build 62']);
+
+        $this->assertDatabaseHas('level_set_user_ratings', [
+            'level_set_id' => $levelSet->id,
+            'player_name' => 'PlayerAAA',
+            'overall_grade' => 15,
+            'fun_grade' => 14,
+            'graphics_grade' => 13,
+        ]);
+        $this->assertDatabaseCount('level_set_user_ratings', 1);
+
+        // 2nd time
+        $this->post('/gateway/syncratings.php', [
+            'action' => 'update',
+            'SessionID' => 343882,
+            'ratings' => <<<EOF
+player_name,roundset_name,overall_rating,fun_rating,graphics_rating,tags,percent_complete
+PlayerAAA,{$levelSet->name},10,9,8,Awesome;Classic Style;Strategy,5
+
+EOF,
+        ], ['User-Agent' => 'Ricochet Infinity Version 3 Build 62']);
+
+        $this->assertDatabaseHas('level_set_user_ratings', [
+            'level_set_id' => $levelSet->id,
+            'player_name' => 'PlayerAAA',
+            'overall_grade' => 10,
+            'fun_grade' => 9,
+            'graphics_grade' => 8,
+        ]);
+        $this->assertDatabaseCount('level_set_user_ratings', 1);
     }
 }

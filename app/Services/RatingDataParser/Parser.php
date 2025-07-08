@@ -52,6 +52,10 @@ final class Parser
                 throw new RatingDataParserException('Player name is invalid');
             }
 
+            if (strlen($data[0]) > 13) {
+                throw new RatingDataParserException('Player name is too long');
+            }
+
             if (strlen($data[1]) <= 0) {
                 throw new RatingDataParserException('Level set name is invalid');
             }

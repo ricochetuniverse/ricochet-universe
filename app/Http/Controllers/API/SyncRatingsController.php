@@ -10,12 +10,10 @@ use App\LevelSet;
 use App\LevelSetUserRating;
 use App\Services\RatingDataParser\Parser as RatingDataParser;
 use App\Services\RatingDataParser\RatingData;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -33,7 +31,6 @@ class SyncRatingsController extends Controller
 
         /** @var Collection<int, RatingData> $ratings */
         $ratings = collect(RatingDataParser::parse($request->post('ratings')));
-        // Log::debug(print_r($ratings, true));
 
         $this->upsertNewRatings($ratings);
 
@@ -45,20 +42,12 @@ class SyncRatingsController extends Controller
      */
     private function upsertNewRatings(Collection $ratings): void
     {
-        // $players = $ratings->map->player;
-
+        /** @var Collection<string, LevelSet> $levelSets */
         $levelSets = LevelSet::whereIn('name', $ratings->map(function ($rating) {
             return $rating->levelSetName;
         })->unique())
-            /*->with([
-                'userRatings' => function (Builder $query) use ($players) {
-                    $query->whereIn('player_name', $players);
-                },
-            ])*/
             ->get()
             ->keyBy('name');
-
-        // print_r($levelSets);
 
         DB::beginTransaction();
 
@@ -69,7 +58,10 @@ class SyncRatingsController extends Controller
                 continue;
             }
 
-            // todo if row doesn't exist and the rating is blank, then don't bother creating the row
+            if ($rating->overallRating == null && $rating->funRating == null && $rating->graphicsRating == null) {
+                // todo If there is an existing rating, then the old rating is still kept though
+                continue;
+            }
 
             LevelSetUserRating::upsert([
                 [
@@ -79,16 +71,13 @@ class SyncRatingsController extends Controller
                     'fun_grade' => $rating->funRating,
                     'graphics_grade' => $rating->graphicsRating,
                 ],
-            ], [
-                // todo upsert uniqueness is broken
-                'level_set_id', 'player_name',
-            ], ['overall_grade', 'fun_grade', 'graphics_grade']);
+            ], ['level_set_id', 'player_name'], ['overall_grade', 'fun_grade', 'graphics_grade']);
 
             $resyncIds[] = $levelSet->id;
         }
 
         DB::commit();
 
-        SyncLevelSetRatings::dispatch($levelSets->whereIn('id', $resyncIds));
+        SyncLevelSetRatings::dispatch($levelSets->whereIn('id', array_unique($resyncIds)));
     }
 }
