@@ -40,7 +40,11 @@ export default function DecompressorResultsNuVelocity(props: Props) {
 
         async function startLoad() {
             try {
-                const dotnet = await getDotNet();
+                const dotnet = (await getDotNet()) as {
+                    Unpacker: {
+                        ReadFile(file: Uint8Array): string;
+                    };
+                };
                 if (dotnet == null || ignore) {
                     return;
                 }

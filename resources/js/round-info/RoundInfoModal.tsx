@@ -45,7 +45,7 @@ export default function RoundInfoModal(props: Props) {
                 {imageUrl ? (
                     <img
                         src={imageUrl}
-                        alt={`Screenshot of “${name}”`}
+                        alt={name ? `Screenshot of “${name}”` : ''}
                         width="105"
                         height="80"
                         className="d-block mx-auto mb-3"

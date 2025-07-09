@@ -42,16 +42,16 @@ function getScrapBookData(pixels: Pixel[]) {
 \t\t\t\t\t\tBlur Radius=0
 \t\t\t\t\t\tDecoration Group=Array
 \t\t\t\t\t\t{
-\t\t\t\t\t\t\tItem Count=${pixels.length}
+\t\t\t\t\t\t\tItem Count=${pixels.length.toString()}
 ${pixels
     .map(
         (pixel) => `\t\t\t\t\t\t\tGrouped Decoration=CDecorationShape
 \t\t\t\t\t\t\t{
-\t\t\t\t\t\t\t\tPosition=${pixel.x * scale},${pixel.y * scale}
-\t\t\t\t\t\t\t\tShape=[ ] :M ${scale}, -${scale} :L -${scale}, -${scale} :L ${
+\t\t\t\t\t\t\t\tPosition=${(pixel.x * scale).toString()},${(pixel.y * scale).toString()}
+\t\t\t\t\t\t\t\tShape=[ ] :M ${scale.toString()}, -${scale.toString()} :L -${scale.toString()}, -${scale.toString()} :L ${(
             scale * pixel.width
-        }, -${scale} :L ${scale * pixel.width}, ${scale} :L -${scale}, ${scale}
-\t\t\t\t\t\t\t\tFill Color=${pixel.r},${pixel.g},${pixel.b},${pixel.a}
+        ).toString()}, -${scale.toString()} :L ${(scale * pixel.width).toString()}, ${scale.toString()} :L -${scale.toString()}, ${scale.toString()}
+\t\t\t\t\t\t\t\tFill Color=${pixel.r.toString()},${pixel.g.toString()},${pixel.b.toString()},${pixel.a.toString()}
 \t\t\t\t\t\t\t\tOutline Color=0,0,0,0
 \t\t\t\t\t\t\t\tOutline Width=0
 \t\t\t\t\t\t\t}

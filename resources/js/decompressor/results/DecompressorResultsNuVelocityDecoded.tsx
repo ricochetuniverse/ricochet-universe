@@ -46,7 +46,7 @@ export default function DecompressorResultsNuVelocityDecoded({
                     onChange={(ev) => {
                         setShowAll(ev.currentTarget.checked);
                     }}
-                    label={`Show all ${decodedImages.length} images`}
+                    label={`Show all ${decodedImages.length.toString()} images`}
                 />
             </Form.Group>
 

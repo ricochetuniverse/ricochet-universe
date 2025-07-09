@@ -6,7 +6,7 @@ type Props = Readonly<
         label?: string;
         directory?: boolean;
         type?: 'file';
-    } & preact.JSX.InputHTMLAttributes<HTMLInputElement>
+    } & preact.JSX.InputHTMLAttributes
 >;
 
 function CustomFileInput(

@@ -43,12 +43,12 @@ test('API failure', async () => {
 
     render(<DiscordWidgetContainer />);
 
-    await waitFor(() =>
+    await waitFor(() => {
         expect(consoleMock).toHaveBeenLastCalledWith(
             'Failed to load Discord members',
             new SyntaxError('Unexpected end of JSON input')
-        )
-    );
+        );
+    });
 
     expect(screen.queryByText('100 Members Online')).toBeNull();
 });
@@ -66,11 +66,11 @@ test('network failure', async () => {
 
     render(<DiscordWidgetContainer />);
 
-    await waitFor(() =>
+    await waitFor(() => {
         expect(consoleMock).toHaveBeenLastCalledWith(
             'Failed to load Discord members'
-        )
-    );
+        );
+    });
 
     expect(screen.queryByText('100 Members Online')).toBeNull();
 });
