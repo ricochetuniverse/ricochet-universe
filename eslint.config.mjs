@@ -5,7 +5,6 @@ import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import testingLibrary from 'eslint-plugin-testing-library';
-import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -19,9 +18,6 @@ export default tseslint.config(
     eslintReact.configs['recommended-typescript'],
     reactHooks.configs['recommended-latest'],
     {
-        plugins: {
-            import: importPlugin,
-        },
         rules: {
             'no-var': 'error',
             'prefer-const': 'warn',
@@ -51,22 +47,6 @@ export default tseslint.config(
                     },
                 },
             ],
-        },
-        languageOptions: {
-            globals: {
-                ...globals.browser,
-            },
-        },
-    },
-    {
-        files: ['**/*.js', '**/*.cjs'],
-        rules: {
-            '@typescript-eslint/no-require-imports': 'off',
-        },
-        languageOptions: {
-            globals: {
-                ...globals.node,
-            },
         },
     },
     {

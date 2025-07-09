@@ -1,5 +1,3 @@
-// @ts-check
-
 /** @type {import('jest').Config} */
 export default {
     moduleNameMapper: {
