@@ -24,6 +24,8 @@ export default tseslint.config(
 
             // todo check if preact has this
             '@eslint-react/no-forward-ref': 'off',
+            '@eslint-react/no-leaked-conditional-rendering': 'error',
+            '@eslint-react/prefer-read-only-props': 'error',
 
             '@typescript-eslint/no-empty-object-type': [
                 'error',
@@ -37,6 +39,8 @@ export default tseslint.config(
             'import/export': 'error',
             'import/no-duplicates': 'warn',
             'import/no-named-as-default': 'warn',
+
+            'import/enforce-node-protocol-usage': ['error', 'always'],
             'import/order': [
                 'warn',
                 {
@@ -47,6 +51,12 @@ export default tseslint.config(
                     },
                 },
             ],
+        },
+        languageOptions: {
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
+            },
         },
     },
     {

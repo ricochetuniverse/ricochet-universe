@@ -4,11 +4,13 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Form from 'react-bootstrap/Form';
 
-function Image(props: {
-    appearance: string;
-    base64: string;
-    className?: string;
-}) {
+function Image(
+    props: Readonly<{
+        appearance: string;
+        base64: string;
+        className?: string;
+    }>
+) {
     return (
         <img
             src={'data:image/png;base64,' + props.base64}

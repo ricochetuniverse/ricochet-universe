@@ -1,3 +1,3 @@
-import {TextDecoder} from 'util';
+import {TextDecoder} from 'node:util';
 
 export default TextDecoder;
