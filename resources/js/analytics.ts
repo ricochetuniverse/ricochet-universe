@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 declare global {
     interface Window {
         dataLayer: unknown[];
@@ -21,9 +19,9 @@ if (trackingId != null && trackingId !== '') {
         // eslint-disable-next-line prefer-rest-params
         window.dataLayer.push(arguments);
     }
-    // @ts-expect-error
+    // @ts-expect-error 3rd party library
     gtag('js', new Date());
 
-    // @ts-expect-error
+    // @ts-expect-error 3rd party library
     gtag('config', trackingId);
 }

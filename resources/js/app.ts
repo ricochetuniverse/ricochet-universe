@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import '../sass/app.scss';
 
 // @ts-expect-error loading Bootstrap components

@@ -10,7 +10,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
     js.configs.recommended,
-    tseslint.configs.strict,
+    tseslint.configs.strict, // strictTypeChecked
 
     importPlugin.flatConfigs.typescript,
     jest.configs['flat/recommended'],
@@ -24,7 +24,6 @@ export default tseslint.config(
         },
         rules: {
             'no-var': 'error',
-            'no-unused-vars': 'error',
             'prefer-const': 'warn',
 
             // todo check if preact has this
