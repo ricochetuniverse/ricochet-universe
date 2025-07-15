@@ -23,7 +23,7 @@ services:
       - redis
 
   mariadb:
-    image: mariadb:11.4.5
+    image: mariadb:11.4.7
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       MYSQL_DATABASE: ${DB_DATABASE}
