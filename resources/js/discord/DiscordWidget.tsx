@@ -1,4 +1,4 @@
-import type {z} from 'zod/v4-mini';
+import type {z} from 'zod/mini';
 
 import DiscordWidgetMember from './DiscordWidgetMember';
 import {DiscordWidgetMemberSchema} from './DiscordWidgetMemberType';
