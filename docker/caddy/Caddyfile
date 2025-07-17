@@ -22,6 +22,9 @@
 	}
 	root * /var/ricochetuniverse/public
 	file_server
+	file_server /build/nuvelocity-unpacker/* {
+		precompressed br gzip
+	}
 	php_fastcgi @not_php php:9000 {
 		resolve_root_symlink
 		dial_timeout 30s
@@ -40,7 +43,7 @@
 	}
 	header @zip_files Content-Type application/zip
 	header @binary_files Content-Type application/octet-stream
-	encode @not_text_files gzip
+	encode @not_text_files
 
 	log {
 		output file /var/ricochetuniverse/storage/logs/access.log
