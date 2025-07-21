@@ -1,6 +1,5 @@
-// import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-// import {useRef} from 'preact/hooks';
-import MonacoEditor from 'react-monaco-editor';
+import {useRef} from 'preact/hooks';
+import MonacoEditor, {type MonacoEditorHandle} from 'react-monaco-editor';
 
 import 'monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.css'; // https://github.com/microsoft/monaco-editor/issues/1759
 
@@ -9,15 +8,11 @@ type Props = Readonly<{
 }>;
 
 export default function DecompressorTextEditor(props: Props) {
-    // const monacoRef = useRef<monaco.editor.IStandaloneCodeEditor>();
+    const monacoRef = useRef<MonacoEditorHandle>(null);
 
-    // function updateDimensions() {
-    //     // todo broken? https://github.com/react-monaco-editor/react-monaco-editor/pull/1012
-    //     const ref = monacoRef.current;
-    //     if (ref) {
-    //         ref.editor.layout();
-    //     }
-    // }
+    function updateDimensions() {
+        monacoRef.current?.editor.layout();
+    }
 
     // Safari bugs out with `all: unset`
     return (
@@ -32,13 +27,13 @@ export default function DecompressorTextEditor(props: Props) {
                     renderWhitespace: 'all',
                     showFoldingControls: 'always',
                 }}
-                // ref={monacoRef}
-                // editorDidMount={() => {
-                //     window.addEventListener('resize', updateDimensions);
-                // }}
-                // editorWillUnmount={() => {
-                //     window.removeEventListener('resize', updateDimensions);
-                // }}
+                ref={monacoRef}
+                editorDidMount={() => {
+                    window.addEventListener('resize', updateDimensions);
+                }}
+                editorWillUnmount={() => {
+                    window.removeEventListener('resize', updateDimensions);
+                }}
             />
         </div>
     );
