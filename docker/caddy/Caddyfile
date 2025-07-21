@@ -4,6 +4,7 @@
 
 (common) {
 	header -Server
+	header -Via
 	header {
 		X-Content-Type-Options nosniff
 		X-XSS-Protection 0
