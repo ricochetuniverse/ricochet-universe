@@ -42,8 +42,7 @@ import('deployer/hosts.yml');
 
 desc('Compile JS/CSS assets');
 task('webpack:run', function () {
-    $output = run('cd {{release_path}} && npm run production');
-    writeln('<info>'.$output.'</info>');
+    run('cd {{release_path}} && npm run production');
 });
 
 desc('Clear cache for /gateway/catalog.php');
