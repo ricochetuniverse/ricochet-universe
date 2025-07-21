@@ -16,3 +16,9 @@ parameters:
 
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php
+
+    checkAuthCallsWhenInRequestScope: true
+    checkConfigTypes: true
+    checkModelProperties: true
+    checkOctaneCompatibility: true
+    generalizeEnvReturnType: true
