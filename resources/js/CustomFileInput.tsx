@@ -1,17 +1,15 @@
-import preact from 'preact';
 import {forwardRef} from 'preact/compat';
 
 type Props = Readonly<
-    {
+    Omit<React.ComponentProps<'input'>, 'type' | 'className'> & {
         label?: string;
         directory?: boolean;
-        type?: 'file';
-    } & preact.JSX.InputHTMLAttributes
+    }
 >;
 
 function CustomFileInput(
     {label, directory = false, ...otherProps}: Props,
-    ref: preact.Ref<HTMLInputElement>
+    ref: React.Ref<HTMLInputElement>
 ) {
     const formLabel = label || (directory ? 'Select a folder:' : '');
 
@@ -22,12 +20,12 @@ function CustomFileInput(
             ) : null}
 
             <input
-                type="file"
                 {...otherProps}
-                ref={ref}
-                // @ts-expect-error https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory
-                webkitdirectory={directory ? directory : undefined}
                 className="form-control"
+                ref={ref}
+                type="file"
+                // @ts-expect-error https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory
+                webkitdirectory={directory ? 'true' : undefined}
             />
         </div>
     );

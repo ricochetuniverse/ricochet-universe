@@ -22,7 +22,8 @@ export default tseslint.config(
             'no-var': 'error',
             'prefer-const': 'warn',
 
-            // todo check if preact has this
+            // ref as prop (https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
+            // is not supported on Preact yet
             '@eslint-react/no-forward-ref': 'off',
             '@eslint-react/no-leaked-conditional-rendering': 'error',
             '@eslint-react/prefer-read-only-props': 'error',
