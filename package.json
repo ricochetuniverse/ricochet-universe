@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "description": "Ricochet Universe",
   "homepage": "https://gitlab.com/ngyikp/ricochet-levels",
   "bugs": {

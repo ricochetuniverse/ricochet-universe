@@ -85,14 +85,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Write model relation count properties
+    | Write model relation count and exists properties
     |--------------------------------------------------------------------------
     |
-    | Set to false to disable writing of relation count properties to model DocBlocks.
+    | Set to false to disable writing of relation count and exists properties
+    | to model DocBlocks.
     |
     */
 
     'write_model_relation_count_properties' => true,
+    'write_model_relation_exists_properties' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -282,6 +284,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default return types for macros
+    |--------------------------------------------------------------------------
+    |
+    | Define default return types for macros without explicit return types.
+    | e.g. `\Illuminate\Database\Query\Builder::class => 'static'`,
+    |      `\Illuminate\Support\Str::class => 'string'`
+    |
+    */
+    'macro_default_return_types' => [
+        Illuminate\Http\Client\Factory::class => Illuminate\Http\Client\PendingRequest::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Additional relation types
     |--------------------------------------------------------------------------
     |
@@ -339,20 +355,6 @@ return [
     */
     'post_migrate' => [
         // 'ide-helper:models --nowrite',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Macroable Traits
-    |--------------------------------------------------------------------------
-    |
-    | Define which traits should be considered capable of adding Macro.
-    | You can add any custom trait that behaves like the original Laravel one.
-    |
-    */
-    'macroable_traits' => [
-        Filament\Support\Concerns\Macroable::class,
-        Spatie\Macroable\Macroable::class,
     ],
 
 ];

@@ -1,10 +1,13 @@
 <?php
 
+// use Spatie\Csp\Directive;
+// use Spatie\Csp\Keyword;
+
 return [
 
     /*
      * Presets will determine which CSP headers will be set. A valid CSP preset is
-     * any class that extends `Spatie\Csp\Preset`
+     * any class that implements `Spatie\Csp\Preset`
      */
     'presets' => [
         App\Http\CspPresets\Standard::class,
@@ -14,7 +17,7 @@ return [
      * Register additional global CSP directives here.
      */
     'directives' => [
-        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
+        // [Directive::SCRIPT, [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],
     ],
 
     /*
@@ -29,7 +32,7 @@ return [
      * Register additional global report-only CSP directives here.
      */
     'report_only_directives' => [
-        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
+        // [Directive::SCRIPT, [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],
     ],
 
     /*
@@ -42,6 +45,11 @@ return [
      * Headers will only be added if this setting is set to true.
      */
     'enabled' => env('CSP_ENABLED', true),
+
+    /**
+     * Headers will be added when Vite is hot reloading.
+     */
+    'enabled_while_hot_reloading' => env('CSP_ENABLED_WHILE_HOT_RELOADING', false),
 
     /*
      * The class responsible for generating the nonces used in inline tags and headers.
