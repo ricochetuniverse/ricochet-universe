@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Uri;
-use Spatie\Url\Url;
 
 /**
  * A Ricochet level set
