@@ -20,7 +20,7 @@ function getBaseGameSounds(): Map<string, string> {
             continue;
         }
 
-        baseGameSounds.set(getFileNameFromPath(path), path);
+        baseGameSounds.set(getFileNameFromPath(path).toLowerCase(), path);
     }
     return baseGameSounds;
 }
@@ -29,7 +29,7 @@ export default function checkPackagedFiles(files: FileWithPath[]): {
     sameFileNames: Map<string, string[]>;
     conflictWithBaseGame: Map<string, string>;
 } {
-    const groups = new Map<string, string[]>();
+    const groups = new Map<string, {fileName: string; paths: string[]}>();
     const conflictWithBaseGame = new Map<string, string>();
 
     const baseGameSounds = getBaseGameSounds();
@@ -40,27 +40,29 @@ export default function checkPackagedFiles(files: FileWithPath[]): {
         }
 
         const fileName = getFileNameFromPath(file.path);
-        if (!groups.has(fileName)) {
-            groups.set(fileName, []);
+        const fileNameLowercase = fileName.toLowerCase();
+        if (!groups.has(fileNameLowercase)) {
+            groups.set(fileNameLowercase, {fileName, paths: []});
         }
-        groups.get(fileName)?.push(file.path);
+        groups.get(fileNameLowercase)?.paths.push(file.path);
 
         // Check conflict with base game
-        const baseGameSoundPath = baseGameSounds.get(fileName);
+        const baseGameSoundPath = baseGameSounds.get(fileNameLowercase);
         if (baseGameSoundPath) {
             conflictWithBaseGame.set(file.path, baseGameSoundPath);
         }
     }
 
     // Check sound files with same file name on different folders
-    for (const [fileName, path] of groups) {
-        if (path.length === 1) {
-            groups.delete(fileName);
+    const sameFileNames = new Map<string, string[]>();
+    for (const {fileName, paths} of groups.values()) {
+        if (paths.length > 1) {
+            sameFileNames.set(fileName, paths);
         }
     }
 
     return {
-        sameFileNames: groups,
+        sameFileNames,
         conflictWithBaseGame,
     };
 }
