@@ -15,6 +15,6 @@ class GameUserAgent
 
     public static function checkRequest(Request $request): bool
     {
-        return self::check($request->userAgent());
+        return self::check($request->userAgent() ?? '');
     }
 }
