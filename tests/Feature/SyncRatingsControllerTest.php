@@ -7,24 +7,28 @@ namespace Tests\Feature;
 use App\LevelSet;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class SyncRatingsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutMiddleware(ThrottleRequests::class);
+    }
+
     public function test_upload_new_ratings(): void
     {
         /** @var Collection<LevelSet> $levelSets */
         $levelSets = LevelSet::factory(3)->create();
 
-        $response = $this->post('/gateway/syncratings.php', [
-            'action' => 'update',
-            'SessionID' => 343882,
-            'ratings' => <<<EOF
-player_name,roundset_name,overall_rating,fun_rating,graphics_rating,tags,percent_complete
+        $this->callApi(<<<EOF
 PlayerAAA,{$levelSets[0]->name},0,0,0,Autoplay,100
 PlayerAAA,{$levelSets[1]->name},15,14,13,Awesome;Classic Style;Strategy,5
 PlayerBBB,{$levelSets[1]->name},15,14,13,,5
@@ -36,11 +40,7 @@ PlayerBBB,{$levelSets[2]->name},12,11,10,,100
 PlayerCCC,{$levelSets[2]->name},12,11,10,,100
 PlayerDDD,{$levelSets[2]->name},12,11,10,,100
 PlayerEEE,{$levelSets[2]->name},12,11,10,,100
-
-EOF,
-        ], ['User-Agent' => 'Ricochet Infinity Version 3 Build 62']);
-
-        $response->assertNoContent();
+EOF)->assertNoContent();
 
         $this->assertDatabaseHas('level_set_user_ratings', [
             'level_set_id' => $levelSets[1]->id,
@@ -75,31 +75,34 @@ EOF,
     {
         Config::set('ricochet.enable_sync_ratings', false);
 
-        $response = $this->post('/gateway/syncratings.php', [
-            'action' => 'update',
-            'SessionID' => 343882,
-            'ratings' => '',
-        ], ['User-Agent' => 'Ricochet Infinity Version 3 Build 62']);
+        $this->callApi('')->assertNotFound();
+    }
 
-        $response->assertNotFound();
+    public function test_invalid_data(): void
+    {
+        $this->withoutExceptionHandling()->expectExceptionMessage('Invalid rating data');
+
+        $this->callApi('nope');
+    }
+
+    public function test_ip_rate_limit(): void
+    {
+        $this->withMiddleware(ThrottleRequests::class);
+
+        $levelSet = LevelSet::factory()->create();
+
+        $this->callApi('PlayerAAA,'.$levelSet->name.',0,0,0,,100')->assertNoContent();
+        $this->callApi('PlayerAAA,'.$levelSet->name.',0,0,0,,100')->assertTooManyRequests();
+        $this->travel(30)->seconds();
+        $this->callApi('PlayerAAA,'.$levelSet->name.',0,0,0,,100')->assertNoContent();
     }
 
     public function test_edit_existing_rating(): void
     {
-        DB::enableQueryLog();
-
         $levelSet = LevelSet::factory()->create();
 
         // 1st time
-        $response = $this->post('/gateway/syncratings.php', [
-            'action' => 'update',
-            'SessionID' => 343882,
-            'ratings' => <<<EOF
-player_name,roundset_name,overall_rating,fun_rating,graphics_rating,tags,percent_complete
-PlayerAAA,{$levelSet->name},15,14,13,Awesome;Classic Style;Strategy,5
-
-EOF,
-        ], ['User-Agent' => 'Ricochet Infinity Version 3 Build 62']);
+        $this->callApi('PlayerAAA,'.$levelSet->name.',15,14,13,Awesome;Classic Style;Strategy,5')->assertNoContent();
 
         $this->assertDatabaseHas('level_set_user_ratings', [
             'level_set_id' => $levelSet->id,
@@ -111,15 +114,7 @@ EOF,
         $this->assertDatabaseCount('level_set_user_ratings', 1);
 
         // 2nd time
-        $this->post('/gateway/syncratings.php', [
-            'action' => 'update',
-            'SessionID' => 343882,
-            'ratings' => <<<EOF
-player_name,roundset_name,overall_rating,fun_rating,graphics_rating,tags,percent_complete
-PlayerAAA,{$levelSet->name},10,9,8,Awesome;Classic Style;Strategy,5
-
-EOF,
-        ], ['User-Agent' => 'Ricochet Infinity Version 3 Build 62']);
+        $this->callApi('PlayerAAA,'.$levelSet->name.',10,9,8,Awesome;Classic Style;Strategy,5')->assertNoContent();
 
         $this->assertDatabaseHas('level_set_user_ratings', [
             'level_set_id' => $levelSet->id,
@@ -129,5 +124,43 @@ EOF,
             'graphics_grade' => 8,
         ]);
         $this->assertDatabaseCount('level_set_user_ratings', 1);
+    }
+
+    public function test_multiple_ratings_for_one_level_set(): void
+    {
+        $levelSet = LevelSet::factory()->create();
+
+        $this->callApi('Player1,'.$levelSet->name.',15,15,15,,100')->assertNoContent();
+        $this->callApi('Player2,'.$levelSet->name.',14,10,9,,100')->assertNoContent();
+        $this->callApi('Player3,'.$levelSet->name.',13,10,9,,100')->assertNoContent();
+        $this->callApi('Player4,'.$levelSet->name.',12,10,9,,100')->assertNoContent();
+        $this->callApi('Player5,'.$levelSet->name.',11,10,9,,100')->assertNoContent();
+
+        $this->assertDatabaseHas('level_set_user_ratings', [
+            'level_set_id' => $levelSet->id,
+            'player_name' => 'Player1',
+            'overall_grade' => 15,
+            'fun_grade' => 15,
+            'graphics_grade' => 15,
+        ]);
+        $this->assertDatabaseCount('level_set_user_ratings', 5);
+
+        $levelSet = $levelSet->fresh();
+        $this->assertEqualsWithDelta(13, $levelSet->overall_rating, 0.1);
+        $this->assertEquals(5, $levelSet->overall_rating_count);
+        $this->assertEqualsWithDelta(11, $levelSet->fun_rating, 0.1);
+        $this->assertEquals(5, $levelSet->fun_rating_count);
+        $this->assertEqualsWithDelta(10.2, $levelSet->graphics_rating, 0.1);
+        $this->assertEquals(5, $levelSet->graphics_rating_count);
+    }
+
+    private function callApi(string $ratings): TestResponse
+    {
+        return $this->post('/gateway/syncratings.php', [
+            'action' => 'update',
+            'SessionID' => 1,
+            'ratings' => "player_name,roundset_name,overall_rating,fun_rating,graphics_rating,tags,percent_complete\n".
+                $ratings."\n",
+        ], ['User-Agent' => 'Ricochet Infinity Version 3 Build 62']);
     }
 }

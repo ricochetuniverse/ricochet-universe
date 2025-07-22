@@ -34,7 +34,7 @@ final class Parser
             }
 
             $data = explode(',', $line);
-            if (count($data) !== 7) {
+            if (count($data) > 7) {
                 // @todo Unfortunately, if the player name or level set has commas, this breaks the
                 //       expectation that there are only 7 fields (like a CSV comma injection)
                 //
@@ -46,6 +46,10 @@ final class Parser
                 // Example:
                 //   PlayerAAA,Shamaar,s No Help Levels,9,9,9,Bombs,100
                 continue;
+            }
+
+            if (count($data) < 7) {
+                throw new RatingDataParserException('Invalid rating data');
             }
 
             if (strlen($data[0]) <= 0) {
