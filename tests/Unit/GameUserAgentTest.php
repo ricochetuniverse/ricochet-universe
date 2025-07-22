@@ -18,6 +18,9 @@ class GameUserAgentTest extends TestCase
         $this->assertTrue(GameUserAgent::check('Ricochet Infinity Version 3 Build 62'));
         $this->assertTrue(GameUserAgent::check('Rebound Infinity Version 3 Build 68'));
 
+        $this->assertTrue(GameUserAgent::check(rawurldecode('Ricochet Infinity Version 3 R%E9vision 71'))); // French
+        $this->assertTrue(GameUserAgent::check(rawurldecode('Ricochet Infinity Versi%F3n 3 Construir 71'))); // Spanish
+
         // Mac
         $this->assertTrue(GameUserAgent::check('Ricochet Lost Worlds Version 3 Build 71'));
     }
