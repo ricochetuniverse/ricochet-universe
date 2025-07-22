@@ -8,6 +8,7 @@ import CustomFileInput from '../CustomFileInput';
 import useObjectURL from '../helpers/useObjectURL';
 
 import generateZip, {type FileWithPath} from './generate-zip';
+import RedModPackagerFilesCheck from './RedModPackagerFilesCheck';
 
 function getAssumedDirectoryPrefix(file: File) {
     const path = file.webkitRelativePath;
@@ -150,6 +151,10 @@ export default function RedModPackagerApp() {
             </Card>
 
             {error ? <Alert variant="danger">{error}</Alert> : null}
+
+            {files.length > 0 ? (
+                <RedModPackagerFilesCheck files={files} />
+            ) : null}
 
             {packageTime && downloadButtonUrl ? (
                 <Card className="mb-3">
