@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\GameUserAgent;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 use Sentry\Laravel\Integration;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -83,5 +86,25 @@ class Handler extends ExceptionHandler
         return $request->expectsJson()
             ? response()->json(['message' => $exception->getMessage()], 401)
             : response()->view('auth.unauthenticated', [], 401);
+    }
+
+    #[\Override]
+    protected function renderExceptionResponse($request, Throwable $e)
+    {
+        if (GameUserAgent::checkRequest($request)) {
+            $response = new Response(
+                $e instanceof HttpExceptionInterface ? $e->getMessage() : 'Server Error',
+                $e instanceof HttpExceptionInterface ? $e->getStatusCode() : 500,
+                $e instanceof HttpExceptionInterface ? $e->getHeaders() : [],
+            );
+
+            if (! $response->headers->has('Content-Type')) {
+                $response->headers->set('Content-Type', 'text/plain');
+            }
+
+            return $response;
+        }
+
+        return parent::renderExceptionResponse($request, $e);
     }
 }

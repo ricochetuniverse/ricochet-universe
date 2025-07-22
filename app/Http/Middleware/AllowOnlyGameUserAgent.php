@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Helpers\GameUserAgent;
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class AllowOnlyGameUserAgent
 {
@@ -21,6 +22,6 @@ class AllowOnlyGameUserAgent
             return $next($request);
         }
 
-        throw new \Exception('This controller can only be called using a game user-agent.');
+        throw new AccessDeniedHttpException('This page can only be accessed using a game user-agent.');
     }
 }

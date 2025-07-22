@@ -22,7 +22,7 @@ class DenyGameUserAgent
     public function handle(Request $request, Closure $next): Response
     {
         if (GameUserAgent::checkRequest($request)) {
-            throw new AccessDeniedHttpException('This controller cannot be accessed using a game user-agent.');
+            throw new AccessDeniedHttpException('This page cannot be accessed using a game user-agent.');
         }
 
         return $next($request);
