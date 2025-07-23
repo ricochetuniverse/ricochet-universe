@@ -36,7 +36,7 @@ test('makes RED packages', async () => {
     await user.upload(input, [sequence]);
 
     expect(
-        await screen.findByText(
+        await screen.findAllByText(
             'Cache/Resources/Player Ship/Player Shot.Sequence'
         )
     ).not.toBeNull();

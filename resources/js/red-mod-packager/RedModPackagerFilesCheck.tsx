@@ -14,7 +14,23 @@ export default function RedModPackagerFilesCheck({files}: Props) {
     }, [files]);
 
     const warnings = [];
-    if (result.sameFileNames.size > 0) {
+    if (result.pathsOverwriteBaseGame.size > 0) {
+        warnings.push(
+            <Alert variant="warning">
+                You are about to overwrite files on the base game, ensure that
+                this is what you intended to do.
+                <ul className="m-0">
+                    {Array.from(result.pathsOverwriteBaseGame.values()).map(
+                        (path) => {
+                            return <li key={path}>{path}</li>;
+                        }
+                    )}
+                </ul>
+            </Alert>
+        );
+    }
+
+    if (result.soundsWithSameFileNames.size > 0) {
         warnings.push(
             <Alert variant="warning">
                 You have sound files that share the same file name. Due to a
@@ -25,7 +41,7 @@ export default function RedModPackagerFilesCheck({files}: Props) {
                 <br />
                 Conflicting sound files:
                 <ul className="m-0">
-                    {Array.from(result.sameFileNames.entries()).map(
+                    {Array.from(result.soundsWithSameFileNames.entries()).map(
                         ([fileName, paths]) => {
                             return (
                                 <li key={fileName}>
@@ -44,7 +60,7 @@ export default function RedModPackagerFilesCheck({files}: Props) {
         );
     }
 
-    if (result.conflictWithBaseGame.size > 0) {
+    if (result.soundsConflictWithBaseGame.size > 0) {
         warnings.push(
             <Alert variant="warning">
                 You have sound files that share the same file name as the base
@@ -56,15 +72,15 @@ export default function RedModPackagerFilesCheck({files}: Props) {
                 <br />
                 Sound files that would be overwritten:
                 <ul className="m-0">
-                    {Array.from(result.conflictWithBaseGame.entries()).map(
-                        ([fileName, path]) => {
-                            return (
-                                <li key={fileName}>
-                                    {fileName} → {path}
-                                </li>
-                            );
-                        }
-                    )}
+                    {Array.from(
+                        result.soundsConflictWithBaseGame.entries()
+                    ).map(([fileName, path]) => {
+                        return (
+                            <li key={fileName}>
+                                {fileName} → {path}
+                            </li>
+                        );
+                    })}
                 </ul>
             </Alert>
         );
