@@ -22,6 +22,10 @@ export default function checkPackagedFiles(files: FileWithPath[]): {
     const soundsConflictWithBaseGame = new Map<string, string>();
 
     for (const file of files) {
+        if (pathExistsInGameData(file.path)) {
+            pathsOverwriteBaseGame.add(file.path);
+        }
+
         if (isSoundFile(file.path)) {
             const fileName = getFileNameFromPath(file.path);
             const fileNameLowercase = fileName.toLowerCase();
@@ -33,12 +37,8 @@ export default function checkPackagedFiles(files: FileWithPath[]): {
             // Check conflict with base game
             const baseGameSoundPath =
                 findFileNameInAnyFolderInGameData(fileNameLowercase);
-            if (baseGameSoundPath) {
+            if (baseGameSoundPath && !pathsOverwriteBaseGame.has(file.path)) {
                 soundsConflictWithBaseGame.set(file.path, baseGameSoundPath);
-            }
-        } else {
-            if (pathExistsInGameData(file.path)) {
-                pathsOverwriteBaseGame.add(file.path);
             }
         }
     }
@@ -48,6 +48,18 @@ export default function checkPackagedFiles(files: FileWithPath[]): {
     for (const {fileName, paths} of groups.values()) {
         if (paths.length > 1) {
             soundsWithSameFileNames.set(fileName, paths);
+        }
+    }
+
+    // If there is a sound file with the exact path to a base game sound, then
+    // we assume it's supposed to overwrite the base game, so don't show an
+    // inaccurate warning message about some game engine bug
+    for (const [
+        path,
+        baseGameSoundPath,
+    ] of soundsConflictWithBaseGame.entries()) {
+        if (pathsOverwriteBaseGame.has(baseGameSoundPath)) {
+            soundsConflictWithBaseGame.delete(path);
         }
     }
 

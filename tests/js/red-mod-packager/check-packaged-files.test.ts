@@ -40,18 +40,18 @@ test('checks file paths that overwrite the base game', () => {
             path: 'resources/ranks/ranks.object.txt',
             file: new File([], 'ranks.object.txt'),
         },
-        {path: 'Sounds/Silly/Alien.ogg', file: new File([], 'Alien.ogg')}, // sounds are handled differently
+        {path: 'Sounds/Silly/Alien.ogg', file: new File([], 'Alien.ogg')},
+        {path: 'Sounds/Silly/bEE.ogg', file: new File([], 'bEE.ogg')}, // test case sensitivity
     ]);
 
-    expect(result.pathsOverwriteBaseGame.size).toBe(2);
+    expect(result.pathsOverwriteBaseGame.size).toBe(4);
     const values = result.pathsOverwriteBaseGame.values();
     expect(values.next().value).toBe('Resources/Power Ups/Acid Ball.PowerUp');
     expect(values.next().value).toBe('resources/ranks/ranks.object.txt');
+    expect(values.next().value).toBe('Sounds/Silly/Alien.ogg');
+    expect(values.next().value).toBe('Sounds/Silly/bEE.ogg');
 
-    expect(result.soundsConflictWithBaseGame.size).toBe(1);
-    expect(
-        result.soundsConflictWithBaseGame.entries().next().value
-    ).toStrictEqual(['Sounds/Silly/Alien.ogg', 'Sounds/Silly/Alien.ogg']);
+    expect(result.soundsConflictWithBaseGame.size).toBe(0);
 
     expect(result.soundsWithSameFileNames.size).toBe(0);
 });
@@ -76,7 +76,7 @@ test('checks sound files with same file names', () => {
     );
 });
 
-test('checks sound file names that conflict with base game', () => {
+test('checks sound file names that unintentionally overwrites base game (non-exact path)', () => {
     const result = checkPackagedFiles([
         {path: 'Sounds/a/Alien.ogg', file: new File([], 'Alien.ogg')},
         {path: 'Sounds/b/beE.OGg', file: new File([], 'beE.OGg')}, // test case sensitivity
@@ -96,4 +96,23 @@ test('checks sound file names that conflict with base game', () => {
     ]);
 
     expect(result.soundsWithSameFileNames.size).toBe(0);
+});
+
+test('checks sound file paths that overwrite the base game', () => {
+    const result = checkPackagedFiles([
+        {path: 'Sounds/a/Alien.ogg', file: new File([], 'Alien.ogg')},
+        {path: 'Sounds/Silly/Alien.ogg', file: new File([], 'Alien.ogg')},
+    ]);
+
+    expect(result.pathsOverwriteBaseGame.size).toBe(1);
+    expect(result.pathsOverwriteBaseGame.values().next().value).toBe(
+        'Sounds/Silly/Alien.ogg'
+    );
+
+    expect(result.soundsConflictWithBaseGame.size).toBe(0);
+
+    expect(result.soundsWithSameFileNames.size).toBe(1);
+    expect(result.soundsWithSameFileNames.entries().next().value).toStrictEqual(
+        ['Alien.ogg', ['Sounds/a/Alien.ogg', 'Sounds/Silly/Alien.ogg']]
+    );
 });
