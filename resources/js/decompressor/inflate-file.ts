@@ -3,9 +3,9 @@ import {Inflate} from 'pako/lib/inflate';
 import TextDecoder from '../helpers/TextDecoder';
 
 export type InflateResult = {
-    raw: Uint8Array | null;
+    raw: Uint8Array<ArrayBuffer> | null;
     utf8: string;
-    image: Uint8Array | null;
+    image: Uint8Array<ArrayBuffer> | null;
 };
 
 const MAGIC_SKIP_NUMBER = 9;
@@ -14,8 +14,8 @@ const JFIF_HEADER = 'ffd8ffe000104a4649460001';
 export function inflateFile(buffer: ArrayBuffer): InflateResult {
     const compressed = new Uint8Array(buffer, MAGIC_SKIP_NUMBER);
 
-    let raw: Uint8Array | null = null;
-    let maybeImage = null;
+    let raw: Uint8Array<ArrayBuffer> | null = null;
+    let maybeImage: Uint8Array<ArrayBuffer> | null = null;
 
     // basically what inflate() from pako does behind the scenes
     const inflator = new Inflate();
@@ -29,8 +29,8 @@ export function inflateFile(buffer: ArrayBuffer): InflateResult {
 
         // Not a zlib file, try to decode as a Frame
         maybeImage = new Uint8Array(buffer, 13);
-    } else {
-        raw = inflator.result as Uint8Array;
+    } else if (inflator.result instanceof Uint8Array) {
+        raw = inflator.result;
 
         // If there are any leftover, try to decode as a Sequence
         // @ts-expect-error reading field that's not on the TS type
@@ -67,7 +67,7 @@ function checkForJfifHeader(raw: Uint8Array) {
     return header === JFIF_HEADER;
 }
 
-function maybeJfifFile(image: Uint8Array) {
+function maybeJfifFile(image: Uint8Array<ArrayBuffer>) {
     if (checkForJfifHeader(image)) {
         return image;
     }

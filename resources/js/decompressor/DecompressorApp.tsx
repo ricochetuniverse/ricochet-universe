@@ -16,7 +16,7 @@ import LoadableDecompressorTextEditor from './LoadableDecompressorTextEditor';
 import DecompressorResultsJs from './results/DecompressorResultsJs';
 import DecompressorResultsNuVelocity from './results/DecompressorResultsNuVelocity';
 
-function generateBlobUrl(raw: Uint8Array, type: string): string {
+function generateBlobUrl(raw: Uint8Array<ArrayBuffer>, type: string): string {
     const blob = new Blob([raw], {type});
     return window.URL.createObjectURL(blob);
 }
