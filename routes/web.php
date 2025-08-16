@@ -37,6 +37,7 @@ Route::get('/discord', 'DiscordRedirectController@index');
 Route::group(['middleware' => $cache], function () {
     Route::get('/reviver', 'ReviverController@index');
     Route::get('/reviver/{os}', 'ReviverController@show');
+    Route::get('/reviver/macos/Data2.dat', 'ReviverController@generateData2DatFile');
 
     Route::get('/tools', 'ToolsController@index');
     Route::get('/decompressor', 'DecompressorController@index')
