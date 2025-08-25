@@ -4,7 +4,7 @@ stages:
     - test_php
 
 .php_image:
-    image: php:8.4.10-alpine
+    image: php:8.4.11-alpine
 
 .node_image:
     image: node:22
@@ -67,7 +67,7 @@ phpunit:
     extends: .php_image
     stage: test_php
     services:
-        - mariadb:11.4.7
+        - mariadb:11.4.8
     variables:
         # from .env.testing, needs to be here to initialize MariaDB container
         MYSQL_DATABASE: ricochetlevels_test
