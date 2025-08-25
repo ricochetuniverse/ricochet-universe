@@ -18,7 +18,7 @@ For bare-metal installs:
 - [Composer](https://getcomposer.org)
 - [MariaDB 11.4](https://mariadb.org)
 - [Node.js v22](https://nodejs.org)
-- [Redis 6.2](https://redis.io)
+- [Valkey](https://valkey.io)
 - A [queue worker](https://laravel.com/docs/11.x/queues#supervisor-configuration)
 - A [task scheduler](https://laravel.com/docs/11.x/scheduling#running-the-scheduler)
 
