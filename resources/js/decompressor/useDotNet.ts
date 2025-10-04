@@ -21,7 +21,7 @@ async function loadAssembly(loaderUrl: string) {
 
 export default function useDotNet(loaderUrl: string) {
     // this is actually `any` :p
-    const [dotnet, setDotNet] = useState<Awaited<
+    const [dotNet, setDotNet] = useState<Awaited<
         ReturnType<RuntimeAPI['getAssemblyExports']>
     > | null>(null);
 
@@ -29,8 +29,8 @@ export default function useDotNet(loaderUrl: string) {
     const startedLoadingRef = useRef(false);
 
     const getDotNet = useCallback(async () => {
-        if (dotnet) {
-            return dotnet;
+        if (dotNet) {
+            return dotNet;
         }
 
         if (startedLoadingRef.current) {
@@ -46,8 +46,8 @@ export default function useDotNet(loaderUrl: string) {
             setLoading(false);
         }
 
-        return dotnet;
-    }, [dotnet, loaderUrl]);
+        return dotNet;
+    }, [dotNet, loaderUrl]);
 
     return {
         getDotNet,

@@ -16,6 +16,7 @@ export default tseslint.config(
     jest.configs['flat/style'],
     jsxA11y.flatConfigs.recommended,
     eslintReact.configs['recommended-typescript'],
+    // @ts-expect-error typescript being weird and keep erroring here
     reactHooks.configs['recommended-latest'],
     {
         rules: {

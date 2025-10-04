@@ -61,7 +61,6 @@ export default {
                     api: 'modern-compiler',
                     sassOptions: {
                         silenceDeprecations: [
-                            'mixed-decls',
                             'color-functions',
                             'global-builtin',
                             'import',
