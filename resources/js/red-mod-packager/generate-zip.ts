@@ -20,7 +20,7 @@ function getSortedFileList(files: File[], stripDirectoryPrefix: string) {
             stripDirectoryPrefix
         );
 
-        if (path.match(/(desktop\.ini|thumbs\.db|\.DS_Store)$/i)) {
+        if (path.match(/(?:desktop\.ini|thumbs\.db|\.DS_Store)$/i)) {
             continue;
         }
 

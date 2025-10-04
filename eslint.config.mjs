@@ -5,6 +5,7 @@ import importPlugin from 'eslint-plugin-import';
 import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
+import regexp from 'eslint-plugin-regexp';
 import testingLibrary from 'eslint-plugin-testing-library';
 import tseslint from 'typescript-eslint';
 
@@ -19,6 +20,7 @@ export default defineConfig(
     eslintReact.configs['recommended-typescript'],
     // @ts-expect-error typescript being weird and keep erroring here
     reactHooks.configs['recommended'],
+    regexp.configs['flat/recommended'],
     {
         rules: {
             'no-var': 'error',
