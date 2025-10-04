@@ -111,7 +111,7 @@ export default function RedModPackagerApp() {
     useEffect(() => {
         const ref = fileInputRef.current;
         if (ref) {
-            uppie(ref, onFileChange);
+            uppie(ref, {}, onFileChange);
         }
     }, [onFileChange]);
 

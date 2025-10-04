@@ -23,18 +23,3 @@ declare module 'pako/lib/inflate' {
         push(data: Data, mode?: FlushValues | boolean): boolean;
     }
 }
-
-declare module 'uppie' {
-    function uppie(
-        node: Node | Node[] | NodeList,
-        callback: (event: Event, formData: FormData, files: string[]) => void
-    ): void;
-
-    function uppie(
-        node: Node | Node[] | NodeList,
-        opts: {
-            name?: string;
-        },
-        callback: (event: Event, formData: FormData, files: string[]) => void
-    ): void;
-}
