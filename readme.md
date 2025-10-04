@@ -43,14 +43,6 @@ After you `git clone` this repo...
     docker-compose run --rm php php artisan storage:link --relative
     ```
 
-Optional:
-
-- [Laravel IDE Helper](https://github.com/barryvdh/laravel-ide-helper) is installed, you can generate helper files by executing these commands:
-    ```bash
-    docker-compose run --rm php php artisan ide-helper:generate
-    docker-compose run --rm php php artisan ide-helper:meta
-    ```
-
 ## Day-to-day development
 
 Execute `docker-compose up -d` to start the services, you can access the website at `https://ricochet.test:8000`
