@@ -64,7 +64,7 @@ class ViewLevelSet extends Command
         var_dump($levelSet);
 
         $this->line('iPhone specific levels: (if any)');
-        for ($i = 0; $i < count($levelSet->getRounds()); $i += 1) {
+        for ($i = 0, $count = count($levelSet->getRounds()); $i < $count; $i += 1) {
             $round = $levelSet->getRounds()[$i];
 
             if ($round->iphoneSpecific) {

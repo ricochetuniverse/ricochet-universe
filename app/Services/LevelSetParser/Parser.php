@@ -58,7 +58,7 @@ final class Parser
         }
 
         if (empty(self::$modInfo)) {
-            $this->preloadModInfo();
+            self::preloadModInfo();
         }
     }
 
@@ -67,6 +67,9 @@ final class Parser
         $disk = Storage::disk('mod-info');
         foreach ($disk->files('.') as $modFile) {
             $info = json_decode($disk->read($modFile), true);
+            if ($info === null) {
+                continue;
+            }
 
             $types = [];
             foreach ($info['files'] as $file) {

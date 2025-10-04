@@ -94,7 +94,7 @@ final class Parser
             return null;
         }
 
-        if (RatingGradeConverter::getUserGrade($rating) == null) {
+        if (RatingGradeConverter::getUserGrade($rating) === null) {
             throw new RatingDataParserException('Grade rating is invalid');
         }
 

@@ -61,19 +61,12 @@ EOF;
         return $this->normalizeLineBreaks($header);
     }
 
-    /**
-     * @return string
-     */
-    private function normalizeLineBreaks(string $text)
+    private function normalizeLineBreaks(string $text): string
     {
         return str_replace(["\r\n", "\n"], "\r\n", $text);
     }
 
-    /**
-     * @param  $level  LevelSet
-     * @return string
-     */
-    private function transformLevelSetToCatalogItem(LevelSet $level)
+    private function transformLevelSetToCatalogItem(LevelSet $level): string
     {
         // mods are at the front first
         $tags = Collection::make([

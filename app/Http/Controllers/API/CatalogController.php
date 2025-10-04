@@ -19,9 +19,7 @@ class CatalogController extends Controller
             $this->getCacheKey($isSecure),
             now()->addMinutes($this->getCacheMinutes()),
             function () use ($isSecure) {
-                $catalogService = new CatalogService;
-
-                return $catalogService->getCatalog($isSecure);
+                return (new CatalogService)->getCatalog($isSecure);
             }
         );
 

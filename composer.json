@@ -20,6 +20,7 @@
     "require": {
         "php": "^8.4.5",
         "ext-intl": "*",
+        "ext-pdo": "*",
         "ext-sodium": "*",
         "ext-zlib": "*",
         "guzzlehttp/guzzle": "^7.9",

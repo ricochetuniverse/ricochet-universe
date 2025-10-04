@@ -52,7 +52,7 @@ class ConvertGoogleSheetsTsv extends Command
         DB::beginTransaction();
 
         $startProcessing = false;
-        for ($i = 0; $i < count($lines); $i += 1) {
+        for ($i = 0, $count = count($lines); $i < $count; $i += 1) {
             $line = $lines[$i];
 
             if (! $startProcessing) {

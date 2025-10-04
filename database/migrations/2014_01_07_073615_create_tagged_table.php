@@ -9,7 +9,7 @@ class CreateTaggedTable extends Migration
     {
         Schema::create('tagging_tagged', function (Blueprint $table) {
             $table->increments('id');
-            if (config('tagging.primary_keys_type') == 'string') {
+            if (config('tagging.primary_keys_type') === 'string') {
                 $table->string('taggable_id', 36)->index();
             } else {
                 $table->integer('taggable_id')->unsigned()->index();

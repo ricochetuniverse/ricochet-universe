@@ -157,6 +157,6 @@ class ExportLevelCatalog extends Command
 
     private function sendJsonOutput(array $data): string
     {
-        return json_encode($data, JSON_PRETTY_PRINT);
+        return json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
     }
 }
