@@ -38,7 +38,7 @@ services:
       - '127.0.0.1:3306:3306'
 
   caddy:
-    image: caddy:2.10.0-alpine
+    image: caddy:2.10.2-alpine
     environment:
       - CADDY_TLS_MODE
       - CADDY_TLS_EMAIL
@@ -62,7 +62,7 @@ services:
     working_dir: /var/ricochetuniverse
 
   redis:
-    image: valkey/valkey:8.1.3-alpine
+    image: valkey/valkey:8.1.4-alpine
     # uncomment for debugging
     # ports:
     #   - '127.0.0.1:6379:6379'
