@@ -26,7 +26,7 @@ class LevelSetFactory extends Factory
             'author' => $this->faker->name(),
             'game_version' => 3,
             'image_url' => '',
-            'description' => '',
+            'description' => $this->faker->sentence(),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
@@ -48,6 +49,9 @@ use Illuminate\Support\Uri;
  */
 class LevelRound extends Model
 {
+    /** @use HasFactory<\Database\Factories\LevelRoundFactory> */
+    use HasFactory;
+
     public function levelSet(): BelongsTo
     {
         return $this->belongsTo(LevelSet::class);
