@@ -25,7 +25,7 @@
         "ext-zlib": "*",
         "guzzlehttp/guzzle": "^7.10",
         "laracasts/flash": "^3.2",
-        "laravel/framework": "^12.20",
+        "laravel/framework": "^12.32",
         "laravel/tinker": "^2.10",
         "league/flysystem-memory": "^3.29",
         "predis/predis": "^3.0",
@@ -78,6 +78,9 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
