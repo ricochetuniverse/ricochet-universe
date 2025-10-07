@@ -83,20 +83,23 @@ class ExportLevelCatalog extends Command
     {
         $data = [];
 
-        LevelSet::orderBy('created_at')->orderBy('id')->chunk(500, function ($levels) use (&$data) {
-            /** @var \Illuminate\Support\Collection<int, LevelSet> $levels */
-            foreach ($levels as $level) {
-                $data[] = [
-                    'name' => $level->name,
-                    'author' => $level->author,
-                    'rounds_count' => $level->rounds,
-                    'description' => $level->description,
-                    'created_date' => $level->created_at->format('Y-m-d'),
-                    'game_required' => $level->isDesignedForInfinity() ? 'Infinity' : 'Lost Worlds',
-                    'image_url' => $level->getImageUrl(),
-                ];
-            }
-        });
+        LevelSet::published()
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->chunk(500, function ($levels) use (&$data) {
+                /** @var \Illuminate\Support\Collection<int, LevelSet> $levels */
+                foreach ($levels as $level) {
+                    $data[] = [
+                        'name' => $level->name,
+                        'author' => $level->author,
+                        'rounds_count' => $level->rounds,
+                        'description' => $level->description,
+                        'created_date' => $level->created_at->format('Y-m-d'),
+                        'game_required' => $level->isDesignedForInfinity() ? 'Infinity' : 'Lost Worlds',
+                        'image_url' => $level->getImageUrl(),
+                    ];
+                }
+            });
 
         return $data;
     }
@@ -105,27 +108,31 @@ class ExportLevelCatalog extends Command
     {
         $data = [];
 
-        LevelSet::with('levelRounds')->orderBy('created_at')->orderBy('id')->chunk(500, function ($levels) use (&$data) {
-            /** @var \Illuminate\Support\Collection<int, LevelSet> $levels */
-            foreach ($levels as $level) {
-                foreach ($level->levelRounds->sortBy('round_number') as $round) {
-                    $data[] = [
-                        'set_name' => $level->name,
-                        'set_author' => $level->author,
-                        'number' => $round->round_number,
-                        'title' => $round->name,
-                        'author' => $round->author,
-                        'note1' => $round->note1,
-                        'note2' => $round->note2,
-                        'note3' => $round->note3,
-                        'note4' => $round->note4,
-                        'note5' => $round->note5,
-                        'source' => $round->source,
-                        'image_url' => $round->getImageUrl(),
-                    ];
+        LevelSet::published()
+            ->with('levelRounds')
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->chunk(500, function ($levels) use (&$data) {
+                /** @var \Illuminate\Support\Collection<int, LevelSet> $levels */
+                foreach ($levels as $level) {
+                    foreach ($level->levelRounds->sortBy('round_number') as $round) {
+                        $data[] = [
+                            'set_name' => $level->name,
+                            'set_author' => $level->author,
+                            'number' => $round->round_number,
+                            'title' => $round->name,
+                            'author' => $round->author,
+                            'note1' => $round->note1,
+                            'note2' => $round->note2,
+                            'note3' => $round->note3,
+                            'note4' => $round->note4,
+                            'note5' => $round->note5,
+                            'source' => $round->source,
+                            'image_url' => $round->getImageUrl(),
+                        ];
+                    }
                 }
-            }
-        });
+            });
 
         return $data;
     }

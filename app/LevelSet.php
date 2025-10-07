@@ -4,6 +4,8 @@ namespace App;
 
 use Conner\Tagging\Taggable;
 use DomainException;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -38,6 +40,7 @@ use Illuminate\Support\Uri;
  * @property string $alternate_download_url
  * @property string $downloaded_file_name
  * @property int $round_to_get_image_from
+ * @property bool $prerelease
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetDownloadLog> $downloadLogs
  * @property-read int|null $download_logs_count
  * @property array $tag_names
@@ -74,6 +77,7 @@ use Illuminate\Support\Uri;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereOverallRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereOverallRatingCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet wherePrerelease($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereRoundToGetImageFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereRounds($value)
@@ -96,6 +100,7 @@ class LevelSet extends Model
      */
     protected $casts = [
         'featured' => 'boolean',
+        'prerelease' => 'boolean',
     ];
 
     /**
@@ -126,6 +131,12 @@ class LevelSet extends Model
         }
 
         return $uri->withQuery(['time' => $this->updated_at->unix()]);
+    }
+
+    #[Scope]
+    protected function published(Builder $query): Builder
+    {
+        return $query->where('prerelease', false);
     }
 
     public function levelRounds(): HasMany

@@ -8,11 +8,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $topLevelSets = LevelSet::orderBy('downloads', 'desc')
+        $topLevelSets = LevelSet::published()
+            ->orderBy('downloads', 'desc')
             ->limit(8)
             ->get();
 
-        $recentLevelSets = LevelSet::orderBy('created_at', 'desc')
+        $recentLevelSets = LevelSet::published()
+            ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->limit(8)
             ->get();

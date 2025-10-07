@@ -14,6 +14,7 @@ class SitemapController extends Controller
     {
         $xml = Cache::remember('sitemap_xml', now()->addMinutes($this->getCacheMinutes()), function () {
             $levelSets = LevelSet::select('name', 'updated_at')
+                ->published()
                 ->orderBy('id')
                 ->get();
 

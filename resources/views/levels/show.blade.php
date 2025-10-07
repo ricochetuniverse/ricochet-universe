@@ -7,6 +7,7 @@
 @section('og:url', $levelSet->getPermalink())
 @section('description', $levelSet->description)
 @section('og:image', $levelSet->getImageUrl())
+@section('robots', $levelSet->prerelease ? 'noindex,follow' : '')
 
 @section('content')
     <div class="container-fluid">
@@ -16,6 +17,13 @@
                     « Return to level set list
                 </a>
 
+                @if ($levelSet->prerelease)
+                    <div class="alert alert-warning mt-3" role="alert">
+                        This level set is in prerelease and pending test verification before it is published to
+                        the public.
+                    </div>
+                @endif
+
                 @if ($brokenLevelSetWarning)
                     <div class="alert alert-danger mt-3" role="alert">
                         This level set can’t be parsed properly, it might be broken or can’t be completed.
@@ -24,9 +32,9 @@
 
                 <div class="card mt-3">
                     <div class="card-body">
-                        <div class="text-secondary fw-bold">
-                            {{ $levelSet->name }}
-                        </div>
+                        <strong class="{{ !$levelSet->prerelease ? 'text-secondary' : 'levelsName--prerelease' }}">
+                            {{ $levelSet->name }}@if ($levelSet->prerelease) (PRERELEASE)@endif
+                        </strong>
 
                         <div>
                             By <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"

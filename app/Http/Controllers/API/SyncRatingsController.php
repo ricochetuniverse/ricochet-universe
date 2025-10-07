@@ -46,6 +46,7 @@ class SyncRatingsController extends Controller
         $levelSets = LevelSet::whereIn('name', $ratings->map(function ($rating) {
             return $rating->levelSetName;
         })->unique())
+            ->published()
             ->get()
             ->keyBy('name');
 

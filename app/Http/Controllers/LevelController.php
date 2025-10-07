@@ -18,6 +18,7 @@ class LevelController extends Controller
         $author = $request->input('author');
         $tag = $request->input('tag');
         $search = $request->input('search');
+        $prerelease = (bool) $request->input('prerelease', false);
         $orderBy = $request->input('orderBy');
         $orderDirection = $request->input('orderDir');
 
@@ -66,10 +67,15 @@ class LevelController extends Controller
             $search = null;
         }
 
+        if (! $prerelease) {
+            $levelSets->published();
+        }
+
         $filteredInput = [
             'author' => $author,
             'tag' => $tag,
             'search' => $search,
+            'prerelease' => $prerelease ? 1 : null,
             'orderBy' => $orderBy,
             'orderDir' => $orderDirection,
         ];

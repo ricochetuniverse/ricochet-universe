@@ -17,13 +17,16 @@ class CatalogService
             'mods' => function ($query) {
                 $query->orderBy('name');
             },
-        ])->chunk(100, function ($levels) use (&$response) {
-            /** @var Collection<int, LevelSet> $levels */
-            foreach ($levels as $level) {
-                $response .= $this->transformLevelSetToCatalogItem($level);
-                $response .= "\r\n";
-            }
-        });
+        ])
+            // todo make this adjustable for https://gitlab.com/ngyikp/ricochet-levels/-/issues/34
+            ->published()
+            ->chunk(100, function ($levels) use (&$response) {
+                /** @var Collection<int, LevelSet> $levels */
+                foreach ($levels as $level) {
+                    $response .= $this->transformLevelSetToCatalogItem($level);
+                    $response .= "\r\n";
+                }
+            });
 
         return $response;
     }
@@ -84,7 +87,7 @@ EOF;
             $level->created_at->format('Y-m-d'),
             (int) $level->featured,
             $level->game_version,
-            0, // prerelease
+            (int) $level->prerelease,
             '', // required_build
             $level->image_url,
             $level->rating,

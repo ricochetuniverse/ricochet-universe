@@ -36,7 +36,7 @@ class LevelSetInfoInteraction
                         $levelSetDownloadUrl = (string) (Uri::of($levelSet->alternate_download_url)->replaceQuery([]));
 
                         return [
-                            'title' => $levelSet->name,
+                            'title' => $levelSet->name.($levelSet->prerelease ? ' (PRERELEASE)' : ''),
                             'url' => $levelSet->getPermalink(),
                             'fields' => [
                                 [

@@ -9,7 +9,8 @@ class RssController extends Controller
 {
     public function index()
     {
-        $levelSets = LevelSet::orderBy('updated_at', 'desc')
+        $levelSets = LevelSet::published()
+            ->orderBy('updated_at', 'desc')
             ->limit(10)
             ->get();
 

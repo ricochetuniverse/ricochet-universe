@@ -67,7 +67,7 @@
                         </select>
 
                         @foreach ($filteredInput as $name => $value)
-                            @if (is_string($value) && !in_array($name, ['search', 'orderBy', 'orderDir']))
+                            @if ((is_string($value) || is_int($value)) && !in_array($name, ['search', 'orderBy', 'orderDir']))
                                 <input type="hidden" name="{{ $name }}" value="{{ $value }}">
                             @endif
                         @endforeach
@@ -139,8 +139,9 @@
 
                                     <p class="m-0">
                                         <a href="{{ $levelSet->getPermalink() }}"
-                                           class="link-secondary fw-bold">{{ $levelSet->name }}</a><span
-                                            class="d-md-none"> ({{ $levelSet->rounds }}&nbsp;rounds)</span>
+                                           class="{{ !$levelSet->prerelease ? 'link-secondary' : 'levelsName--prerelease' }} fw-bold">
+                                            {{ $levelSet->name }}@if ($levelSet->prerelease) (PRERELEASE)@endif
+                                        </a><span class="d-md-none"> ({{ $levelSet->rounds }}&nbsp;rounds)</span>
                                     </p>
 
                                     <p class="m-0">
@@ -235,7 +236,7 @@
                 @else
                     <div class="card">
                         <div class="card-body">
-                            @if (strlen($filteredInput['search'] > 0))
+                            @if (strlen($filteredInput['search']) > 0)
                                 No level sets found matching “{{ $filteredInput['search'] }}”.
                                 <a href="{{ action('LevelController@index') }}">Show all level sets</a>
                             @else
