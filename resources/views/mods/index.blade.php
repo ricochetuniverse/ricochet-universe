@@ -30,13 +30,13 @@
             </div>
         </div>
 
-        @auth
+        @can('create', \App\Mod::class)
             <div class="row mt-3">
                 <div class="col text-end">
                     <a href="{{ action('ModsController@create') }}" class="btn btn-outline-secondary">Add new mod</a>
                 </div>
             </div>
-        @endauth
+        @endcan
 
         <div class="row justify-content-center">
             @foreach ($mods as $mod)

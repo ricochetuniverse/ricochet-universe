@@ -17,6 +17,7 @@ use Illuminate\Support\Uri;
  * @property \Carbon\CarbonInterface|null $updated_at
  * @property int $discord_id
  * @property string $discord_avatar_url
+ * @property bool $is_admin
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  *
@@ -29,6 +30,7 @@ use Illuminate\Support\Uri;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereDiscordId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
@@ -40,6 +42,15 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
 
     /**
      * The attributes that are mass assignable.

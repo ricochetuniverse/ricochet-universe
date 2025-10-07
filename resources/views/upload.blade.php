@@ -81,7 +81,7 @@
             </div>
         </div>
 
-        @auth
+        @can('create', \App\LevelSet::class)
             <div class="row mt-3">
                 <div class="col">
                     <div class="card">
@@ -124,6 +124,6 @@
                     </div>
                 </div>
             </div>
-        @endauth
+        @endcan
     </div>
 @endsection

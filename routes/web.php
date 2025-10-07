@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\CspPresets;
+use App\LevelSet;
+use App\Mod;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
 
@@ -17,21 +19,18 @@ Route::group(['middleware' => $cache], function () {
 
 Route::get('/upload', 'UploadController@index')->middleware($cache);
 Route::permanentRedirect('/levels/submitform.php', '/upload');
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('/upload', 'UploadController@store');
-});
+Route::post('/upload', 'UploadController@store')->can('create', LevelSet::class);
+
 Route::get('/rounds', 'RoundsController@index');
 
 Route::get('/mods', 'ModsController@index')
     ->middleware($cache)
     ->middleware(AddCspHeaders::class.':'.CspPresets\Mods::class);
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/mods/create', 'ModsController@create');
-    Route::post('/mods', 'ModsController@store');
-    // Route::get('/mods/{mod}/edit', 'ModsController@edit');
-    // Route::patch('/mods/{mod}', 'ModsController@update');
-    // Route::delete('/mods/{mod}', 'ModsController@destroy');
-});
+Route::get('/mods/create', 'ModsController@create')->can('create', Mod::class);
+Route::post('/mods', 'ModsController@store')->can('create', Mod::class);
+// Route::get('/mods/{mod}/edit', 'ModsController@edit');
+// Route::patch('/mods/{mod}', 'ModsController@update');
+// Route::delete('/mods/{mod}', 'ModsController@destroy');
 
 Route::get('/discord', 'DiscordRedirectController@index');
 Route::group(['middleware' => $cache], function () {

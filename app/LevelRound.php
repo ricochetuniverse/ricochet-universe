@@ -27,6 +27,7 @@ use Illuminate\Support\Uri;
  * @property int $round_number
  * @property-read \App\LevelSet $levelSet
  *
+ * @method static \Database\Factories\LevelRoundFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound query()
