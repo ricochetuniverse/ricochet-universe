@@ -68,3 +68,15 @@ FLUSH PRIVILEGES;
 ## Xdebug
 
 [Xdebug](https://xdebug.org) is already preinstalled on the Docker container.
+
+## Testing Discord interaction webhooks
+
+Use a service like ngrok or cloudflared to expose your local machine to the public:
+
+```sh
+cloudflared tunnel --origin-ca-pool ./docker/secrets/ricochet.test.pem  --http-host-header "ricochet.test:8000" --url https://ricochet.test:8000
+```
+
+After the tunnel has set up, change the interaction endpoints URL for the Discord app to something like `https://example.com/api/discord-interactions-webhook`
+
+Open `https://discord.com/oauth2/authorize?client_id=<your app id>&scope=applications.commands&integration_type=1` to install the Discord app to your account.

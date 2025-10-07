@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Enums\Discord;
+declare(strict_types=1);
+
+namespace App\Services\DiscordApi\Enums;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type

@@ -20,7 +20,7 @@ class DiscordLoginController extends Controller
     {
         $discordUser = Socialite::driver('discord')->user();
 
-        if (! in_array($discordUser->getId(), config('services.discord.user_id_whitelist'))) {
+        if (! in_array($discordUser->getId(), config('services.discord.user_id_whitelist'), true)) {
             return response()
                 ->view('auth.not-on-whitelist', ['discordUserId' => $discordUser->getId()], 403);
         }

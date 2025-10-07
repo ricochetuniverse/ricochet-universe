@@ -14,6 +14,8 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
+        // \Illuminate\Http\Middleware\ValidatePathEncoding::class,
+        \Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks::class,
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
