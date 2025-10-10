@@ -24,4 +24,10 @@ return [
         'avatar_default_extension' => 'png',
     ],
 
+    'github' => [
+        'integration_id' => env('GITHUB_INTEGRATION_ID'),
+        'installation_id' => (int) env('GITHUB_INSTALLATION_ID'),
+        'signing_key_file' => storage_path(env('GITHUB_SIGNING_KEY_FILE')),
+    ],
+
 ];
