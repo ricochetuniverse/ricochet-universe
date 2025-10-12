@@ -7,4 +7,6 @@ namespace App\Services\DiscordApi;
 class InteractionNames
 {
     public const string LEVEL_SET_INFO = 'Level set info';
+
+    public const string EXPORT_LEVEL_SET = 'Export level set';
 }

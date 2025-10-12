@@ -9,7 +9,10 @@ use App\Services\DiscordApi\Enums\InteractionResponseType;
 use App\Services\DiscordApi\Enums\InteractionType;
 use App\Services\DiscordApi\InteractionNames;
 use App\Services\DiscordApi\InteractionResponse;
+use App\Services\DiscordApi\Interactions\ExportLevelSet;
 use App\Services\DiscordApi\Interactions\LevelSetInfoInteraction;
+use App\Services\DiscordApi\ModalHandler;
+use App\Services\DiscordApi\ModalType;
 use App\Services\DiscordApi\UserFacingInteractionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,7 +35,7 @@ class DiscordInteractionsWebhookController extends Controller
             Log::debug($request->getContent());
         }
 
-        $this->validateRequest($request);
+        $this->verifySignature($request);
 
         try {
             $json = $request->json();
@@ -42,6 +45,9 @@ class DiscordInteractionsWebhookController extends Controller
 
                 case InteractionType::APPLICATION_COMMAND:
                     return $this->handleApplicationCommand($json->all());
+
+                case InteractionType::MODAL_SUBMIT:
+                    return $this->handleModalSubmit($json->all());
 
                 default:
                     break;
@@ -53,23 +59,29 @@ class DiscordInteractionsWebhookController extends Controller
         throw new \DomainException('Interaction type is not supported');
     }
 
-    /**
-     * @throws UserFacingInteractionException
-     */
     private function handleApplicationCommand(array $json): JsonResponse
     {
-        if (! in_array($json['member']['user']['id'], config('services.discord.user_id_whitelist'), true)) {
-            throw new BadRequestHttpException('Discord user ID is not whitelisted');
-        }
+        $this->validateMemberWhitelist($json['member']['user']['id']);
 
-        if ($json['data']['name'] === InteractionNames::LEVEL_SET_INFO) {
-            return LevelSetInfoInteraction::handle($json);
-        }
-
-        throw new \DomainException('Unknown interaction');
+        return match ($json['data']['name']) {
+            InteractionNames::LEVEL_SET_INFO => LevelSetInfoInteraction::handle($json),
+            InteractionNames::EXPORT_LEVEL_SET => ExportLevelSet::handleApplicationCommand($json),
+            default => throw new \DomainException('Unknown interaction'),
+        };
     }
 
-    private function validateRequest(Request $request): void
+    private function handleModalSubmit(array $json): JsonResponse
+    {
+        $this->validateMemberWhitelist($json['member']['user']['id']);
+
+        $tempData = ModalHandler::getTempData($json['data']['custom_id']);
+
+        return match ($tempData['modal_type']) {
+            ModalType::EXPORT_LEVEL_SET => ExportLevelSet::handleModalSubmit($json, $tempData['data']),
+        };
+    }
+
+    private function verifySignature(Request $request): void
     {
         // https://github.com/discord/user-install-example/blob/main/utils.js
         // https://github.com/discord/discord-api-docs/issues/2359
@@ -77,15 +89,20 @@ class DiscordInteractionsWebhookController extends Controller
         $timestamp = $request->header('x-signature-timestamp');
         $body = $request->getContent();
 
-        $message = $timestamp.$body;
         $verified = sodium_crypto_sign_verify_detached(
             sodium_hex2bin($signature),
-            $message,
+            $timestamp.$body,
             sodium_hex2bin(config('services.discord.public_key'))
         );
-
         if (! $verified) {
             throw new BadRequestHttpException('Bad request signature');
+        }
+    }
+
+    private function validateMemberWhitelist(string $id): void
+    {
+        if (! in_array($id, config('services.discord.user_id_whitelist'), true)) {
+            throw new BadRequestHttpException('Discord user ID is not whitelisted');
         }
     }
 }

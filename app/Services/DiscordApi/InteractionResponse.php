@@ -34,6 +34,14 @@ class InteractionResponse
         ]);
     }
 
+    public static function modal(array $data): JsonResponse
+    {
+        return response()->json([
+            'type' => InteractionResponseType::MODAL,
+            'data' => $data,
+        ]);
+    }
+
     /**
      * @throws RequestException
      * @throws ConnectionException

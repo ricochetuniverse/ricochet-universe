@@ -6,6 +6,7 @@ namespace App\Services\DiscordApi\Interactions;
 
 use App\LevelSet;
 use App\Services\DiscordApi\InteractionResponse;
+use App\Services\DiscordApi\InteractsWithAttachments;
 use App\Services\DiscordApi\UserFacingInteractionException;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,6 +17,8 @@ use Illuminate\Support\Uri;
 
 class LevelSetInfoInteraction
 {
+    use InteractsWithAttachments;
+
     public static function handle(array $json): JsonResponse
     {
         $message = array_first($json['data']['resolved']['messages']);
@@ -67,26 +70,6 @@ class LevelSetInfoInteraction
         });
 
         return InteractionResponse::deferredEphemeralMessage();
-
-    }
-
-    /**
-     * @throws UserFacingInteractionException
-     */
-    private static function getAttachment(array $message): array
-    {
-        if (count($message['attachments']) === 0) {
-            throw new UserFacingInteractionException('This message has no attachments');
-        } elseif (count($message['attachments']) > 1) {
-            throw new UserFacingInteractionException('Multiple attachments are not supported yet');
-        }
-
-        $attachment = $message['attachments'][0];
-        if (! str_ends_with($attachment['filename'], '.RicochetLW') && ! str_ends_with($attachment['filename'], '.RicochetI')) {
-            throw new UserFacingInteractionException('This attachment is not a Ricochet level');
-        }
-
-        return $attachment;
     }
 
     /**
@@ -102,19 +85,6 @@ class LevelSetInfoInteraction
 
         // Try imperfect name search
         return LevelSet::where('name', self::getNameFromAttachment($attachment))->get();
-    }
-
-    private static function getNameFromAttachment(array $attachment): string
-    {
-        // `title` key is only available on some attachments
-        if (isset($attachment['title'])) {
-            return $attachment['title'];
-        }
-
-        $levelSetName = \Illuminate\Support\Str::beforeLast($attachment['filename'], '.RicochetLW');
-        $levelSetName = \Illuminate\Support\Str::beforeLast($levelSetName, '.RicochetI');
-
-        return str_replace('_', ' ', $levelSetName);
     }
 
     private static function compareLocalFileWithAttachment(LevelSet $levelSet, array $attachment): bool
@@ -136,6 +106,5 @@ class LevelSetInfoInteraction
         }
 
         return hash_file('sha256', $disk->path($fileName)) === hash('sha256', $response->getBody()->getContents());
-
     }
 }

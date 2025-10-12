@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\LevelSet;
 use App\Rules\ValidTimestamp;
 use App\Services\LevelSetUploadProcessor;
 use Carbon\Carbon;
@@ -36,42 +37,48 @@ class UploadController extends Controller
 
         $levelSet = $processor->process();
 
-        // Post to Discord
-        $webhookUrl = config('ricochet.discord_upload_webhook');
-        if ($webhookUrl) {
-            try {
-                $notify = Http::post($webhookUrl, [
-                    'content' => 'New level set uploaded',
-                    'embeds' => [
-                        [
-                            'author' => [
-                                'name' => 'By '.$levelSet->author,
-                                'url' => action('LevelController@index', ['author' => $levelSet->author]),
-                            ],
-                            'title' => $levelSet->name,
-                            'url' => $levelSet->getPermalink(),
-                            'description' => $levelSet->description,
-                            'fields' => [
-                                [
-                                    'name' => 'Number of rounds',
-                                    'value' => $levelSet->rounds,
-                                ],
-                            ],
-                            'image' => [
-                                'url' => $levelSet->getImageUrl(),
-                            ],
-                            'timestamp' => $levelSet->created_at->toIso8601String(),
-                        ],
-                    ],
-                ]);
-
-                $notify->throw();
-            } catch (\Exception $exception) {
-                // Fail silently, do not crash just because Discord is inaccessible
-                Sentry::captureException($exception);
-            }
-        }
+        self::postToDiscord($levelSet);
 
         return redirect($levelSet->getPermalink());
+    }
+
+    public static function postToDiscord(LevelSet $levelSet): void
+    {
+        $webhookUrl = config('ricochet.discord_upload_webhook');
+        if (! $webhookUrl) {
+            return;
+        }
+
+        try {
+            $notify = Http::post($webhookUrl, [
+                'content' => 'New level set uploaded',
+                'embeds' => [
+                    [
+                        'author' => [
+                            'name' => 'By '.$levelSet->author,
+                            'url' => action('LevelController@index', ['author' => $levelSet->author]),
+                        ],
+                        'title' => $levelSet->name,
+                        'url' => $levelSet->getPermalink(),
+                        'description' => $levelSet->description,
+                        'fields' => [
+                            [
+                                'name' => 'Number of rounds',
+                                'value' => $levelSet->rounds,
+                            ],
+                        ],
+                        'image' => [
+                            'url' => $levelSet->getImageUrl(),
+                        ],
+                        'timestamp' => $levelSet->created_at->toIso8601String(),
+                    ],
+                ],
+            ]);
+
+            $notify->throw();
+        } catch (\Exception $exception) {
+            // Fail silently, do not crash just because Discord is inaccessible
+            Sentry::captureException($exception);
+        }
     }
 }

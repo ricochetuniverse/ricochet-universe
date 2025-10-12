@@ -30,10 +30,18 @@ class InitDiscordInteractions extends Command
      */
     public function handle()
     {
-        ApiClient::post('applications/'.config('services.discord.client_id').'/commands', [
-            'name' => InteractionNames::LEVEL_SET_INFO,
-            'type' => ApplicationCommandType::MESSAGE,
-        ]);
+        ApiClient::put('applications/'.config('services.discord.client_id').'/commands',
+            [
+                [
+                    'name' => InteractionNames::LEVEL_SET_INFO,
+                    'type' => ApplicationCommandType::MESSAGE,
+                ],
+                [
+                    'name' => InteractionNames::EXPORT_LEVEL_SET,
+                    'type' => ApplicationCommandType::MESSAGE,
+                ],
+            ]
+        );
 
         $this->info('Discord interaction commands set up.');
     }
