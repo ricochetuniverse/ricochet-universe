@@ -38,6 +38,12 @@ Catalog URL=http://ricochet.test:8001/gateway/catalog.php
 - PHP: Use [PHPUnit](https://phpunit.de). Run `docker-compose run --rm php ./vendor/bin/phpunit` to run the tests.
 - Node.js: Use [Jest](https://jestjs.io). Run `docker-compose run --rm node npm test` to run the tests.
 
+### Running tests with coverage
+
+```bash
+docker-compose run -e XDEBUG_MODE=coverage --rm php ./vendor/bin/phpunit --coverage-html coverage/
+```
+
 ## Running all tests
 
 The test suites are run on every push, it's best to run them on your system to avoid CI failures afterwards:
