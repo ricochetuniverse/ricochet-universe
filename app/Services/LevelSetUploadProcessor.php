@@ -28,6 +28,8 @@ class LevelSetUploadProcessor
 
     public bool $postToDiscord = false;
 
+    public bool $clearCache = true;
+
     private const int LEGACY_ID_ADDITION = 10000;
 
     /**
@@ -87,7 +89,8 @@ class LevelSetUploadProcessor
 
         DB::commit();
 
-        $this->postToDiscord($levelSet);
+        $this->maybePostToDiscord($levelSet);
+        $this->maybeClearCache();
 
         return $levelSet;
     }
@@ -177,7 +180,7 @@ class LevelSetUploadProcessor
         return $result;
     }
 
-    private function postToDiscord(LevelSet $levelSet): void
+    private function maybePostToDiscord(LevelSet $levelSet): void
     {
         $webhookUrl = config('ricochet.discord_upload_webhook');
         if (! $this->postToDiscord || ! $webhookUrl) {
@@ -212,6 +215,13 @@ class LevelSetUploadProcessor
         } catch (\Exception $exception) {
             // Fail silently, do not crash just because Discord is inaccessible
             Sentry::captureException($exception);
+        }
+    }
+
+    private function maybeClearCache(): void
+    {
+        if ($this->clearCache) {
+            CatalogService::clearCache();
         }
     }
 }

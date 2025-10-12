@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Services\CatalogService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Cache;
 
 class ClearCatalogCache extends Command
 {
@@ -22,22 +22,11 @@ class ClearCatalogCache extends Command
     protected $description = 'Clear cache for /gateway/catalog.php';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle(): void
     {
-        Cache::forget('level_catalog');
-        Cache::forget('level_catalog_http');
+        CatalogService::clearCache();
 
         $this->info('Done.');
     }

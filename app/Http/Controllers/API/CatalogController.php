@@ -18,8 +18,8 @@ class CatalogController extends Controller
         $catalogContent = Cache::remember(
             $this->getCacheKey($isSecure),
             now()->addMinutes($this->getCacheMinutes()),
-            function () use ($isSecure) {
-                return (new CatalogService)->getCatalog($isSecure);
+            static function () use ($isSecure) {
+                return CatalogService::getCatalog($isSecure);
             }
         );
 
@@ -40,7 +40,7 @@ class CatalogController extends Controller
 
     private function getCacheKey(bool $isSecure): string
     {
-        return $isSecure ? 'level_catalog' : 'level_catalog_http';
+        return $isSecure ? CatalogService::CACHE_KEY_HTTPS : CatalogService::CACHE_KEY_HTTP;
     }
 
     private function getCacheMinutes(): int

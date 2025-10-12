@@ -4,13 +4,18 @@ namespace App\Services;
 
 use App\LevelSet;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\URL;
 
 class CatalogService
 {
-    public function getCatalog(bool $isSecure): string
+    public const string CACHE_KEY_HTTPS = 'level_catalog';
+
+    public const string CACHE_KEY_HTTP = 'level_catalog_http';
+
+    public static function getCatalog(bool $isSecure): string
     {
-        $response = $this->getCatalogHeader($isSecure);
+        $response = self::getCatalogHeader($isSecure);
 
         LevelSet::with([
             'tagged',
@@ -23,7 +28,7 @@ class CatalogService
             ->chunk(100, function ($levels) use (&$response) {
                 /** @var Collection<int, LevelSet> $levels */
                 foreach ($levels as $level) {
-                    $response .= $this->transformLevelSetToCatalogItem($level);
+                    $response .= self::transformLevelSetToCatalogItem($level);
                     $response .= "\r\n";
                 }
             });
@@ -31,7 +36,13 @@ class CatalogService
         return $response;
     }
 
-    private function getCatalogHeader(bool $isSecure): string
+    public static function clearCache(): void
+    {
+        Cache::forget(self::CACHE_KEY_HTTPS);
+        Cache::forget(self::CACHE_KEY_HTTP);
+    }
+
+    private static function getCatalogHeader(bool $isSecure): string
     {
         // $siteUrl = 'http://www.ricochetInfinity.com';
         $siteUrl = URL::to('/');
@@ -61,15 +72,15 @@ id,name,rounds,author,date,featured,gameversion,prerelease,required_build,imageu
 
 EOF;
 
-        return $this->normalizeLineBreaks($header);
+        return self::normalizeLineBreaks($header);
     }
 
-    private function normalizeLineBreaks(string $text): string
+    private static function normalizeLineBreaks(string $text): string
     {
         return str_replace(["\r\n", "\n"], "\r\n", $text);
     }
 
-    private function transformLevelSetToCatalogItem(LevelSet $level): string
+    private static function transformLevelSetToCatalogItem(LevelSet $level): string
     {
         // mods are at the front first
         $tags = Collection::make([
