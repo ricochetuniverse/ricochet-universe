@@ -9,7 +9,7 @@ import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import {RspackManifestPlugin} from 'rspack-manifest-plugin';
 
-// https://stackoverflow.com/a/64383997
+// https://stackoverflow.com/questions/64383909/dirname-is-not-defined-error-in-node-js-14-version/64383997#64383997
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

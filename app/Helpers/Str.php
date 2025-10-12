@@ -10,7 +10,7 @@ use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 class Str
 {
     /**
-     * https://stackoverflow.com/questions/22749182/laravel-escape-like-clause/42028380#42028380
+     * @see https://stackoverflow.com/questions/22749182/laravel-escape-like-clause/42028380#42028380
      */
     public static function escapeLike(string $value, string $char = '\\'): string
     {
@@ -21,7 +21,9 @@ class Str
         );
     }
 
-    // Idea from https://stackoverflow.com/a/17613163
+    /**
+     * @see https://stackoverflow.com/questions/1462720/iterate-over-each-line-in-a-string-in-php/17613163#17613163
+     */
     public static function readTextAsStream(string $data): \Generator
     {
         $path = 'data.txt';
