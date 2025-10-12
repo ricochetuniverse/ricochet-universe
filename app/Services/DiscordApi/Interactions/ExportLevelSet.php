@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\DiscordApi\Interactions;
 
-use App\Http\Controllers\UploadController;
 use App\Services\DiscordApi\Enums\ComponentType;
 use App\Services\DiscordApi\Enums\TextInputStyle;
 use App\Services\DiscordApi\InteractionResponse;
@@ -195,14 +194,13 @@ class ExportLevelSet
     private static function publishToCatalog(string $name, string $download_url, int $timestamp): void
     {
         $processor = new LevelSetUploadProcessor;
-        $processor->setUrl($download_url);
-        $processor->setName($name);
-        $processor->setDatePosted(Carbon::createFromTimestampUTC($timestamp));
+        $processor->url = $download_url;
+        $processor->name = $name;
+        $processor->datePosted = Carbon::createFromTimestampUTC($timestamp);
+        $processor->postToDiscord = true;
 
         // todo better error processing
         $levelSet = $processor->process();
-
-        UploadController::postToDiscord($levelSet);
     }
 
     private static function getMessageUrl(array $channel, array $message): string

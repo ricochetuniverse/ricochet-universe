@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\LevelSet;
 use App\Rules\ValidTimestamp;
 use App\Services\LevelSetUploadProcessor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Sentry\Laravel\Facade as Sentry;
 
 class UploadController extends Controller
 {
@@ -31,54 +28,13 @@ class UploadController extends Controller
         ]);
 
         $processor = new LevelSetUploadProcessor;
-        $processor->setUrl($request->input('url'));
-        $processor->setName($request->input('name'));
-        $processor->setDatePosted(Carbon::createFromTimestampUTC($request->input('timestamp')));
+        $processor->url = $request->input('url');
+        $processor->name = $request->input('name');
+        $processor->datePosted = Carbon::createFromTimestampUTC($request->input('timestamp'));
+        $processor->postToDiscord = true;
 
         $levelSet = $processor->process();
 
-        self::postToDiscord($levelSet);
-
         return redirect($levelSet->getPermalink());
-    }
-
-    public static function postToDiscord(LevelSet $levelSet): void
-    {
-        $webhookUrl = config('ricochet.discord_upload_webhook');
-        if (! $webhookUrl) {
-            return;
-        }
-
-        try {
-            $notify = Http::post($webhookUrl, [
-                'content' => 'New level set uploaded',
-                'embeds' => [
-                    [
-                        'author' => [
-                            'name' => 'By '.$levelSet->author,
-                            'url' => action('LevelController@index', ['author' => $levelSet->author]),
-                        ],
-                        'title' => $levelSet->name,
-                        'url' => $levelSet->getPermalink(),
-                        'description' => $levelSet->description,
-                        'fields' => [
-                            [
-                                'name' => 'Number of rounds',
-                                'value' => $levelSet->rounds,
-                            ],
-                        ],
-                        'image' => [
-                            'url' => $levelSet->getImageUrl(),
-                        ],
-                        'timestamp' => $levelSet->created_at->toIso8601String(),
-                    ],
-                ],
-            ]);
-
-            $notify->throw();
-        } catch (\Exception $exception) {
-            // Fail silently, do not crash just because Discord is inaccessible
-            Sentry::captureException($exception);
-        }
     }
 }

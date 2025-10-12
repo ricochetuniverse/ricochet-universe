@@ -3,61 +3,39 @@
 namespace App\Services;
 
 use App\LevelRound;
+use App\LevelSet;
 use App\Mod;
 use App\Rules\LevelSetName;
 use App\Services\LevelSetParser\Parser;
 use Carbon\Carbon;
 use DomainException;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Sentry\Laravel\Facade as Sentry;
 
 class LevelSetUploadProcessor
 {
-    private string $url = '';
+    public string $url = '';
 
-    private string $name = '';
+    public string $name = '';
 
-    private ?Carbon $datePosted = null;
+    public ?Carbon $datePosted = null;
 
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
+    public bool $postToDiscord = false;
 
-    public function setUrl(string $url): void
-    {
-        $this->url = $url;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function getDatePosted(): ?Carbon
-    {
-        return $this->datePosted;
-    }
-
-    public function setDatePosted(Carbon $datePosted): void
-    {
-        $this->datePosted = $datePosted;
-    }
-
-    private int $legacyIdAddition = 10000;
+    private const int LEGACY_ID_ADDITION = 10000;
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ConnectionException
+     * @throws RequestException
+     * @throws \Throwable
      */
-    public function process(): \App\LevelSet
+    public function process(): LevelSet
     {
         Validator::validate([
             'url' => $this->url,
@@ -82,7 +60,7 @@ class LevelSetUploadProcessor
         $fileName = $this->name.$this->getFileExtension($this->url);
         $path = $this->downloadAndSaveFile($this->url, $fileName);
 
-        $levelSet = new \App\LevelSet;
+        $levelSet = new LevelSet;
         $levelSet->legacy_id = time(); // temp
         $levelSet->name = $this->name;
         $levelSet->created_at = $this->datePosted;
@@ -92,33 +70,35 @@ class LevelSetUploadProcessor
 
         DB::beginTransaction();
 
-        $result = $this->parseLevelSet($levelSet, $path);
-        $levelSet->save();
+        $parseResult = $this->parseLevelSet($levelSet, $path);
 
+        $levelSet->save();
         $levelSet->levelRounds()->saveMany($levelSet->levelRounds); // hack >__<
 
         // Check for mods
-        foreach ($result->modsUsed as $modsUsed) {
+        foreach ($parseResult->modsUsed as $modsUsed) {
             $modsFound = Mod::where('trigger_codename', $modsUsed)->get();
 
             $levelSet->mods()->attach($modsFound);
         }
 
-        $levelSet->legacy_id = $this->legacyIdAddition + $levelSet->id;
+        $levelSet->legacy_id = self::LEGACY_ID_ADDITION + $levelSet->id;
         $levelSet->save();
 
         DB::commit();
+
+        $this->postToDiscord($levelSet);
 
         return $levelSet;
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws RequestException
+     * @throws ConnectionException
      */
     private function downloadAndSaveFile(string $url, string $name): string
     {
-        $client = new \GuzzleHttp\Client;
-        $response = $client->request('GET', $url);
+        $response = Http::get($url)->throw();
 
         $disk = Storage::disk('levels');
         $disk->put($name, $response->getBody());
@@ -149,7 +129,7 @@ class LevelSetUploadProcessor
         throw new DomainException('File name must end with .RicochetI or .RicochetLW file extension.');
     }
 
-    private function parseLevelSet(\App\LevelSet $levelSet, $file): LevelSetParser\LevelSet
+    private function parseLevelSet(LevelSet $levelSet, $file): LevelSetParser\LevelSet
     {
         $decompressor = new LevelSetDecompressService;
         $levelSetData = $decompressor->decompress($file);
@@ -195,5 +175,43 @@ class LevelSetUploadProcessor
         $levelSet->round_to_get_image_from = $result->roundToGetImageFrom;
 
         return $result;
+    }
+
+    private function postToDiscord(LevelSet $levelSet): void
+    {
+        $webhookUrl = config('ricochet.discord_upload_webhook');
+        if (! $this->postToDiscord || ! $webhookUrl) {
+            return;
+        }
+
+        try {
+            Http::post($webhookUrl, [
+                'content' => 'New level set uploaded',
+                'embeds' => [
+                    [
+                        'author' => [
+                            'name' => 'By '.$levelSet->author,
+                            'url' => action('LevelController@index', ['author' => $levelSet->author]),
+                        ],
+                        'title' => $levelSet->name,
+                        'url' => $levelSet->getPermalink(),
+                        'description' => $levelSet->description,
+                        'fields' => [
+                            [
+                                'name' => 'Number of rounds',
+                                'value' => $levelSet->rounds,
+                            ],
+                        ],
+                        'image' => [
+                            'url' => $levelSet->getImageUrl(),
+                        ],
+                        'timestamp' => $levelSet->created_at->toIso8601String(),
+                    ],
+                ],
+            ])->throw();
+        } catch (\Exception $exception) {
+            // Fail silently, do not crash just because Discord is inaccessible
+            Sentry::captureException($exception);
+        }
     }
 }
