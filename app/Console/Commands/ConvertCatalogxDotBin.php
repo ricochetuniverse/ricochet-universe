@@ -26,16 +26,6 @@ class ConvertCatalogxDotBin extends Command
     protected $description = 'Convert catalogx.bin to JSON';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @throws \Exception

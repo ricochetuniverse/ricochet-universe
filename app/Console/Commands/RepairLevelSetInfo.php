@@ -29,16 +29,6 @@ class RepairLevelSetInfo extends Command
     protected $description = 'Repair a level set info by re-downloading the file and re-parsing it';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle(): void

@@ -23,16 +23,6 @@ class ViewLevelSet extends Command
     protected $description = 'Parse a level set to extract the level properties and images, useful for debugging the parser';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @throws \Exception

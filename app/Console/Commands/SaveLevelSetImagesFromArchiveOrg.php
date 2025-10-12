@@ -33,7 +33,7 @@ class SaveLevelSetImagesFromArchiveOrg extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $disk = Storage::disk('legacy-levelset-images');
 

@@ -24,16 +24,6 @@ class ConvertGoogleSheetsTsv extends Command
     protected $description = 'Convert a TSV file exported from Google Sheets to update the alternate download URL';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @throws \Exception
