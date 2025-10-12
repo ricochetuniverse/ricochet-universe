@@ -63,10 +63,9 @@ class DiscordInteractionsWebhookController extends Controller
     {
         $this->validateMemberWhitelist($json['member']['user']['id']);
 
-        return match ($json['data']['name']) {
+        return match (InteractionNames::from($json['data']['name'])) {
             InteractionNames::LEVEL_SET_INFO => LevelSetInfoInteraction::handle($json),
             InteractionNames::EXPORT_LEVEL_SET => ExportLevelSet::handleApplicationCommand($json),
-            default => throw new \DomainException('Unknown interaction'),
         };
     }
 

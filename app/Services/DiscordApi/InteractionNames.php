@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\DiscordApi;
 
-class InteractionNames
+enum InteractionNames: string
 {
-    public const string LEVEL_SET_INFO = 'Level set info';
+    case LEVEL_SET_INFO = 'Level set info';
+    case EXPORT_LEVEL_SET = 'Export level set';
 
-    public const string EXPORT_LEVEL_SET = 'Export level set';
 }
