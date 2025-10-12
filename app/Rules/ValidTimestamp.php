@@ -1,38 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Rules;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class ValidTimestamp implements Rule
+class ValidTimestamp implements ValidationRule
 {
     /**
-     * Create a new rule instance.
+     * Indicates whether the rule should be implicit.
      *
-     * @return void
+     * @var bool
      */
-    public function __construct()
-    {
-        //
-    }
+    public $implicit = true;
 
     /**
-     * Determine if the validation rule passes.
+     * Run the validation rule.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param  \Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
      */
-    public function passes($attribute, $value): bool
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        return filter_var($value, FILTER_VALIDATE_INT) !== false && $value >= 0 && $value <= Carbon::now()->addYear()->getTimestamp();
-    }
-
-    /**
-     * Get the validation error message.
-     */
-    public function message(): string
-    {
-        return 'The :attribute must be a valid timestamp.';
+        $passes = filter_var($value, FILTER_VALIDATE_INT) !== false && $value >= 0 && $value <= Carbon::now()->addYear()->getTimestamp();
+        if (! $passes) {
+            $fail('The :attribute must be a valid timestamp.');
+        }
     }
 }

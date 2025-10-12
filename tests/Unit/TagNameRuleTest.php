@@ -9,12 +9,36 @@ use Tests\TestCase;
 
 class TagNameRuleTest extends TestCase
 {
-    public function test_rule(): void
+    public function test_passing_values(): void
     {
+        $names = [
+            'abc',
+        ];
+
         $rule = new TagName;
 
-        $this->assertTrue($rule->passes('', 'abc'));
-        $this->assertFalse($rule->passes('', 'a,b'));
-        $this->assertFalse($rule->passes('', 'a;b'));
+        foreach ($names as $name) {
+            $this->assertTrue(
+                validator(['name' => $name], ['name' => $rule])->passes(),
+                $name.' should pass'
+            );
+        }
+    }
+
+    public function test_failing_values(): void
+    {
+        $names = [
+            'a,b',
+            'a;b',
+        ];
+
+        $rule = new TagName;
+
+        foreach ($names as $name) {
+            $this->assertFalse(
+                validator(['name' => $name], ['name' => $rule])->passes(),
+                $name.' should fail'
+            );
+        }
     }
 }

@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class LevelSetNameRuleTest extends TestCase
 {
-    public function test_rule(): void
+    public function test_passing_values(): void
     {
         $names = [
             'Reflexive B Sides',
@@ -45,9 +45,15 @@ class LevelSetNameRuleTest extends TestCase
         $rule = new LevelSetName;
 
         foreach ($names as $name) {
-            $this->assertTrue($rule->passes('', $name));
+            $this->assertTrue(
+                validator(['name' => $name], ['name' => $rule])->passes(),
+                $name.' should pass'
+            );
         }
+    }
 
+    public function test_failing_values(): void
+    {
         $names = [
             '',
             'abc;a',
@@ -55,8 +61,13 @@ class LevelSetNameRuleTest extends TestCase
             'abc\\..',
         ];
 
+        $rule = new LevelSetName;
+
         foreach ($names as $name) {
-            $this->assertFalse($rule->passes('', $name));
+            $this->assertFalse(
+                validator(['name' => $name], ['name' => $rule])->passes(),
+                $name.' should fail'
+            );
         }
     }
 }
