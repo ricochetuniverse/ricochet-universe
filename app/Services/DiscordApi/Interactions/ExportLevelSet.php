@@ -35,6 +35,7 @@ class ExportLevelSet
         $attachment = self::getAttachment($message);
 
         $modalId = ModalHandler::setUpTempData(ModalType::EXPORT_LEVEL_SET, [
+            'author' => $message['author']['global_name'],
             'message_url' => self::getMessageUrl($json['channel'], $message),
             'download_url' => $attachment['url'],
             'timestamp' => Carbon::parse($message['timestamp'])->unix(),
@@ -117,6 +118,7 @@ class ExportLevelSet
         $create_github_issue = false;
         $publish_to_catalog = false;
 
+        $author = (string) $tempData['author'];
         $message_url = (string) $tempData['message_url'];
         $download_url = (string) $tempData['download_url'];
         $timestamp = (int) $tempData['timestamp'];
@@ -147,7 +149,7 @@ class ExportLevelSet
         $actions = [];
         if ($create_github_issue) {
             try {
-                $actions[] = '📝 Created GitHub issue '.self::createGitHubIssue(name: $name, message_url: $message_url);
+                $actions[] = '📝 Created GitHub issue '.self::createGitHubIssue(name: $name, author: $author, message_url: $message_url);
             } catch (\Exception $exception) {
                 Sentry::captureException($exception);
                 $actions[] = '⚠️ Cannot create GitHub issue due to unknown error';
@@ -173,7 +175,7 @@ class ExportLevelSet
         return InteractionResponse::ephemeralMessage(implode("\n", $actions));
     }
 
-    private static function createGitHubIssue(string $name, string $message_url): string
+    private static function createGitHubIssue(string $name, string $author, string $message_url): string
     {
         $repoName = self::getGitHubRepoName();
         if (! $repoName) {
@@ -184,8 +186,8 @@ class ExportLevelSet
         $client->authenticate(self::getGitHubInstallationToken(), '', AuthMethod::JWT);
 
         $issue = $client->issues()->create($repoName[0], $repoName[1], [
-            'title' => 'New level set: '.$name,
-            'body' => 'Go to Discord message: '.$message_url,
+            'title' => 'New level set: '.$name.' (by '.$author.')',
+            'body' => 'Go to Discord message: '.$message_url."\n\n".'Uploaded by '.$author,
         ]);
 
         return $issue['html_url'];
