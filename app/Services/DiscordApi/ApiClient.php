@@ -7,6 +7,7 @@ namespace App\Services\DiscordApi;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response as HttpClientResponse;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class ApiClient
@@ -16,19 +17,20 @@ class ApiClient
     private static string $accessToken = '';
 
     /**
-     * @throws RequestException
-     * @throws ConnectionException
+     * @see https://discord.com/developers/docs/topics/oauth2#client-credentials-grant
      */
     private static function getClientCredentials(): array
     {
-        return Http::withBasicAuth(config('services.discord.client_id'), config('services.discord.client_secret'))
-            ->asForm()
-            ->post(self::API_URL.'oauth2/token', [
-                'grant_type' => 'client_credentials',
-                'scope' => 'applications.commands.update',
-            ])
-            ->throw()
-            ->json();
+        return Cache::remember('discord_api_client_credentials', 60 * 60, static function () {
+            return Http::withBasicAuth(config('services.discord.client_id'), config('services.discord.client_secret'))
+                ->asForm()
+                ->post(self::API_URL.'oauth2/token', [
+                    'grant_type' => 'client_credentials',
+                    'scope' => 'applications.commands.update',
+                ])
+                ->throw()
+                ->json();
+        });
     }
 
     private static function getAccessToken(): string
