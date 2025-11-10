@@ -67,7 +67,7 @@ phpunit:
     extends: .php_image
     stage: test_php
     services:
-        - mariadb:11.4.8
+        - mariadb:12.0.2
     variables:
         # from .env.testing, needs to be here to initialize MariaDB container
         MYSQL_DATABASE: ricochetlevels_test
