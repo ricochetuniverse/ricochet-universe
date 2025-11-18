@@ -26,7 +26,7 @@
         "guzzlehttp/guzzle": "^7.10",
         "knplabs/github-api": "^3.16",
         "laracasts/flash": "^3.2",
-        "laravel/framework": "^12.33",
+        "laravel/framework": "^12.39",
         "laravel/tinker": "^2.10",
         "lcobucci/jwt": "^5.6",
         "league/flysystem-memory": "^3.29",
