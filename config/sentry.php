@@ -1,5 +1,21 @@
 <?php
 
+if (! function_exists('getSentryReleaseVersion')) {
+    function getSentryReleaseVersion(): string
+    {
+        if (file_exists($file = base_path('REVISION'))) {
+            // Deployer
+            return substr(file_get_contents($file), 0, 7);
+        }
+
+        if (file_exists($git = base_path('.git'))) {
+            return trim(exec('git --git-dir '.$git.' log --pretty="%h" -n1 HEAD 2>/dev/null'));
+        }
+
+        return '';
+    }
+}
+
 /**
  * Sentry Laravel SDK configuration file.
  *
@@ -130,17 +146,3 @@ return [
     ],
 
 ];
-
-function getSentryReleaseVersion(): string
-{
-    if (file_exists($file = base_path('REVISION'))) {
-        // Deployer
-        return substr(file_get_contents($file), 0, 7);
-    }
-
-    if (file_exists($git = base_path('.git'))) {
-        return trim(exec('git --git-dir '.$git.' log --pretty="%h" -n1 HEAD 2>/dev/null'));
-    }
-
-    return '';
-}
