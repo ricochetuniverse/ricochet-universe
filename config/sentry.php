@@ -139,7 +139,7 @@ function getSentryReleaseVersion(): string
     }
 
     if (file_exists($git = base_path('.git'))) {
-        return trim(exec('git --git-dir '.$git.' log --pretty="%h" -n1 HEAD'));
+        return trim(exec('git --git-dir '.$git.' log --pretty="%h" -n1 HEAD 2>/dev/null'));
     }
 
     return '';
