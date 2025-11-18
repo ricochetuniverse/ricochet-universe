@@ -18,7 +18,7 @@ return [
 
     // The release version of your application
     // Example with dynamic git hash: trim(exec('git --git-dir ' . base_path('.git') . ' log --pretty="%h" -n1 HEAD'))
-    'release' => trim(exec('git --git-dir '.base_path('.git').' log --pretty="%h" -n1 HEAD')),
+    'release' => getSentryReleaseVersion(),
 
     // When left empty or `null` the Laravel environment will be used (usually discovered from `APP_ENV` in your `.env`)
     'environment' => env('SENTRY_ENVIRONMENT'),
@@ -130,3 +130,17 @@ return [
     ],
 
 ];
+
+function getSentryReleaseVersion(): string
+{
+    if (file_exists($file = base_path('REVISION'))) {
+        // Deployer
+        return substr(file_get_contents($file), 0, 7);
+    }
+
+    if (file_exists($git = base_path('.git'))) {
+        return trim(exec('git --git-dir '.$git.' log --pretty="%h" -n1 HEAD'));
+    }
+
+    return '';
+}
