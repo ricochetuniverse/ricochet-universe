@@ -13,9 +13,19 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">
-                    « Return to level set list
-                </a>
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">
+                            « Return to level set list
+                        </a>
+                    </div>
+
+                    @can('update', $levelSet)
+                        <a href="{{ action('LevelController@edit', ['levelSet' => $levelSet]) }}" class="btn btn-outline-secondary">
+                            Edit
+                        </a>
+                    @endcan
+                </div>
 
                 @if ($levelSet->prerelease)
                     <div class="alert alert-warning mt-3" role="alert">
@@ -33,7 +43,9 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <strong class="{{ !$levelSet->prerelease ? 'text-secondary' : 'levelsName--prerelease' }}">
-                            {{ $levelSet->name }}@if ($levelSet->prerelease) (PRERELEASE)@endif
+                            {{ $levelSet->name }}@if ($levelSet->prerelease)
+                                (PRERELEASE)
+                            @endif
                         </strong>
 
                         <div>

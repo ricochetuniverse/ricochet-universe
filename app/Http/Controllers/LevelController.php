@@ -6,8 +6,11 @@ use App\Helpers\Str;
 use App\Jobs\DownloadLevelSet;
 use App\Jobs\ParseLevelSet;
 use App\LevelSet;
+use App\Rules\ValidTimestamp;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -140,6 +143,47 @@ class LevelController extends Controller
             'authorIsSameForAllRounds' => $authorIsSameForAllRounds,
             'brokenLevelSetWarning' => $brokenLevelSetWarning,
         ]);
+    }
+
+    public function edit(LevelSet $levelSet)
+    {
+        $checksum = '(unknown)';
+
+        $fileName = $levelSet->downloaded_file_name;
+        $disk = Storage::disk('levels');
+        if ($disk->exists($fileName)) {
+            $checksum = hash_file('sha256', $disk->path($fileName));
+        }
+
+        return view('levels.edit', [
+            'levelSet' => $levelSet,
+            'checksum' => $checksum,
+        ]);
+    }
+
+    public function update(Request $request, LevelSet $levelSet)
+    {
+        $this->validate($request, [
+            'created_at' => ['required', 'integer', new ValidTimestamp],
+            'download_url' => [
+                'required',
+                'string',
+                Rule::unique(LevelSet::class, 'alternate_download_url')
+                    ->ignore($levelSet->id),
+            ],
+        ], [
+            'download_url.unique' => 'The level set URL is already submitted.',
+        ], [
+            'download_url' => 'level set URL',
+        ]);
+
+        $levelSet->created_at = $request->input('created_at');
+        $levelSet->alternate_download_url = $request->input('download_url');
+        $levelSet->save();
+
+        flash('Level set edited.')->success();
+
+        return redirect($levelSet->getPermalink());
     }
 
     public function redirectMain(Request $request)

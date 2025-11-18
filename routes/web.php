@@ -17,6 +17,9 @@ Route::group(['middleware' => $cache], function () {
     Route::get('/levels/levelsetinfo.php', 'LevelController@show');
 });
 
+Route::get('/levels/{levelSet}/edit', 'LevelController@edit')->can('update', 'levelSet');
+Route::patch('/levels/{levelSet}', 'LevelController@update')->can('update', 'levelSet');
+
 Route::get('/upload', 'UploadController@index')->middleware($cache);
 Route::permanentRedirect('/levels/submitform.php', '/upload');
 Route::post('/upload', 'UploadController@store')->can('create', LevelSet::class);
