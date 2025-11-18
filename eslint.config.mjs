@@ -17,7 +17,7 @@ export default defineConfig(
     jest.configs['flat/recommended'],
     jest.configs['flat/style'],
     jsxA11y.flatConfigs.recommended,
-    eslintReact.configs['recommended-typescript'],
+    eslintReact.configs['strict-type-checked'],
     reactHooks.configs.flat.recommended,
     regexp.configs['flat/recommended'],
     {
@@ -28,7 +28,7 @@ export default defineConfig(
             // ref as prop (https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
             // is not supported on Preact yet
             '@eslint-react/no-forward-ref': 'off',
-            '@eslint-react/no-leaked-conditional-rendering': 'error',
+            '@eslint-react/prefer-destructuring-assignment': 'off',
             '@eslint-react/prefer-read-only-props': 'error',
 
             '@typescript-eslint/no-empty-object-type': [

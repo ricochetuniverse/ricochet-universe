@@ -71,6 +71,7 @@ function generateBlobUrl(raw: string): string {
     return window.URL.createObjectURL(blob);
 }
 
+// eslint-disable-next-line @eslint-react/no-class-component
 export default class ImageToCanvasApp extends Component<{}, State> {
     canvas: HTMLCanvasElement = document.createElement('canvas');
 
