@@ -43,7 +43,7 @@ class LevelSetImageController extends Controller
         $url = Uri::of($disk->url($fileName))
             ->withQuery(['time', $disk->lastModified($fileName)]);
 
-        return $this->setCacheHeaders(RedirectForGame::to($request->isSecure(), $url));
+        return $this->setCacheHeaders(RedirectForGame::to($url, $request));
     }
 
     /**
@@ -69,7 +69,7 @@ class LevelSetImageController extends Controller
         $url = Uri::of($disk->url($fileUrl))
             ->withQuery(['time' => $disk->lastModified($fileName)]);
 
-        return $this->setCacheHeaders(RedirectForGame::to($request->isSecure(), $url));
+        return $this->setCacheHeaders(RedirectForGame::to($url, $request));
     }
 
     /**

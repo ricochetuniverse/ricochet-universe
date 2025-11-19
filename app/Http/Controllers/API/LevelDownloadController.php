@@ -47,7 +47,7 @@ class LevelDownloadController extends Controller
         $url = Uri::of($disk->url($fileUrl))
             ->withQuery(['time' => $disk->lastModified($fileName)]);
 
-        return RedirectForGame::to($request->isSecure(), $url);
+        return RedirectForGame::to($url, $request);
     }
 
     private function tryUtf8(string $file): ?LevelSet
