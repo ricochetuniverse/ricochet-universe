@@ -1,6 +1,7 @@
 <?php
 
-use App\Console\Commands\PurgeOldLevelSetDownloadLogs;
 use Illuminate\Support\Facades\Schedule;
 
-Schedule::command(PurgeOldLevelSetDownloadLogs::class)->daily();
+Schedule::command('model:prune', [
+    'path' => app_path(),
+])->daily();
