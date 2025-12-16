@@ -61,9 +61,12 @@ export default {
                     api: 'modern-compiler',
                     sassOptions: {
                         silenceDeprecations: [
+                            // https://github.com/twbs/bootstrap/issues/40962
                             'color-functions',
                             'global-builtin',
                             'import',
+                            // https://github.com/twbs/bootstrap/issues/41915
+                            'if-function',
                         ],
                     },
                 },

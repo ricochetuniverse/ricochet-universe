@@ -76,7 +76,7 @@
     "msw": "2.12.4",
     "prettier": "3.7.4",
     "rspack-manifest-plugin": "5.2.0",
-    "sass-embedded": "1.93.3",
+    "sass-embedded": "1.96.0",
     "sass-loader": "16.0.6",
     "typescript": "5.9.3",
     "typescript-eslint": "8.50.0"
