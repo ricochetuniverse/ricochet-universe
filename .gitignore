@@ -13,7 +13,7 @@
 .phpunit.result.cache
 npm-debug.log
 
-/public/mix-manifest.json
+/resources/mix-manifest.json
 /public/build
 
 deployer/hosts.yml

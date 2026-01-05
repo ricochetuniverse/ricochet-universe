@@ -59,7 +59,7 @@ webpack:
     artifacts:
         paths:
             - public/build/
-            - public/mix-manifest.json
+            - resources/mix-manifest.json
     script:
         - npm run production
 

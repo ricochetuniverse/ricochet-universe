@@ -1,8 +1,8 @@
 vendor/
 
 public/build/
-public/mix-manifest.json
 public/storage/
+resources/mix-manifest.json
 storage/
 
 composer.json

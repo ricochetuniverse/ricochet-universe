@@ -16,8 +16,6 @@
 		Permissions-Policy "accelerometer=(),bluetooth=(),camera=(),display-capture=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),publickey-credentials-create=(),publickey-credentials-get=(),serial=(),usb=(),xr-spatial-tracking=()"
 	}
 
-	respond /mix-manifest.json 404
-
 	@not_php {
 		not path /build/* /images/* /storage/*
 	}

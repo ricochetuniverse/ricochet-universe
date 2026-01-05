@@ -4,7 +4,11 @@ import process from 'node:process';
 import {fileURLToPath} from 'node:url';
 
 import {defineConfig} from '@rspack/cli';
-import {rspack, type SwcLoaderOptions} from '@rspack/core';
+import {
+    rspack,
+    SubresourceIntegrityPlugin,
+    type SwcLoaderOptions,
+} from '@rspack/core';
 import browserslist from 'browserslist';
 import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
@@ -36,6 +40,7 @@ export default defineConfig({
         path: join(__dirname, 'public/build/'),
         filename: '[name].[contenthash].js',
         publicPath: '/build/',
+        crossOriginLoading: 'anonymous',
     },
     module: {
         rules: [
@@ -108,9 +113,23 @@ export default defineConfig({
     plugins: [
         new CleanWebpackPlugin(),
 
+        new SubresourceIntegrityPlugin({
+            enabled: true,
+        }),
+
         new RspackManifestPlugin({
             basePath: '/',
-            fileName: resolve(__dirname, 'public/mix-manifest.json'),
+            fileName: resolve(__dirname, 'resources/mix-manifest.json'),
+            generate(seed, files) {
+                const manifest = Object.assign({}, seed);
+                files.forEach((file) => {
+                    manifest[file.name] = {
+                        path: file.path,
+                        integrity: file.integrity,
+                    };
+                });
+                return manifest;
+            },
         }),
 
         new MonacoWebpackPlugin({
@@ -157,6 +176,7 @@ export default defineConfig({
                 },
             }),
         ],
+        realContentHash: true,
     },
     devtool: false,
     ignoreWarnings: [
