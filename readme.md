@@ -14,7 +14,7 @@ For bare-metal installs:
 
 - [Caddy](https://caddyserver.com)
     - Use Caddy instead of PHP's development server to match production usage as there can be [subtle bugs/differences](https://gitlab.com/ngyikp/ricochet-levels/-/issues/3)
-- [PHP 8.4](https://www.php.net)
+- [PHP 8.5](https://www.php.net)
 - [Composer](https://getcomposer.org)
 - [MariaDB 11.4](https://mariadb.org)
 - [Node.js v22](https://nodejs.org)
