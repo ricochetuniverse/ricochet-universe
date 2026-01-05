@@ -3,7 +3,8 @@ import {dirname, join, resolve} from 'node:path';
 import process from 'node:process';
 import {fileURLToPath} from 'node:url';
 
-import {rspack} from '@rspack/core';
+import {defineConfig} from '@rspack/cli';
+import {rspack, type SwcLoaderOptions} from '@rspack/core';
 import browserslist from 'browserslist';
 import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
@@ -18,8 +19,7 @@ const unpackerVersion = JSON.parse(readFileSync('package.json', 'utf-8'))[
 ]['@ricochetuniverse/nuvelocity-unpacker'];
 
 function getSwcLoaderOptions() {
-    /** @type {import('@rspack/core').SwcLoaderOptions} */
-    const options = JSON.parse(
+    const options: SwcLoaderOptions = JSON.parse(
         readFileSync(resolve(__dirname, '.swcrc'), 'utf-8')
     );
 
@@ -28,8 +28,7 @@ function getSwcLoaderOptions() {
     return options;
 }
 
-/** @type {import('@rspack/cli').Configuration} */
-export default {
+export default defineConfig({
     entry: {
         app: './resources/js/app.ts',
     },
@@ -164,4 +163,4 @@ export default {
         // caused by monaco-editor
         /Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
     ],
-};
+});
