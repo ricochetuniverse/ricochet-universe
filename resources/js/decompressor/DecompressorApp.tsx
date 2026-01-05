@@ -12,7 +12,6 @@ import type {
 } from './DecompressorTypes';
 import type {InflateResult} from './inflate-file';
 import {inflateFile} from './inflate-file';
-import LoadableDecompressorTextEditor from './LoadableDecompressorTextEditor';
 import DecompressorResultsJs from './results/DecompressorResultsJs';
 import DecompressorResultsNuVelocity from './results/DecompressorResultsNuVelocity';
 
@@ -81,9 +80,6 @@ export default function DecompressorApp(props: Props) {
         const checked = checkbox.checked;
 
         setEnableBrowserTextEditor(checked);
-        if (checked) {
-            LoadableDecompressorTextEditor.preload();
-        }
     }, []);
 
     const onFileChange = useCallback(

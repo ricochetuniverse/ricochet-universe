@@ -35,9 +35,8 @@
     "monaco-editor": "0.55.1",
     "nullthrows": "1.1.1",
     "pako": "2.1.0",
-    "preact": "10.27.2",
+    "preact": "10.28.1",
     "react-bootstrap": "2.10.10",
-    "react-loadable": "5.5.0",
     "react-monaco-editor": "0.59.0",
     "uppie": "4.1.0",
     "zod": "4.3.5"

@@ -1,24 +1,39 @@
 import {render} from 'preact';
+import {lazy} from 'preact/compat';
+import {useState} from 'preact/hooks';
 import Card from 'react-bootstrap/Card';
-import Loadable from 'react-loadable';
 
-import LoadingComponent from '../LoadingComponent';
+import SuspenseComponent from '../SuspenseComponent';
 
-const LoadableRedModCreatorApp = Loadable({
-    loader: () => import('./RedModPackagerApp'),
-    loading(props) {
-        return (
-            <Card className="mb-3">
-                <Card.Header>RED mod packager</Card.Header>
+let RedModCreatorApp = reload();
 
-                <Card.Body>
-                    <LoadingComponent {...props} />
-                </Card.Body>
-            </Card>
-        );
-    },
-    timeout: 5000,
-});
+function reload() {
+    return lazy(() => import('./RedModPackagerApp'));
+}
+
+function LoadableRedModCreatorApp() {
+    const [retryTime, setRetryTime] = useState(0);
+
+    return (
+        <SuspenseComponent
+            fallback={(status) => {
+                return (
+                    <Card className="mb-3">
+                        <Card.Header>RED mod packager</Card.Header>
+
+                        <Card.Body>{status}</Card.Body>
+                    </Card>
+                );
+            }}
+            retry={() => {
+                setRetryTime(Date.now());
+                RedModCreatorApp = reload();
+            }}
+        >
+            <RedModCreatorApp key={retryTime} />
+        </SuspenseComponent>
+    );
+}
 
 const root = document.getElementById('red-mod-packager-root');
 

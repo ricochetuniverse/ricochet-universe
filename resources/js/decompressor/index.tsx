@@ -1,24 +1,41 @@
-import {render} from 'preact';
+import {type ComponentProps, render} from 'preact';
+import {lazy} from 'preact/compat';
+import {useState} from 'preact/hooks';
 import Card from 'react-bootstrap/Card';
-import Loadable from 'react-loadable';
 
-import LoadingComponent from '../LoadingComponent';
+import SuspenseComponent from '../SuspenseComponent';
 
-const LoadableDecompressorApp = Loadable({
-    loader: () => import('./DecompressorApp'),
-    loading(props) {
-        return (
-            <Card className="mb-3">
-                <Card.Header>Decompressor</Card.Header>
+let DecompressorApp = reload();
 
-                <Card.Body>
-                    <LoadingComponent {...props} />
-                </Card.Body>
-            </Card>
-        );
-    },
-    timeout: 5000,
-});
+function reload() {
+    return lazy(() => import('./DecompressorApp'));
+}
+
+function LoadableDecompressorApp(
+    props: ComponentProps<typeof DecompressorApp>
+) {
+    const [retryTime, setRetryTime] = useState(0);
+
+    return (
+        <SuspenseComponent
+            fallback={(status) => {
+                return (
+                    <Card className="mb-3">
+                        <Card.Header>Decompressor</Card.Header>
+
+                        <Card.Body>{status}</Card.Body>
+                    </Card>
+                );
+            }}
+            retry={() => {
+                setRetryTime(Date.now());
+                DecompressorApp = reload();
+            }}
+        >
+            <DecompressorApp key={retryTime} {...props} />
+        </SuspenseComponent>
+    );
+}
 
 const root = document.getElementById('decompressor-root');
 
