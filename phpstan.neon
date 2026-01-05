@@ -14,6 +14,9 @@ parameters:
         # vendor code
         - '#Relation ''tagged'' is not found in App\\LevelSet model\.#'
 
+        # temporary fix https://github.com/larastan/larastan/issues/2411
+        - '#Call to an undefined method Illuminate\\Http\\Client\\Response::#'
+
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php
 
