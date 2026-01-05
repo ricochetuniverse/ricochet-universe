@@ -26,28 +26,28 @@
         "guzzlehttp/guzzle": "^7.10",
         "knplabs/github-api": "^3.16",
         "laracasts/flash": "^3.2",
-        "laravel/framework": "^12.39",
+        "laravel/framework": "^12.44",
         "laravel/tinker": "^2.10",
         "lcobucci/jwt": "^5.6",
         "league/flysystem-memory": "^3.29",
-        "predis/predis": "^3.0",
+        "predis/predis": "^3.3",
         "rtconner/laravel-tagging": "^4.1",
-        "sentry/sentry-laravel": "^4.16",
+        "sentry/sentry-laravel": "^4.20",
         "socialiteproviders/discord": "^4.2",
         "spatie/laravel-csp": "^3.21",
-        "symfony/filesystem": "^7.3"
+        "symfony/filesystem": "^7.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",
         "barryvdh/laravel-ide-helper": "^3.6",
         "deployer/deployer": "^7.5",
         "fakerphp/faker": "^1.24",
-        "larastan/larastan": "^3.7",
+        "larastan/larastan": "^3.8",
         "laravel/pail": "^1.2",
-        "laravel/pint": "^1.25",
+        "laravel/pint": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.8",
-        "phpunit/phpunit": "^12.4"
+        "phpunit/phpunit": "^12.5"
     },
     "config": {
         "optimize-autoloader": true,
