@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from 'preact/hooks';
+import {useEffect, useRef, useState} from 'preact/hooks';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -31,65 +31,6 @@ export default function RedModPackagerApp() {
 
     useObjectURL(downloadButtonUrl);
 
-    const onFileChange = useCallback(async function (fileInputEvent: Event) {
-        reset();
-
-        try {
-            const fileInput = fileInputEvent.target;
-            if (!(fileInput instanceof HTMLInputElement)) {
-                throw new Error('Expected HTMLInputElement');
-            }
-
-            const files = fileInput.files;
-            if (!files || files.length === 0) {
-                return;
-            }
-
-            // Get the first file's directory prefix, and use it for all
-            const directoryPrefix = getAssumedDirectoryPrefix(files[0]);
-
-            // Sanity checking...
-            for (let i = 0, len = files.length; i < len; i += 1) {
-                const file = files[i];
-                const path = file.webkitRelativePath;
-
-                if (
-                    path.substring(0, directoryPrefix.length) !==
-                    directoryPrefix
-                ) {
-                    throw new Error(
-                        'Unexpected directory prefix, should be ' +
-                            directoryPrefix
-                    );
-                }
-            }
-
-            setFolderName(
-                directoryPrefix.substring(0, directoryPrefix.length - 1)
-            );
-
-            const result = await generateZip(
-                Array.from(files),
-                directoryPrefix
-            );
-
-            setPackageTime(new Date());
-            setDownloadButtonUrl(window.URL.createObjectURL(result.zip));
-            setFiles(result.files);
-        } catch (ex) {
-            console.error(ex);
-
-            if (ex instanceof Error) {
-                setError(ex.message);
-            } else {
-                setError(
-                    ex?.toString() ??
-                        'There was a problem packaging these files.'
-                );
-            }
-        }
-    }, []);
-
     function reset() {
         setFolderName(null);
         setError(null);
@@ -111,9 +52,68 @@ export default function RedModPackagerApp() {
     useEffect(() => {
         const ref = fileInputRef.current;
         if (ref) {
-            uppie(ref, {}, onFileChange);
+            uppie(ref, {}, async function (fileInputEvent: Event) {
+                reset();
+
+                try {
+                    const fileInput = fileInputEvent.target;
+                    if (!(fileInput instanceof HTMLInputElement)) {
+                        throw new Error('Expected HTMLInputElement');
+                    }
+
+                    const files = fileInput.files;
+                    if (!files || files.length === 0) {
+                        return;
+                    }
+
+                    // Get the first file's directory prefix, and use it for all
+                    const directoryPrefix = getAssumedDirectoryPrefix(files[0]);
+
+                    // Sanity checking...
+                    for (let i = 0, len = files.length; i < len; i += 1) {
+                        const file = files[i];
+                        const path = file.webkitRelativePath;
+
+                        if (
+                            path.substring(0, directoryPrefix.length) !==
+                            directoryPrefix
+                        ) {
+                            throw new Error(
+                                'Unexpected directory prefix, should be ' +
+                                    directoryPrefix
+                            );
+                        }
+                    }
+
+                    setFolderName(
+                        directoryPrefix.substring(0, directoryPrefix.length - 1)
+                    );
+
+                    const result = await generateZip(
+                        Array.from(files),
+                        directoryPrefix
+                    );
+
+                    setPackageTime(new Date());
+                    setDownloadButtonUrl(
+                        window.URL.createObjectURL(result.zip)
+                    );
+                    setFiles(result.files);
+                } catch (ex) {
+                    console.error(ex);
+
+                    if (ex instanceof Error) {
+                        setError(ex.message);
+                    } else {
+                        setError(
+                            ex?.toString() ??
+                                'There was a problem packaging these files.'
+                        );
+                    }
+                }
+            });
         }
-    }, [onFileChange]);
+    }, []);
 
     return (
         <div className="mb-n3">
