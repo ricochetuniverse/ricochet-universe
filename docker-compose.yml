@@ -4,26 +4,26 @@ services:
     volumes:
       - .:/var/ricochetuniverse
 
+  # https://laravel.com/docs/12.x/queues#running-the-queue-worker
   queue:
     extends:
       service: php
-    # https://laravel.com/docs/11.x/queues#running-the-queue-worker
     command: php artisan queue:listen redis
     depends_on:
       - mariadb
       - redis
 
+  # https://laravel.com/docs/12.x/scheduling#running-the-scheduler-locally
   schedule:
     extends:
       service: php
-    # https://laravel.com/docs/11.x/scheduling#running-the-scheduler-locally
     command: php artisan schedule:work
     depends_on:
       - mariadb
       - redis
 
   mariadb:
-    image: mariadb:12.0.2
+    image: mariadb:12.1.2
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -63,7 +63,8 @@ services:
     working_dir: /var/ricochetuniverse
 
   redis:
-    image: valkey/valkey:8.1.4-alpine
+    # match with https://packages.debian.org/trixie/valkey-server
+    image: valkey/valkey:8.1.1-alpine
     # uncomment for debugging
     # ports:
     #   - '127.0.0.1:6379:6379'

@@ -16,11 +16,11 @@ For bare-metal installs:
     - Use Caddy instead of PHP's development server to match production usage as there can be [subtle bugs/differences](https://gitlab.com/ngyikp/ricochet-levels/-/issues/3)
 - [PHP 8.5](https://www.php.net)
 - [Composer](https://getcomposer.org)
-- [MariaDB 11.4](https://mariadb.org)
+- [MariaDB 12.1](https://mariadb.org)
 - [Node.js v22](https://nodejs.org)
 - [Valkey](https://valkey.io)
-- A [queue worker](https://laravel.com/docs/11.x/queues#supervisor-configuration)
-- A [task scheduler](https://laravel.com/docs/11.x/scheduling#running-the-scheduler)
+- A [queue worker](https://laravel.com/docs/12.x/queues#supervisor-configuration)
+- A [task scheduler](https://laravel.com/docs/12.x/scheduling#running-the-scheduler)
 
 ## Installation for development
 
