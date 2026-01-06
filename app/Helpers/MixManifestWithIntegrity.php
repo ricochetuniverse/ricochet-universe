@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
+use Illuminate\Container\Attributes\Singleton;
 use Illuminate\Foundation\MixFileNotFoundException;
 use Illuminate\Foundation\MixManifestNotFoundException;
 use Illuminate\Support\Facades\App;
@@ -15,7 +16,8 @@ use Illuminate\Support\HtmlString;
  * @phpstan-type Entry array{path: string, integrity?: string}
  * @phpstan-type MixManifest array<string, Entry>
  */
-abstract class MixManifestWithIntegrity
+#[Singleton]
+class MixManifestWithIntegrity
 {
     /**
      * @var MixManifest

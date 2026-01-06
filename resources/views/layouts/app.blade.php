@@ -9,7 +9,7 @@
     <meta name="color-scheme" content="dark light">
     @hasSection('robots')<meta name="robots" content="@yield('robots')">@endif
 
-    <link href="{{ \App\Helpers\MixManifestWithIntegrity::getPath('app.css') }}" rel="stylesheet" integrity="{{ \App\Helpers\MixManifestWithIntegrity::getIntegrity('app.css') }}" crossorigin="anonymous">
+    <link href="{{ app(\App\Helpers\MixManifestWithIntegrity::class)::getPath('app.css') }}" rel="stylesheet" integrity="{{ app(\App\Helpers\MixManifestWithIntegrity::class)::getIntegrity('app.css') }}" crossorigin="anonymous">
 
     @hasSection('og:url')<meta name="canonical" content="@yield('og:url')">@endif
 
@@ -171,6 +171,6 @@
         </main>
     </div>
 
-    <script src="{{ \App\Helpers\MixManifestWithIntegrity::getPath('app.js') }}" async integrity="{{ \App\Helpers\MixManifestWithIntegrity::getIntegrity('app.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ app(\App\Helpers\MixManifestWithIntegrity::class)::getPath('app.js') }}" async integrity="{{ app(\App\Helpers\MixManifestWithIntegrity::class)::getIntegrity('app.js') }}" crossorigin="anonymous"></script>
 </body>
 </html>
