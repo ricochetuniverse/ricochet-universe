@@ -42,7 +42,7 @@
         "deployer/deployer": "^7.5",
         "fakerphp/faker": "^1.24",
         "fruitcake/laravel-debugbar": "^4.1",
-        "larastan/larastan": "^3.8",
+        "larastan/larastan": "^3.9",
         "laravel/pail": "^1.2",
         "laravel/pint": "^1.29",
         "mockery/mockery": "^1.6",

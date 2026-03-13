@@ -10,8 +10,8 @@ class DiscordLoginController extends Controller
 {
     public function redirectToProvider()
     {
-        // @phpstan-ignore-next-line
         return Socialite::driver('discord')
+            // @phpstan-ignore-next-line
             ->setScopes(['identify'])
             ->redirect();
     }
