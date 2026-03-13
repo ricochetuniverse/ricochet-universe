@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\CspPresets;
 
 use Fruitcake\LaravelDebugbar\Facades\Debugbar;
+use Fruitcake\LaravelDebugbar\LaravelDebugbar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -42,7 +43,7 @@ class Standard implements Preset
             $this->addForGoogleAnalytics($policy);
         }
 
-        if (Debugbar::isEnabled()) {
+        if (class_exists(LaravelDebugbar::class) && Debugbar::isEnabled()) {
             $this->addForDebugbar($policy);
         }
     }
