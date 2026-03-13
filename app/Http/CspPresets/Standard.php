@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\CspPresets;
 
-use Illuminate\Support\Facades\App;
+use Fruitcake\LaravelDebugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Policy;
@@ -41,7 +42,7 @@ class Standard implements Preset
             $this->addForGoogleAnalytics($policy);
         }
 
-        if (config('debugbar.enabled') || App::hasDebugModeEnabled()) {
+        if (Debugbar::isEnabled()) {
             $this->addForDebugbar($policy);
         }
     }
@@ -65,13 +66,13 @@ class Standard implements Preset
      */
     private function addForDebugbar(Policy $policy): void
     {
+        static $nonce = Str::random(32);
+        Debugbar::getJavascriptRenderer()->setCspNonce($nonce);
+
         $policy
-            ->add(Directive::SCRIPT, URL::to('/_debugbar/').'/')
-            ->add(Directive::SCRIPT, Keyword::UNSAFE_INLINE)
-            ->add(Directive::STYLE, URL::to('/_debugbar/').'/')
-            ->add(Directive::STYLE, Keyword::UNSAFE_INLINE)
+            ->add(Directive::SCRIPT, '\'nonce-'.$nonce.'\'')
+            ->add(Directive::STYLE, '\'nonce-'.$nonce.'\'')
             ->add(Directive::CONNECT, URL::to('/_debugbar/').'/')
-            ->add(Directive::FONT, 'data:')
             ->add(Directive::IMG, 'data:');
     }
 
