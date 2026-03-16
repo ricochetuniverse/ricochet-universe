@@ -11,6 +11,9 @@ use App\LevelSet;
  */
 final class LevelSetRatingsCalculator
 {
+    // Database table only has precision up to 4 anyway
+    private const int FLOAT_PRECISION = 4;
+
     /**
      * @return array{overall: array{grade: float, count: int}, fun: array{grade: float, count: int}, graphics: array{grade: float, count: int}}
      */
@@ -21,15 +24,21 @@ final class LevelSetRatingsCalculator
 
         return [
             'overall' => [
-                'grade' => ($merged['overall']['count'] > 0) ? $merged['overall']['cumulative'] / $merged['overall']['count'] : 0,
+                'grade' => ($merged['overall']['count'] > 0)
+                    ? round($merged['overall']['cumulative'] / $merged['overall']['count'], self::FLOAT_PRECISION)
+                    : 0,
                 'count' => $merged['overall']['count'],
             ],
             'fun' => [
-                'grade' => ($merged['fun']['count'] > 0) ? $merged['fun']['cumulative'] / $merged['fun']['count'] : 0,
+                'grade' => ($merged['fun']['count'] > 0)
+                    ? round($merged['fun']['cumulative'] / $merged['fun']['count'], self::FLOAT_PRECISION)
+                    : 0,
                 'count' => $merged['fun']['count'],
             ],
             'graphics' => [
-                'grade' => ($merged['graphics']['count'] > 0) ? $merged['graphics']['cumulative'] / $merged['graphics']['count'] : 0,
+                'grade' => ($merged['graphics']['count'] > 0)
+                    ? round($merged['graphics']['cumulative'] / $merged['graphics']['count'], self::FLOAT_PRECISION)
+                    : 0,
                 'count' => $merged['graphics']['count'],
             ],
         ];
