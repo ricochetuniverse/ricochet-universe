@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Services\LevelSetRatingsCalculator;
 use Conner\Tagging\Taggable;
 use DomainException;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -112,6 +113,8 @@ class LevelSet extends Model
         'legacy_id',
     ];
 
+    public const int MIN_RATING_COUNT = 5;
+
     public function getPermalink(): string
     {
         return action('LevelController@show', ['levelsetname' => $this->name]);
@@ -183,5 +186,36 @@ class LevelSet extends Model
         }
 
         throw new DomainException('Unknown game version');
+    }
+
+    public function recalculateRatings(): void
+    {
+        $result = LevelSetRatingsCalculator::calculate($this);
+
+        if ($result['overall']['count'] >= self::MIN_RATING_COUNT) {
+            $this->overall_rating = $result['overall']['grade'];
+            $this->overall_rating_count = $result['overall']['count'];
+        } else {
+            $this->overall_rating = 0;
+            $this->overall_rating_count = 0;
+        }
+
+        if ($result['fun']['count'] >= self::MIN_RATING_COUNT) {
+            $this->fun_rating = $result['fun']['grade'];
+            $this->fun_rating_count = $result['fun']['count'];
+        } else {
+            $this->fun_rating = 0;
+            $this->fun_rating_count = 0;
+        }
+
+        if ($result['graphics']['count'] >= self::MIN_RATING_COUNT) {
+            $this->graphics_rating = $result['graphics']['grade'];
+            $this->graphics_rating_count = $result['graphics']['count'];
+        } else {
+            $this->graphics_rating = 0;
+            $this->graphics_rating_count = 0;
+        }
+
+        $this->save();
     }
 }
