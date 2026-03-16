@@ -25,6 +25,9 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Sentry\Laravel\Facade as Sentry;
 
+/**
+ * @phpstan-import-type Attachment from InteractsWithAttachments
+ */
 class ExportLevelSet
 {
     use InteractsWithAttachments;
@@ -32,16 +35,31 @@ class ExportLevelSet
     public static function handleApplicationCommand(array $json): JsonResponse
     {
         $message = array_first($json['data']['resolved']['messages']);
-        $attachment = self::getAttachment($message);
+        $attachments = self::getAttachments($message);
 
         $modalId = ModalHandler::setUpTempData(ModalType::EXPORT_LEVEL_SET, [
             'author' => $message['author']['global_name'],
             'message_url' => self::getMessageUrl($json['channel'], $message),
-            'download_url' => $attachment['url'],
+            'attachments' => $attachments,
             'timestamp' => Carbon::parse($message['timestamp'])->unix(),
         ]);
 
-        $components = array_filter([
+        $components = array_values(array_filter([
+            count($attachments) > 1 ? [
+                'type' => ComponentType::LABEL,
+                'label' => 'File',
+                'component' => [
+                    'type' => ComponentType::STRING_SELECT,
+                    'custom_id' => 'attachment_id',
+                    'options' => array_map(static function ($attachment) {
+                        return [
+                            'label' => self::getNameFromAttachment($attachment),
+                            'value' => $attachment['id'],
+                        ];
+                    }, $attachments),
+                    'required' => true,
+                ],
+            ] : null,
             [
                 'type' => ComponentType::LABEL,
                 'label' => 'Name',
@@ -49,7 +67,7 @@ class ExportLevelSet
                     'type' => ComponentType::TEXT_INPUT,
                     'custom_id' => 'name',
                     'style' => TextInputStyle::SHORT,
-                    'value' => self::getNameFromAttachment($attachment),
+                    'value' => count($attachments) === 1 ? self::getNameFromAttachment($attachments[0]) : '',
                 ],
             ],
             /*[
@@ -58,7 +76,7 @@ class ExportLevelSet
             ],*/
             self::getGitHubRepoName() !== null ? [
                 'type' => ComponentType::LABEL,
-                'label' => 'Create GitHub issue?',
+                'label' => 'Create GitHub issue',
                 'component' => [
                     'type' => ComponentType::CHECKBOX,
                     'custom_id' => 'create_github_issue',
@@ -66,13 +84,13 @@ class ExportLevelSet
             ] : null,
             [
                 'type' => ComponentType::LABEL,
-                'label' => 'Publish to level catalog?',
+                'label' => 'Publish to level catalog',
                 'component' => [
                     'type' => ComponentType::CHECKBOX,
                     'custom_id' => 'publish_to_catalog',
                 ],
             ],
-        ]);
+        ]));
 
         return InteractionResponse::modal([
             'custom_id' => $modalId,
@@ -86,17 +104,32 @@ class ExportLevelSet
      */
     public static function handleModalSubmit(array $request, array $tempData): JsonResponse
     {
+        /** @var ?Attachment $attachment */
+        $attachment = null;
         $name = '';
         $create_github_issue = false;
         $publish_to_catalog = false;
 
         $author = (string) $tempData['author'];
         $message_url = (string) $tempData['message_url'];
-        $download_url = (string) $tempData['download_url'];
+        /** @var array<Attachment> $attachments */
+        $attachments = (array) $tempData['attachments'];
         $timestamp = (int) $tempData['timestamp'];
+
+        if (count($attachments) === 1) {
+            $attachment = $attachments[0];
+        }
 
         foreach ($request['data']['components'] as $component) {
             switch ($component['component']['custom_id']) {
+                case 'attachment_id':
+                    if (count($component['component']['values']) === 1) {
+                        $attachment = array_find($attachments, function ($attachment) use ($component) {
+                            return $component['component']['values'][0] === $attachment['id'];
+                        });
+                    }
+                    break;
+
                 case 'name':
                     $name = (string) $component['component']['value'];
                     break;
@@ -118,6 +151,10 @@ class ExportLevelSet
             }
         }
 
+        if ($attachment === null) {
+            throw new UserFacingInteractionException('No attachment is selected');
+        }
+
         $actions = [];
         if ($create_github_issue) {
             try {
@@ -130,7 +167,7 @@ class ExportLevelSet
 
         if ($publish_to_catalog) {
             try {
-                self::publishToCatalog(name: $name, download_url: $download_url, timestamp: $timestamp);
+                self::publishToCatalog(name: $name, download_url: $attachment['url'], timestamp: $timestamp);
                 $actions[] = '✅ Published to level catalog';
             } catch (ValidationException $exception) {
                 $actions[] = '⚠️ Cannot publish to level catalog: '.$exception->getMessage();
