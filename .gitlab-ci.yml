@@ -96,6 +96,6 @@ phpstan:
     extends: .php_image
     stage: test_php
     script:
-        - php ./vendor/bin/phpstan analyse --memory-limit=256M
+        - php ./vendor/bin/phpstan analyse --memory-limit=320M
     needs:
         - composer

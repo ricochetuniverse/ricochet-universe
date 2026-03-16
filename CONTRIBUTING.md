@@ -27,7 +27,7 @@ Catalog URL=http://ricochet.test:8001/gateway/catalog.php
 
 ## Static analysis
 
-- PHP: Use [PHPStan](https://phpstan.org). Run `docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=256M` to see errors.
+- PHP: Use [PHPStan](https://phpstan.org). Run `docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=320M` to see errors.
 
 ## Linting
 
@@ -50,7 +50,7 @@ The test suites are run on every push, it's best to run them on your system to a
 
 ```bash
 docker-compose run --rm php ./vendor/bin/phpunit
-docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=256M
+docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=320M
 docker-compose run --rm php ./vendor/bin/pint --test
 docker-compose run --rm node sh -c "npm run tsc -- -b && npm run lint && npm test && npm run prettier -- -c"
 ```
