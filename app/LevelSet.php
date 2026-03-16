@@ -42,6 +42,7 @@ use Illuminate\Support\Uri;
  * @property string $downloaded_file_name
  * @property int $round_to_get_image_from
  * @property bool $prerelease
+ * @property string $similar_levels
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetDownloadLog> $downloadLogs
  * @property-read int|null $download_logs_count
  * @property array $tag_names
@@ -57,35 +58,37 @@ use Illuminate\Support\Uri;
  * @property-read int|null $user_ratings_count
  *
  * @method static \Database\Factories\LevelSetFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereAlternateDownloadUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereAuthor($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereDownloadedFileName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereDownloads($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereFeatured($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereFunRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereFunRatingCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereGameVersion($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereGraphicsRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereGraphicsRatingCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereImageUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereLegacyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereOverallRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereOverallRatingCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet wherePrerelease($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereRoundToGetImageFrom($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereRounds($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet withAllTags($tagNames)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet withAnyTag($tagNames)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelSet withoutTags($tagNames)
+ * @method static Builder<static>|LevelSet newModelQuery()
+ * @method static Builder<static>|LevelSet newQuery()
+ * @method static Builder<static>|LevelSet published()
+ * @method static Builder<static>|LevelSet query()
+ * @method static Builder<static>|LevelSet whereAlternateDownloadUrl($value)
+ * @method static Builder<static>|LevelSet whereAuthor($value)
+ * @method static Builder<static>|LevelSet whereCreatedAt($value)
+ * @method static Builder<static>|LevelSet whereDescription($value)
+ * @method static Builder<static>|LevelSet whereDownloadedFileName($value)
+ * @method static Builder<static>|LevelSet whereDownloads($value)
+ * @method static Builder<static>|LevelSet whereFeatured($value)
+ * @method static Builder<static>|LevelSet whereFunRating($value)
+ * @method static Builder<static>|LevelSet whereFunRatingCount($value)
+ * @method static Builder<static>|LevelSet whereGameVersion($value)
+ * @method static Builder<static>|LevelSet whereGraphicsRating($value)
+ * @method static Builder<static>|LevelSet whereGraphicsRatingCount($value)
+ * @method static Builder<static>|LevelSet whereId($value)
+ * @method static Builder<static>|LevelSet whereImageUrl($value)
+ * @method static Builder<static>|LevelSet whereLegacyId($value)
+ * @method static Builder<static>|LevelSet whereName($value)
+ * @method static Builder<static>|LevelSet whereOverallRating($value)
+ * @method static Builder<static>|LevelSet whereOverallRatingCount($value)
+ * @method static Builder<static>|LevelSet wherePrerelease($value)
+ * @method static Builder<static>|LevelSet whereRating($value)
+ * @method static Builder<static>|LevelSet whereRoundToGetImageFrom($value)
+ * @method static Builder<static>|LevelSet whereRounds($value)
+ * @method static Builder<static>|LevelSet whereSimilarLevels($value)
+ * @method static Builder<static>|LevelSet whereUpdatedAt($value)
+ * @method static Builder<static>|LevelSet withAllTags($tagNames)
+ * @method static Builder<static>|LevelSet withAnyTag($tagNames)
+ * @method static Builder<static>|LevelSet withoutTags($tagNames)
  *
  * @mixin \Eloquent
  */
@@ -113,7 +116,9 @@ class LevelSet extends Model
         'legacy_id',
     ];
 
-    public const int MIN_RATING_COUNT = 5;
+    private const int MIN_RATING_COUNT = 5;
+
+    private const int MAX_SIMILAR_LEVELS_LIMIT = 10;
 
     public function getPermalink(): string
     {
@@ -217,5 +222,25 @@ class LevelSet extends Model
         }
 
         $this->save();
+    }
+
+    public function getSimilarLevels(): array
+    {
+        // I don't know the exact algorithm used by Reflexive
+        // So I'm just guessing + some common sense
+        $newLevelSets = self::select(['legacy_id'])
+            ->whereNot('id', $this->id)
+            ->where('author', $this->author)
+            ->where('created_at', '>=', $this->created_at)
+            ->published()
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->limit(self::MAX_SIMILAR_LEVELS_LIMIT)
+            ->get()
+            ->map(function (LevelSet $levelSet) {
+                return $levelSet->legacy_id;
+            });
+
+        return $newLevelSets->toArray();
     }
 }

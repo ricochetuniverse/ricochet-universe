@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->command('cache:prune-stale-tags')->hourly();
+        $schedule->command('ricochet-cron:calculate-similar-levels')->daily();
     }
 
     /**

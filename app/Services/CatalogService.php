@@ -111,7 +111,7 @@ EOF;
             $level->fun_rating_count,
             $level->graphics_rating,
             $level->graphics_rating_count,
-            implode(';', []), // todo similar_levels
+            $level->similar_levels,
         ];
 
         return implode(',', $data);
