@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/robots.txt', 'RobotsTxtController@index')->middleware('cache.headers:public;max_age=600');
+Route::get('/robots.txt', 'RobotsTxtController@index')->middleware('cache.headers:public;max_age=3600');
 Route::get('/sitemap.xml', 'SitemapController@index');
-Route::get('/rss.xml', 'RssController@index');
-Route::get('/opensearch.xml', 'OpensearchController@index');
+Route::get('/rss.xml', 'RssController@index')->middleware('cache.headers:public;max_age=300');
+Route::get('/opensearch.xml', 'OpensearchController@index')->middleware('cache.headers:public;max_age=3600');
 
 // The game sends a POST request, but I added GET for debugging convenience
 Route::get('/gateway/catalog.php', 'CatalogController@index');
