@@ -13,7 +13,7 @@ class SitemapController extends Controller
     public function index()
     {
         $xml = Cache::remember('sitemap_xml', now()->addMinutes($this->getCacheMinutes()), function () {
-            $levelSets = LevelSet::select('name', 'updated_at')
+            $levelSets = LevelSet::select('name', 'created_at')
                 ->published()
                 ->orderBy('id')
                 ->get();
