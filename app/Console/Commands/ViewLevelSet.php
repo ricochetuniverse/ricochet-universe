@@ -35,8 +35,7 @@ class ViewLevelSet extends Command
             throw new \Exception('Cannot read file');
         }
 
-        $decompressor = new LevelSetDecompressService;
-        $levelSetData = $decompressor->decompress($file);
+        $levelSetData = LevelSetDecompressService::decompress($file);
 
         if ($this->option('with-raw-data')) {
             echo $levelSetData;

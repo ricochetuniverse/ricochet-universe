@@ -134,8 +134,7 @@ class LevelSetUploadProcessor
 
     private function parseLevelSet(LevelSet $levelSet, $file): LevelSetParser\LevelSet
     {
-        $decompressor = new LevelSetDecompressService;
-        $levelSetData = $decompressor->decompress($file);
+        $levelSetData = LevelSetDecompressService::decompress($file);
 
         $parser = new Parser;
         $result = $parser->parse($levelSetData);

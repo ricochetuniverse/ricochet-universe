@@ -53,8 +53,7 @@ class ParseLevelSet implements ShouldQueue
 
         $file = $disk->path($this->levelSet->downloaded_file_name);
 
-        $decompressor = new LevelSetDecompressService;
-        $levelSetData = $decompressor->decompress($file);
+        $levelSetData = LevelSetDecompressService::decompress($file);
 
         $parser = new Parser;
         $result = $parser->parse($levelSetData);
