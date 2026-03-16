@@ -56,4 +56,16 @@ enum ComponentType: int
 
     /** Container associating a label and description with a component */
     case LABEL = 18;
+
+    /** Component for uploading files */
+    case FILE_UPLOAD = 19;
+
+    /** Single-choice set of options */
+    case RADIO_GROUP = 21;
+
+    /** Multi-selectable group of checkboxes */
+    case CHECKBOX_GROUP = 22;
+
+    /** Single checkbox for yes/no choice */
+    case CHECKBOX = 23;
 }

@@ -60,44 +60,16 @@ class ExportLevelSet
                 'type' => ComponentType::LABEL,
                 'label' => 'Create GitHub issue?',
                 'component' => [
-                    'type' => ComponentType::STRING_SELECT,
+                    'type' => ComponentType::CHECKBOX,
                     'custom_id' => 'create_github_issue',
-                    'options' => [
-                        [
-                            'label' => 'Yes',
-                            'value' => 'yes',
-                            'emoji' => ['name' => '✅'],
-                        ],
-                        [
-                            'label' => 'No',
-                            'value' => 'no',
-                            'emoji' => ['name' => '❌'],
-                            'default' => true,
-                        ],
-                    ],
-                    'required' => false,
                 ],
             ] : null,
             [
                 'type' => ComponentType::LABEL,
                 'label' => 'Publish to level catalog?',
                 'component' => [
-                    'type' => ComponentType::STRING_SELECT,
+                    'type' => ComponentType::CHECKBOX,
                     'custom_id' => 'publish_to_catalog',
-                    'options' => [
-                        [
-                            'label' => 'Yes',
-                            'value' => 'yes',
-                            'emoji' => ['name' => '✅'],
-                        ],
-                        [
-                            'label' => 'No',
-                            'value' => 'no',
-                            'emoji' => ['name' => '❌'],
-                            'default' => true,
-                        ],
-                    ],
-                    'required' => false,
                 ],
             ],
         ]);
@@ -130,13 +102,13 @@ class ExportLevelSet
                     break;
 
                 case 'create_github_issue':
-                    if ($component['component']['values'][0] === 'yes' && count($component['component']['values']) === 1) {
+                    if ($component['component']['value'] === true) {
                         $create_github_issue = true;
                     }
                     break;
 
                 case 'publish_to_catalog':
-                    if ($component['component']['values'][0] === 'yes' && count($component['component']['values']) === 1) {
+                    if ($component['component']['value'] === true) {
                         $publish_to_catalog = true;
                     }
                     break;
@@ -200,9 +172,7 @@ class ExportLevelSet
         $processor->name = $name;
         $processor->datePosted = Carbon::createFromTimestampUTC($timestamp);
         $processor->postToDiscord = true;
-
-        // todo better error processing
-        $levelSet = $processor->process();
+        $processor->process();
     }
 
     private static function getMessageUrl(array $channel, array $message): string

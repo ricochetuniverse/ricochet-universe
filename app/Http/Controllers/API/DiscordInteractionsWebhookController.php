@@ -39,24 +39,16 @@ class DiscordInteractionsWebhookController extends Controller
 
         try {
             $json = $request->json();
-            switch ($json->getEnum('type', InteractionType::class)) {
-                case InteractionType::PING:
-                    return response()->json(['type' => InteractionResponseType::PONG->value]);
 
-                case InteractionType::APPLICATION_COMMAND:
-                    return $this->handleApplicationCommand($json->all());
-
-                case InteractionType::MODAL_SUBMIT:
-                    return $this->handleModalSubmit($json->all());
-
-                default:
-                    break;
-            }
+            return match ($json->getEnum('type', InteractionType::class)) {
+                InteractionType::PING => response()->json(['type' => InteractionResponseType::PONG->value]),
+                InteractionType::APPLICATION_COMMAND => $this->handleApplicationCommand($json->all()),
+                InteractionType::MODAL_SUBMIT => $this->handleModalSubmit($json->all()),
+                default => throw new \DomainException('Interaction type is not supported'),
+            };
         } catch (UserFacingInteractionException $exception) {
             return InteractionResponse::ephemeralMessage('⚠️ '.$exception->getMessage());
         }
-
-        throw new \DomainException('Interaction type is not supported');
     }
 
     private function handleApplicationCommand(array $json): JsonResponse
