@@ -21,10 +21,8 @@ class LevelSetNameRuleTest extends TestCase
             'Ricochet\'s Revenge!',
             'B & C',
             'M@yem M@dness',
-            '20,000 Leagues',
             'Tracys Round#1',
             'Patrick`s Bonus Rounds',
-            'alec\'many rings and +,-,x and -..',
             '$Euforia',
             'Dejavu2008[5]',
             'Ring+Ring=Fest',
@@ -52,6 +50,23 @@ class LevelSetNameRuleTest extends TestCase
         }
     }
 
+    public function test_commas_only_if_allowed(): void
+    {
+        $names = [
+            '20,000 Leagues',
+            'alec\'many rings and +,-,x and -..',
+        ];
+
+        $rule = new LevelSetName(allowCommas: true);
+
+        foreach ($names as $name) {
+            $this->assertTrue(
+                validator(['name' => $name], ['name' => $rule])->passes(),
+                $name.' should pass'
+            );
+        }
+    }
+
     public function test_failing_values(): void
     {
         $names = [
@@ -59,6 +74,10 @@ class LevelSetNameRuleTest extends TestCase
             'abc;a',
             'abc/../',
             'abc\\..',
+
+            // has commas, should fail by default
+            '20,000 Leagues',
+            'alec\'many rings and +,-,x and -..',
         ];
 
         $rule = new LevelSetName;
