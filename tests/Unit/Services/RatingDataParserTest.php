@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit;
+namespace Tests\Unit\Services;
 
 use App\Services\RatingDataParser\Parser as RatingDataParser;
 use PHPUnit\Framework\TestCase;
@@ -60,7 +60,7 @@ EOF;
 
     public function test_legacy_encoding(): void
     {
-        $data = file_get_contents(__DIR__.'/../fixtures/rating-data/legacy-encoding.txt');
+        $data = file_get_contents(__DIR__.'/../../fixtures/rating-data/legacy-encoding.txt');
         $ratings = RatingDataParser::parse($data);
 
         $this->assertCount(2, $ratings);

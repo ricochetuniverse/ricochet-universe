@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit;
+namespace Tests\Unit\Rules;
 
 use App\Rules\ValidTimestamp;
 use Carbon\Carbon;

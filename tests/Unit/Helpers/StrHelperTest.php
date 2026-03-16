@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit;
+namespace Tests\Unit\Helpers;
 
 use App\Helpers\Str;
 use Tests\TestCase;
