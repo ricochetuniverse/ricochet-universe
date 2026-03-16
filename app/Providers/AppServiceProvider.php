@@ -31,7 +31,11 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrapFour();
 
-        RateLimiter::for('syncratings', function (Request $request) {
+        RateLimiter::for('level-download', static function (Request $request) {
+            return Limit::perSecond(2, 1)->by($request->ip());
+        });
+
+        RateLimiter::for('syncratings', static function (Request $request) {
             // The game will retry sending the ratings anyway
             return Limit::perSecond(1, 30)->by($request->ip());
         });

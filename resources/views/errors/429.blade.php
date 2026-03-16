@@ -11,7 +11,8 @@
                     <div class="card-header">Too many requests</div>
 
                     <div class="card-body">
-                        Please try again in a few seconds.
+                        You are sending too many requests in a short timeframe, please slow down and try again in
+                        a few seconds.
                     </div>
                 </div>
             </div>
