@@ -11,8 +11,8 @@ use App\Services\DiscordApi\InteractionNames;
 use App\Services\DiscordApi\InteractionResponse;
 use App\Services\DiscordApi\Interactions\ExportLevelSet;
 use App\Services\DiscordApi\Interactions\LevelSetInfoInteraction;
-use App\Services\DiscordApi\ModalHandler;
-use App\Services\DiscordApi\ModalType;
+use App\Services\DiscordApi\SessionDataHandler;
+use App\Services\DiscordApi\SessionType;
 use App\Services\DiscordApi\UserFacingInteractionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -43,7 +43,7 @@ class DiscordInteractionsWebhookController extends Controller
             return match ($json->getEnum('type', InteractionType::class)) {
                 InteractionType::PING => response()->json(['type' => InteractionResponseType::PONG->value]),
                 InteractionType::APPLICATION_COMMAND => $this->handleApplicationCommand($json->all()),
-                InteractionType::MODAL_SUBMIT => $this->handleModalSubmit($json->all()),
+                InteractionType::MESSAGE_COMPONENT, InteractionType::MODAL_SUBMIT => $this->handleComponentResponse($json->all()),
                 default => throw new \DomainException('Interaction type is not supported'),
             };
         } catch (UserFacingInteractionException $exception) {
@@ -56,19 +56,20 @@ class DiscordInteractionsWebhookController extends Controller
         $this->validateMemberWhitelist($json['member']['user']['id']);
 
         return match (InteractionNames::from($json['data']['name'])) {
-            InteractionNames::LEVEL_SET_INFO => LevelSetInfoInteraction::handle($json),
+            InteractionNames::LEVEL_SET_INFO => LevelSetInfoInteraction::handleApplicationCommand($json),
             InteractionNames::EXPORT_LEVEL_SET => ExportLevelSet::handleApplicationCommand($json),
         };
     }
 
-    private function handleModalSubmit(array $json): JsonResponse
+    private function handleComponentResponse(array $json): JsonResponse
     {
         $this->validateMemberWhitelist($json['member']['user']['id']);
 
-        $tempData = ModalHandler::getTempData($json['data']['custom_id']);
+        $sessionData = SessionDataHandler::get(explode('|', $json['data']['custom_id'])[0]);
 
-        return match ($tempData['modal_type']) {
-            ModalType::EXPORT_LEVEL_SET => ExportLevelSet::handleModalSubmit($json, $tempData['data']),
+        return match ($sessionData['session_type']) {
+            SessionType::LEVEL_SET_INFO => LevelSetInfoInteraction::handleComponentResponse($json, $sessionData['data']),
+            SessionType::EXPORT_LEVEL_SET => ExportLevelSet::handleComponentResponse($json, $sessionData['data']),
         };
     }
 

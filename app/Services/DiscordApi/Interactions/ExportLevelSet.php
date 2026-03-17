@@ -8,8 +8,8 @@ use App\Services\DiscordApi\Enums\ComponentType;
 use App\Services\DiscordApi\Enums\TextInputStyle;
 use App\Services\DiscordApi\InteractionResponse;
 use App\Services\DiscordApi\InteractsWithAttachments;
-use App\Services\DiscordApi\ModalHandler;
-use App\Services\DiscordApi\ModalType;
+use App\Services\DiscordApi\SessionDataHandler;
+use App\Services\DiscordApi\SessionType;
 use App\Services\DiscordApi\UserFacingInteractionException;
 use App\Services\LevelSetUploadProcessor;
 use Carbon\Carbon;
@@ -37,7 +37,7 @@ class ExportLevelSet
         $message = array_first($json['data']['resolved']['messages']);
         $attachments = self::getAttachments($message);
 
-        $modalId = ModalHandler::setUpTempData(ModalType::EXPORT_LEVEL_SET, [
+        $sessionId = SessionDataHandler::setUp(SessionType::EXPORT_LEVEL_SET, [
             'author' => $message['author']['global_name'],
             'message_url' => self::getMessageUrl($json['channel'], $message),
             'attachments' => $attachments,
@@ -93,7 +93,7 @@ class ExportLevelSet
         ]));
 
         return InteractionResponse::modal([
-            'custom_id' => $modalId,
+            'custom_id' => $sessionId,
             'title' => 'Export level set',
             'components' => $components,
         ]);
@@ -102,7 +102,7 @@ class ExportLevelSet
     /**
      * @throws UserFacingInteractionException
      */
-    public static function handleModalSubmit(array $request, array $tempData): JsonResponse
+    public static function handleComponentResponse(array $request, array $sessionData): JsonResponse
     {
         /** @var ?Attachment $attachment */
         $attachment = null;
@@ -110,11 +110,11 @@ class ExportLevelSet
         $create_github_issue = false;
         $publish_to_catalog = false;
 
-        $author = (string) $tempData['author'];
-        $message_url = (string) $tempData['message_url'];
+        $author = (string) $sessionData['author'];
+        $message_url = (string) $sessionData['message_url'];
         /** @var array<Attachment> $attachments */
-        $attachments = (array) $tempData['attachments'];
-        $timestamp = (int) $tempData['timestamp'];
+        $attachments = (array) $sessionData['attachments'];
+        $timestamp = (int) $sessionData['timestamp'];
 
         if (count($attachments) === 1) {
             $attachment = $attachments[0];

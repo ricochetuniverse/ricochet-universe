@@ -43,6 +43,8 @@ class InteractionResponse
     }
 
     /**
+     * @see https://docs.discord.com/developers/interactions/receiving-and-responding#edit-original-interaction-response
+     *
      * @throws RequestException
      * @throws ConnectionException
      */
