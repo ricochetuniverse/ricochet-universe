@@ -10,7 +10,7 @@ use App\Services\DiscordApi\Enums\InteractionType;
 use App\Services\DiscordApi\InteractionNames;
 use App\Services\DiscordApi\InteractionResponse;
 use App\Services\DiscordApi\Interactions\ExportLevelSet;
-use App\Services\DiscordApi\Interactions\LevelSetInfoInteraction;
+use App\Services\DiscordApi\Interactions\LevelSetInfo;
 use App\Services\DiscordApi\SessionDataHandler;
 use App\Services\DiscordApi\SessionType;
 use App\Services\DiscordApi\UserFacingInteractionException;
@@ -56,7 +56,7 @@ class DiscordInteractionsWebhookController extends Controller
         $this->validateMemberWhitelist($json['member']['user']['id']);
 
         return match (InteractionNames::from($json['data']['name'])) {
-            InteractionNames::LEVEL_SET_INFO => LevelSetInfoInteraction::handleApplicationCommand($json),
+            InteractionNames::LEVEL_SET_INFO => LevelSetInfo::handleApplicationCommand($json),
             InteractionNames::EXPORT_LEVEL_SET => ExportLevelSet::handleApplicationCommand($json),
         };
     }
@@ -68,7 +68,7 @@ class DiscordInteractionsWebhookController extends Controller
         $sessionData = SessionDataHandler::get(explode('|', $json['data']['custom_id'])[0]);
 
         return match ($sessionData['session_type']) {
-            SessionType::LEVEL_SET_INFO => LevelSetInfoInteraction::handleComponentResponse($json, $sessionData['data']),
+            SessionType::LEVEL_SET_INFO => LevelSetInfo::handleComponentResponse($json, $sessionData['data']),
             SessionType::EXPORT_LEVEL_SET => ExportLevelSet::handleComponentResponse($json, $sessionData['data']),
         };
     }

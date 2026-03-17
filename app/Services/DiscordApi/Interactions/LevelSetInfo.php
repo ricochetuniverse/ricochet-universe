@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Uri;
 
-class LevelSetInfoInteraction
+class LevelSetInfo
 {
     use InteractsWithAttachments;
 

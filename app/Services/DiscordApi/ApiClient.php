@@ -17,7 +17,7 @@ class ApiClient
     private static string $accessToken = '';
 
     /**
-     * @see https://discord.com/developers/docs/topics/oauth2#client-credentials-grant
+     * @see https://docs.discord.com/developers/topics/oauth2#client-credentials-grant
      */
     private static function getClientCredentials(): array
     {
@@ -52,6 +52,7 @@ class ApiClient
     {
         return Http::withToken(self::getAccessToken())
             ->get(self::API_URL.$url)
+            // ->dontTruncateExceptions()
             ->throw();
     }
 
@@ -63,6 +64,7 @@ class ApiClient
     {
         return Http::withToken(self::getAccessToken())
             ->post(self::API_URL.$url, $data)
+            // ->dontTruncateExceptions()
             ->throw();
     }
 
@@ -74,6 +76,7 @@ class ApiClient
     {
         return Http::withToken(self::getAccessToken())
             ->patch(self::API_URL.$url, $data)
+            // ->dontTruncateExceptions()
             ->throw();
     }
 
@@ -85,6 +88,7 @@ class ApiClient
     {
         return Http::withToken(self::getAccessToken())
             ->put(self::API_URL.$url, $data)
+            // ->dontTruncateExceptions()
             ->throw();
     }
 }

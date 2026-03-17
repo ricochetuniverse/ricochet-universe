@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\DiscordApi\Enums;
 
 /**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type
+ * @see https://docs.discord.com/developers/interactions/receiving-and-responding#interaction-object-interaction-type
  */
 enum InteractionType: int
 {

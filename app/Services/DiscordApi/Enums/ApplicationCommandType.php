@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\DiscordApi\Enums;
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
+ * @see https://docs.discord.com/developers/interactions/application-commands#application-command-object-application-command-types
  */
 enum ApplicationCommandType: int
 {

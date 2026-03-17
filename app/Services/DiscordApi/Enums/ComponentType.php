@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\DiscordApi\Enums;
 
 /**
- * @see https://discord.com/developers/docs/components/reference#component-object-component-types
+ * @see https://docs.discord.com/developers/components/reference#component-object-component-types
  */
 enum ComponentType: int
 {

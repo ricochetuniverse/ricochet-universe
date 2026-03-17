@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\DiscordApi\Enums;
 
 /**
- * @see https://discord.com/developers/docs/resources/message#message-object-message-flags
+ * @see https://docs.discord.com/developers/resources/message#message-object-message-flags
  */
 enum MessageFlag: int
 {
