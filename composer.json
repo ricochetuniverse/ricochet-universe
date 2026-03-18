@@ -26,7 +26,7 @@
         "guzzlehttp/guzzle": "^7.10",
         "knplabs/github-api": "^3.16",
         "laracasts/flash": "^3.2",
-        "laravel/framework": "^12.55",
+        "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
         "lcobucci/jwt": "^5.6",
         "league/flysystem-memory": "^3.31",
@@ -35,7 +35,7 @@
         "sentry/sentry-laravel": "^4.22",
         "socialiteproviders/discord": "^4.2",
         "spatie/laravel-csp": "^3.23",
-        "symfony/filesystem": "^7.4"
+        "symfony/filesystem": "^8.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",
