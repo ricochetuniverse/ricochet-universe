@@ -42,6 +42,11 @@ class LevelController extends Controller
             $orderDirection = 'DESC';
         }
 
+        // deprecated, it was old rating system based on RLW forums
+        if ($orderBy === 'Stars') {
+            $orderBy = 'overall_rating';
+        }
+
         $levelSets = LevelSet::with([
             'tagged',
             'mods' => function ($query) {
@@ -214,7 +219,7 @@ class LevelController extends Controller
             'downloads' => 'downloads',
             'Date_Posted' => 'created_at',
             'overall_rating' => 'overall_rating',
-            'Stars' => 'rating',
+            // 'Stars' => 'rating',
         ];
 
         return $orders[$orderBy] ?? null;
