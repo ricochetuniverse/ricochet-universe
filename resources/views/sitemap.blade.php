@@ -9,7 +9,7 @@
     @foreach ($levelSets as $levelSet)
         <url>
             <loc>{{ $levelSet->getPermalink() }}</loc>
-            <lastmod>{{ $levelSet->updated_at->format('Y-m-d') }}</lastmod>
+            <lastmod>{{ $levelSet->created_at->format('Y-m-d') }}</lastmod>
         </url>
     @endforeach
 </urlset>
