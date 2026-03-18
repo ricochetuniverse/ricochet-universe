@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature;
+namespace Tests\Feature\API;
 
 use App\LevelSet;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class SitemapControllerTest extends TestCase
+class RssControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -16,10 +16,10 @@ class SitemapControllerTest extends TestCase
     {
         $levelSet = LevelSet::factory()->create();
 
-        $response = $this->get('/sitemap.xml');
+        $response = $this->get('/rss.xml');
 
         $response->assertOk();
-        $response->assertSeeHtml('<urlset ');
-        $response->assertSeeText($levelSet->getPermalink());
+        $response->assertSeeHtml('<rss ');
+        $response->assertSeeText($levelSet->name);
     }
 }

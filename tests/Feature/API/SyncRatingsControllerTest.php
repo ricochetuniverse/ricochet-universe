@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature;
+namespace Tests\Feature\API;
 
 use App\LevelSet;
 use Illuminate\Database\Eloquent\Collection;
