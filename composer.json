@@ -26,8 +26,8 @@
         "guzzlehttp/guzzle": "^7.10",
         "knplabs/github-api": "^3.16",
         "laracasts/flash": "^3.2",
-        "laravel/framework": "^12.54",
-        "laravel/tinker": "^2.11",
+        "laravel/framework": "^12.55",
+        "laravel/tinker": "^3.0",
         "lcobucci/jwt": "^5.6",
         "league/flysystem-memory": "^3.31",
         "predis/predis": "^3.4",
@@ -38,7 +38,7 @@
         "symfony/filesystem": "^7.4"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^3.6",
+        "barryvdh/laravel-ide-helper": "^3.7",
         "deployer/deployer": "^7.5",
         "fakerphp/faker": "^1.24",
         "fruitcake/laravel-debugbar": "^4.1",
