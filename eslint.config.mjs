@@ -68,6 +68,12 @@ export default defineConfig(
         ...testingLibrary.configs['flat/react'],
     },
     {
-        ignores: ['vendor/', 'public/build/', 'public/storage/', 'storage/'],
+        ignores: [
+            'vendor/',
+            'public/build/',
+            'public/storage/',
+            'storage/',
+            'coverage/',
+        ],
     }
 );
