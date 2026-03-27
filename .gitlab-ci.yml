@@ -7,7 +7,7 @@ stages:
     image: php:8.5.4-alpine
 
 .node_image:
-    image: node:22
+    image: node:24
 
 npm:
     extends: .node_image
