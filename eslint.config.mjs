@@ -19,7 +19,7 @@ export default defineConfig(
     jsxA11y.flatConfigs.recommended,
     eslintReact.configs['strict-type-checked'],
     reactHooks.configs.flat.recommended,
-    regexp.configs['flat/recommended'],
+    regexp.configs.recommended,
     {
         rules: {
             'no-var': 'error',
