@@ -1,7 +1,8 @@
 import js from '@eslint/js';
 import eslintReact from '@eslint-react/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import {defineConfig} from 'eslint/config';
-import importPlugin from 'eslint-plugin-import';
+import {importX} from 'eslint-plugin-import-x';
 import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -13,7 +14,7 @@ export default defineConfig(
     js.configs.recommended,
     tseslint.configs.strict, // strictTypeChecked
 
-    importPlugin.flatConfigs.typescript,
+    importX.flatConfigs.typescript,
     jest.configs['flat/recommended'],
     jest.configs['flat/style'],
     jsxA11y.flatConfigs.recommended,
@@ -38,14 +39,14 @@ export default defineConfig(
                 },
             ],
 
-            // `importPlugin.flatConfigs.recommended` without slow rules
+            // `importX.flatConfigs.recommended` without slow rules
             // https://typescript-eslint.io/troubleshooting/typed-linting/performance/#eslint-plugin-import
-            'import/export': 'error',
-            'import/no-duplicates': 'warn',
-            'import/no-named-as-default': 'warn',
+            'import-x/export': 'error',
+            'import-x/no-named-as-default': 'warn',
+            'import-x/no-duplicates': 'warn',
 
-            'import/enforce-node-protocol-usage': ['error', 'always'],
-            'import/order': [
+            // 'import/enforce-node-protocol-usage': ['error', 'always'],
+            'import-x/order': [
                 'warn',
                 {
                     'newlines-between': 'always',
@@ -58,6 +59,7 @@ export default defineConfig(
         },
         languageOptions: {
             parserOptions: {
+                parser: tsParser,
                 projectService: true,
                 tsconfigRootDir: import.meta.dirname,
             },
