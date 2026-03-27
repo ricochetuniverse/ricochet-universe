@@ -139,6 +139,13 @@ select {
     cursor: pointer;
 }
 
+@supports (padding-left: max(0px, env(safe-area-inset-left))) {
+    .px-safe-area {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
 // Navbar
 .nav-link-discord > svg,
 .nav-link-gitlab > svg {

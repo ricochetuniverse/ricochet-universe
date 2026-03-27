@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>@hasSection('title')@yield('title') - @endif{{ config('app.name') }}@if (Request::is('/')) - Download and play custom Ricochet Infinity levels @endif</title>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="theme-color" content="#00fffe">
     <meta name="color-scheme" content="dark light">
@@ -37,7 +37,7 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md bg-dark" data-bs-theme="dark">
+        <nav class="navbar navbar-expand-md bg-dark px-safe-area" data-bs-theme="dark">
             <div class="container-fluid">
                 <div class="d-none d-md-block">
                     <a class="navbar-brand d-flex me-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}" data-bs-toggle="tooltip">
@@ -166,7 +166,7 @@
 
         @include('layouts.errors')
 
-        <main class="py-3">
+        <main class="py-3 px-safe-area">
             @yield('content')
         </main>
     </div>
