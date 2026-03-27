@@ -16,6 +16,9 @@ use Spatie\Csp\Preset;
 
 class Standard implements Preset
 {
+    // If both nonce and unsafe-inline is set for script-src, the browser will ignore unsafe-inline
+    protected bool $canUseNonce = true;
+
     #[\Override]
     public function configure(Policy $policy): void
     {
@@ -67,12 +70,21 @@ class Standard implements Preset
      */
     private function addForDebugbar(Policy $policy): void
     {
-        static $nonce = Str::random(32);
-        Debugbar::getJavascriptRenderer()->setCspNonce($nonce);
+        if ($this->canUseNonce) {
+            static $nonce = Str::random(32);
+            Debugbar::getJavascriptRenderer()->setCspNonce($nonce);
+
+            $policy
+                ->add(Directive::SCRIPT, '\'nonce-'.$nonce.'\'')
+                ->add(Directive::STYLE, '\'nonce-'.$nonce.'\'');
+        } else {
+            $policy
+                ->add(Directive::SCRIPT, Keyword::UNSAFE_INLINE)
+                ->add(Directive::SCRIPT, URL::to('/_debugbar/').'/')
+                ->add(Directive::STYLE, URL::to('/_debugbar/').'/');
+        }
 
         $policy
-            ->add(Directive::SCRIPT, '\'nonce-'.$nonce.'\'')
-            ->add(Directive::STYLE, '\'nonce-'.$nonce.'\'')
             ->add(Directive::CONNECT, URL::to('/_debugbar/').'/')
             ->add(Directive::IMG, 'data:');
     }

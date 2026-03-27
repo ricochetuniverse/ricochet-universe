@@ -11,6 +11,8 @@ use Spatie\Csp\Policy;
 
 class Decompressor extends Standard
 {
+    protected bool $canUseNonce = false;
+
     #[\Override]
     public function configure(Policy $policy): void
     {
