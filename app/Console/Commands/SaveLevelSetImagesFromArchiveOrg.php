@@ -30,6 +30,9 @@ class SaveLevelSetImagesFromArchiveOrg extends Command
      */
     protected $description = 'Save old level set images (version 1) from archive.org';
 
+    private const string FALLBACK_URL = 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/';
+    // private const string FALLBACK_URL = 'https://web.archive.org/web/20171205000449im_/http://www.ricochetlostworlds.com/levels/';
+
     /**
      * Execute the console command.
      */
@@ -44,7 +47,7 @@ class SaveLevelSetImagesFromArchiveOrg extends Command
         /** @var \Illuminate\Support\Collection<int, LevelSet> $levels */
         foreach ($levels as $i => $level) {
             $this->output->write('#'.($i + 1).' Downloading '.$level->image_url);
-            $response = Http::get(LevelSetImageController::FALLBACK_URL.$level->image_url);
+            $response = Http::get(self::FALLBACK_URL.$level->image_url);
             if ($response->successful()) {
                 $fileName = Str::after(rawurldecode($level->image_url), 'images/');
                 $disk->put($fileName, $response->getBody());
