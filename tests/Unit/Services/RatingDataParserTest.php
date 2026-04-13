@@ -44,6 +44,13 @@ EOF;
         RatingDataParser::parse($this->getHeader()."\nPlayerAAA,Reflexive B Sides,14abc,11,8,Awesome,5");
     }
 
+    public function test_percent_complete_digits_only(): void
+    {
+        $this->expectExceptionMessage('Percent complete is invalid');
+
+        RatingDataParser::parse($this->getHeader()."\nPlayerAAA,Reflexive B Sides,14,11,8,Awesome;Classic Style;Strategy,50abc");
+    }
+
     // Unresolved for now
     public function test_level_set_name_with_commas(): void
     {
@@ -82,6 +89,19 @@ EOF;
         $this->assertCount(0, $ratings[0]->tags);
         $this->assertCount(1, $ratings[1]->tags);
         $this->assertEquals('Awesome', $ratings[1]->tags[0]);
+    }
+
+    public function test_percent_complete_more_than_100(): void
+    {
+        $data = <<<EOF
+{$this->getHeader()}
+PlayerAAA,10 auto levels of fun,0,0,0,Autoplay,100
+PlayerBBB,Reflexive B Sides,14,11,8,Awesome;Classic Style;Strategy,10000
+
+EOF;
+        $ratings = RatingDataParser::parse($data);
+
+        $this->assertCount(1, $ratings);
     }
 
     private function getHeader(): string

@@ -64,6 +64,13 @@ final class Parser
                 throw new RatingDataParserException('Level set name is invalid');
             }
 
+            $percentComplete = self::processPercentComplete($data[6]);
+            if ($percentComplete > 100) {
+                // Either this level set is made by the same player or unlocked with cheats
+                // https://gitlab.com/ngyikp/ricochet-levels/-/work_items/36
+                continue;
+            }
+
             $ratingData = new RatingData;
             $ratingData->player = $data[0];
             $ratingData->levelSetName = $data[1];
@@ -71,7 +78,7 @@ final class Parser
             $ratingData->funRating = self::processUserGrade($data[3]);
             $ratingData->graphicsRating = self::processUserGrade($data[4]);
             $ratingData->tags = self::processTags($data[5]);
-            $ratingData->percentComplete = self::processPercentComplete($data[6]);
+            $ratingData->percentComplete = $percentComplete;
 
             $result[] = $ratingData;
         }
@@ -130,7 +137,7 @@ final class Parser
         // Game shows this message if the first level is not completed, so 0% completion seems wrong
         //
         // Rating Not Allowed: You must finish the first level of a level set in order to rate it.
-        if ($percentComplete <= 0 || $percentComplete > 100) {
+        if ($percentComplete <= 0) {
             throw new RatingDataParserException('Percent complete is invalid');
         }
 
