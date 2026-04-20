@@ -157,7 +157,7 @@ class LevelController extends Controller
         $fileName = $levelSet->downloaded_file_name;
         $disk = Storage::disk('levels');
         if ($disk->exists($fileName)) {
-            $checksum = hash_file('sha256', $disk->path($fileName));
+            $checksum = hash('sha256', $disk->get($fileName));
         }
 
         return view('levels.edit', [
