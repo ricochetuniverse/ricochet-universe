@@ -1,13 +1,13 @@
-FROM php:8.5.4-fpm-alpine
+FROM php:8.5.5-fpm-alpine
 
 RUN apk update && apk upgrade && apk add --no-cache git
 
 # Install extensions
-COPY --from=mlocati/php-extension-installer:2.10.6 /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=mlocati/php-extension-installer:2.10.16 /usr/bin/install-php-extensions /usr/local/bin/
 RUN install-php-extensions intl pcntl pdo_mysql redis xdebug
 
 # Install Composer
-COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.9.7 /usr/bin/composer /usr/bin/composer
 
 COPY extra.ini $PHP_INI_DIR/conf.d/
 
