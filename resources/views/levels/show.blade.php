@@ -21,9 +21,17 @@
                     </div>
 
                     @can('update', $levelSet)
-                        <a href="{{ action('LevelController@edit', ['levelSet' => $levelSet]) }}" class="btn btn-outline-secondary">
-                            Edit
-                        </a>
+                        <div class="d-flex gap-2">
+                            <a href="{{ action('LevelController@edit', ['levelSet' => $levelSet]) }}"
+                               class="btn btn-outline-secondary">
+                                Edit info
+                            </a>
+
+                            <a href="{{ action('LevelTagsController@edit', ['levelSet' => $levelSet]) }}"
+                               class="btn btn-outline-secondary">
+                                Edit tags
+                            </a>
+                        </div>
                     @endcan
                 </div>
 

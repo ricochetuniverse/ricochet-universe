@@ -22,6 +22,19 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => '',
             'remember_token' => Str::random(10),
+
+            'discord_id' => 1, // fixme
+            'discord_avatar_url' => '', // fixme
+            'is_admin' => false,
         ];
+    }
+
+    public function isAdmin(): Factory
+    {
+        return $this->state(function () {
+            return [
+                'is_admin' => true,
+            ];
+        });
     }
 }

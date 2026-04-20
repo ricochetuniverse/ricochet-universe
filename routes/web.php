@@ -8,7 +8,7 @@ use Spatie\Csp\AddCspHeaders;
 
 $cache = 'cache.headers:private;max_age=300';
 
-Route::group(['middleware' => $cache], function () {
+Route::group(['middleware' => $cache], static function () {
     Route::get('/', 'HomeController@index')
         ->middleware(AddCspHeaders::class.':'.CspPresets\Home::class);
 
@@ -17,8 +17,12 @@ Route::group(['middleware' => $cache], function () {
     Route::get('/levels/levelsetinfo.php', 'LevelController@show');
 });
 
-Route::get('/levels/{levelSet}/edit', 'LevelController@edit')->can('update', 'levelSet');
-Route::patch('/levels/{levelSet}', 'LevelController@update')->can('update', 'levelSet');
+Route::group(['middleware' => 'can:update,levelSet'], static function () {
+    Route::get('/levels/{levelSet}/edit', 'LevelController@edit');
+    Route::patch('/levels/{levelSet}', 'LevelController@update');
+    Route::get('/levels/{levelSet}/tags/edit', 'LevelTagsController@edit');
+    Route::patch('/levels/{levelSet}/tags', 'LevelTagsController@update');
+});
 
 Route::get('/upload', 'UploadController@index')->middleware($cache);
 Route::permanentRedirect('/levels/submitform.php', '/upload');
@@ -36,7 +40,7 @@ Route::post('/mods', 'ModsController@store')->can('create', Mod::class);
 // Route::delete('/mods/{mod}', 'ModsController@destroy');
 
 Route::get('/discord', 'DiscordRedirectController@index');
-Route::group(['middleware' => $cache], function () {
+Route::group(['middleware' => $cache], static function () {
     Route::get('/reviver', 'ReviverController@index');
     Route::get('/reviver/{os}', 'ReviverController@show');
     Route::get('/reviver/macos/Data2.dat', 'ReviverController@generateData2DatFile');
@@ -50,7 +54,7 @@ Route::group(['middleware' => $cache], function () {
     Route::get('/about', 'AboutController@index');
 });
 
-Route::group(['middleware' => 'guest'], function () {
+Route::group(['middleware' => 'guest'], static function () {
     Route::get('/auth/login/discord', 'DiscordLoginController@redirectToProvider');
     Route::get('/auth/login/discord/callback', 'DiscordLoginController@handleProviderCallback');
 });

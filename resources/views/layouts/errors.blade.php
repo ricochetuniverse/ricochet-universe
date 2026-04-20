@@ -13,7 +13,7 @@
 @endif
 
 {{-- https://github.com/laracasts/flash --}}
-@foreach (session('flash_notification', collect())->toArray() as $message)
+@foreach (session('flash_notification', []) as $message)
     <div class="container-fluid pt-3">
         <div class="row">
             <div class="col">
