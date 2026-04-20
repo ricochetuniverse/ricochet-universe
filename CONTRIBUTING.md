@@ -85,4 +85,4 @@ cloudflared tunnel --origin-ca-pool ./docker/secrets/ricochet.test.pem  --http-h
 
 After the tunnel has set up, change the interaction endpoints URL for the Discord app to something like `https://example.com/api/discord-interactions-webhook`
 
-Open `https://discord.com/oauth2/authorize?client_id=<your app id>&scope=applications.commands&integration_type=1` to install the Discord app to your account.
+Open `https://discord.com/oauth2/authorize?client_id=<your app id>&scope=applications.commands&integration_type=1` to install the Discord app and enable message commands for your account (fixes the "Unknown Integration" error when running the command).

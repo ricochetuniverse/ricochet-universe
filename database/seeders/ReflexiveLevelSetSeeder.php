@@ -33,6 +33,7 @@ class ReflexiveLevelSetSeeder extends Seeder
             'graphics_rating' => 11.2495,
             'graphics_rating_count' => 646,
             'created_at' => Carbon::parse('2004-04-22'),
+            'updated_at' => Carbon::now(),
             'alternate_download_url' => 'https://cdn.discordapp.com/attachments/389486692798693386/389486765984972800/Reflexive_B_Sides.RicochetI',
             'downloaded_file_name' => 'Reflexive B Sides.RicochetLW',
             'round_to_get_image_from' => 1,
