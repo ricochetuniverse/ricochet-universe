@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Mods</div>
+                    <h1 class="card-header fs-6 lh-base">Mods</h1>
 
                     <div class="card-body">
                         <p>
@@ -43,7 +43,9 @@
                 <div class="col-md-6 col-xl-4 mt-3">
                     <div class="card">
                         <div class="card-body">
-                            <span class="text-secondary fw-bold">{{ $mod->name }}</span> by {{ $mod->author }}
+                            <h2 class="fs-6 m-0 lh-base">
+                                <span class="text-secondary fw-bold">{{ $mod->name }}</span> by {{ $mod->author }}
+                            </h2>
 
                             @if ($mod->description)
                                 <p>{{ $mod->description }}</p>

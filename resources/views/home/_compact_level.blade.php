@@ -1,7 +1,8 @@
 <li class="list-group-item p-3">
     <div>
-        <a href="{{ $levelSet->getPermalink() }}"
-           class="link-secondary fw-bold">{{ $levelSet->name }}</a> ({{ $levelSet->rounds }}&nbsp;rounds)
+        <h2 class="d-inline fs-6 fw-bold">
+            <a href="{{ $levelSet->getPermalink() }}" class="link-secondary">{{ $levelSet->name }}</a>
+        </h2> ({{ $levelSet->rounds }}&nbsp;rounds)
     </div>
 
     <div>

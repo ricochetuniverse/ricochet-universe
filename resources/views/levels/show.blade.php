@@ -50,11 +50,11 @@
 
                 <div class="card mt-3">
                     <div class="card-body">
-                        <strong class="{{ !$levelSet->prerelease ? 'text-secondary' : 'levelsName--prerelease' }}">
+                        <h1 class="{{ !$levelSet->prerelease ? 'text-secondary' : 'levelsName--prerelease' }} fs-6 fw-bold m-0 lh-base">
                             {{ $levelSet->name }}@if ($levelSet->prerelease)
                                 (PRERELEASE)
                             @endif
-                        </strong>
+                        </h1>
 
                         <div>
                             By <a href="{{ action('LevelController@index', ['author' => $levelSet->author]) }}"
