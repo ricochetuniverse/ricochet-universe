@@ -5,6 +5,7 @@
             'totalCount' => $levelSet->overall_rating_count,
             'gradeExplanation' => 'overall',
             'showTooltipExplanation' => $showTooltipExplanation ?? true,
+            'showInlineGradeExplanation' => $showInlineGradeExplanation ?? false,
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')
@@ -17,6 +18,7 @@
             'totalCount' => $levelSet->fun_rating_count,
             'gradeExplanation' => 'gameplay',
             'showTooltipExplanation' => $showTooltipExplanation ?? true,
+            'showInlineGradeExplanation' => $showInlineGradeExplanation ?? false,
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')
@@ -29,6 +31,7 @@
             'totalCount' => $levelSet->graphics_rating_count,
             'gradeExplanation' => 'visuals',
             'showTooltipExplanation' => $showTooltipExplanation ?? true,
+            'showInlineGradeExplanation' => $showInlineGradeExplanation ?? false,
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')

@@ -93,6 +93,7 @@
                                     @include('levels._ratings', [
                                         'levelSet' => $levelSet,
                                         'showTooltipExplanation' => false,
+                                        'showInlineGradeExplanation' => true,
                                         'showPlayerCount' => true,
                                     ])
 
