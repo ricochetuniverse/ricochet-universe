@@ -1,4 +1,4 @@
-@if ($levelSet->overall_rating)
+@if ($levelSet->hasAnyPublicRatings())
     <div class="levelsRatings__wrap">
         @component('levels._rating_row', [
             'rating' => $levelSet->overall_rating,

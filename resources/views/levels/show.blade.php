@@ -85,7 +85,7 @@
                             </div>
                         </div>
 
-                        @if ($levelSet->overall_rating)
+                        @if ($levelSet->hasAnyPublicRatings())
                             <div class="d-flex mt-3">
                                 <span class="me-2">Ratings:</span>
 

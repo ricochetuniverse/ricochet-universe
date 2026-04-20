@@ -193,6 +193,11 @@ class LevelSet extends Model
         throw new DomainException('Unknown game version');
     }
 
+    public function hasAnyPublicRatings(): bool
+    {
+        return $this->overall_rating || $this->fun_rating || $this->graphics_rating;
+    }
+
     public function recalculateRatings(): void
     {
         $result = LevelSetRatingsCalculator::calculate($this);
