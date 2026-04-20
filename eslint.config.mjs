@@ -4,7 +4,7 @@ import tsParser from '@typescript-eslint/parser';
 import {defineConfig} from 'eslint/config';
 import {importX} from 'eslint-plugin-import-x';
 import jest from 'eslint-plugin-jest';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
+// import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import regexp from 'eslint-plugin-regexp';
 import testingLibrary from 'eslint-plugin-testing-library';
@@ -17,7 +17,9 @@ export default defineConfig(
     importX.flatConfigs.typescript,
     jest.configs['flat/recommended'],
     jest.configs['flat/style'],
-    jsxA11y.flatConfigs.recommended,
+    // Temporarily removed to unblock ESLint v10
+    // https://gitlab.com/ngyikp/ricochet-levels/-/work_items/37
+    // jsxA11y.flatConfigs.recommended,
     eslintReact.configs['strict-type-checked'],
     reactHooks.configs.flat.recommended,
     regexp.configs.recommended,
@@ -26,11 +28,11 @@ export default defineConfig(
             'no-var': 'error',
             'prefer-const': 'warn',
 
+            '@eslint-react/immutability': 'error',
             // ref as prop (https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
             // is not supported on Preact yet
             '@eslint-react/no-forward-ref': 'off',
             '@eslint-react/prefer-destructuring-assignment': 'off',
-            '@eslint-react/prefer-read-only-props': 'error',
 
             '@typescript-eslint/no-empty-object-type': [
                 'error',

@@ -187,8 +187,6 @@ export function parse(buffer: Buffer): LevelSet {
 
                 if (lastNested.key === 'Compressed Thumbnail') {
                     // Collect all the strings to concat them in the end
-                    previousKey = '';
-
                     currentWorkingRoundPictureBuffers.push(
                         buffer.slice(byteStartOffset, byteEndOffset)
                     );
