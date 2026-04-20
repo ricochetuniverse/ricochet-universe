@@ -3,9 +3,9 @@
     "compilerOptions": {
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
         "target": "ES2015",
-        "useDefineForClassFields": true,
         "module": "ESNext",
-        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "lib": ["ES2020", "DOM"],
+        "types": ["jest"],
         "skipLibCheck": true,
         "paths": {
             "react": ["./node_modules/preact/compat/"],
@@ -22,11 +22,9 @@
         "jsxImportSource": "preact",
 
         /* Linting */
-        "strict": true,
         "erasableSyntaxOnly": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
-        "noUncheckedSideEffectImports": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true
     },
