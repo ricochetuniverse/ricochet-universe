@@ -4,68 +4,57 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Services\DiscordApi\Interactions;
 
-use App\LevelSet;
 use App\Services\DiscordApi\Interactions\LevelSetInfo;
 use Database\Seeders\ReflexiveLevelSetSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Tests\Unit\Services\DiscordApi\DiscordAPITestCase;
 
 class LevelSetInfoTest extends DiscordAPITestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Setup the test environment.
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Http::fake([
+            'https://discord.com/api/v10/'.$this->getDiscordEditInteractionResponsePath() => '{}',
+        ]);
+    }
+
     public function test_no_levels_found(): void
     {
-        $this->fakeEditInteractionResponse();
-
         LevelSetInfo::handleApplicationCommand(
             $this->getIncomingRequestJson('abc.RicochetI', 'abc')
         );
 
-        Http::assertSent(function (Request $request) {
-            return $request->method() === 'PATCH'
-                && str_ends_with($request->url(), 'webhooks/'.config('services.discord.client_id').'/'.$this->getFakeToken().'/messages/@original')
-                && str_contains($request->data()['content'], 'No level sets found matching “abc”');
-        });
+        $json = $this->getDiscordFakeEditInteractionResponseRequest()[0]->data();
+        $this->assertStringContainsString('No level sets found matching “abc”', $json['content']);
     }
 
     public function test_one_level_found(): void
     {
         $this->seed(ReflexiveLevelSetSeeder::class);
-        $levelSet = LevelSet::where('name', 'Reflexive B Sides')->sole();
-        $fileContents = file_get_contents(base_path('tests/fixtures/Reflexive B Sides.RicochetLW'));
+        Storage::fake('levels')->put('Reflexive B Sides.RicochetLW', 'contents');
 
-        $this->fakeEditInteractionResponse();
         Http::fake([
-            'https://cdn.discordapp.com/attachments/1476551769894027366/1483813720273588334/*' => $fileContents,
-            $levelSet->alternate_download_url => $fileContents,
+            'https://cdn.discordapp.com/attachments/1476551769894027366/1483813720273588334/*' => 'contents',
         ]);
 
         LevelSetInfo::handleApplicationCommand(
             $this->getIncomingRequestJson('Reflexive_B_Sides.RicochetLW', 'Reflexive B Sides')
         );
 
-        Http::assertSent(function (Request $request) {
-            if ($request->method() !== 'PATCH'
-                || ! str_ends_with($request->url(), 'webhooks/'.config('services.discord.client_id').'/'.$this->getFakeToken().'/messages/@original')) {
-                return false;
-            }
-
-            $json = $request->data();
-
-            return $json['embeds'][0]['title'] === 'Reflexive B Sides'
-                && $json['embeds'][0]['fields'][2]['name'] === 'File checksum match'
-                && $json['embeds'][0]['fields'][2]['value'] === 'Yes';
-        });
-    }
-
-    private function fakeEditInteractionResponse(): void
-    {
-        Http::fake([
-            'https://discord.com/api/v10/webhooks/'.config('services.discord.client_id').'/'.$this->getFakeToken().'/messages/@original' => '{}',
-        ]);
+        $json = $this->getDiscordFakeEditInteractionResponseRequest()[0]->data();
+        $this->assertEquals('Reflexive B Sides', $json['embeds'][0]['title']);
+        $this->assertEquals('File checksum match', $json['embeds'][0]['fields'][2]['name']);
+        $this->assertEquals('Yes', $json['embeds'][0]['fields'][2]['value']);
     }
 
     private function getIncomingRequestJson(string $filename, string $title): array
@@ -106,7 +95,7 @@ class LevelSetInfoTest extends DiscordAPITestCase
               "filename": "{$filename}",
               "id": "1483813720273588334",
               "proxy_url": "https://media.discordapp.net/attachments/1476551769894027366/1483813720273588334/{$filename}?ex=69e77636&is=69e624b6&hm=a7262803474f4b9da563fbd9943e69493281d5e5f810d8b11e702c5f2e0ed634&",
-              "size": 126694,
+              "size": 8,
               "title": "{$title}",
               "url": "https://cdn.discordapp.com/attachments/1476551769894027366/1483813720273588334/{$filename}?ex=69e77636&is=69e624b6&hm=a7262803474f4b9da563fbd9943e69493281d5e5f810d8b11e702c5f2e0ed634&"
             }
@@ -184,5 +173,18 @@ class LevelSetInfoTest extends DiscordAPITestCase
   "version": 1
 }
 EOF, true, 512, JSON_THROW_ON_ERROR);
+    }
+
+    private function getDiscordEditInteractionResponsePath(): string
+    {
+        return 'webhooks/'.config('services.discord.client_id').'/'.$this->getFakeToken().'/messages/@original';
+    }
+
+    private function getDiscordFakeEditInteractionResponseRequest()
+    {
+        return Http::recorded(function (Request $request) {
+            return $request->method() === 'PATCH'
+                && str_ends_with($request->url(), $this->getDiscordEditInteractionResponsePath());
+        })->sole();
     }
 }
