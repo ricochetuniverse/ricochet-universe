@@ -17,7 +17,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Level set info</div>
+                    <h1 class="card-header">Level set info</h1>
 
                     <div class="card-body">
                         <p>Name: {{ $levelSet->name }}</p>
@@ -31,7 +31,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Edit level set</div>
+                    <h1 class="card-header">Edit level set</h1>
 
                     <div class="card-body">
                         <form action="{{ action('LevelController@update', ['levelSet' => $levelSet]) }}" method="POST">

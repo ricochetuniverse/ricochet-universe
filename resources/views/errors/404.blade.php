@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card">
-                    <div class="card-header">Page not found</div>
+                    <h1 class="card-header">Page not found</h1>
 
                     <div class="card-body">
                         <p>Sorry, the page you are looking for could not be found.</p>

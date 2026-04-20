@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col">
                 <div class="card mb-3">
-                    <div class="card-header">Levels</div>
+                    <h1 class="card-header">Levels</h1>
 
                     <div class="card-body">
                         <p class="m-0">

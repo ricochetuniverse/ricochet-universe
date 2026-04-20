@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card">
-                    <div class="card-header">Unauthorized</div>
+                    <h1 class="card-header">Unauthorized</h1>
 
                     <div class="card-body">
                         <p>You don’t have permission to visit this page.</p>

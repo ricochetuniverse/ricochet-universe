@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col">
                 <div class="card mb-3">
-                    <div class="card-header">About Ricochet Universe</div>
+                    <h1 class="card-header">About Ricochet Universe</h1>
 
                     <div class="card-body">
                         <p>
@@ -31,7 +31,7 @@
 
                 @if ($authors->count() > 0 && $roundSum > 0)
                     <div class="card">
-                        <div class="card-header">Level set contributors</div>
+                        <h2 class="card-header">Level set contributors</h2>
 
                         <div class="card-body">
                             <p>

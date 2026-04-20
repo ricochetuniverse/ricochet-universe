@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <h1 class="card-header fs-6 lh-base">Mods</h1>
+                    <h1 class="card-header">Mods</h1>
 
                     <div class="card-body">
                         <p>

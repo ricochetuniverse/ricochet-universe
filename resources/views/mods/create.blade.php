@@ -17,7 +17,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Add new mod</div>
+                    <h1 class="card-header">Add new mod</h1>
 
                     <div class="card-body">
                         <form action="{{ action('ModsController@store') }}" method="POST">

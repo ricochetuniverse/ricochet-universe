@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card">
-                    <div class="card-header">Too many requests</div>
+                    <h1 class="card-header">Too many requests</h1>
 
                     <div class="card-body">
                         You are sending too many requests in a short timeframe, please slow down and try again in

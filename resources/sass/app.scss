@@ -96,6 +96,12 @@ body {
     font-weight: bold;
 }
 
+h1.card-header,
+h2.card-header {
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+}
+
 .table thead {
     text-align: center;
 }

@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card">
-                    <div class="card-header">Under maintenance</div>
+                    <h1 class="card-header">Under maintenance</h1>
 
                     <div class="card-body">
                         Sorry, the website is currently under maintenance, please try again in a few minutes.

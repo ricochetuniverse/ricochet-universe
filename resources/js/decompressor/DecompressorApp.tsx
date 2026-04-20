@@ -156,7 +156,7 @@ export default function DecompressorApp(props: Props) {
     return (
         <div className="mb-n3">
             <Card className="mb-3">
-                <Card.Header>Decompressor</Card.Header>
+                <Card.Header as="h1">Decompressor</Card.Header>
 
                 <Card.Body>
                     <p>

@@ -17,7 +17,7 @@
 </div>
 
 <div class="card mb-3">
-    <div class="card-header">Edit Data2.dat</div>
+    <h2 class="card-header">Edit Data2.dat</h2>
 
     <div class="card-body">
         <p>

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <h1 class="card-header fs-6 lh-base">Welcome to Ricochet Universe</h1>
+                    <h1 class="card-header">Welcome to Ricochet Universe</h1>
 
                     <div class="card-body">
                         <p class="m-0">
@@ -21,7 +21,7 @@
         <div class="row mt-3">
             <div class="col-md pe-md-0">
                 <div class="card">
-                    <h1 class="card-header fs-6 lh-base">Most downloaded level sets</h1>
+                    <h1 class="card-header">Most downloaded level sets</h1>
 
                     <ul class="list-group list-group-flush">
                         @foreach ($topLevelSets as $levelSet)
@@ -37,7 +37,7 @@
 
             <div class="col-md mt-3 mt-md-0 pe-xl-0">
                 <div class="card">
-                    <h1 class="card-header fs-6 lh-base">Recent level sets</h1>
+                    <h1 class="card-header">Recent level sets</h1>
 
                     <ul class="list-group list-group-flush">
                         @foreach ($recentLevelSets as $levelSet)

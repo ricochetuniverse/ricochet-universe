@@ -118,7 +118,7 @@ export default function RedModPackagerApp() {
     return (
         <div className="mb-n3">
             <Card className="mb-3">
-                <Card.Header>RED mod packager</Card.Header>
+                <Card.Header as="h1">RED mod packager</Card.Header>
 
                 <Card.Body>
                     <p>
@@ -158,7 +158,7 @@ export default function RedModPackagerApp() {
 
             {packageTime && downloadButtonUrl ? (
                 <Card className="mb-3">
-                    <Card.Header>Package ready</Card.Header>
+                    <Card.Header as="h2">Package ready</Card.Header>
 
                     <Card.Body>
                         <p>
@@ -187,7 +187,7 @@ export default function RedModPackagerApp() {
 
             {files.length > 0 ? (
                 <Card className="mb-3">
-                    <Card.Header>Packaged files</Card.Header>
+                    <Card.Header as="h2">Packaged files</Card.Header>
 
                     <Card.Body>
                         <ol class="m-0">

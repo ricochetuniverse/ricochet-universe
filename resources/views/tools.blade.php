@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Tools</div>
+                    <h1 class="card-header">Tools</h1>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item p-3">

@@ -1,6 +1,6 @@
 @if ($os === \App\Http\Controllers\ReviverController::WINDOWS10)
     <div class="card mb-3">
-        <div class="card-header">Update curl</div>
+        <h2 class="card-header">Update curl</h2>
 
         <div class="card-body">
             <p>
@@ -28,7 +28,7 @@
 @endif
 
 <div class="card mb-3">
-    <div class="card-header">Edit Data2.dat</div>
+    <h2 class="card-header">Edit Data2.dat</h2>
 
     <div class="card-body">
         <p>Find <code>Data2.dat</code> in the Ricochet Infinity program folder.</p>

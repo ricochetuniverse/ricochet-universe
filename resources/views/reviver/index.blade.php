@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col">
                 <div class="card mb-3">
-                    <div class="card-header">Restore the in-game level catalog</div>
+                    <h1 class="card-header">Restore the in-game level catalog</h1>
 
                     <div class="card-body">
                         <p>
@@ -53,7 +53,7 @@
                     @endif
 
                     <div class="card">
-                        <div class="card-header">Finished!</div>
+                        <h2 class="card-header">Finished!</h2>
 
                         <div class="card-body">
                             <p class="m-0">

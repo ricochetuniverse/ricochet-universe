@@ -192,7 +192,7 @@
                 </div>
 
                 <div class="card mt-3">
-                    <div class="card-header">Round info</div>
+                    <h2 class="card-header">Round info</h2>
 
                     <div class="card-body">
                         <noscript>

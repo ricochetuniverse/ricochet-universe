@@ -86,7 +86,7 @@ export default class ImageToCanvasApp extends Component<{}, State> {
         return (
             <div className="mb-n3">
                 <Card className="mb-3">
-                    <Card.Header>Image to canvas</Card.Header>
+                    <Card.Header as="h1">Image to canvas</Card.Header>
 
                     <Card.Body>
                         <CustomFileInput
@@ -106,7 +106,7 @@ export default class ImageToCanvasApp extends Component<{}, State> {
 
                 {this.state.result ? (
                     <Card className="mb-3">
-                        <Card.Header>Scrapbook result</Card.Header>
+                        <Card.Header as="h2">Scrapbook result</Card.Header>
 
                         <Card.Body>
                             <Button

@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card">
-                    <div class="card-header">Not signed in</div>
+                    <h1 class="card-header">Not signed in</h1>
 
                     <div class="card-body">
                         <p class="m-0">

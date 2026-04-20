@@ -91,7 +91,7 @@ export default function DecompressorResultsNuVelocity(props: Props) {
 
     return (
         <Card className="mb-3">
-            <Card.Header>Decompressed sequence image</Card.Header>
+            <Card.Header as="h2">Decompressed sequence image</Card.Header>
 
             {isDotNetLoading ? (
                 <Card.Body>Loading...</Card.Body>

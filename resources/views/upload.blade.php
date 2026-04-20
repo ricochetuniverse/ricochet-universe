@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Upload your levels</div>
+                    <h1 class="card-header">Upload your levels</h1>
 
                     <div class="card-body">
                         <p class="m-0">
@@ -26,7 +26,7 @@
         <div class="row mt-3">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Instructions</div>
+                    <h2 class="card-header">Instructions</h2>
 
                     <div class="card-body">
                         <p>
@@ -63,7 +63,7 @@
 
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header">Other upload questions</div>
+                    <h2 class="card-header">Other upload questions</h2>
 
                     <div class="card-body">
                         <p>

@@ -19,7 +19,7 @@ function LoadableRedModCreatorApp() {
             fallback={(status) => {
                 return (
                     <Card className="mb-3">
-                        <Card.Header>RED mod packager</Card.Header>
+                        <Card.Header as="h1">RED mod packager</Card.Header>
 
                         <Card.Body>{status}</Card.Body>
                     </Card>

@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col">
                 <div class="card mb-3">
-                    <div class="card-header">Search rounds</div>
+                    <h1 class="card-header">Search rounds</h1>
 
                     <div class="card-body">
                         <form class="d-flex" method="GET" action="{{ action('RoundsController@index') }}">

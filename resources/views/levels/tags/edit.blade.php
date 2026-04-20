@@ -17,7 +17,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Edit level set tags for “{{ $levelSet->name }}”</div>
+                    <h1 class="card-header">Edit level set tags for “{{ $levelSet->name }}”</h1>
 
                     <div class="card-body">
                         <p>Select tags to show for this level set. Reordering is currently not supported.</p>

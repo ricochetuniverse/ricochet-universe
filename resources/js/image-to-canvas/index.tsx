@@ -19,7 +19,7 @@ function LoadableImageToCanvasApp() {
             fallback={(status) => {
                 return (
                     <Card className="mb-3">
-                        <Card.Header>Image to canvas</Card.Header>
+                        <Card.Header as="h1">Image to canvas</Card.Header>
 
                         <Card.Body>{status}</Card.Body>
                     </Card>

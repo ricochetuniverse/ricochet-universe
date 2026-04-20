@@ -21,7 +21,7 @@ function LoadableDecompressorApp(
             fallback={(status) => {
                 return (
                     <Card className="mb-3">
-                        <Card.Header>Decompressor</Card.Header>
+                        <Card.Header as="h1">Decompressor</Card.Header>
 
                         <Card.Body>{status}</Card.Body>
                     </Card>
