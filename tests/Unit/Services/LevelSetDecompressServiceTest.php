@@ -11,8 +11,8 @@ class LevelSetDecompressServiceTest extends TestCase
 {
     public function test_decompress(): void
     {
-        $originalFile = realpath(__DIR__.'/../../fixtures/Reflexive B Sides.RicochetLW');
-        $decompressedFile = file_get_contents(__DIR__.'/../../fixtures/Reflexive B Sides.RicochetLW.txt');
+        $originalFile = realpath(base_path('tests/fixtures/Reflexive B Sides.RicochetLW'));
+        $decompressedFile = file_get_contents(base_path('tests/fixtures/Reflexive B Sides.RicochetLW.txt'));
 
         $levelSetData = LevelSetDecompressService::decompress($originalFile);
 

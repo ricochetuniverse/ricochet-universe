@@ -67,7 +67,7 @@ EOF;
 
     public function test_legacy_encoding(): void
     {
-        $data = file_get_contents(__DIR__.'/../../fixtures/rating-data/legacy-encoding.txt');
+        $data = file_get_contents(base_path('tests/fixtures/rating-data/legacy-encoding.txt'));
         $ratings = RatingDataParser::parse($data);
 
         $this->assertCount(2, $ratings);

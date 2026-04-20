@@ -21,7 +21,7 @@ class LevelSetUploadProcessorTest extends TestCase
     public function test_new_valid_level_set(): void
     {
         Http::fake([
-            self::FAKE_DOWNLOAD_URL => file_get_contents(__DIR__.'/../../fixtures/Reflexive B Sides.RicochetLW'),
+            self::FAKE_DOWNLOAD_URL => file_get_contents(base_path('tests/fixtures/Reflexive B Sides.RicochetLW')),
         ]);
         $disk = Storage::fake('levels');
 
