@@ -18,11 +18,7 @@ class Decompressor extends Standard
     {
         parent::configure($policy);
 
-        // For Monaco editor
-        // https://github.com/Microsoft/monaco-editor/issues/271
-        $policy
-            ->add(Directive::STYLE, Keyword::UNSAFE_INLINE)
-            ->add(Directive::FONT, URL::to('/build/').'/');
+        $this->addForMonacoEditor($policy);
 
         // For viewing decompressed images
         $policy

@@ -14,7 +14,8 @@ Route::group(['middleware' => $cache], static function () {
 
     Route::get('/levels', 'LevelController@redirectMain');
     Route::get('/levels/index.php', 'LevelController@index');
-    Route::get('/levels/levelsetinfo.php', 'LevelController@show');
+    Route::get('/levels/levelsetinfo.php', 'LevelController@show')
+        ->middleware(AddCspHeaders::class.':'.CspPresets\LevelSetInfo::class);
 });
 
 Route::group(['middleware' => 'can:update,levelSet'], static function () {

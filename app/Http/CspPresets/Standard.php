@@ -52,6 +52,20 @@ class Standard implements Preset
     }
 
     /**
+     * For Monaco editor
+     * https://github.com/Microsoft/monaco-editor/issues/271
+     */
+    public function addForMonacoEditor(Policy $policy): void
+    {
+        // fixme ineffective as addForDebugbar() runs first
+        // $this->canUseNonce = false;
+
+        $policy
+            ->add(Directive::STYLE, Keyword::UNSAFE_INLINE)
+            ->add(Directive::FONT, URL::to('/build/').'/');
+    }
+
+    /**
      * https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics
      */
     private function addForGoogleAnalytics(Policy $policy): void

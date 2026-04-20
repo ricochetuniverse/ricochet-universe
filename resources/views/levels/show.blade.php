@@ -12,7 +12,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col">
+            <div class="col d-flex flex-column gap-3">
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">
@@ -36,19 +36,19 @@
                 </div>
 
                 @if ($levelSet->prerelease)
-                    <div class="alert alert-warning mt-3" role="alert">
+                    <div class="alert alert-warning" role="alert">
                         This level set is in prerelease and pending test verification before it is published to
                         the public.
                     </div>
                 @endif
 
                 @if ($brokenLevelSetWarning)
-                    <div class="alert alert-danger mt-3" role="alert">
+                    <div class="alert alert-danger" role="alert">
                         This level set can’t be parsed properly, it might be broken or can’t be completed.
                     </div>
                 @endif
 
-                <div class="card mt-3">
+                <div class="card">
                     <div class="card-body">
                         <h1 class="{{ !$levelSet->prerelease ? 'text-secondary' : 'levelsName--prerelease' }} fs-6 fw-bold m-0 lh-base">
                             {{ $levelSet->name }}@if ($levelSet->prerelease)
@@ -170,11 +170,10 @@
                     </div>
                 </div>
 
-                <div class="card mt-3">
+                <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
-                            <a href="{{ action('API\\LevelDownloadController@download', ['File' => 'downloads/raw/'.$levelSet->name.$levelSet->getFileExtension()]) }}"
-                               class="d-inline-flex align-items-center">
+                            <a href="{{ $levelSet->getDownloadUrl() }}" class="d-inline-flex align-items-center">
                                 <img src="{{ asset('images/levelDownload.jpg') }}"
                                      alt=""
                                      width="38"
@@ -191,7 +190,7 @@
                     </div>
                 </div>
 
-                <div class="card mt-3">
+                <div class="card">
                     <h2 class="card-header">Round info</h2>
 
                     <div class="card-body">
@@ -241,6 +240,8 @@
                         @endunless
                     </div>
                 </div>
+
+                <div id="level-set-info-decompressor-root" data-download-url="{{ $levelSet->getDownloadUrl() }}"></div>
             </div>
         </div>
     </div>

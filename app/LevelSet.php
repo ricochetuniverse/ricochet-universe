@@ -141,6 +141,11 @@ class LevelSet extends Model
         return $uri->withQuery(['time' => $this->updated_at->unix()]);
     }
 
+    public function getDownloadUrl(): string
+    {
+        return action('API\LevelDownloadController@download', ['File' => 'downloads/raw/'.$this->name.$this->getFileExtension()]);
+    }
+
     #[Scope]
     protected function published(Builder $query): Builder
     {

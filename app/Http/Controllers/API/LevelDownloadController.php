@@ -116,6 +116,10 @@ class LevelDownloadController extends Controller
             return;
         }
 
+        if ($request->header('Sec-Fetch-Mode') === 'cors') {
+            return;
+        }
+
         CreateLevelSetDownloadLog::dispatchAfterResponse($levelSet->id, $request->ip());
     }
 }
