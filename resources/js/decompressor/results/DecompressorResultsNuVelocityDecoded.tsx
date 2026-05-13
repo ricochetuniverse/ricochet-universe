@@ -4,26 +4,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Form from 'react-bootstrap/Form';
 
-function Image(
-    props: Readonly<{
-        appearance: string;
-        base64: string;
-        className?: string;
-    }>
-) {
-    return (
-        <img
-            src={'data:image/png;base64,' + props.base64}
-            alt=""
-            className={
-                'decompressor__image--' +
-                props.appearance +
-                ' ' +
-                (props.className ?? '')
-            }
-        />
-    );
-}
+import DecompressorResultsImage from './DecompressorResultsImage';
 
 type Props = Readonly<{
     decodedImages: string[];
@@ -71,7 +52,7 @@ export default function DecompressorResultsNuVelocityDecoded({
 
             {!showAll ? (
                 <>
-                    <Image
+                    <DecompressorResultsImage
                         appearance={appearance}
                         base64={decodedImages[currentIndex]}
                         className="mb-3"
@@ -156,7 +137,7 @@ export default function DecompressorResultsNuVelocityDecoded({
                 <div>
                     {decodedImages.map((img, index) => {
                         return (
-                            <Image
+                            <DecompressorResultsImage
                                 appearance={appearance}
                                 base64={img}
                                 className="me-2 mb-2"
@@ -169,6 +150,9 @@ export default function DecompressorResultsNuVelocityDecoded({
             )}
         </>
     ) : (
-        <Image appearance={appearance} base64={decodedImages[0]} />
+        <DecompressorResultsImage
+            appearance={appearance}
+            base64={decodedImages[0]}
+        />
     );
 }
