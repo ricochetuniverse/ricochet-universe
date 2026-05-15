@@ -1,8 +1,8 @@
 import '../sass/app.scss';
 
-// @ts-expect-error loading Bootstrap components
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {Collapse, Dropdown, Tooltip} from 'bootstrap';
+import 'bootstrap/js/src/collapse';
+import 'bootstrap/js/src/dropdown';
+import Tooltip from 'bootstrap/js/src/tooltip';
 
 // Website stuff
 import './analytics';
