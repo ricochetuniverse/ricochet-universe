@@ -6,7 +6,6 @@ namespace App\Http\CspPresets;
 
 use Illuminate\Support\Facades\URL;
 use Spatie\Csp\Directive;
-use Spatie\Csp\Keyword;
 use Spatie\Csp\Policy;
 
 class Decompressor extends Standard
@@ -26,8 +25,7 @@ class Decompressor extends Standard
 
         // For .NET / NuVelocity Unpacker
         $policy
-            ->add(Directive::SCRIPT, Keyword::UNSAFE_WEB_ASSEMBLY_EXECUTION)
-            ->add(Directive::CONNECT, URL::to('/build/').'/')
-            ->add(Directive::IMG, 'data:');
+            ->add(Directive::IMG, 'data:')
+            ->add(Directive::WORKER, URL::to('/build/').'/');
     }
 }
