@@ -9,7 +9,6 @@ import {
     SubresourceIntegrityPlugin,
     type SwcLoaderOptions,
 } from '@rspack/core';
-import browserslist from 'browserslist';
 import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import {RspackManifestPlugin} from 'rspack-manifest-plugin';
@@ -165,17 +164,6 @@ export default defineConfig({
         }),
     ],
     optimization: {
-        minimizer: [
-            new rspack.SwcJsMinimizerRspackPlugin({}),
-
-            new rspack.LightningCssMinimizerRspackPlugin({
-                minimizerOptions: {
-                    targets: browserslist.loadConfig({
-                        path: resolve(__dirname),
-                    }),
-                },
-            }),
-        ],
         realContentHash: true,
     },
     devtool: false,
