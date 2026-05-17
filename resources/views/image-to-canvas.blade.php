@@ -14,7 +14,15 @@
                     « Return to tools list
                 </a>
 
-                <div id="image-to-canvas-root"></div>
+                <div id="image-to-canvas-root">
+                    <div class="card">
+                        <h1 class="card-header">Image to canvas</h1>
+
+                        <div class="card-body">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
 
                 <noscript>
                     <div class="alert alert-danger m-0" role="alert">

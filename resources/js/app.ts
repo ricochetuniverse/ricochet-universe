@@ -8,12 +8,30 @@ import Tooltip from 'bootstrap/js/src/tooltip';
 import './analytics';
 
 import './preact-debug';
-import './discord/index';
-import './level-set-info/index';
-import './round-info/index';
-import './decompressor/index';
-import './red-mod-packager/index';
-import './image-to-canvas/index';
+
+if (document.getElementsByClassName('discordWidget__reactWrap').length) {
+    import('./discord/index');
+}
+
+if (document.getElementById('level-set-info-decompressor-root')) {
+    import('./level-set-info/index');
+}
+
+if (document.getElementsByClassName('js-open-round-info-modal').length) {
+    import('./round-info/index');
+}
+
+if (document.getElementById('decompressor-root')) {
+    import('./decompressor/index');
+}
+
+if (document.getElementById('red-mod-packager-root')) {
+    import('./red-mod-packager/index');
+}
+
+if (document.getElementById('image-to-canvas-root')) {
+    import('./image-to-canvas/index');
+}
 
 document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((ele) => {
     const options: Partial<Tooltip.Options> = {};

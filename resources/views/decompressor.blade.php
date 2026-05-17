@@ -14,7 +14,15 @@
                     « Return to tools list
                 </a>
 
-                <div id="decompressor-root" data-dotnet-loader-url="{{ $dotnetLoaderUrl }}"></div>
+                <div id="decompressor-root" data-dotnet-loader-url="{{ $dotnetLoaderUrl }}">
+                    <div class="card">
+                        <h1 class="card-header">Decompressor</h1>
+
+                        <div class="card-body">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
 
                 <noscript>
                     <div class="alert alert-danger m-0" role="alert">
