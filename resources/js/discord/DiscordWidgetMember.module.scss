@@ -1,0 +1,63 @@
+@import '../../sass/bootstrap-config';
+
+.member {
+    display: flex;
+    align-items: center;
+
+    color: #8a8e94;
+    margin: 6px 0 6px 10px;
+}
+
+.avatar {
+    width: 16px;
+    height: 16px;
+
+    margin-right: 4px;
+    position: relative;
+}
+
+.image {
+    width: 16px;
+    height: 16px;
+    display: block;
+
+    border-radius: 100%;
+}
+
+.statusOnline,
+.statusIdle,
+.statusDnd {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 6px;
+    height: 6px;
+
+    border-radius: 100%;
+}
+
+.statusOnline {
+    background: rgb(35, 165, 90);
+}
+
+.statusIdle {
+    background: rgb(240, 178, 50);
+}
+
+.statusDnd {
+    background: rgb(242, 63, 67);
+}
+
+@include color-mode(dark) {
+    .statusOnline {
+        background: rgb(36, 147, 78);
+    }
+
+    .statusIdle {
+        background: rgb(175, 118, 21);
+    }
+
+    .statusDnd {
+        background: rgb(218, 55, 60);
+    }
+}

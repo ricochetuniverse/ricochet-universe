@@ -4,6 +4,7 @@ export default {
         '^react$': 'preact/compat',
         '^react/jsx-runtime$': 'preact/jsx-runtime',
         '^react-dom$': 'preact/compat',
+        '^.+\\.module\\.(css|scss)$': 'identity-obj-proxy',
     },
     // https://mswjs.io/docs/faq/#requestresponsetextencoder-is-not-defined-jest
     testEnvironment: 'jest-fixed-jsdom',

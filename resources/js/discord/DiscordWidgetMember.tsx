@@ -1,6 +1,7 @@
 import {useState} from 'preact/hooks';
 import type {z} from 'zod/mini';
 
+import * as styles from './DiscordWidgetMember.module.scss';
 import {DiscordWidgetMemberSchema} from './DiscordWidgetMemberType';
 
 type Props = Readonly<{
@@ -15,11 +16,11 @@ export default function DiscordWidgetMember({member}: Props) {
     }
 
     return (
-        <li className="discordWidget__member" key={member.id}>
-            <div className="discordWidget__member__avatar">
+        <li className={styles.member} key={member.id}>
+            <div className={styles.avatar}>
                 <img
                     alt={member.username + '’s avatar'}
-                    className="discordWidget__member__avatar__image"
+                    className={styles.image}
                     height={16}
                     loading="lazy"
                     onError={() => {
@@ -31,8 +32,13 @@ export default function DiscordWidgetMember({member}: Props) {
                 />
                 <span
                     className={
-                        'discordWidget__member__avatar__status discordMemberStatus--' +
-                        member.status
+                        member.status === 'online'
+                            ? styles.statusOnline
+                            : member.status === 'idle'
+                              ? styles.statusIdle
+                              : member.status === 'dnd'
+                                ? styles.statusDnd
+                                : ''
                     }
                 />
             </div>
