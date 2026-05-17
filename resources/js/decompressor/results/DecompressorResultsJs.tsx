@@ -9,6 +9,7 @@ import type {
 } from '../DecompressorTypes';
 import DownloadButton from '../DownloadButton';
 import LoadableDecompressorTextEditor from '../LoadableDecompressorTextEditor';
+import DecompressorResultsImage from './DecompressorResultsImage';
 
 type Props = Readonly<{
     blobUrls: DecompressorBlobUrls;
@@ -39,10 +40,9 @@ export default function DecompressorResultsJs(props: Props) {
                     </Card.Body>
 
                     <div className="overflow-x-auto">
-                        <img
+                        <DecompressorResultsImage
+                            appearance={'CHECKERBOARD'}
                             src={props.blobUrls.image}
-                            alt="Decompressed result"
-                            className="decompressor__image decompressor__image--checkerboard"
                         />
                     </div>
                 </Card>

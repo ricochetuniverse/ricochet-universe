@@ -1,17 +1,26 @@
+export type Appearance = 'BLACK' | 'WHITE' | 'CHECKERBOARD';
+
 type Props = Readonly<{
-    appearance: string;
-    base64: string;
+    appearance: Appearance;
     className?: string;
+    src: string;
 }>;
 
-export default function Image(props: Props) {
+import * as styles from './DecompressorResultsImage.module.scss';
+
+export default function DecompressorResultsImage(props: Props) {
     return (
         <img
-            src={'data:image/png;base64,' + props.base64}
+            src={props.src}
             alt=""
             className={
-                'decompressor__image--' +
-                props.appearance +
+                (props.appearance === 'BLACK'
+                    ? styles.backgroundBlack
+                    : props.appearance === 'WHITE'
+                      ? styles.backgroundWhite
+                      : props.appearance === 'CHECKERBOARD'
+                        ? styles.backgroundCheckerboard
+                        : '') +
                 ' ' +
                 (props.className ?? '')
             }

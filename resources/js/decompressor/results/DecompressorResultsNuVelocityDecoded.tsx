@@ -4,7 +4,11 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Form from 'react-bootstrap/Form';
 
-import DecompressorResultsImage from './DecompressorResultsImage';
+import DecompressorResultsImage, {
+    type Appearance,
+} from './DecompressorResultsImage';
+
+const BASE64_DATA_URI = 'data:image/png;base64,';
 
 type Props = Readonly<{
     decodedImages: string[];
@@ -15,7 +19,7 @@ export default function DecompressorResultsNuVelocityDecoded({
 }: Props) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showAll, setShowAll] = useState(false);
-    const [appearance, setAppearance] = useState<string>('checkerboard');
+    const [appearance, setAppearance] = useState<Appearance>('CHECKERBOARD');
 
     return decodedImages.length > 1 ? (
         <>
@@ -40,13 +44,20 @@ export default function DecompressorResultsNuVelocityDecoded({
                 <Form.Select
                     className="w-auto"
                     onChange={(ev) => {
-                        setAppearance(ev.currentTarget.value);
+                        const value = ev.currentTarget.value;
+                        if (
+                            value === 'BLACK' ||
+                            value === 'WHITE' ||
+                            value === 'CHECKERBOARD'
+                        ) {
+                            setAppearance(value);
+                        }
                     }}
                     value={appearance}
                 >
-                    <option value="black">Black</option>
-                    <option value="white">White</option>
-                    <option value="checkerboard">Checkerboard</option>
+                    <option value="BLACK">Black</option>
+                    <option value="WHITE">White</option>
+                    <option value="CHECKERBOARD">Checkerboard</option>
                 </Form.Select>
             </Form.Group>
 
@@ -54,8 +65,8 @@ export default function DecompressorResultsNuVelocityDecoded({
                 <>
                     <DecompressorResultsImage
                         appearance={appearance}
-                        base64={decodedImages[currentIndex]}
                         className="mb-3"
+                        src={BASE64_DATA_URI + decodedImages[currentIndex]}
                     />
 
                     <ButtonToolbar className="align-items-center">
@@ -139,8 +150,8 @@ export default function DecompressorResultsNuVelocityDecoded({
                         return (
                             <DecompressorResultsImage
                                 appearance={appearance}
-                                base64={img}
                                 className="me-2 mb-2"
+                                src={BASE64_DATA_URI + img}
                                 // eslint-disable-next-line @eslint-react/no-array-index-key
                                 key={index}
                             />
@@ -152,7 +163,7 @@ export default function DecompressorResultsNuVelocityDecoded({
     ) : (
         <DecompressorResultsImage
             appearance={appearance}
-            base64={decodedImages[0]}
+            src={BASE64_DATA_URI + decodedImages[0]}
         />
     );
 }
