@@ -1,5 +1,6 @@
 import type {z} from 'zod/mini';
 
+import * as styles from './DiscordWidget.module.scss';
 import DiscordWidgetMember from './DiscordWidgetMember';
 import {DiscordWidgetMemberSchema} from './DiscordWidgetMemberType';
 
@@ -12,7 +13,7 @@ type Props = Readonly<{
 
 export default function DiscordWidget(props: Props) {
     if (props.loading) {
-        return <div className="discordWidget__body">Loading...</div>;
+        return <div className={styles.body}>Loading...</div>;
     }
 
     if (props.error) {
@@ -21,12 +22,12 @@ export default function DiscordWidget(props: Props) {
     }
 
     return (
-        <div className="discordWidget__body">
-            <div className="discordWidget__heading">
+        <div className={styles.body}>
+            <div className={styles.heading}>
                 {props.presenceCount} Members Online
             </div>
 
-            <ul className="discordWidget__memberList" data-testid="members">
+            <ul className={styles.memberList} data-testid="members">
                 {props.members.map((member) => {
                     return (
                         <DiscordWidgetMember key={member.id} member={member} />

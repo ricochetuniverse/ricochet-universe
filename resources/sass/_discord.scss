@@ -26,30 +26,3 @@
 
     display: block;
 }
-
-.discordWidget__body {
-    background: #fff;
-    padding: 20px;
-
-    font-size: 14px;
-    line-height: 14px;
-}
-
-@include color-mode(dark) {
-    .discordWidget__body {
-        background: #1e2124;
-    }
-}
-
-.discordWidget__heading {
-    color: #8a8e94;
-    font-weight: 600;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-}
-
-.discordWidget__memberList {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}

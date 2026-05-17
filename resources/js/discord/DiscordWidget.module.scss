@@ -1,0 +1,27 @@
+@import '../../sass/bootstrap-config';
+
+.body {
+    background: #fff;
+    padding: 20px;
+
+    font-size: 14px;
+    line-height: 14px;
+}
+
+@include color-mode(dark) {
+    .body {
+        background: #1e1f22;
+    }
+}
+
+.heading {
+    color: #8a8e94;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.memberList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
