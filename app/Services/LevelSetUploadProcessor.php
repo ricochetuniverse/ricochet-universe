@@ -238,4 +238,3 @@ class LevelSetUploadProcessor
 }
 
 class DisallowedFileInLevelSetException extends \Exception {}
-
