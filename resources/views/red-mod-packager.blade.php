@@ -29,13 +29,15 @@
         <div class="row">
             <div class="col">
                 <div id="red-mod-packager-root">
-                    <x-card>
-                        <x-card.header>RED mod packager</x-card.header>
+                    <div class="vstack gap-3">
+                        <x-card>
+                            <x-card.header>RED mod packager</x-card.header>
 
-                        <x-card.body>
-                            Loading...
-                        </x-card.body>
-                    </x-card>
+                            <x-card.body>
+                                Loading...
+                            </x-card.body>
+                        </x-card>
+                    </div>
                 </div>
             </div>
         </div>

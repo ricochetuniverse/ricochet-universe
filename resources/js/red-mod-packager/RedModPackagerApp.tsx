@@ -118,7 +118,7 @@ export default function RedModPackagerApp() {
 
     return (
         <Stack gap={3}>
-            <Card>
+            <Card as="section">
                 <Card.Header as="h1">RED mod packager</Card.Header>
 
                 <Card.Body>
@@ -158,7 +158,7 @@ export default function RedModPackagerApp() {
             ) : null}
 
             {packageTime && downloadButtonUrl ? (
-                <Card>
+                <Card as="section">
                     <Card.Header as="h2">Package ready</Card.Header>
 
                     <Card.Body>
@@ -187,7 +187,7 @@ export default function RedModPackagerApp() {
             ) : null}
 
             {files.length > 0 ? (
-                <Card>
+                <Card as="section">
                     <Card.Header as="h2">Packaged files</Card.Header>
 
                     <Card.Body>

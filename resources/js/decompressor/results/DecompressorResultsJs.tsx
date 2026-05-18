@@ -27,7 +27,7 @@ export default function DecompressorResultsJs(props: Props) {
             />
 
             {props.blobUrls.image != null ? (
-                <Card>
+                <Card as="section">
                     <Card.Header as="h2">Decompressed image</Card.Header>
 
                     <Card.Body>
@@ -50,7 +50,7 @@ export default function DecompressorResultsJs(props: Props) {
             ) : null}
 
             {props.result.text ? (
-                <Card>
+                <Card as="section">
                     <Card.Header as="h2">
                         {props.blobUrls.image == null
                             ? 'Decompressed text'

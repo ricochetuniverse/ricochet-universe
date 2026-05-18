@@ -160,7 +160,7 @@ export default function DecompressorApp(props: Props) {
 
     return (
         <Stack gap={3}>
-            <Card>
+            <Card as="section">
                 <Card.Header as="h1">Decompressor</Card.Header>
 
                 <Card.Body>

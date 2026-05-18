@@ -29,13 +29,15 @@
         <div class="row">
             <div class="col">
                 <div id="image-to-canvas-root">
-                    <x-card>
-                        <x-card.header>Image to canvas</x-card.header>
+                    <div class="vstack gap-3">
+                        <x-card>
+                            <x-card.header>Image to canvas</x-card.header>
 
-                        <x-card.body>
-                            Loading...
-                        </x-card.body>
-                    </x-card>
+                            <x-card.body>
+                                Loading...
+                            </x-card.body>
+                        </x-card>
+                    </div>
                 </div>
             </div>
         </div>

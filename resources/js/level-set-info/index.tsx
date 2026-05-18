@@ -35,7 +35,7 @@ function LoadableLevelSetInfoDecompressorApp(
         <SuspenseComponent
             fallback={(status) => {
                 return (
-                    <Card>
+                    <Card as="section">
                         <Card.Header as="h1">Decompressor</Card.Header>
 
                         <Card.Body>{status}</Card.Body>

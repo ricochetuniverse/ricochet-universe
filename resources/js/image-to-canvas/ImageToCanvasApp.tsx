@@ -86,7 +86,7 @@ export default class ImageToCanvasApp extends Component<{}, State> {
     render() {
         return (
             <Stack gap={3}>
-                <Card>
+                <Card as="section">
                     <Card.Header as="h1">Image to canvas</Card.Header>
 
                     <Card.Body>
@@ -106,7 +106,7 @@ export default class ImageToCanvasApp extends Component<{}, State> {
                 ) : null}
 
                 {this.state.result ? (
-                    <Card>
+                    <Card as="section">
                         <Card.Header as="h2">Scrapbook result</Card.Header>
 
                         <Card.Body>

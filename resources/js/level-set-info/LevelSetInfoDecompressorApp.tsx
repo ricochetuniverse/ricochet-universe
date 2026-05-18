@@ -55,7 +55,7 @@ export default function LevelSetInfoDecompressorApp(props: Props) {
     }, [props.downloadUrl]);
 
     return (
-        <Card>
+        <Card as="section">
             <Card.Header as="h2">Decompressor</Card.Header>
 
             {error ? (
