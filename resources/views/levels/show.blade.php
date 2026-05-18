@@ -10,9 +10,9 @@
 @section('robots', $levelSet->prerelease ? 'noindex,follow' : '')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
-            <div class="col d-flex flex-column gap-3">
+            <div class="col">
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">
@@ -34,20 +34,32 @@
                         </div>
                     @endcan
                 </div>
+            </div>
+        </div>
 
-                @if ($levelSet->prerelease)
-                    <div class="alert alert-warning" role="alert">
+        @if ($levelSet->prerelease)
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-warning m-0" role="alert">
                         This level set is in prerelease and pending test verification before it is published to
                         the public.
                     </div>
-                @endif
+                </div>
+            </div>
+        @endif
 
-                @if ($brokenLevelSetWarning)
-                    <div class="alert alert-danger" role="alert">
+        @if ($brokenLevelSetWarning)
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-danger m-0" role="alert">
                         This level set can’t be parsed properly, it might be broken or can’t be completed.
                     </div>
-                @endif
+                </div>
+            </div>
+        @endif
 
+        <div class="row">
+            <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <h1 class="{{ !$levelSet->prerelease ? 'text-secondary' : 'levelsName--prerelease' }} fs-6 fw-bold m-0 lh-base">
@@ -169,7 +181,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
@@ -189,7 +205,11 @@
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col">
                 <div class="card">
                     <h2 class="card-header">Round info</h2>
 
@@ -240,7 +260,11 @@
                         @endunless
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col">
                 <div id="level-set-info-decompressor-root" data-download-url="{{ $levelSet->getDownloadUrl() }}"></div>
             </div>
         </div>

@@ -7,14 +7,14 @@
 @section('robots', 'noindex,follow')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
                 <a href="{{ $levelSet->getPermalink() }}" class="btn btn-outline-primary">« Back</a>
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <h1 class="card-header">Edit level set tags for “{{ $levelSet->name }}”</h1>
@@ -23,23 +23,29 @@
                         <p>Select tags to show for this level set. Reordering is currently not supported.</p>
 
                         <form action="{{ action('LevelTagsController@update', ['levelSet' => $levelSet]) }}"
-                              method="POST">
+                              method="POST" class="vstack gap-3">
                             @csrf
                             @method('PATCH')
 
-                            @foreach ($allTags as $tag)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{ $tag->name }}" name="tags[]"
-                                           id="tag-{{ $tag->id }}" @if ($levelSet->tags->contains($tag)) checked @endif>
+                            <div class="row">
+                                <div class="col">
+                                    @foreach ($allTags as $tag)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="{{ $tag->name }}"
+                                                   name="tags[]"
+                                                   id="tag-{{ $tag->id }}"
+                                                   @if ($levelSet->tags->contains($tag)) checked @endif>
 
-                                    <label class="form-check-label" for="tag-{{ $tag->id }}">
-                                        {{ $tag->name }}
-                                    </label>
+                                            <label class="form-check-label" for="tag-{{ $tag->id }}">
+                                                {{ $tag->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
+                            </div>
 
-                            <div class="row mt-3">
-                                <div class="col-sm">
+                            <div class="row">
+                                <div class="col">
                                     <button type="submit" class="btn btn-outline-primary">Edit</button>
                                 </div>
                             </div>

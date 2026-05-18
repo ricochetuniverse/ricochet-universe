@@ -7,13 +7,27 @@
 @section('description', '')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <a href="{{ action('ToolsController@index') }}" class="btn btn-outline-primary mb-3">
+                <a href="{{ action('ToolsController@index') }}" class="btn btn-outline-primary">
                     « Return to tools list
                 </a>
+            </div>
+        </div>
 
+        <noscript>
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-danger m-0" role="alert">
+                        Please enable JavaScript to use the image to canvas tool.
+                    </div>
+                </div>
+            </div>
+        </noscript>
+
+        <div class="row">
+            <div class="col">
                 <div id="image-to-canvas-root">
                     <div class="card">
                         <h1 class="card-header">Image to canvas</h1>
@@ -23,12 +37,6 @@
                         </div>
                     </div>
                 </div>
-
-                <noscript>
-                    <div class="alert alert-danger m-0" role="alert">
-                        Please enable JavaScript to use the image to canvas tool.
-                    </div>
-                </noscript>
             </div>
         </div>
     </div>

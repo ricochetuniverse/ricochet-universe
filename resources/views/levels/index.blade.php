@@ -8,10 +8,10 @@
 @section('robots', 'noindex,follow')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card mb-3">
+                <div class="card">
                     <h1 class="card-header">Levels</h1>
 
                     <div class="card-body">
@@ -22,62 +22,70 @@
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                @if ($levelSets->count() > 0)
+        @if ($levelSets->count() > 0)
+            <div class="row">
+                <div class="col">
                     @if ($levelSets->total() > $levelSets->count())
-                        <p>
+                        <p class="m-0">
                             Showing {{ number_format($levelSets->firstItem()).'-'.number_format($levelSets->lastItem()) }}
                             of {{ number_format($levelSets->total()) }} level sets
                         </p>
                     @elseif ($levelSets->count() > 1)
-                        <p>Showing {{ $levelSets->count() }} level sets</p>
+                        <p class="m-0">Showing {{ $levelSets->count() }} level sets</p>
                     @else
-                        <p>Showing {{ $levelSets->count() }} level set</p>
+                        <p class="m-0">Showing {{ $levelSets->count() }} level set</p>
                     @endif
-                @endif
-
-                <div class="d-md-none mb-3 container-fluid">
-                    <form action="{{ action('LevelController@index') }}" method="GET" class="row row-cols-auto">
-                        <input class="form-control w-100" type="search" name="search"
-                               placeholder="Search level sets by name/author" title="Search level sets by name/author"
-                               value="{{ $filteredInput['search'] }}">
-
-                        <div class="w-100 mb-2"></div>
-
-                        <select class="form-select w-auto flex-grow-1" name="orderBy" title="Sort by">
-                            @foreach ([
-                                'Name' => 'Name',
-                                'Rounds' => 'Level count',
-                                'downloads' => 'Downloads',
-                                'Date_Posted' => 'Date posted',
-                                'Ratings' => 'Ratings'
-                            ] as $value => $text)
-                                <option value="{{ $value }}" {{ $orderBy === $value ? 'selected' : '' }}>
-                                    {{ $text }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        <select class="form-select w-auto flex-grow-1 ms-2" name="orderDir" title="Order by">
-                            @foreach (['ASC' => 'Ascending', 'DESC' => 'Descending'] as $value => $text)
-                                <option value="{{ $value }}" {{ $orderDirection === $value ? 'selected' : '' }}>
-                                    {{ $text }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        @foreach ($filteredInput as $name => $value)
-                            @if ((is_string($value) || is_int($value)) && !in_array($name, ['search', 'orderBy', 'orderDir']))
-                                <input type="hidden" name="{{ $name }}" value="{{ $value }}">
-                            @endif
-                        @endforeach
-
-                        <div class="w-100 mb-2"></div>
-
-                        <button type="submit" class="btn btn-outline-primary ms-auto">Search</button>
-                    </form>
                 </div>
+            </div>
+        @endif
 
+        <div class="container-fluid d-md-none">
+            <form action="{{ action('LevelController@index') }}" method="GET" class="row row-cols-auto">
+                <input class="form-control w-100" type="search" name="search"
+                       placeholder="Search level sets by name/author" title="Search level sets by name/author"
+                       value="{{ $filteredInput['search'] }}">
+
+                <div class="w-100 mb-2"></div>
+
+                <select class="form-select w-auto flex-grow-1" name="orderBy" title="Sort by">
+                    @foreach ([
+                        'Name' => 'Name',
+                        'Rounds' => 'Level count',
+                        'downloads' => 'Downloads',
+                        'Date_Posted' => 'Date posted',
+                        'Ratings' => 'Ratings'
+                    ] as $value => $text)
+                        <option value="{{ $value }}" {{ $orderBy === $value ? 'selected' : '' }}>
+                            {{ $text }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <select class="form-select w-auto flex-grow-1 ms-2" name="orderDir" title="Order by">
+                    @foreach (['ASC' => 'Ascending', 'DESC' => 'Descending'] as $value => $text)
+                        <option value="{{ $value }}" {{ $orderDirection === $value ? 'selected' : '' }}>
+                            {{ $text }}
+                        </option>
+                    @endforeach
+                </select>
+
+                @foreach ($filteredInput as $name => $value)
+                    @if ((is_string($value) || is_int($value)) && !in_array($name, ['search', 'orderBy', 'orderDir']))
+                        <input type="hidden" name="{{ $name }}" value="{{ $value }}">
+                    @endif
+                @endforeach
+
+                <div class="w-100 mb-2"></div>
+
+                <button type="submit" class="btn btn-outline-primary ms-auto">Search</button>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col">
                 @unless ($levelSets->isEmpty())
                     <table class="table table-bordered">
                         <thead class="d-none d-md-table-header-group levelsTable__thead">
@@ -140,7 +148,9 @@
                                     <p class="m-0">
                                         <a href="{{ $levelSet->getPermalink() }}"
                                            class="{{ !$levelSet->prerelease ? 'link-secondary' : 'levelsName--prerelease' }} fw-bold">
-                                            {{ $levelSet->name }}@if ($levelSet->prerelease) (PRERELEASE)@endif
+                                            {{ $levelSet->name }}@if ($levelSet->prerelease)
+                                                (PRERELEASE)
+                                            @endif
                                         </a><span class="d-md-none"> ({{ $levelSet->rounds }}&nbsp;rounds)</span>
                                     </p>
 
@@ -224,7 +234,7 @@
                         </tbody>
                     </table>
 
-                    <div class="d-flex justify-content-center mb-n3">
+                    <div class="d-flex justify-content-center">
                         <div class="d-md-none">
                             {{ $levelSets->links('pagination::simple-bootstrap-4') }}
                         </div>

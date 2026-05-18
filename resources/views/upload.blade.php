@@ -7,7 +7,7 @@
 @section('description', 'Upload and share your Ricochet level sets.')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row row-gap-3">
             <div class="col-md-8">
                 <div class="card">
                     <h2 class="card-header">Instructions</h2>
@@ -82,14 +82,17 @@
         </div>
 
         @can('create', \App\LevelSet::class)
-            <div class="row mt-3">
+            <div class="row">
                 <div class="col">
                     <div class="card">
+                        <h2 class="card-header">Add new level set</h2>
+
                         <div class="card-body">
-                            <form action="{{ action('UploadController@store') }}" method="POST">
+                            <form action="{{ action('UploadController@store') }}" method="POST"
+                                  class="vstack gap-3">
                                 {{ csrf_field() }}
 
-                                <div class="row mb-3">
+                                <div class="row">
                                     <label for="url" class="col-sm-3 col-form-label">Level set URL</label>
 
                                     <div class="col-sm-9">
@@ -97,7 +100,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                <div class="row">
                                     <label for="name" class="col-sm-3 col-form-label">Name</label>
 
                                     <div class="col-sm-9">
@@ -105,7 +108,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                <div class="row">
                                     <label for="timestamp" class="col-sm-3 col-form-label">Unix timestamp</label>
 
                                     <div class="col-sm-9">

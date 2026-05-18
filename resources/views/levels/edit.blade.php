@@ -7,14 +7,14 @@
 @section('robots', 'noindex,follow')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
                 <a href="{{ $levelSet->getPermalink() }}" class="btn btn-outline-primary">« Back</a>
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <h1 class="card-header">Level set info</h1>
@@ -28,17 +28,18 @@
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <h1 class="card-header">Edit level set</h1>
 
                     <div class="card-body">
-                        <form action="{{ action('LevelController@update', ['levelSet' => $levelSet]) }}" method="POST">
+                        <form action="{{ action('LevelController@update', ['levelSet' => $levelSet]) }}" method="POST"
+                              class="vstack gap-3">
                             @csrf
                             @method('PATCH')
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label for="created_at" class="col-sm-3 col-form-label">created_at timestamp</label>
 
                                 <div class="col-sm-9">
@@ -48,7 +49,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label for="download_url" class="col-sm-3 col-form-label">Download URL</label>
 
                                 <div class="col-sm-9">

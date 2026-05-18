@@ -2,6 +2,7 @@ import {useCallback, useState} from 'preact/hooks';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import Stack from 'react-bootstrap/Stack';
 
 import CustomFileInput from '../CustomFileInput';
 import useObjectURL from '../helpers/useObjectURL';
@@ -154,8 +155,8 @@ export default function DecompressorApp(props: Props) {
     );
 
     return (
-        <div className="mb-n3">
-            <Card className="mb-3">
+        <Stack gap={3}>
+            <Card>
                 <Card.Header as="h1">Decompressor</Card.Header>
 
                 <Card.Body>
@@ -185,7 +186,11 @@ export default function DecompressorApp(props: Props) {
                 </Card.Body>
             </Card>
 
-            {error ? <Alert variant="danger">{error}</Alert> : null}
+            {error ? (
+                <Alert variant="danger" className="m-0">
+                    {error}
+                </Alert>
+            ) : null}
 
             {result?.unpacker === 'JS' ? (
                 <DecompressorResultsJs
@@ -202,6 +207,6 @@ export default function DecompressorApp(props: Props) {
                     result={result}
                 />
             ) : null}
-        </div>
+        </Stack>
     );
 }

@@ -3,7 +3,7 @@
 @section('og:url', action('HomeController@index'))
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -18,8 +18,8 @@
             </div>
         </div>
 
-        <div class="row mt-3">
-            <div class="col-md pe-md-0">
+        <div class="row row-gap-3">
+            <div class="col-md pe-md-0 d-flex flex-column gap-3">
                 <div class="card">
                     <h1 class="card-header">Most downloaded level sets</h1>
 
@@ -30,12 +30,12 @@
                     </ul>
                 </div>
 
-                <div class="mt-3 text-end">
+                <div class="text-end">
                     <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">View more</a>
                 </div>
             </div>
 
-            <div class="col-md mt-3 mt-md-0 pe-xl-0">
+            <div class="col-md pe-xl-0 d-flex flex-column gap-3">
                 <div class="card">
                     <h1 class="card-header">Recent level sets</h1>
 
@@ -46,13 +46,13 @@
                     </ul>
                 </div>
 
-                <div class="mt-3 text-end">
+                <div class="text-end">
                     <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}"
                        class="btn btn-outline-primary">View more</a>
                 </div>
             </div>
 
-            <div class="col-xl-auto mt-3 mt-xl-0">
+            <div class="col-xl-auto">
                 <div class="discordWidget__root">
                     <a href="{{ action('DiscordRedirectController@index') }}" class="discordWidget__header">
                         <div class="discordWidget__logo">

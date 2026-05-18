@@ -11,10 +11,10 @@
 @section('description', 'Restore the in-game level catalog in Ricochet Infinity.')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card mb-3">
+                <div class="card">
                     <h1 class="card-header">Restore the in-game level catalog</h1>
 
                     <div class="card-body">
@@ -44,14 +44,22 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                @if (isset($os))
+        @if (isset($os))
+            <div class="row">
+                <div class="col vstack gap-3">
                     @if ($os === \App\Http\Controllers\ReviverController::MACOS)
                         @include('reviver._macos')
                     @else
                         @include('reviver._windows')
                     @endif
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col">
                     <div class="card">
                         <h2 class="card-header">Finished!</h2>
 
@@ -62,8 +70,8 @@
                             </p>
                         </div>
                     </div>
-                @endif
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

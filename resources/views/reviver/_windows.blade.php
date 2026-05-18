@@ -1,5 +1,5 @@
 @if ($os === \App\Http\Controllers\ReviverController::WINDOWS10)
-    <div class="card mb-3">
+    <div class="card">
         <h2 class="card-header">Update curl</h2>
 
         <div class="card-body">
@@ -27,7 +27,7 @@
     </div>
 @endif
 
-<div class="card mb-3">
+<div class="card">
     <h2 class="card-header">Edit Data2.dat</h2>
 
     <div class="card-body">

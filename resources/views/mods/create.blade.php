@@ -7,23 +7,24 @@
 @section('robots', 'noindex,follow')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
                 <a href="{{ action('ModsController@index') }}" class="btn btn-outline-primary">« Back</a>
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <h1 class="card-header">Add new mod</h1>
 
                     <div class="card-body">
-                        <form action="{{ action('ModsController@store') }}" method="POST">
+                        <form action="{{ action('ModsController@store') }}" method="POST"
+                              class="vstack gap-3">
                             {{ csrf_field() }}
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label for="name" class="col-sm-3 col-form-label">Name</label>
 
                                 <div class="col-sm-9">
@@ -31,7 +32,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label for="author" class="col-sm-3 col-form-label">Author</label>
 
                                 <div class="col-sm-9">
@@ -39,7 +40,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label for="description" class="col-sm-3 col-form-label">Description</label>
 
                                 <div class="col-sm-9">
@@ -47,7 +48,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label for="video_embed_source" class="col-sm-3 col-form-label">
                                     Video embed source
                                 </label>
@@ -62,7 +63,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label for="download_link" class="col-sm-3 col-form-label">Download link</label>
 
                                 <div class="col-sm-9">
@@ -71,7 +72,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label for="trigger_codename" class="col-sm-3 col-form-label">Trigger codename</label>
 
                                 <div class="col-sm-9">

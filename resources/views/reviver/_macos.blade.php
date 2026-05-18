@@ -1,4 +1,4 @@
-<div class="alert alert-warning mb-3" role="alert">
+<div class="alert alert-warning m-0" role="alert">
     <p>
         The Mac version of Ricochet Infinity
         <a href="https://support.apple.com/en-us/103076" class="alert-link">does not work on macOS Catalina 10.15
@@ -16,7 +16,7 @@
     </p>
 </div>
 
-<div class="card mb-3">
+<div class="card">
     <h2 class="card-header">Edit Data2.dat</h2>
 
     <div class="card-body">

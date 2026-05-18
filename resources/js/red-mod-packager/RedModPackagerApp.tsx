@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'preact/hooks';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Stack from 'react-bootstrap/Stack';
 import {uppie} from 'uppie';
 
 import CustomFileInput from '../CustomFileInput';
@@ -116,8 +117,8 @@ export default function RedModPackagerApp() {
     }, []);
 
     return (
-        <div className="mb-n3">
-            <Card className="mb-3">
+        <Stack gap={3}>
+            <Card>
                 <Card.Header as="h1">RED mod packager</Card.Header>
 
                 <Card.Body>
@@ -157,7 +158,7 @@ export default function RedModPackagerApp() {
             ) : null}
 
             {packageTime && downloadButtonUrl ? (
-                <Card className="mb-3">
+                <Card>
                     <Card.Header as="h2">Package ready</Card.Header>
 
                     <Card.Body>
@@ -186,7 +187,7 @@ export default function RedModPackagerApp() {
             ) : null}
 
             {files.length > 0 ? (
-                <Card className="mb-3">
+                <Card>
                     <Card.Header as="h2">Packaged files</Card.Header>
 
                     <Card.Body>
@@ -198,6 +199,6 @@ export default function RedModPackagerApp() {
                     </Card.Body>
                 </Card>
             ) : null}
-        </div>
+        </Stack>
     );
 }

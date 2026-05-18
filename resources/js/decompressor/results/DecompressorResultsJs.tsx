@@ -9,6 +9,7 @@ import type {
 } from '../DecompressorTypes';
 import DownloadButton from '../DownloadButton';
 import LoadableDecompressorTextEditor from '../LoadableDecompressorTextEditor';
+
 import DecompressorResultsImage from './DecompressorResultsImage';
 
 type Props = Readonly<{
@@ -26,7 +27,7 @@ export default function DecompressorResultsJs(props: Props) {
             />
 
             {props.blobUrls.image != null ? (
-                <Card className="mb-3">
+                <Card>
                     <Card.Header as="h2">Decompressed image</Card.Header>
 
                     <Card.Body>
@@ -49,7 +50,7 @@ export default function DecompressorResultsJs(props: Props) {
             ) : null}
 
             {props.result.text ? (
-                <Card className="mb-3">
+                <Card>
                     <Card.Header as="h2">
                         {props.blobUrls.image == null
                             ? 'Decompressed text'

@@ -3,6 +3,7 @@ import {Component} from 'preact';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Stack from 'react-bootstrap/Stack';
 
 import CustomFileInput from '../CustomFileInput';
 
@@ -84,8 +85,8 @@ export default class ImageToCanvasApp extends Component<{}, State> {
 
     render() {
         return (
-            <div className="mb-n3">
-                <Card className="mb-3">
+            <Stack gap={3}>
+                <Card>
                     <Card.Header as="h1">Image to canvas</Card.Header>
 
                     <Card.Body>
@@ -97,15 +98,19 @@ export default class ImageToCanvasApp extends Component<{}, State> {
                 </Card>
 
                 {this.state.loading ? (
-                    <Alert variant="info">Loading...</Alert>
+                    <Alert variant="info" className="m-0">
+                        Loading...
+                    </Alert>
                 ) : null}
 
                 {this.state.error ? (
-                    <Alert variant="danger">{this.state.error}</Alert>
+                    <Alert variant="danger" className="m-0">
+                        {this.state.error}
+                    </Alert>
                 ) : null}
 
                 {this.state.result ? (
-                    <Card className="mb-3">
+                    <Card>
                         <Card.Header as="h2">Scrapbook result</Card.Header>
 
                         <Card.Body>
@@ -120,7 +125,7 @@ export default class ImageToCanvasApp extends Component<{}, State> {
                         </Card.Body>
                     </Card>
                 ) : null}
-            </div>
+            </Stack>
         );
     }
 

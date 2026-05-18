@@ -6,10 +6,10 @@
 @section('og:url', action('AboutController@index'))
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card mb-3">
+                <div class="card">
                     <h1 class="card-header">About Ricochet Universe</h1>
 
                     <div class="card-body">
@@ -23,13 +23,19 @@
 
                         <p class="m-0">
                             Special thanks to the
-                            <a href="{{ action('DiscordRedirectController@index') }}">Ricochet Players Discord community</a>
+                            <a href="{{ action('DiscordRedirectController@index') }}">
+                                Ricochet Players Discord community
+                            </a>
                             for keeping the community alive after the official website has vanished.
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                @if ($authors->count() > 0 && $roundSum > 0)
+        @if ($roundSum > 0 && $authors->count() > 0)
+            <div class="row">
+                <div class="col">
                     <div class="card">
                         <h2 class="card-header">Level set contributors</h2>
 
@@ -43,14 +49,16 @@
                                 @foreach ($authors as $author)
                                     <li class="mb-2">
                                         <a href="{{ action('LevelController@index', ['author' => $author->author]) }}">{{ $author->author }}</a>
-                                        <span class="text-nowrap">({{ number_format($author->rounds_sum) }} levels)</span>
+                                        <span class="text-nowrap">
+                                            ({{ number_format($author->rounds_sum) }} levels)
+                                        </span>
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
-                @endif
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection
