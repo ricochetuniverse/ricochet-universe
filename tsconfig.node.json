@@ -17,5 +17,5 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true
     },
-    "include": ["eslint.config.mjs", "jest.config.js", "rspack.config.ts"]
+    "include": ["eslint.config.mjs", "jest.config.mts", "rspack.config.ts"]
 }

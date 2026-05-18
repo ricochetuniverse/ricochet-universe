@@ -1,4 +1,5 @@
-/** @type {import('jest').Config} */
+import type {Config} from 'jest';
+
 export default {
     moduleNameMapper: {
         '^react$': 'preact/compat',
@@ -14,4 +15,4 @@ export default {
     transform: {
         '^.+\\.m?(t|j)sx?$': '@swc/jest',
     },
-};
+} satisfies Config;
