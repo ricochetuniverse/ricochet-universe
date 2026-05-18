@@ -16,10 +16,10 @@
 
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Add new mod</h1>
+                <x-card>
+                    <x-card.header>Add new mod</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <form action="{{ action('ModsController@store') }}" method="POST"
                               class="vstack gap-3">
                             {{ csrf_field() }}
@@ -91,8 +91,8 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
     </div>

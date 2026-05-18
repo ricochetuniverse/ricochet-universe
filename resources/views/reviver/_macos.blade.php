@@ -16,10 +16,10 @@
     </p>
 </x-alert>
 
-<div class="card">
-    <h2 class="card-header">Edit Data2.dat</h2>
+<x-card>
+    <x-card.header tag="h2">Data2.dat</x-card.header>
 
-    <div class="card-body">
+    <x-card.body>
         <p>
             Launch the game, right-click the game’s icon on your Mac Dock and click
             <span class="text-nowrap">Options &gt; Show in Finder</span>.
@@ -69,5 +69,5 @@
                 and move it inside the <code>Resources</code> folder.
             </p>
         </details>
-    </div>
-</div>
+    </x-card.body>
+</x-card>

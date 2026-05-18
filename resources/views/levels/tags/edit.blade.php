@@ -16,10 +16,10 @@
 
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Edit level set tags for “{{ $levelSet->name }}”</h1>
+                <x-card>
+                    <x-card.header>Edit level set tags for “{{ $levelSet->name }}”</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>Select tags to show for this level set. Reordering is currently not supported.</p>
 
                         <form action="{{ action('LevelTagsController@update', ['levelSet' => $levelSet]) }}"
@@ -50,8 +50,8 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
     </div>

@@ -29,13 +29,13 @@
         <div class="row">
             <div class="col">
                 <div id="image-to-canvas-root">
-                    <div class="card">
-                        <h1 class="card-header">Image to canvas</h1>
+                    <x-card>
+                        <x-card.header>Image to canvas</x-card.header>
 
-                        <div class="card-body">
+                        <x-card.body>
                             Loading...
-                        </div>
-                    </div>
+                        </x-card.body>
+                    </x-card>
                 </div>
             </div>
         </div>

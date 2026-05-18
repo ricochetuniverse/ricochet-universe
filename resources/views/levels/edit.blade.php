@@ -16,24 +16,24 @@
 
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Level set info</h1>
+                <x-card>
+                    <x-card.header>Level set info</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>Name: {{ $levelSet->name }}</p>
 
                         <p>SHA256 checksum: {{ $checksum }}</p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Edit level set</h1>
+                <x-card>
+                    <x-card.header tag="h2">Edit level set</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <form action="{{ action('LevelController@update', ['levelSet' => $levelSet]) }}" method="POST"
                               class="vstack gap-3">
                             @csrf
@@ -69,8 +69,8 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
     </div>

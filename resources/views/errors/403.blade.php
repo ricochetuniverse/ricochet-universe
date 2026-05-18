@@ -7,17 +7,17 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card">
-                    <h1 class="card-header">Unauthorized</h1>
+                <x-card>
+                    <x-card.header>Unauthorized</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>You don’t have permission to visit this page.</p>
 
                         <x-button href="{{ action('HomeController@index') }}">
                             Go to home page
                         </x-button>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
     </div>

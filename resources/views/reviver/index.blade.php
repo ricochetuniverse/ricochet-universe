@@ -14,10 +14,10 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Restore the in-game level catalog</h1>
+                <x-card>
+                    <x-card.header>Restore the in-game level catalog</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>
                             Follow these steps to restore the in-game level catalog on Ricochet Infinity so you can
                             browse and download new levels inside the game.
@@ -41,8 +41,8 @@
                                 @endforeach
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
@@ -59,16 +59,16 @@
 
             <div class="row">
                 <div class="col">
-                    <div class="card">
-                        <h2 class="card-header">Finished!</h2>
+                    <x-card>
+                        <x-card.header tag="h2">Finished!</x-card.header>
 
-                        <div class="card-body">
+                        <x-card.body>
                             <p class="m-0">
                                 That’s all the steps needed to restore the in-game level catalog. Launch the game and
                                 enjoy!
                             </p>
-                        </div>
-                    </div>
+                        </x-card.body>
+                    </x-card>
                 </div>
             </div>
         @endif

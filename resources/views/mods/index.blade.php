@@ -10,10 +10,10 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Mods</h1>
+                <x-card>
+                    <x-card.header>Mods</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>
                             Explore and play new environments, custom content and modifications for Ricochet Infinity.
                             For even more mods,
@@ -25,8 +25,8 @@
                             To use these mods, download and place the .RED file on the same folder with
                             RicochetInfinity.exe
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
@@ -41,8 +41,8 @@
         <div class="row row-gap-3">
             @foreach ($mods as $mod)
                 <div class="col-md-6 col-xl-4">
-                    <div class="card">
-                        <div class="card-body">
+                    <x-card>
+                        <x-card.body>
                             <h2 class="fs-6 m-0 lh-base">
                                 <span class="text-secondary fw-bold">{{ $mod->name }}</span> by {{ $mod->author }}
                             </h2>
@@ -71,8 +71,8 @@
                                     </a>
                                 </div>
                             @endif
-                        </div>
-                    </div>
+                        </x-card.body>
+                    </x-card>
                 </div>
             @endforeach
         </div>

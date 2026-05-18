@@ -6,30 +6,30 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Welcome to Ricochet Universe</h1>
+                <x-card>
+                    <x-card.header>Welcome to Ricochet Universe</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p class="m-0">
                             Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by
                             the community.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
         <div class="row row-gap-3">
             <div class="col-md pe-md-0 d-flex flex-column gap-3">
-                <div class="card">
-                    <h1 class="card-header">Most downloaded level sets</h1>
+                <x-card>
+                    <x-card.header tag="h2">Most downloaded level sets</x-card.header>
 
                     <ul class="list-group list-group-flush">
                         @foreach ($topLevelSets as $levelSet)
                             @include('home._compact_level')
                         @endforeach
                     </ul>
-                </div>
+                </x-card>
 
                 <div class="text-end">
                     <x-button href="{{ action('LevelController@index') }}">View more</x-button>
@@ -37,15 +37,15 @@
             </div>
 
             <div class="col-md pe-xl-0 d-flex flex-column gap-3">
-                <div class="card">
-                    <h1 class="card-header">Recent level sets</h1>
+                <x-card>
+                    <x-card.header tag="h2">Recent level sets</x-card.header>
 
                     <ul class="list-group list-group-flush">
                         @foreach ($recentLevelSets as $levelSet)
                             @include('home._compact_level')
                         @endforeach
                     </ul>
-                </div>
+                </x-card>
 
                 <div class="text-end">
                     <x-button

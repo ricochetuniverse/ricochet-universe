@@ -60,8 +60,8 @@
 
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <div class="card-body">
+                <x-card>
+                    <x-card.body>
                         <h1 class="{{ !$levelSet->prerelease ? 'text-secondary' : 'levelsName--prerelease' }} fs-6 fw-bold m-0 lh-base">
                             {{ $levelSet->name }}@if ($levelSet->prerelease)
                                 (PRERELEASE)
@@ -177,15 +177,15 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <div class="card-body">
+                <x-card>
+                    <x-card.body>
                         <div class="d-flex">
                             <a href="{{ $levelSet->getDownloadUrl() }}" class="d-inline-flex align-items-center">
                                 <img src="{{ asset('images/levelDownload.jpg') }}"
@@ -201,17 +201,17 @@
                             You can also download and play this level set using
                             <a href="{{ action('ReviverController@index') }}">the in-game catalog</a>.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h2 class="card-header">Round info</h2>
+                <x-card>
+                    <x-card.header tag="h2">Round info</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <noscript>
                             <x-alert type="danger">
                                 Please enable JavaScript to view more round info.
@@ -256,8 +256,8 @@
                         @else
                             <p class="m-0">Generating images... reload after a few seconds</p>
                         @endunless
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 

@@ -12,10 +12,10 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Search rounds</h1>
+                <x-card>
+                    <x-card.header>Search rounds</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <form class="d-flex" method="GET" action="{{ action('RoundsController@index') }}">
                             <input class="form-control me-2" type="search" name="search"
                                    placeholder="Search rounds by name" aria-label="Search rounds by name"
@@ -24,8 +24,8 @@
 
                             <x-button type="submit">Search</x-button>
                         </form>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
@@ -59,8 +59,8 @@
 
             <div class="row">
                 <div class="col">
-                    <div class="card">
-                        <h2 class="card-header">Results</h2>
+                    <x-card>
+                        <x-card.header tag="h2">Results</x-card.header>
 
                         <ul class="list-group list-group-flush">
                             @foreach ($rounds as $round)
@@ -99,7 +99,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>
+                    </x-card>
                 </div>
             </div>
 

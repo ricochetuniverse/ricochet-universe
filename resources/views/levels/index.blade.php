@@ -11,17 +11,17 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Levels</h1>
+                <x-card>
+                    <x-card.header>Levels</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p class="m-0">
                             These level sets include a great variety of levels. Some may have levels that are extremely
                             difficult, some may finish themselves with no user interaction, and some may have dozens of
                             rings on a single level.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
@@ -244,8 +244,8 @@
                         </div>
                     </div>
                 @else
-                    <div class="card">
-                        <div class="card-body">
+                    <x-card>
+                        <x-card.body>
                             @if (strlen($filteredInput['search']) > 0)
                                 No level sets found matching “{{ $filteredInput['search'] }}”.
                                 <a href="{{ action('LevelController@index') }}">Show all level sets</a>
@@ -253,8 +253,8 @@
                                 No level sets found.
                                 <a href="{{ action('LevelController@index') }}">Go back to main page</a>
                             @endif
-                        </div>
-                    </div>
+                        </x-card.body>
+                    </x-card>
                 @endunless
             </div>
         </div>

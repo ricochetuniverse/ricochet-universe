@@ -10,25 +10,25 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Upload your levels</h1>
+                <x-card>
+                    <x-card.header>Upload your levels</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p class="m-0">
                             New level sets need to be manually added by the site admin for now, self-service uploads are
                             planned in the future.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
         <div class="row row-gap-3">
             <div class="col-md-8">
-                <div class="card">
-                    <h2 class="card-header">Instructions</h2>
+                <x-card>
+                    <x-card.header tag="h2">Instructions</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>
                             First, ensure your level set is ready to be shared by opening it on the level editor, then
                             click File&nbsp;→&nbsp;Share&nbsp;LevelSet. The level set’s author and description should be
@@ -57,15 +57,15 @@
                             The site admin will do some basic sanity checking such as ensuring the level set will load
                             in the game and there are no errors on the Share LevelSet screen.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
 
             <div class="col-md-4">
-                <div class="card">
-                    <h2 class="card-header">Other upload questions</h2>
+                <x-card>
+                    <x-card.header tag="h2">Other upload questions</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>
                             <strong>Can I overwrite my uploaded level set with a new version?</strong>
                         </p>
@@ -76,18 +76,18 @@
                             have a built-in mechanism to differentiate level set versions. If you still like to
                             overwrite it anyway, contact the site admin.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
         @can('create', \App\LevelSet::class)
             <div class="row">
                 <div class="col">
-                    <div class="card">
-                        <h2 class="card-header">Add new level set</h2>
+                    <x-card>
+                        <x-card.header tag="h2">Add new level set</x-card.header>
 
-                        <div class="card-body">
+                        <x-card.body>
                             <form action="{{ action('UploadController@store') }}" method="POST"
                                   class="vstack gap-3">
                                 {{ csrf_field() }}
@@ -123,8 +123,8 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
+                        </x-card.body>
+                    </x-card>
                 </div>
             </div>
         @endcan

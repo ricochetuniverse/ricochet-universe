@@ -7,10 +7,10 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card">
-                    <h1 class="card-header">Not signed in</h1>
+                <x-card>
+                    <x-card.header>Not signed in</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>Thanks for signing in, however user access is only available for certain users for now.</p>
 
                         <p class="m-0">
@@ -18,8 +18,8 @@
                             <span class="font-monospace">{{ $discordUserId }}</span> to the site administrator to be
                             whitelisted.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
     </div>

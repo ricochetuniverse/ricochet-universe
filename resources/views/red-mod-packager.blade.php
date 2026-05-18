@@ -29,13 +29,13 @@
         <div class="row">
             <div class="col">
                 <div id="red-mod-packager-root">
-                    <div class="card">
-                        <h1 class="card-header">RED mod packager</h1>
+                    <x-card>
+                        <x-card.header>RED mod packager</x-card.header>
 
-                        <div class="card-body">
+                        <x-card.body>
                             Loading...
-                        </div>
-                    </div>
+                        </x-card.body>
+                    </x-card>
                 </div>
             </div>
         </div>

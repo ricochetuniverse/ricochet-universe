@@ -7,13 +7,13 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card">
-                    <h1 class="card-header">Whoops</h1>
+                <x-card>
+                    <x-card.header>Whoops</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         There was a problem processing this page, please report this issue to the site administrator.
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
     </div>

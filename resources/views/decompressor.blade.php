@@ -29,13 +29,13 @@
         <div class="row">
             <div class="col">
                 <div id="decompressor-root" data-dotnet-loader-url="{{ $dotnetLoaderUrl }}">
-                    <div class="card">
-                        <h1 class="card-header">Decompressor</h1>
+                    <x-card>
+                        <x-card.header>Decompressor</x-card.header>
 
-                        <div class="card-body">
+                        <x-card.body>
                             Loading...
-                        </div>
-                    </div>
+                        </x-card.body>
+                    </x-card>
                 </div>
             </div>
         </div>

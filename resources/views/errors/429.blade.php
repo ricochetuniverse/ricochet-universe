@@ -7,14 +7,14 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card">
-                    <h1 class="card-header">Too many requests</h1>
+                <x-card>
+                    <x-card.header>Too many requests</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         You are sending too many requests in a short timeframe, please slow down and try again in
                         a few seconds.
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
     </div>

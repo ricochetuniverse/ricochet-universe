@@ -9,10 +9,10 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">About Ricochet Universe</h1>
+                <x-card>
+                    <x-card.header>About Ricochet Universe</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p>
                             This website is created and hosted by <a href="https://ngyikp.com">ngyikp</a>.
                             You can check out the
@@ -28,18 +28,18 @@
                             </a>
                             for keeping the community alive after the official website has vanished.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
 
         @if ($roundSum > 0 && $authors->count() > 0)
             <div class="row">
                 <div class="col">
-                    <div class="card">
-                        <h2 class="card-header">Level set contributors</h2>
+                    <x-card>
+                        <x-card.header tag="h2">Level set contributors</x-card.header>
 
-                        <div class="card-body">
+                        <x-card.body>
                             <p>
                                 Thanks to ~{{ number_format($authors->count()) }} level creators
                                 contributing {{ number_format($roundSum) }} levels to play:
@@ -55,8 +55,8 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </div>
-                    </div>
+                        </x-card.body>
+                    </x-card>
                 </div>
             </div>
         @endif

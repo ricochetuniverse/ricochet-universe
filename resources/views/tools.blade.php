@@ -10,8 +10,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <h1 class="card-header">Tools</h1>
+                <x-card>
+                    <x-card.header>Tools</x-card.header>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item p-3">
@@ -45,7 +45,7 @@
                             </li>
                         @endif
                     </ul>
-                </div>
+                </x-card>
             </div>
         </div>
     </div>

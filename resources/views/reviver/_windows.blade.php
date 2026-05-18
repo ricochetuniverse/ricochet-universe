@@ -1,8 +1,8 @@
 @if ($os === \App\Http\Controllers\ReviverController::WINDOWS10)
-    <div class="card">
-        <h2 class="card-header">Update curl</h2>
+    <x-card>
+        <x-card.header tag="h2">Update curl</x-card.header>
 
-        <div class="card-body">
+        <x-card.body>
             <p>
                 curl is software code used by many applications to perform networking features. You can learn more
                 about curl by reading its <a href="https://en.wikipedia.org/wiki/CURL">Wikipedia article</a>.
@@ -23,14 +23,14 @@
                 <a href="https://skanthak.homepage.t-online.de/curl.html#installation">https://skanthak.homepage.t-online.de/curl.html#installation</a>,
                 feel free to use that link and/or send it to VirusTotal)
             </p>
-        </div>
-    </div>
+        </x-card.body>
+    </x-card>
 @endif
 
-<div class="card">
-    <h2 class="card-header">Edit Data2.dat</h2>
+<x-card>
+    <x-card.header tag="h2">Edit Data2.dat</x-card.header>
 
-    <div class="card-body">
+    <x-card.body>
         <p>Find <code>Data2.dat</code> in the Ricochet Infinity program folder.</p>
 
         <p>Right-click it and click <span class="text-nowrap">Open with &gt; Notepad</span>.</p>
@@ -53,5 +53,5 @@
         <p class="m-0">
             Save and close Notepad.
         </p>
-    </div>
-</div>
+    </x-card.body>
+</x-card>

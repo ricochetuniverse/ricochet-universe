@@ -7,15 +7,15 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card">
-                    <h1 class="card-header">Not signed in</h1>
+                <x-card>
+                    <x-card.header>Not signed in</x-card.header>
 
-                    <div class="card-body">
+                    <x-card.body>
                         <p class="m-0">
                             This page requires authentication which is not currently available for everyone yet.
                         </p>
-                    </div>
-                </div>
+                    </x-card.body>
+                </x-card>
             </div>
         </div>
     </div>
