@@ -125,7 +125,7 @@
                     <div class="d-none d-md-block flex-grow-1">
                         <form class="d-flex flex-grow-1 justify-content-end my-0 ms-2" method="GET" action="{{ action('LevelController@index') }}">
                             <input class="form-control navbar-search" type="search" name="search" placeholder="Search level sets by name/author" title="Search level sets by name/author" value="{{ $navbar_search ?? '' }}">
-                            <button class="btn btn-outline-primary ms-2" type="submit">Search</button>
+                            <x-button class="ms-2" type="submit">Search</x-button>
                         </form>
                     </div>
 

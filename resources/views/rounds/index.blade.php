@@ -22,7 +22,7 @@
                                    value="{{ $search }}"
                                    minlength="{{ \App\Http\Controllers\RoundsController::MIN_INPUT }}">
 
-                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                            <x-button type="submit">Search</x-button>
                         </form>
                     </div>
                 </div>

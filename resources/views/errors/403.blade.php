@@ -13,9 +13,9 @@
                     <div class="card-body">
                         <p>You don’t have permission to visit this page.</p>
 
-                        <a href="{{ action('HomeController@index') }}" class="btn btn-outline-primary">
+                        <x-button href="{{ action('HomeController@index') }}">
                             Go to home page
-                        </a>
+                        </x-button>
                     </div>
                 </div>
             </div>

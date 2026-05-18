@@ -10,7 +10,7 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <a href="{{ $levelSet->getPermalink() }}" class="btn btn-outline-primary">« Back</a>
+                <x-button href="{{ $levelSet->getPermalink() }}">« Back</x-button>
             </div>
         </div>
 
@@ -46,7 +46,7 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-outline-primary">Edit</button>
+                                    <x-button type="submit">Edit</x-button>
                                 </div>
                             </div>
                         </form>

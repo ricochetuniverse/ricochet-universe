@@ -15,22 +15,22 @@
             <div class="col">
                 <div class="d-flex">
                     <div class="flex-grow-1">
-                        <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">
+                        <x-button href="{{ action('LevelController@index') }}">
                             « Return to level set list
-                        </a>
+                        </x-button>
                     </div>
 
                     @can('update', $levelSet)
                         <div class="d-flex gap-2">
-                            <a href="{{ action('LevelController@edit', ['levelSet' => $levelSet]) }}"
-                               class="btn btn-outline-secondary">
+                            <x-button href="{{ action('LevelController@edit', ['levelSet' => $levelSet]) }}"
+                                      appearance="secondary">
                                 Edit info
-                            </a>
+                            </x-button>
 
-                            <a href="{{ action('LevelTagsController@edit', ['levelSet' => $levelSet]) }}"
-                               class="btn btn-outline-secondary">
+                            <x-button href="{{ action('LevelTagsController@edit', ['levelSet' => $levelSet]) }}"
+                                      appearance="secondary">
                                 Edit tags
-                            </a>
+                            </x-button>
                         </div>
                     @endcan
                 </div>

@@ -34,11 +34,10 @@
 
                             <div class="btn-group" role="group">
                                 @foreach (\App\Http\Controllers\ReviverController::GROUPS as $groupId => $groupName)
-                                    <a href="{{ action('ReviverController@show', ['os' => $groupId]) }}"
-                                       class="btn btn-outline-primary {{ isset($os) && $os === $groupId ? 'active' : '' }}"
-                                       @if (isset($os) && $os === $groupId) aria-pressed="true"@endif>
+                                    <x-button href="{{ action('ReviverController@show', ['os' => $groupId]) }}"
+                                              :active="isset($os) && $os === $groupId">
                                         {{ $groupName }}
-                                    </a>
+                                    </x-button>
                                 @endforeach
                             </div>
                         </div>

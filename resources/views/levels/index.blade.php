@@ -80,7 +80,7 @@
 
                 <div class="w-100 mb-2"></div>
 
-                <button type="submit" class="btn btn-outline-primary ms-auto">Search</button>
+                <x-button type="submit" class="ms-auto">Search</x-button>
             </form>
         </div>
 

@@ -11,7 +11,8 @@
 
                     <div class="card-body">
                         <p class="m-0">
-                            Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community.
+                            Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by
+                            the community.
                         </p>
                     </div>
                 </div>
@@ -31,7 +32,7 @@
                 </div>
 
                 <div class="text-end">
-                    <a href="{{ action('LevelController@index') }}" class="btn btn-outline-primary">View more</a>
+                    <x-button href="{{ action('LevelController@index') }}">View more</x-button>
                 </div>
             </div>
 
@@ -47,8 +48,10 @@
                 </div>
 
                 <div class="text-end">
-                    <a href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}"
-                       class="btn btn-outline-primary">View more</a>
+                    <x-button
+                        href="{{ action('LevelController@index', ['orderBy' => 'Date_Posted', 'orderDir' => 'DESC']) }}">
+                        View more
+                    </x-button>
                 </div>
             </div>
 
@@ -59,7 +62,7 @@
                             <span class="visually-hidden">Discord</span>
                         </div>
 
-                        <span class="btn btn-outline-secondary">Join</span>
+                        <x-button appearance="secondary">Join</x-button>
                     </a>
 
                     <div class="discordWidget__reactWrap"></div>

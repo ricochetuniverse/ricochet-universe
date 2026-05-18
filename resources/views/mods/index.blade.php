@@ -33,7 +33,7 @@
         @can('create', \App\Mod::class)
             <div class="row">
                 <div class="col text-end">
-                    <a href="{{ action('ModsController@create') }}" class="btn btn-outline-secondary">Add new mod</a>
+                    <x-button href="{{ action('ModsController@create') }}" appearance="secondary">Add new mod</x-button>
                 </div>
             </div>
         @endcan

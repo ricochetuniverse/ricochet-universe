@@ -44,7 +44,7 @@
                             <input class="form-control me-2" type="search" name="search"
                                    placeholder="Search levels" aria-label="Search levels">
 
-                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                            <x-button type="submit">Search</x-button>
                         </form>
 
                         <p>
@@ -119,7 +119,7 @@
 
                                 <div class="row">
                                     <div class="col-sm offset-sm-3">
-                                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                        <x-button type="submit">Submit</x-button>
                                     </div>
                                 </div>
                             </form>

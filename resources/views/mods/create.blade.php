@@ -10,7 +10,7 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <a href="{{ action('ModsController@index') }}" class="btn btn-outline-primary">« Back</a>
+                <x-button href="{{ action('ModsController@index') }}">« Back</x-button>
             </div>
         </div>
 
@@ -87,7 +87,7 @@
 
                             <div class="row">
                                 <div class="col-sm offset-sm-3">
-                                    <button type="submit" class="btn btn-outline-primary">Add</button>
+                                    <x-button type="submit">Add</x-button>
                                 </div>
                             </div>
                         </form>

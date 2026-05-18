@@ -10,9 +10,9 @@
     <div class="container-fluid vstack gap-3">
         <div class="row">
             <div class="col">
-                <a href="{{ action('ToolsController@index') }}" class="btn btn-outline-primary">
+                <x-button href="{{ action('ToolsController@index') }}">
                     « Return to tools list
-                </a>
+                </x-button>
             </div>
         </div>
 
