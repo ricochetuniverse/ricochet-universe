@@ -10,7 +10,7 @@ type Props = Readonly<{
 
 export default function DecompressorModRequirementAlert({textResult}: Props) {
     const modRequirement = useMemo<ModRequirement>(() => {
-        return textResult !== '' ? checkForMods(textResult) : {result: false};
+        return checkForMods(textResult);
     }, [textResult]);
 
     if (!modRequirement.result) {

@@ -70,4 +70,19 @@ class LevelSetUploadProcessorTest extends TestCase
         $processor->datePosted = Carbon::now();
         $processor->process();
     }
+
+    public function test_level_set_with_mac_only_files(): void
+    {
+        Http::fake([
+            self::FAKE_DOWNLOAD_URL => file_get_contents(base_path('tests/fixtures/Mac-only Detection Test.RicochetI')),
+        ]);
+
+        $this->expectExceptionMessage('This level set requires files that are only available on the Mac edition');
+
+        $processor = new LevelSetUploadProcessor;
+        $processor->url = self::FAKE_DOWNLOAD_URL;
+        $processor->name = 'fake';
+        $processor->datePosted = Carbon::now();
+        $processor->process();
+    }
 }

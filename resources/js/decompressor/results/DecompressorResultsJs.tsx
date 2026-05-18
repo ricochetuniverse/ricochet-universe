@@ -2,6 +2,7 @@ import {useState} from 'preact/hooks';
 import Card from 'react-bootstrap/Card';
 import Stack from 'react-bootstrap/Stack';
 
+import DecompressorMacOnlyFilesAlert from '../DecompressorMacOnlyFilesAlert';
 import DecompressorModRequirementAlert from '../DecompressorModRequirementAlert';
 import type {
     DecompressorBlobUrls,
@@ -28,9 +29,15 @@ export default function DecompressorResultsJs(props: Props) {
 
     return (
         <>
-            <DecompressorModRequirementAlert
-                textResult={props.result.text ?? ''}
-            />
+            {props.result.text !== '' ? (
+                <DecompressorModRequirementAlert
+                    textResult={props.result.text}
+                />
+            ) : null}
+
+            {props.result.text !== '' ? (
+                <DecompressorMacOnlyFilesAlert textResult={props.result.text} />
+            ) : null}
 
             {props.blobUrls.image != null ? (
                 <Card as="section">
@@ -70,7 +77,7 @@ export default function DecompressorResultsJs(props: Props) {
                 <DecompressorResultsLevelSetParser raw={props.result.raw} />
             ) : null}
 
-            {props.result.text ? (
+            {props.result.text !== '' ? (
                 <Card as="section">
                     <Card.Header as="h2">
                         {props.blobUrls.image == null

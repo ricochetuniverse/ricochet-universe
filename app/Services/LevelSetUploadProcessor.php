@@ -139,6 +139,8 @@ class LevelSetUploadProcessor
         $parser = new Parser;
         $result = $parser->parse($levelSetData);
 
+        $this->checkDisallowedFiles($result);
+
         $count = 0;
         $rounds = [];
         foreach ($result->getRounds() as $round) {
@@ -177,6 +179,16 @@ class LevelSetUploadProcessor
         $levelSet->round_to_get_image_from = $result->roundToGetImageFrom;
 
         return $result;
+    }
+
+    /**
+     * @throws DisallowedFileInLevelSetException
+     */
+    private function checkDisallowedFiles(LevelSetParser\LevelSet $levelSet): void
+    {
+        if (in_array('Mac', $levelSet->modsUsed, true)) {
+            throw new DisallowedFileInLevelSetException('This level set requires files that are only available on the Mac edition, it cannot be opened on the Windows edition');
+        }
     }
 
     private function maybePostToDiscord(LevelSet $levelSet): void
@@ -224,3 +236,6 @@ class LevelSetUploadProcessor
         }
     }
 }
+
+class DisallowedFileInLevelSetException extends \Exception {}
+

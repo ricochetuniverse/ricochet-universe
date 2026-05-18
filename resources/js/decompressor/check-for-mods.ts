@@ -40,7 +40,7 @@ function hasPowerup(data: string, powerups: string[]) {
     return false;
 }
 
-export default function (data: string): ModRequirement {
+export default function checkForMods(data: string): ModRequirement {
     const mods = [];
 
     if (data.match(NEON_FILES) || data.match(NEON_PROPERTIES)) {
