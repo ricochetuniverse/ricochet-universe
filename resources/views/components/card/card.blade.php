@@ -1,3 +1,3 @@
-<div class="card">
+<section class="card">
     {{ $slot }}
-</div>
+</section>
