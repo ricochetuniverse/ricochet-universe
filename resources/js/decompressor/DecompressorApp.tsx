@@ -141,7 +141,11 @@ export default function DecompressorApp(props: Props) {
             } catch (ex) {
                 console.error(ex);
 
-                if (ex instanceof Error) {
+                if (ex instanceof DOMException && ex.name === 'NotFoundError') {
+                    setError(
+                        'Selecting a folder is not supported, please select one file.'
+                    );
+                } else if (ex instanceof Error) {
                     setError(ex.message);
                 } else {
                     setError(
