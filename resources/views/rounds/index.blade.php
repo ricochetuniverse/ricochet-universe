@@ -50,9 +50,9 @@
             <noscript>
                 <div class="row">
                     <div class="col">
-                        <div class="alert alert-danger" role="alert">
+                        <x-alert type="danger">
                             Please enable JavaScript to view more round info.
-                        </div>
+                        </x-alert>
                     </div>
                 </div>
             </noscript>
@@ -116,15 +116,14 @@
             </div>
         @elseif (strlen($search) > 0)
             @if (strlen($search) < \App\Http\Controllers\RoundsController::MIN_INPUT)
-                <div class="alert alert-danger" role="alert">
-                    Please enter a search input with {{ \App\Http\Controllers\RoundsController::MIN_INPUT }}
-                    +
+                <x-alert type="danger">
+                    Please enter a search input with {{ \App\Http\Controllers\RoundsController::MIN_INPUT }}+
                     characters.
-                </div>
+                </x-alert>
             @else
-                <div class="alert alert-info" role="alert">
+                <x-alert type="info">
                     No rounds found matching “{{ $search }}”.
-                </div>
+                </x-alert>
             @endif
         @endunless
     </div>

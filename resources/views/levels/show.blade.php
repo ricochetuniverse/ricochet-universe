@@ -40,10 +40,10 @@
         @if ($levelSet->prerelease)
             <div class="row">
                 <div class="col">
-                    <div class="alert alert-warning m-0" role="alert">
+                    <x-alert type="warning">
                         This level set is in prerelease and pending test verification before it is published to
                         the public.
-                    </div>
+                    </x-alert>
                 </div>
             </div>
         @endif
@@ -51,9 +51,9 @@
         @if ($brokenLevelSetWarning)
             <div class="row">
                 <div class="col">
-                    <div class="alert alert-danger m-0" role="alert">
+                    <x-alert type="danger">
                         This level set can’t be parsed properly, it might be broken or can’t be completed.
-                    </div>
+                    </x-alert>
                 </div>
             </div>
         @endif
@@ -137,23 +137,21 @@
                         @endif
 
                         @if (count($levelSet->mods) > 0)
-                            <div class="alert alert-info mt-3">
-                                <p class="m-0">
-                                    @if (count($levelSet->mods) === 1)
-                                        This level set requires the
-                                        <a href="{{ action('ModsController@index') }}" class="alert-link">
-                                            {{ $levelSet->mods->first()->name }} mod</a>
-                                        to play.
-                                    @else
-                                        This level set requires these mods to play:
-                                        <a href="{{ action('ModsController@index') }}" class="alert-link">
-                                            @foreach ($levelSet->mods as $mod)
-                                                {{ $mod->name }}{{ !$loop->last ? ', ' : '' }}
-                                            @endforeach
-                                        </a>
-                                    @endif
-                                </p>
-                            </div>
+                            <x-alert type="info" class="mt-3">
+                                @if (count($levelSet->mods) === 1)
+                                    This level set requires the
+                                    <a href="{{ action('ModsController@index') }}" class="alert-link">
+                                        {{ $levelSet->mods->first()->name }} mod</a>
+                                    to play.
+                                @else
+                                    This level set requires these mods to play:
+                                    <a href="{{ action('ModsController@index') }}" class="alert-link">
+                                        @foreach ($levelSet->mods as $mod)
+                                            {{ $mod->name }}{{ !$loop->last ? ', ' : '' }}
+                                        @endforeach
+                                    </a>
+                                @endif
+                            </x-alert>
                         @endif
 
                         <div class="d-flex align-items-center mt-3">
@@ -215,9 +213,9 @@
 
                     <div class="card-body">
                         <noscript>
-                            <div class="alert alert-danger" role="alert">
+                            <x-alert type="danger">
                                 Please enable JavaScript to view more round info.
-                            </div>
+                            </x-alert>
                         </noscript>
 
                         @unless ($levelSet->levelRounds->isEmpty())

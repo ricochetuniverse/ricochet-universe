@@ -1,4 +1,4 @@
-<div class="alert alert-warning m-0" role="alert">
+<x-alert type="warning">
     <p>
         The Mac version of Ricochet Infinity
         <a href="https://support.apple.com/en-us/103076" class="alert-link">does not work on macOS Catalina 10.15
@@ -9,12 +9,12 @@
         If you don’t have an old Mac, you need to use alternatives to play the Windows version of Ricochet Infinity.
     </p>
 
-    <p class="mb-0">
+    <p class="m-0">
         After you finish set up,
         <a href="{{ action('ReviverController@show', ['os' => \App\Http\Controllers\ReviverController::WINDOWS10]) }}"
            class="alert-link">refer to the Windows instructions to restore the level catalog</a>.
     </p>
-</div>
+</x-alert>
 
 <div class="card">
     <h2 class="card-header">Edit Data2.dat</h2>

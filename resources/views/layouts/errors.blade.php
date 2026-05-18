@@ -2,11 +2,11 @@
     <div class="container-fluid pt-3">
         <div class="row">
             <div class="col">
-                <div class="alert alert-danger m-0" role="alert">
+                <x-alert type="danger">
                     @foreach ($errors->all() as $error)
                         <p @if ($loop->last) class="m-0"@endif>{{ $error }}</p>
                     @endforeach
-                </div>
+                </x-alert>
             </div>
         </div>
     </div>
@@ -17,9 +17,9 @@
     <div class="container-fluid pt-3">
         <div class="row">
             <div class="col">
-                <div class="alert alert-{{ $message['level'] }} m-0" role="alert">
+                <x-alert :type="$message['level']">
                     {{ $message['message'] }}
-                </div>
+                </x-alert>
             </div>
         </div>
     </div>

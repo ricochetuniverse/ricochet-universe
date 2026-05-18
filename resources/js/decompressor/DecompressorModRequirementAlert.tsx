@@ -18,7 +18,7 @@ export default function DecompressorModRequirementAlert({textResult}: Props) {
     }
 
     return (
-        <Alert variant="info" className="m-0">
+        <Alert variant="info">
             {modRequirement.mods.length >= 2 ? (
                 <>
                     This level set requires these mods to play:{' '}

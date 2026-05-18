@@ -98,15 +98,11 @@ export default class ImageToCanvasApp extends Component<{}, State> {
                 </Card>
 
                 {this.state.loading ? (
-                    <Alert variant="info" className="m-0">
-                        Loading...
-                    </Alert>
+                    <Alert variant="info">Loading...</Alert>
                 ) : null}
 
                 {this.state.error ? (
-                    <Alert variant="danger" className="m-0">
-                        {this.state.error}
-                    </Alert>
+                    <Alert variant="danger">{this.state.error}</Alert>
                 ) : null}
 
                 {this.state.result ? (

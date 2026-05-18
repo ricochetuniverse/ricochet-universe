@@ -19,9 +19,9 @@
         <noscript>
             <div class="row">
                 <div class="col">
-                    <div class="alert alert-danger m-0" role="alert">
+                    <x-alert type="danger">
                         Please enable JavaScript to use the decompressor tool.
-                    </div>
+                    </x-alert>
                 </div>
             </div>
         </noscript>

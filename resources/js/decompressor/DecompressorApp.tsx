@@ -186,11 +186,7 @@ export default function DecompressorApp(props: Props) {
                 </Card.Body>
             </Card>
 
-            {error ? (
-                <Alert variant="danger" className="m-0">
-                    {error}
-                </Alert>
-            ) : null}
+            {error ? <Alert variant="danger">{error}</Alert> : null}
 
             {result?.unpacker === 'JS' ? (
                 <DecompressorResultsJs

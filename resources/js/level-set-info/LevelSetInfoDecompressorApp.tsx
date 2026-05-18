@@ -47,7 +47,7 @@ export default function LevelSetInfoDecompressorApp(props: Props) {
             }
         }
 
-        downloadFile();
+        void downloadFile();
 
         return () => {
             abortController.abort();
@@ -60,9 +60,7 @@ export default function LevelSetInfoDecompressorApp(props: Props) {
 
             {error ? (
                 <Card.Body>
-                    <Alert className="m-0" variant="danger">
-                        {error}
-                    </Alert>
+                    <Alert variant="danger">{error}</Alert>
                 </Card.Body>
             ) : result == null ? (
                 <Card.Body>Downloading file...</Card.Body>
