@@ -145,14 +145,16 @@
                                              data-bs-toggle="tooltip">
                                     @endif
 
-                                    <p class="m-0">
-                                        <a href="{{ $levelSet->getPermalink() }}"
-                                           class="{{ !$levelSet->prerelease ? 'link-secondary' : 'levelsName--prerelease' }} fw-bold">
-                                            {{ $levelSet->name }}@if ($levelSet->prerelease)
-                                                (PRERELEASE)
-                                            @endif
-                                        </a><span class="d-md-none"> ({{ $levelSet->rounds }}&nbsp;rounds)</span>
-                                    </p>
+                                    <div>
+                                        <h2 class="d-inline fs-6">
+                                            <a href="{{ $levelSet->getPermalink() }}"
+                                               class="{{ !$levelSet->prerelease ? 'link-secondary' : 'levelsName--prerelease' }} fw-bold">
+                                                {{ $levelSet->name }}@if ($levelSet->prerelease)
+                                                    (PRERELEASE)
+                                                @endif
+                                            </a>
+                                        </h2><span class="d-md-none"> ({{ $levelSet->rounds }}&nbsp;rounds)</span>
+                                    </div>
 
                                     <p class="m-0">
                                         By <a
