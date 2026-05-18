@@ -1,3 +1,5 @@
+import {Buffer} from 'buffer';
+
 import nullthrows from 'nullthrows';
 
 import LevelSet from './LevelSet';
@@ -67,7 +69,7 @@ function setPropertyForRound(round: Round, key: string, value: string) {
 }
 
 function decodeAsciiImage(buffer: Buffer): Buffer {
-    const decodedBuffers: Buffer[] = [];
+    const decodedBuffers: Uint8Array[] = [];
 
     for (let i = 0; i < buffer.length; i += 1) {
         const bytes = [buffer[i], buffer[i + 1]];

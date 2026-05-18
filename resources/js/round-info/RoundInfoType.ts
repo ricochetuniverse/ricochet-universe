@@ -13,3 +13,5 @@ export const RoundInfoSchema = z.partial(
         imageUrl: z.url(),
     })
 );
+
+export type RoundInfoType = z.infer<typeof RoundInfoSchema>;

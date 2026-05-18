@@ -3,12 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
-import type {z} from 'zod/mini';
 
-import {RoundInfoSchema} from './RoundInfoType';
+import type {RoundInfoType} from './RoundInfoType';
 
 type Props = Readonly<{
-    roundInfo: z.infer<typeof RoundInfoSchema>;
+    roundInfo: RoundInfoType;
 }>;
 
 function generateRow(label: string, text: string | undefined) {

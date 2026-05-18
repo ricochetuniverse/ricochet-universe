@@ -126,8 +126,9 @@ export default function DecompressorApp(props: Props) {
 
                 setResult({
                     unpacker: 'JS',
+                    raw: inflateResult.raw,
                     text: inflateResult.utf8,
-                    image: inflateResult.image ?? undefined,
+                    image: inflateResult.image,
                 });
 
                 setBlobUrls({

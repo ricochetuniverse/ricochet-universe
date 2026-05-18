@@ -31,6 +31,7 @@
     "@ricochetuniverse/nuvelocity-unpacker": "1.0.2",
     "@swc/helpers": "0.5.21",
     "bootstrap": "5.3.8",
+    "buffer": "6.0.3",
     "jszip": "3.10.1",
     "monaco-editor": "0.55.1",
     "nullthrows": "1.1.1",

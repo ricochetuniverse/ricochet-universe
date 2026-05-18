@@ -248,7 +248,7 @@
                                         @endif
 
                                         @if ($round->shouldShowViewNotesButton())
-                                            <span class="d-block mt-2 btn btn-outline-primary">View notes</span>
+                                            <x-button class="d-block mt-2" as="span">View notes</x-button>
                                         @endif
                                     </a>
                                 @endforeach

@@ -6,4 +6,4 @@ $active = $active ?? false;
 $class = $class ?? '';
 
 @endphp
-<{{ $as }} class="btn btn-outline-{{ $appearance }} {{ $active ? 'active' : '' }} {{ $class }}" @if ($active)aria-pressed="true"@endif {{ $attributes->except(['tag', 'appearance', 'class', 'active']) }}>{{ $slot }}</{{ $as }}>
+<{{ $as }} class="btn btn-outline-{{ $appearance }} {{ $active ? 'active' : '' }} {{ $class }}" @if ($active)aria-pressed="true"@endif {{ $attributes->except(['as', 'appearance', 'class', 'active']) }}>{{ $slot }}</{{ $as }}>

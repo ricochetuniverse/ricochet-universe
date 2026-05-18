@@ -1,7 +1,5 @@
 import {useState} from 'preact/hooks';
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Stack from 'react-bootstrap/Stack';
 
 import DecompressorModRequirementAlert from '../DecompressorModRequirementAlert';
@@ -16,6 +14,7 @@ import DecompressorImageAppearance from './DecompressorImageAppearance';
 import DecompressorResultsImage, {
     type Appearance,
 } from './DecompressorResultsImage';
+import DecompressorResultsLevelSetParser from './levelSet/DecompressorResultsLevelSetParser';
 
 type Props = Readonly<{
     blobUrls: DecompressorBlobUrls;
@@ -67,6 +66,10 @@ export default function DecompressorResultsJs(props: Props) {
                 </Card>
             ) : null}
 
+            {props.result.raw ? (
+                <DecompressorResultsLevelSetParser raw={props.result.raw} />
+            ) : null}
+
             {props.result.text ? (
                 <Card as="section">
                     <Card.Header as="h2">
@@ -76,30 +79,32 @@ export default function DecompressorResultsJs(props: Props) {
                     </Card.Header>
 
                     <Card.Body>
-                        <Row className="align-items-center">
+                        <Stack
+                            direction="horizontal"
+                            gap={3}
+                            className="align-items-center"
+                        >
                             {props.blobUrls.text != null ? (
-                                <Col xs="auto">
-                                    <DownloadButton
-                                        blobUrl={props.blobUrls.text}
-                                        fileName={
-                                            props.fileName.replace(
-                                                /\.Ricochet(?:I|LW)$/,
-                                                ''
-                                            ) + ' (decompressed).txt'
-                                        }
-                                    />
-                                </Col>
+                                <DownloadButton
+                                    blobUrl={props.blobUrls.text}
+                                    fileName={
+                                        props.fileName.replace(
+                                            /\.Ricochet(?:I|LW)$/,
+                                            ''
+                                        ) + ' (decompressed).txt'
+                                    }
+                                />
                             ) : null}
 
                             {!props.blobUrls.image ? (
-                                <Col>
+                                <p className="m-0">
                                     If you’re manually editing this file with a
                                     text editor, be sure to save the file with
                                     Windows (CRLF) line endings and Windows-1252
                                     text encoding to ensure game compatibility.
-                                </Col>
+                                </p>
                             ) : null}
-                        </Row>
+                        </Stack>
                     </Card.Body>
 
                     {props.enableBrowserTextEditor ? (

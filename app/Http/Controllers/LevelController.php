@@ -124,7 +124,7 @@ class LevelController extends Controller
                 new ParseLevelSet($levelSet),
             ]);
         } else {
-            $roundsWithAuthor = 0;
+            $roundsWithSameAuthor = 0;
             $roundsWithNullAuthor = 0;
             foreach ($levelSet->levelRounds as $round) {
                 if (! $round->image_file_name) {
@@ -132,13 +132,13 @@ class LevelController extends Controller
                 }
 
                 if ($round->author === $levelSet->author) {
-                    $roundsWithAuthor += 1;
+                    $roundsWithSameAuthor += 1;
                 } elseif ($round->author === '') {
                     $roundsWithNullAuthor += 1;
                 }
             }
 
-            if ($roundsWithAuthor === $levelSet->levelRounds->count() || $roundsWithNullAuthor === $levelSet->levelRounds->count()) {
+            if ($roundsWithSameAuthor === $levelSet->levelRounds->count() || $roundsWithNullAuthor === $levelSet->levelRounds->count()) {
                 $authorIsSameForAllRounds = true;
             }
         }

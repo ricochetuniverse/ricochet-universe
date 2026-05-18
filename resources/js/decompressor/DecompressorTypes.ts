@@ -1,7 +1,8 @@
 export type DecompressorResultJs = {
     unpacker: 'JS';
-    text?: string;
-    image?: Uint8Array;
+    raw: Uint8Array<ArrayBuffer> | null;
+    text: string;
+    image: Uint8Array | null;
 };
 
 export type DecompressorResultNuVelocity = {
