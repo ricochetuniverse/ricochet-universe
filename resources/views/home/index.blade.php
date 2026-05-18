@@ -62,7 +62,7 @@
                             <span class="visually-hidden">Discord</span>
                         </div>
 
-                        <x-button appearance="secondary">Join</x-button>
+                        <x-button appearance="secondary" as="span">Join</x-button>
                     </a>
 
                     <div class="discordWidget__reactWrap"></div>
