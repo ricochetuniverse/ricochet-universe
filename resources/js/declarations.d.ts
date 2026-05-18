@@ -1,6 +1,10 @@
 declare module '*.css';
 declare module '*.scss';
 
+declare module '*.jpg';
+declare module '*.gif';
+declare module '*.png';
+
 // todo maybe switch to pako module?
 declare module 'pako/lib/inflate' {
     import {

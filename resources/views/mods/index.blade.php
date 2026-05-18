@@ -62,7 +62,7 @@
                                 <div class="d-flex">
                                     <a href="{{ $mod->download_link }}"
                                        class="d-inline-flex align-items-center mt-3">
-                                        <img src="{{ asset('images/levelDownload.jpg') }}"
+                                        <img src="{{ Mix::getPath('levelDownload.jpg') }}"
                                              alt=""
                                              width="38"
                                              height="38"

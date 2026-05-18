@@ -1,4 +1,5 @@
 import '../sass/app.scss';
+import './images';
 
 import 'bootstrap/js/src/collapse';
 import 'bootstrap/js/src/dropdown';

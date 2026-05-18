@@ -41,13 +41,13 @@
             <div class="container-fluid">
                 <div class="d-none d-md-block">
                     <a class="navbar-brand d-flex me-2" href="{{ action('HomeController@index') }}" title="{{ config('app.name') }}" data-bs-toggle="tooltip">
-                        <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
+                        <img src="{{ Mix::getPath('ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
                     </a>
                 </div>
 
                 <div class="d-md-none">
                     <a class="navbar-brand d-flex me-2" href="{{ action('HomeController@index') }}">
-                        <img src="{{ asset('images/ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
+                        <img src="{{ Mix::getPath('ricochet-logo.png') }}" width="30" height="30" alt="{{ config('app.name') }}">
                         <span class="ms-2">{{ config('app.name') }}</span>
                     </a>
                 </div>
@@ -171,6 +171,6 @@
         </main>
     </div>
 
-    <script src="{{ app(\App\Helpers\MixManifestWithIntegrity::class)::getPath('app.js') }}" async integrity="{{ app(\App\Helpers\MixManifestWithIntegrity::class)::getIntegrity('app.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ Mix::getPath('app.js') }}" async integrity="{{ Mix::getIntegrity('app.js') }}" crossorigin="anonymous"></script>
 </body>
 </html>
