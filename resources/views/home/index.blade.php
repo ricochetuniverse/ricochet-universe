@@ -22,7 +22,7 @@
         <div class="row row-gap-3">
             <div class="col-md pe-md-0 d-flex flex-column gap-3">
                 <x-card>
-                    <x-card.header tag="h2">Most downloaded level sets</x-card.header>
+                    <x-card.header as="h2">Most downloaded level sets</x-card.header>
 
                     <ul class="list-group list-group-flush">
                         @foreach ($topLevelSets as $levelSet)
@@ -38,7 +38,7 @@
 
             <div class="col-md pe-xl-0 d-flex flex-column gap-3">
                 <x-card>
-                    <x-card.header tag="h2">Recent level sets</x-card.header>
+                    <x-card.header as="h2">Recent level sets</x-card.header>
 
                     <ul class="list-group list-group-flush">
                         @foreach ($recentLevelSets as $levelSet)

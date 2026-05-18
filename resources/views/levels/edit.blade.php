@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col">
                 <x-card>
-                    <x-card.header tag="h2">Edit level set</x-card.header>
+                    <x-card.header as="h2">Edit level set</x-card.header>
 
                     <x-card.body>
                         <form action="{{ action('LevelController@update', ['levelSet' => $levelSet]) }}" method="POST"

@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col">
                     <x-card>
-                        <x-card.header tag="h2">Finished!</x-card.header>
+                        <x-card.header as="h2">Finished!</x-card.header>
 
                         <x-card.body>
                             <p class="m-0">

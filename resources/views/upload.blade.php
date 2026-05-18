@@ -26,7 +26,7 @@
         <div class="row row-gap-3">
             <div class="col-md-8">
                 <x-card>
-                    <x-card.header tag="h2">Instructions</x-card.header>
+                    <x-card.header as="h2">Instructions</x-card.header>
 
                     <x-card.body>
                         <p>
@@ -63,7 +63,7 @@
 
             <div class="col-md-4">
                 <x-card>
-                    <x-card.header tag="h2">Other upload questions</x-card.header>
+                    <x-card.header as="h2">Other upload questions</x-card.header>
 
                     <x-card.body>
                         <p>
@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="col">
                     <x-card>
-                        <x-card.header tag="h2">Add new level set</x-card.header>
+                        <x-card.header as="h2">Add new level set</x-card.header>
 
                         <x-card.body>
                             <form action="{{ action('UploadController@store') }}" method="POST"

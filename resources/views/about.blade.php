@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col">
                     <x-card>
-                        <x-card.header tag="h2">Level set contributors</x-card.header>
+                        <x-card.header as="h2">Level set contributors</x-card.header>
 
                         <x-card.body>
                             <p>

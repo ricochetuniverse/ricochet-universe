@@ -17,7 +17,7 @@
 </x-alert>
 
 <x-card>
-    <x-card.header tag="h2">Data2.dat</x-card.header>
+    <x-card.header as="h2">Data2.dat</x-card.header>
 
     <x-card.body>
         <p>

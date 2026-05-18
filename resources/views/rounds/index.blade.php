@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col">
                     <x-card>
-                        <x-card.header tag="h2">Results</x-card.header>
+                        <x-card.header as="h2">Results</x-card.header>
 
                         <ul class="list-group list-group-flush">
                             @foreach ($rounds as $round)

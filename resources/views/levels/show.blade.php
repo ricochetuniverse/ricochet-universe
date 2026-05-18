@@ -209,7 +209,7 @@
         <div class="row">
             <div class="col">
                 <x-card>
-                    <x-card.header tag="h2">Round info</x-card.header>
+                    <x-card.header as="h2">Round info</x-card.header>
 
                     <x-card.body>
                         <noscript>

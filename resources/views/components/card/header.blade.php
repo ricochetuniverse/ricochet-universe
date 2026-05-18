@@ -1,6 +1,6 @@
 @php
 
-$tag = $tag ?? 'h1';
+$as = $as ?? 'h1';
 
 @endphp
-<{{ $tag }} class="card-header">{{ $slot }}</{{ $tag }}>
+<{{ $as }} class="card-header">{{ $slot }}</{{ $as }}>
