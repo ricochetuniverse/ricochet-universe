@@ -3,7 +3,9 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Form from 'react-bootstrap/Form';
+import Stack from 'react-bootstrap/Stack';
 
+import DecompressorImageAppearance from './DecompressorImageAppearance';
 import DecompressorResultsImage, {
     type Appearance,
 } from './DecompressorResultsImage';
@@ -22,52 +24,30 @@ export default function DecompressorResultsNuVelocityDecoded({
     const [appearance, setAppearance] = useState<Appearance>('CHECKERBOARD');
 
     return decodedImages.length > 1 ? (
-        <>
-            <Form.Group className="mb-3">
-                <Form.Check
-                    type="checkbox"
-                    id="decompressor-showAll"
-                    checked={showAll}
-                    onChange={(ev) => {
-                        setShowAll(ev.currentTarget.checked);
-                    }}
-                    label={`Show all ${decodedImages.length.toString()} images`}
-                />
-            </Form.Group>
+        <Stack gap={3}>
+            <Form.Check
+                type="checkbox"
+                id="decompressor-showAll"
+                checked={showAll}
+                onChange={(ev) => {
+                    setShowAll(ev.currentTarget.checked);
+                }}
+                label={`Show all ${decodedImages.length.toString()} images`}
+            />
 
-            <Form.Group
-                className="mb-3 d-flex align-items-center"
-                controlId="decompressor-appearance"
-            >
-                <Form.Label className="m-0 me-2">Appearance:</Form.Label>
-
-                <Form.Select
-                    className="w-auto"
-                    onChange={(ev) => {
-                        const value = ev.currentTarget.value;
-                        if (
-                            value === 'BLACK' ||
-                            value === 'WHITE' ||
-                            value === 'CHECKERBOARD'
-                        ) {
-                            setAppearance(value);
-                        }
-                    }}
-                    value={appearance}
-                >
-                    <option value="BLACK">Black</option>
-                    <option value="WHITE">White</option>
-                    <option value="CHECKERBOARD">Checkerboard</option>
-                </Form.Select>
-            </Form.Group>
+            <DecompressorImageAppearance
+                onChange={setAppearance}
+                value={appearance}
+            />
 
             {!showAll ? (
                 <>
-                    <DecompressorResultsImage
-                        appearance={appearance}
-                        className="mb-3"
-                        src={BASE64_DATA_URI + decodedImages[currentIndex]}
-                    />
+                    <div>
+                        <DecompressorResultsImage
+                            appearance={appearance}
+                            src={BASE64_DATA_URI + decodedImages[currentIndex]}
+                        />
+                    </div>
 
                     <ButtonToolbar className="align-items-center">
                         <ButtonGroup className="me-2">
@@ -159,7 +139,7 @@ export default function DecompressorResultsNuVelocityDecoded({
                     })}
                 </div>
             )}
-        </>
+        </Stack>
     ) : (
         <DecompressorResultsImage
             appearance={appearance}

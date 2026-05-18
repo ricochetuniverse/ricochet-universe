@@ -1,3 +1,5 @@
+import * as styles from './DecompressorResultsImage.module.scss';
+
 export type Appearance = 'BLACK' | 'WHITE' | 'CHECKERBOARD';
 
 type Props = Readonly<{
@@ -5,8 +7,6 @@ type Props = Readonly<{
     className?: string;
     src: string;
 }>;
-
-import * as styles from './DecompressorResultsImage.module.scss';
 
 export default function DecompressorResultsImage(props: Props) {
     return (

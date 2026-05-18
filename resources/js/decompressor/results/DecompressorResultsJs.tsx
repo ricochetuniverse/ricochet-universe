@@ -1,6 +1,8 @@
+import {useState} from 'preact/hooks';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Stack from 'react-bootstrap/Stack';
 
 import DecompressorModRequirementAlert from '../DecompressorModRequirementAlert';
 import type {
@@ -10,7 +12,10 @@ import type {
 import DownloadButton from '../DownloadButton';
 import LoadableDecompressorTextEditor from '../LoadableDecompressorTextEditor';
 
-import DecompressorResultsImage from './DecompressorResultsImage';
+import DecompressorImageAppearance from './DecompressorImageAppearance';
+import DecompressorResultsImage, {
+    type Appearance,
+} from './DecompressorResultsImage';
 
 type Props = Readonly<{
     blobUrls: DecompressorBlobUrls;
@@ -20,6 +25,8 @@ type Props = Readonly<{
 }>;
 
 export default function DecompressorResultsJs(props: Props) {
+    const [appearance, setAppearance] = useState<Appearance>('CHECKERBOARD');
+
     return (
         <>
             <DecompressorModRequirementAlert
@@ -31,18 +38,29 @@ export default function DecompressorResultsJs(props: Props) {
                     <Card.Header as="h2">Decompressed image</Card.Header>
 
                     <Card.Body>
-                        <DownloadButton
-                            blobUrl={props.blobUrls.image}
-                            fileName={
-                                props.fileName.replace(/\.Sequence$/, '') +
-                                '.jpg'
-                            }
-                        />
+                        <Stack gap={3}>
+                            <div>
+                                <DownloadButton
+                                    blobUrl={props.blobUrls.image}
+                                    fileName={
+                                        props.fileName.replace(
+                                            /\.Sequence$/,
+                                            ''
+                                        ) + '.jpg'
+                                    }
+                                />
+                            </div>
+
+                            <DecompressorImageAppearance
+                                onChange={setAppearance}
+                                value={appearance}
+                            />
+                        </Stack>
                     </Card.Body>
 
                     <div className="overflow-x-auto">
                         <DecompressorResultsImage
-                            appearance={'CHECKERBOARD'}
+                            appearance={appearance}
                             src={props.blobUrls.image}
                         />
                     </div>
