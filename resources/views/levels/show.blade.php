@@ -263,7 +263,9 @@
 
         <div class="row">
             <div class="col">
-                <div id="level-set-info-decompressor-root" data-download-url="{{ $levelSet->getDownloadUrl() }}"></div>
+                <div id="level-set-info-decompressor-root" data-download-url="{{ $levelSet->getDownloadUrl() }}">
+                    <x-button disabled>View raw level contents (advanced)</x-button>
+                </div>
             </div>
         </div>
     </div>
