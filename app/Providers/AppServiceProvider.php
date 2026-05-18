@@ -6,6 +6,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
         Model::preventLazyLoading(! $this->app->isProduction());
         Model::preventAccessingMissingAttributes();
         Model::preventSilentlyDiscardingAttributes();
+
+        Blade::directive('mixPath', static function (string $path) {
+            return '<?php echo app(\App\Helpers\MixManifestWithIntegrity::class)::getPath('.$path.'); ?>';
+        });
 
         Paginator::useBootstrapFour();
 

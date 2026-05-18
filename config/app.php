@@ -165,7 +165,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Mix' => \App\Helpers\MixManifestWithIntegrity::class,
+        // 'Mix' => \App\Helpers\MixManifestWithIntegrity::class,
     ])->toArray(),
 
 ];

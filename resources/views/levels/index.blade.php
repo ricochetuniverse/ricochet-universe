@@ -128,7 +128,7 @@
                             <tr>
                                 <td class="w-100">
                                     @if ($levelSet->isDesignedForInfinity())
-                                        <img src="{{ app('Mix')::getPath('RI.gif') }}"
+                                        <img src="@mixPath('RI.gif')"
                                              alt="Ricochet Infinity logo"
                                              title="Designed for Ricochet Infinity. Can only be played in Ricochet Infinity."
                                              width="32"
@@ -136,7 +136,7 @@
                                              class="float-end ms-3"
                                              data-bs-toggle="tooltip">
                                     @else
-                                        <img src="{{ app('Mix')::getPath('RLW.gif') }}"
+                                        <img src="@mixPath('RLW.gif')"
                                              alt="Ricochet Lost Worlds logo"
                                              title="Designed for Ricochet Lost Worlds. Can be played in Ricochet Lost Worlds, Ricochet Lost Worlds: Recharged and Ricochet Infinity."
                                              width="32"

@@ -19,7 +19,7 @@ abstract class TestCase extends BaseTestCase
         // https://laravel-news.com/laravel-http-client-tips#content-preventing-stray-requests-in-tests
         Http::preventStrayRequests();
 
-        $this->swap('Mix', new class extends MixManifestWithIntegrity
+        $this->swap(MixManifestWithIntegrity::class, new class extends MixManifestWithIntegrity
         {
             public static function getPath(string $path): HtmlString
             {

@@ -156,12 +156,12 @@
 
                         <div class="d-flex align-items-center mt-3">
                             @if ($levelSet->isDesignedForInfinity())
-                                <img src="{{ app('Mix')::getPath('RI.gif') }}"
+                                <img src="@mixPath('RI.gif')"
                                      alt="Ricochet Infinity logo"
                                      width="32"
                                      height="32">
                             @else
-                                <img src="{{ app('Mix')::getPath('RLW.gif') }}"
+                                <img src="@mixPath('RLW.gif')"
                                      alt="Ricochet Lost Worlds logo"
                                      width="32"
                                      height="32">
@@ -188,7 +188,7 @@
                     <x-card.body>
                         <div class="d-flex">
                             <a href="{{ $levelSet->getDownloadUrl() }}" class="d-inline-flex align-items-center">
-                                <img src="{{ app('Mix')::getPath('levelDownload.jpg') }}"
+                                <img src="@mixPath('levelDownload.jpg')"
                                      alt=""
                                      width="38"
                                      height="38"
