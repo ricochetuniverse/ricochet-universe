@@ -9,7 +9,7 @@
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')
-                <img src="{{ Mix::getPath('ratingOverall.jpg') }}" alt="Overall grade" width="20" height="20">
+                <img src="{{ app('Mix')::getPath('ratingOverall.jpg') }}" alt="Overall grade" width="20" height="20">
             @endslot
         @endcomponent
 
@@ -22,7 +22,7 @@
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')
-                <img src="{{ Mix::getPath('ratingGameplay.jpg') }}" alt="Gameplay grade" width="20" height="20">
+                <img src="{{ app('Mix')::getPath('ratingGameplay.jpg') }}" alt="Gameplay grade" width="20" height="20">
             @endslot
         @endcomponent
 
@@ -35,7 +35,7 @@
             'showPlayerCount' => $showPlayerCount ?? false,
         ])
             @slot('image')
-                <img src="{{ Mix::getPath('ratingVisuals.jpg') }}" alt="Visuals grade" width="20" height="20">
+                <img src="{{ app('Mix')::getPath('ratingVisuals.jpg') }}" alt="Visuals grade" width="20" height="20">
             @endslot
         @endcomponent
     </div>
