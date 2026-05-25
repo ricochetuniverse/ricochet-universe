@@ -122,15 +122,15 @@
                             </div>
                         @endif
 
-                        @if (count($levelSet->tagged) > 0)
+                        @if (count($levelSet->visibleTagged) > 0)
                             <div class="d-flex mt-3">
                                 <span class="me-2">Tags:</span>
 
                                 <div>
-                                    @foreach ($levelSet->tagged as $tagged)
-                                        <a href="{{ action('LevelController@index', ['tag' => $tagged->tag_name]) }}"
-                                           title="Find other level sets with the {{ $tagged->tag_name }} tag"
-                                        >{{ $tagged->tag_name }}</a>{{ !$loop->last ? ', ' : '' }}
+                                    @foreach ($levelSet->visibleTagged as $tagged)
+                                        <a href="{{ action('LevelController@index', ['tag' => $tagged->name]) }}"
+                                           title="Find other level sets with the {{ $tagged->name }} tag"
+                                        >{{ $tagged->name }}</a>{{ !$loop->last ? ', ' : '' }}
                                     @endforeach
                                 </div>
                             </div>

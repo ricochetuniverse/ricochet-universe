@@ -18,10 +18,8 @@ class CatalogService
         $response = self::getCatalogHeader($isSecure);
 
         LevelSet::with([
-            'tagged',
-            'mods' => function ($query) {
-                $query->orderBy('name');
-            },
+            'visibleTagged',
+            'mods',
         ])
             // todo make this adjustable for https://gitlab.com/ngyikp/ricochet-levels/-/issues/34
             ->published()
@@ -87,7 +85,7 @@ EOF;
             $level->mods->pluck('name')->map(function ($item) {
                 return 'Mod: '.$item;
             }),
-            $level->tags->pluck('name'),
+            $level->visibleTagged->pluck('name'),
         ])->flatten(1);
 
         $data = [

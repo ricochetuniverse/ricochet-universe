@@ -47,12 +47,12 @@ class MigrateLevelSetTags extends Command
         $newTags = LevelSetTag::all()->keyBy('name');
 
         DB::transaction(function () use ($newTags) {
-            LevelSet::with(['tagged' => function ($query) {
+            LevelSet::with(['tagged' => function ($query) { // legacy tags
                 $query->orderBy('id');
             }])
                 ->chunk(500, function ($levels, $page) use ($newTags) {
                     foreach ($levels as $level) {
-                        $tags = $level->tags;
+                        $tags = $level->tags; // legacy tags
 
                         // Reposition Reflexive tag to the front
                         $reflexive = $tags->firstWhere('name', 'Reflexive');

@@ -87,7 +87,7 @@ class LevelSet extends Model
 
     public function mods(): BelongsToMany
     {
-        return $this->belongsToMany(Mod::class);
+        return $this->belongsToMany(Mod::class)->orderBy('name');
     }
 
     public function downloadLogs(): HasMany
@@ -112,14 +112,16 @@ class LevelSet extends Model
     {
         return $this->belongsToMany(LevelSetTag::class, 'level_set_visible_tagged', 'level_set_id', 'tag_id')
             ->withPivot('position')
-            ->withTimestamps();
+            ->withTimestamps()
+            ->orderByPivot('position');
     }
 
     /** @return BelongsToMany<LevelSetTag, $this> */
     public function legacyTagged(): BelongsToMany
     {
         return $this->belongsToMany(LevelSetTag::class, 'level_set_legacy_tagged', 'level_set_id', 'tag_id')
-            ->withPivot('position');
+            ->withPivot('position')
+            ->orderByPivot('position');
     }
 
     public function userTagged(): BelongsToMany

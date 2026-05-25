@@ -39,6 +39,7 @@ class ReflexiveLevelSetSeeder extends Seeder
             'round_to_get_image_from' => 1,
         ]);
 
+        // Legacy tags
         DB::table('tagging_tags')->insert([
             'slug' => 'classic-style',
             'name' => 'Classic Style',
@@ -52,6 +53,25 @@ class ReflexiveLevelSetSeeder extends Seeder
             'tag_slug' => 'classic-style',
         ]);
 
+        // New tags
+        $tagId = DB::table('level_set_tags')->insertGetId([
+            'name' => 'Classic Style',
+            'count_visible' => 1,
+        ]);
+
+        DB::table('level_set_legacy_tagged')->insert([
+            'level_set_id' => $levelSetId,
+            'tag_id' => $tagId,
+            'position' => 0,
+        ]);
+
+        DB::table('level_set_visible_tagged')->insert([
+            'level_set_id' => $levelSetId,
+            'tag_id' => $tagId,
+            'position' => 0,
+        ]);
+
+        // Ratings
         DB::table('level_set_legacy_ratings')->insert([
             'level_set_id' => $levelSetId,
             'overall_rating' => 11.1383,

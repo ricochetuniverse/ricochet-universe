@@ -1,0 +1,16 @@
+CCatalogWebResponse
+{
+  Success=1
+  SessionID=1068226
+  Catalog URL=http://www.ricochetInfinity.com/gateway/catalog.php
+  Download URL=http://www.ricochetInfinity.com/levels/download.php?File=downloads/raw/
+  Submit URL=http://www.ricochetInfinity.com/levels/ri_submitform.php
+  Image URL=http://www.ricochetInfinity.com/levels/
+  Rate URL=http://www.ricochetInfinity.com/gateway/syncratings.php
+  Can Test PreRelease Levels=
+  Can Apply Star Tags=
+  New Build Message=Go to www.RicochetInfinity.com to download an update for Ricochet Infinity
+}
+id,name,rounds,author,date,featured,gameversion,prerelease,required_build,imageurl,rating,downloads,description,tags,overall_rating,overall_ratings,fun_rating,fun_ratings,graphics_rating,graphics_ratings,also_like
+1,Reflexive B Sides,26,Reflexive,2004-04-22,0,2,0,,images/ReflexiveBSides.jpg,4.10638,40542,Bonus rounds form the original creators of Ricochet Lost Worlds.,Classic Style;Strategy;Artistic;Bombs;Hard;Easy,11.1383,753,11.4466,652,11.2495,646,588;2189;4080;2327;2184;1921;5964;823;5722;457
+2,Auto Mania,10,Keith Haab,2004-05-28,0,2,0,,images/automania.jpg,3.9375,21363,From Carts to Chaos; Orbits & Craziness Aplenty,Pictures;Easy;Classic Style,12.5926,779,12.7364,650,12.7659,642,5673;5558;5864;5838;5595;4557;5611;3619;4440;5781

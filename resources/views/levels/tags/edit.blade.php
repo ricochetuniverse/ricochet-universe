@@ -34,7 +34,7 @@
                                             <input class="form-check-input" type="checkbox" value="{{ $tag->name }}"
                                                    name="tags[]"
                                                    id="tag-{{ $tag->id }}"
-                                                   @if ($levelSet->tags->contains($tag)) checked @endif>
+                                                   @if ($levelSet->visibleTagged->contains($tag->id)) checked @endif>
 
                                             <label class="form-check-label" for="tag-{{ $tag->id }}">
                                                 {{ $tag->name }}

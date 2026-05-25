@@ -4,26 +4,19 @@ namespace App\Console\Commands;
 
 use App\Helpers\TextEncoderForGame;
 use App\LevelSet;
+use App\LevelSetTag;
 use Carbon\Carbon;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+#[Signature('ricochet:convert-catalogx-bin {file} {--dry-run}')]
+#[Description('Convert catalogx.bin to JSON')]
 class ConvertCatalogxDotBin extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet:convert-catalogx-bin {file} {--dry-run}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Convert catalogx.bin to JSON';
+    private array $cachedTags = [];
 
     /**
      * Execute the console command.
@@ -102,13 +95,15 @@ class ConvertCatalogxDotBin extends Command
             if (Str::startsWith($levelSet->image_url, 'cache/')) {
                 $parts = explode('/', $levelSet->image_url);
                 $levelSet->round_to_get_image_from = (int) Str::before(end($parts), '.jpg');
+            } else {
+                $levelSet->round_to_get_image_from = 1;
             }
 
             $this->repairCatalogItem($levelSet);
 
             $levelSet->save();
 
-            $levelSet->retag(array_filter(explode(';', $rowData[13])));
+            $this->addTags($levelSet, array_filter(explode(';', $rowData[13])));
 
             if ($levelSet->overall_rating_count > 0 || $levelSet->fun_rating_count > 0 || $levelSet->graphics_rating_count > 0) {
                 $levelSet->legacyRating()->upsert([
@@ -181,5 +176,34 @@ class ConvertCatalogxDotBin extends Command
 
         // Legacy ID 1511
         $levelSet->description = str_replace('â€“', '–', $levelSet->description);
+    }
+
+    /**
+     * @param  list<string>  $tagNames
+     */
+    private function addTags(LevelSet $levelSet, array $tagNames): void
+    {
+        $sync = [];
+        $position = 0;
+
+        foreach ($tagNames as $tagName) {
+            $sync[$this->getTag($tagName)->id] = ['position' => $position];
+            $position += 1;
+        }
+
+        $levelSet->legacyTagged()->sync($sync);
+        $levelSet->visibleTagged()->sync($sync);
+
+        // Legacy tags
+        $levelSet->retag($tagNames);
+    }
+
+    private function getTag(string $name): LevelSetTag
+    {
+        if (! isset($this->cachedTags[$name])) {
+            $this->cachedTags[$name] = LevelSetTag::firstOrCreate(['name' => $name]);
+        }
+
+        return $this->cachedTags[$name];
     }
 }

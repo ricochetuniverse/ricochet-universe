@@ -48,27 +48,27 @@ class LevelController extends Controller
         }
 
         $levelSets = LevelSet::with([
-            'tagged',
-            'mods' => function ($query) {
-                $query->orderBy('name');
-            },
+            'visibleTagged',
+            'mods',
         ]);
 
         $this->addOrderBysForLevelSets($levelSets, $orderBy, $orderDirection);
 
-        if (is_string($author) && strlen($author) > 0) {
+        if (is_string($author) && $author !== '') {
             $levelSets->where('author', $author);
         } else {
             $author = null;
         }
 
-        if (is_string($tag) && strlen($tag) > 0) {
-            $levelSets->withAnyTag($tag);
+        if (is_string($tag) && $tag !== '') {
+            $levelSets->whereHas('visibleTagged', function ($query) use ($tag) {
+                $query->where('name', $tag);
+            });
         } else {
             $tag = null;
         }
 
-        if (is_string($search) && strlen($search) > 0) {
+        if (is_string($search) && $search !== '') {
             $levelSets->where('name', 'LIKE', '%'.Str::escapeLike($search).'%')
                 ->orWhere('author', 'LIKE', '%'.Str::escapeLike($search).'%');
         } else {
@@ -109,10 +109,8 @@ class LevelController extends Controller
         $levelSet = LevelSet::where('name', $name)
             ->with([
                 'levelRounds',
-                'tagged',
-                'mods' => function ($query) {
-                    $query->orderBy('name');
-                },
+                'visibleTagged',
+                'mods',
             ])
             ->firstOrFail();
 
