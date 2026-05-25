@@ -15,9 +15,9 @@ class CatalogController extends Controller
     {
         $isSecure = $request->isSecure();
 
-        $catalogContent = Cache::remember(
+        $catalogContent = Cache::flexible(
             $this->getCacheKey($isSecure),
-            now()->addMinutes($this->getCacheMinutes()),
+            [$this->getCacheMinutes() * 60, 60 * 60 * 24],
             static function () use ($isSecure) {
                 return CatalogService::getCatalog($isSecure);
             }

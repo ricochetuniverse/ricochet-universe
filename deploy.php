@@ -46,14 +46,14 @@ task('webpack:run', function () {
 });
 
 desc('Clear cache for /gateway/catalog.php');
-task('ricochet:clear-catalog-cache', function () {
-    run('{{bin/php}} {{release_path}}/artisan ricochet:clear-catalog-cache');
+task('ricochet:cache-catalog', function () {
+    run('{{bin/php}} {{release_path}}/artisan ricochet:cache-catalog');
 });
 
 after('deploy:vendors', 'npm:install');
 after('npm:install', 'webpack:run');
 
-after('deploy', 'ricochet:clear-catalog-cache');
+after('deploy', 'ricochet:cache-catalog');
 after('deploy', 'artisan:queue:restart');
 
 if (get('sentry_token')) {
