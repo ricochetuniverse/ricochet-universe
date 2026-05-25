@@ -107,6 +107,28 @@ class LevelSet extends Model
         return $this->hasMany(LevelSetUserRating::class);
     }
 
+    /** @return BelongsToMany<LevelSetTag, $this> */
+    public function visibleTagged(): BelongsToMany
+    {
+        return $this->belongsToMany(LevelSetTag::class, 'level_set_visible_tagged', 'level_set_id', 'tag_id')
+            ->withPivot('position')
+            ->withTimestamps();
+    }
+
+    /** @return BelongsToMany<LevelSetTag, $this> */
+    public function legacyTagged(): BelongsToMany
+    {
+        return $this->belongsToMany(LevelSetTag::class, 'level_set_legacy_tagged', 'level_set_id', 'tag_id')
+            ->withPivot('position');
+    }
+
+    public function userTagged(): BelongsToMany
+    {
+        return $this->belongsToMany(LevelSetTag::class, 'level_set_user_tagged', 'level_set_id', 'tag_id')
+            ->withPivot('player_name')
+            ->withTimestamps();
+    }
+
     public function isDesignedForLostWorlds(): bool
     {
         return $this->game_version === 2;
