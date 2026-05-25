@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\API\LevelSetImageController;
 use App\LevelSet;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -14,22 +16,10 @@ use Illuminate\Support\Str;
  *
  * @see https://gitlab.com/ngyikp/ricochet-levels/-/issues/14
  */
+#[Signature('ricochet:save-level-set-images-archive-org')]
+#[Description('Save old level set images (version 1) from archive.org')]
 class SaveLevelSetImagesFromArchiveOrg extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet:save-level-set-images-archive-org';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Save old level set images (version 1) from archive.org';
-
     private const string FALLBACK_URL = 'https://web.archive.org/web/20171205000449im_/http://www.ricochetInfinity.com/levels/';
     // private const string FALLBACK_URL = 'https://web.archive.org/web/20171205000449im_/http://www.ricochetlostworlds.com/levels/';
 

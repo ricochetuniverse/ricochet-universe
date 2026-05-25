@@ -5,24 +5,14 @@ declare(strict_types=1);
 namespace App\Console\Commands\Discord;
 
 use App\Services\DiscordApi\ApiClient;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('ricochet-discord:remove')]
+#[Description('Remove all Discord interaction commands')]
 class RemoveDiscordInteractions extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet-discord:remove';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Remove all Discord interaction commands';
-
     /**
      * Execute the console command.
      */

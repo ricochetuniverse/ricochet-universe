@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\LevelSetTag;
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<LevelSetTag>
- */
+#[UseModel(LevelSetTag::class)]
 class LevelSetTagFactory extends Factory
 {
     /**

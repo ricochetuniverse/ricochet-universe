@@ -3,26 +3,16 @@
 namespace App\Console\Commands;
 
 use App\LevelSet;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 // https://docs.google.com/spreadsheets/d/1nsEI2uFH2ca6ikDbdstcEmCaItPypj3kgFeJ1st6OxY/edit#gid=0
+#[Signature('ricochet:convert-google-sheets-tsv {file}')]
+#[Description('Convert a TSV file exported from Google Sheets to update the alternate download URL')]
 class ConvertGoogleSheetsTsv extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet:convert-google-sheets-tsv {file}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Convert a TSV file exported from Google Sheets to update the alternate download URL';
-
     /**
      * Execute the console command.
      *

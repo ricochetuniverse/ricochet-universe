@@ -5,29 +5,19 @@ namespace App\Console\Commands;
 use App\Jobs\DownloadLevelSet;
 use App\Jobs\ParseLevelSet;
 use App\LevelSet;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
+#[Signature('ricochet:repair-level-set-info
+             {--id= : The level set ID in the database}
+             {--legacy_id= : Legacy level set ID on the legacy catalog}')]
+#[Description('Repair a level set info by re-downloading the file and re-parsing it')]
 class RepairLevelSetInfo extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet:repair-level-set-info
-        {--id= : The level set ID in the database}
-        {--legacy_id= : Legacy level set ID on the legacy catalog}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Repair a level set info by re-downloading the file and re-parsing it';
-
     /**
      * Execute the console command.
      */

@@ -4,24 +4,14 @@ namespace App\Console\Commands;
 
 use App\Services\LevelSetDecompressService;
 use App\Services\LevelSetParser\Parser;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('ricochet:view-level-set {file} {--with-raw-data} {--with-picture}')]
+#[Description('Parse a level set to extract the level properties and images, useful for debugging the parser')]
 class ViewLevelSet extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet:view-level-set {file} {--with-raw-data} {--with-picture}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Parse a level set to extract the level properties and images, useful for debugging the parser';
-
     /**
      * Execute the console command.
      *

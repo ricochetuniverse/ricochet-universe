@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Database\Factories\LevelRoundFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,9 +13,9 @@ use Illuminate\Support\Uri;
 /**
  * A round inside a Ricochet level set
  */
+#[UseFactory(LevelRoundFactory::class)]
 class LevelRound extends Model
 {
-    /** @use HasFactory<\Database\Factories\LevelRoundFactory> */
     use HasFactory;
 
     public function levelSet(): BelongsTo

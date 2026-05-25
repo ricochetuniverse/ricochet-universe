@@ -7,24 +7,14 @@ namespace App\Console\Commands\Discord;
 use App\Services\DiscordApi\ApiClient;
 use App\Services\DiscordApi\Enums\ApplicationCommandType;
 use App\Services\DiscordApi\InteractionNames;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('ricochet-discord:init')]
+#[Description('Set up the Discord interaction commands')]
 class InitDiscordInteractions extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet-discord:init';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Set up the Discord interaction commands';
-
     /**
      * Execute the console command.
      */

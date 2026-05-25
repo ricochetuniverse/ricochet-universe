@@ -3,24 +3,14 @@
 namespace App\Console\Commands;
 
 use App\Services\CatalogService;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('ricochet:clear-catalog-cache')]
+#[Description('Clear cache for /gateway/catalog.php')]
 class ClearCatalogCache extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet:clear-catalog-cache';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Clear cache for /gateway/catalog.php';
-
     /**
      * Execute the console command.
      */

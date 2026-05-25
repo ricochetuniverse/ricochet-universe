@@ -4,8 +4,11 @@ namespace App;
 
 use App\Services\LevelSetRatingsCalculator;
 use Conner\Tagging\Taggable;
+use Database\Factories\LevelSetFactory;
 use DomainException;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,9 +22,10 @@ use Illuminate\Support\Uri;
 /**
  * A Ricochet level set
  */
+#[Fillable(['legacy_id'])]
+#[UseFactory(LevelSetFactory::class)]
 class LevelSet extends Model
 {
-    /** @use HasFactory<\Database\Factories\LevelSetFactory> */
     use HasFactory, Taggable;
 
     /**
@@ -32,15 +36,6 @@ class LevelSet extends Model
     protected $casts = [
         'featured' => 'boolean',
         'prerelease' => 'boolean',
-    ];
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'legacy_id',
     ];
 
     private const int MIN_RATING_COUNT = 5;

@@ -3,26 +3,16 @@
 namespace App\Console\Commands;
 
 use App\LevelSet;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('ricochet:export-level-catalog
+             {info : The info to export, either levelsets or rounds}
+             {filetype : File type to export, currently supports TSV and JSON}')]
+#[Description('Export the entire level catalog to TSV/JSON')]
 class ExportLevelCatalog extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet:export-level-catalog
-        {info : The info to export, either levelsets or rounds}
-        {filetype : File type to export, currently supports TSV and JSON}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Export the entire level catalog to TSV/JSON';
-
     /**
      * Execute the console command.
      */

@@ -4,25 +4,15 @@ namespace App\Console\Commands;
 
 use App\Jobs\ParseLevelSet;
 use App\LevelSet;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+#[Signature('ricochet-repair:level-set-rounds {--dry-run}')]
+#[Description('Search for inconsistent level set rounds info if the counts don\'t match')]
 class RepairLevelSetRounds extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet-repair:level-set-rounds {--dry-run}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Search for inconsistent level set rounds info if the counts don\'t match';
-
     /**
      * Execute the console command.
      */

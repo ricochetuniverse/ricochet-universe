@@ -4,24 +4,14 @@ namespace App\Console\Commands;
 
 use App\Services\LevelSetUploadProcessor;
 use Carbon\Carbon;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('ricochet:add-level-set {url} {name} {date_posted} {--memory_limit=}')]
+#[Description('Add a level set, useful if the level set can\'t be processed through the web interface')]
 class AddLevelSet extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'ricochet:add-level-set {url} {name} {date_posted} {--memory_limit=}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Add a level set, useful if the level set can\'t be processed through the web interface';
-
     /**
      * Execute the console command.
      */
