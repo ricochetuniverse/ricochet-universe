@@ -10,43 +10,6 @@ use Illuminate\Support\Uri;
 
 /**
  * A round inside a Ricochet level set
- *
- * @property int $id
- * @property int $level_set_id
- * @property string $name
- * @property string $author
- * @property string $note1
- * @property string $note2
- * @property string $note3
- * @property string $note4
- * @property string $note5
- * @property string $source
- * @property string $image_file_name
- * @property \Carbon\CarbonInterface|null $created_at
- * @property \Carbon\CarbonInterface|null $updated_at
- * @property int $round_number
- * @property-read \App\LevelSet $levelSet
- *
- * @method static \Database\Factories\LevelRoundFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereAuthor($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereImageFileName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereLevelSetId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereNote1($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereNote2($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereNote3($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereNote4($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereNote5($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereRoundNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereSource($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LevelRound whereUpdatedAt($value)
- *
- * @mixin \Eloquent
  */
 class LevelRound extends Model
 {

@@ -18,79 +18,6 @@ use Illuminate\Support\Uri;
 
 /**
  * A Ricochet level set
- *
- * @property int $id
- * @property int $legacy_id
- * @property string $name
- * @property int $rounds
- * @property string $author
- * @property bool $featured
- * @property int $game_version
- * @property string $image_url
- * @property float $rating
- * @property int $downloads
- * @property string $description
- * @property float $overall_rating
- * @property int $overall_rating_count
- * @property float $fun_rating
- * @property int $fun_rating_count
- * @property float $graphics_rating
- * @property int $graphics_rating_count
- * @property \Carbon\CarbonInterface|null $created_at
- * @property \Carbon\CarbonInterface|null $updated_at
- * @property string $alternate_download_url
- * @property string $downloaded_file_name
- * @property int $round_to_get_image_from
- * @property bool $prerelease
- * @property string $similar_levels
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetDownloadLog> $downloadLogs
- * @property-read int|null $download_logs_count
- * @property array $tag_names
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tag> $tags
- * @property-read \App\LevelSetLegacyRating|null $legacyRating
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelRound> $levelRounds
- * @property-read int|null $level_rounds_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Mod> $mods
- * @property-read int|null $mods_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tagged> $tagged
- * @property-read int|null $tagged_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\LevelSetUserRating> $userRatings
- * @property-read int|null $user_ratings_count
- *
- * @method static \Database\Factories\LevelSetFactory factory($count = null, $state = [])
- * @method static Builder<static>|LevelSet newModelQuery()
- * @method static Builder<static>|LevelSet newQuery()
- * @method static Builder<static>|LevelSet published()
- * @method static Builder<static>|LevelSet query()
- * @method static Builder<static>|LevelSet whereAlternateDownloadUrl($value)
- * @method static Builder<static>|LevelSet whereAuthor($value)
- * @method static Builder<static>|LevelSet whereCreatedAt($value)
- * @method static Builder<static>|LevelSet whereDescription($value)
- * @method static Builder<static>|LevelSet whereDownloadedFileName($value)
- * @method static Builder<static>|LevelSet whereDownloads($value)
- * @method static Builder<static>|LevelSet whereFeatured($value)
- * @method static Builder<static>|LevelSet whereFunRating($value)
- * @method static Builder<static>|LevelSet whereFunRatingCount($value)
- * @method static Builder<static>|LevelSet whereGameVersion($value)
- * @method static Builder<static>|LevelSet whereGraphicsRating($value)
- * @method static Builder<static>|LevelSet whereGraphicsRatingCount($value)
- * @method static Builder<static>|LevelSet whereId($value)
- * @method static Builder<static>|LevelSet whereImageUrl($value)
- * @method static Builder<static>|LevelSet whereLegacyId($value)
- * @method static Builder<static>|LevelSet whereName($value)
- * @method static Builder<static>|LevelSet whereOverallRating($value)
- * @method static Builder<static>|LevelSet whereOverallRatingCount($value)
- * @method static Builder<static>|LevelSet wherePrerelease($value)
- * @method static Builder<static>|LevelSet whereRating($value)
- * @method static Builder<static>|LevelSet whereRoundToGetImageFrom($value)
- * @method static Builder<static>|LevelSet whereRounds($value)
- * @method static Builder<static>|LevelSet whereSimilarLevels($value)
- * @method static Builder<static>|LevelSet whereUpdatedAt($value)
- * @method static Builder<static>|LevelSet withAllTags($tagNames)
- * @method static Builder<static>|LevelSet withAnyTag($tagNames)
- * @method static Builder<static>|LevelSet withoutTags($tagNames)
- *
- * @mixin \Eloquent
  */
 class LevelSet extends Model
 {
@@ -152,6 +79,7 @@ class LevelSet extends Model
         return $query->where('prerelease', false);
     }
 
+    /** @return HasMany<LevelRound, $this> */
     public function levelRounds(): HasMany
     {
         return $this->hasMany(LevelRound::class);
@@ -167,11 +95,13 @@ class LevelSet extends Model
         return $this->hasMany(LevelSetDownloadLog::class);
     }
 
+    /** @return HasOne<LevelSetLegacyRating, $this> */
     public function legacyRating(): HasOne
     {
         return $this->hasOne(LevelSetLegacyRating::class);
     }
 
+    /** @return HasMany<LevelSetUserRating, $this> */
     public function userRatings(): HasMany
     {
         return $this->hasMany(LevelSetUserRating::class);
