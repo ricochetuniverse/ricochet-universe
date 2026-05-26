@@ -28,16 +28,24 @@
         @if ($levelSets->count() > 0)
             <div class="row">
                 <div class="col">
-                    @if ($levelSets->total() > $levelSets->count())
-                        <p class="m-0">
-                            Showing {{ number_format($levelSets->firstItem()).'-'.number_format($levelSets->lastItem()) }}
+                    <p class="m-0">
+                        Showing
+                        @if ($levelSets->total() > $levelSets->count())
+                            {{ number_format($levelSets->firstItem()).'-'.number_format($levelSets->lastItem()) }}
                             of {{ number_format($levelSets->total()) }} level sets
-                        </p>
-                    @elseif ($levelSets->count() > 1)
-                        <p class="m-0">Showing {{ $levelSets->count() }} level sets</p>
-                    @else
-                        <p class="m-0">Showing {{ $levelSets->count() }} level set</p>
-                    @endif
+                        @else
+                            {{ $levelSets->count() }} level {{ Str::plural('set', $levelSets->count()) }}
+                        @endif
+                        @if (strlen($filteredInput['author']) > 0)
+                            created by {{ $filteredInput['author'] }}
+                        @endif
+                        @if (strlen($filteredInput['tag']) > 0)
+                            tagged as {{ $filteredInput['tag'] }}
+                        @endif
+                        @if (strlen($filteredInput['search']) > 0)
+                            matching “{{ $filteredInput['search'] }}”
+                        @endif
+                    </p>
                 </div>
             </div>
         @endif
@@ -246,17 +254,15 @@
                         </div>
                     </div>
                 @else
-                    <x-card>
-                        <x-card.body>
-                            @if (strlen($filteredInput['search']) > 0)
-                                No level sets found matching “{{ $filteredInput['search'] }}”.
-                                <a href="{{ action('LevelController@index') }}">Show all level sets</a>
-                            @else
-                                No level sets found.
-                                <a href="{{ action('LevelController@index') }}">Go back to main page</a>
-                            @endif
-                        </x-card.body>
-                    </x-card>
+                    <x-alert type="info">
+                        @if (strlen($filteredInput['search']) > 0)
+                            No level sets found matching “{{ $filteredInput['search'] }}”.
+                        @else
+                            No level sets found.
+                        @endif
+
+                        <a href="{{ action('LevelController@index') }}" class="alert-link">Show all level sets</a>
+                    </x-alert>
                 @endunless
             </div>
         </div>

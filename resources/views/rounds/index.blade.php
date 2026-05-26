@@ -30,22 +30,19 @@
         </div>
 
         @unless ($rounds->isEmpty())
-            @if ($rounds->count() > 0)
-                <div class="row">
-                    <div class="col">
+            <div class="row">
+                <div class="col">
+                    <p class="m-0">
+                        Showing
                         @if ($rounds->total() > $rounds->count())
-                            <p class="m-0">
-                                Showing {{ number_format($rounds->firstItem()).'-'.number_format($rounds->lastItem()) }}
-                                of {{ number_format($rounds->total()) }} rounds
-                            </p>
-                        @elseif ($rounds->count() > 1)
-                            <p class="m-0">Showing {{ $rounds->count() }} rounds</p>
+                            {{ number_format($rounds->firstItem()).'-'.number_format($rounds->lastItem()) }}
+                            of {{ number_format($rounds->total()) }} rounds
                         @else
-                            <p class="m-0">Showing {{ $rounds->count() }} round</p>
+                            {{ $rounds->count() }} {{ Str::plural('round', $rounds->count()) }}
                         @endif
-                    </div>
+                    </p>
                 </div>
-            @endif
+            </div>
 
             <noscript>
                 <div class="row">
