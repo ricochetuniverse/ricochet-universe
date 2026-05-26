@@ -81,8 +81,10 @@ class LevelTagsControllerTest extends TestCase
             'tags' => [$tag->name],
         ]);
         $response->assertRedirect();
+        $tag->refresh();
         $levelSet->refresh();
 
+        $this->assertEquals(1, $tag->count_visible);
         $this->assertArraysAreIdentical([$tag->name], $levelSet->legacyTagged->pluck('name')->toArray());
         $this->assertArraysAreIdentical([$tag->name], $levelSet->visibleTagged->pluck('name')->toArray());
     }

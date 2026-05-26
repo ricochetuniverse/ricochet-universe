@@ -20,6 +20,7 @@ class LevelSetTagFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word(),
+            'count_visible' => 0,
         ];
     }
 }

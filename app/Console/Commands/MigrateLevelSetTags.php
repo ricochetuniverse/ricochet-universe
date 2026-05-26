@@ -45,6 +45,9 @@ class MigrateLevelSetTags extends Command
     private function migrateLegacyTagged(): void
     {
         $newTags = LevelSetTag::all()->keyBy('name');
+        foreach ($newTags as $tags) {
+            $tags->count_visible = 0;
+        }
 
         DB::transaction(function () use ($newTags) {
             LevelSet::with(['tagged' => function ($query) { // legacy tags

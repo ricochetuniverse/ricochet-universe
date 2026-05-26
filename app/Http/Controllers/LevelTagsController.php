@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Jobs\UpdateLevelSetTagVisibleCount;
 use App\LevelSet;
 use App\LevelSetTag;
 use Illuminate\Database\Eloquent\Collection;
@@ -29,14 +30,17 @@ class LevelTagsController extends Controller
     {
         $levelSet->load(['legacyTagged', 'visibleTagged']);
 
-        $newTags = LevelSetTag::whereIn('name', $request->input('tags'))->get();
+        $newTags = LevelSetTag::whereIn('name', $request->input('tags', []))->get();
 
         $sync = $this->prepareSyncTags($levelSet->legacyTagged, $newTags);
+        $tagCountsToUpdate = $levelSet->visibleTagged->pluck('id')->union(array_keys($sync))->toArray();
 
         DB::transaction(static function () use ($sync, $levelSet) {
             $levelSet->legacyTagged()->sync($sync);
             $levelSet->visibleTagged()->sync($sync);
         });
+
+        UpdateLevelSetTagVisibleCount::dispatch($tagCountsToUpdate);
 
         flash('Level set tags edited.')->success();
 
