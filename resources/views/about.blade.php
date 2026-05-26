@@ -23,15 +23,37 @@
 
                         <p class="m-0">
                             Special thanks to the
-                            <a href="{{ action('DiscordRedirectController@index') }}">
-                                Ricochet Players Discord community
-                            </a>
+                            <a href="{{ action('DiscordRedirectController@index') }}">Ricochet Players Discord community</a>
                             for keeping the community alive after the official website has vanished.
                         </p>
                     </x-card.body>
                 </x-card>
             </div>
         </div>
+
+        @if (!$tags->isEmpty())
+            <div class="row">
+                <div class="col">
+                    <x-card>
+                        <x-card.header as="h2">Level set tags</x-card.header>
+
+                        <x-card.body>
+                            <ul class="list-unstyled aboutPage__columns">
+                                @foreach ($tags as $tag)
+                                    <li class="mb-2">
+                                        <a href="{{ action('LevelController@index', ['tag' => $tag->name]) }}"
+                                           title="Find other level sets with the {{ $tag->name }} tag">{{ $tag->name }}</a>
+                                        <span class="text-nowrap">
+                                            ({{ number_format($tag->count_visible) }} {{ Str::plural('level', $tag->count_visible) }})
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </x-card.body>
+                    </x-card>
+                </div>
+            </div>
+        @endif
 
         @if ($roundSum > 0 && $authors->count() > 0)
             <div class="row">
@@ -48,7 +70,8 @@
                             <ul class="list-unstyled aboutPage__columns">
                                 @foreach ($authors as $author)
                                     <li class="mb-2">
-                                        <a href="{{ action('LevelController@index', ['author' => $author->author]) }}">{{ $author->author }}</a>
+                                        <a href="{{ action('LevelController@index', ['author' => $author->author]) }}"
+                                           title="Find level sets created by {{ $author->author }}">{{ $author->author }}</a>
                                         <span class="text-nowrap">
                                             ({{ number_format($author->rounds_sum) }} levels)
                                         </span>
