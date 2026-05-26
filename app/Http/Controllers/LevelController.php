@@ -69,8 +69,11 @@ class LevelController extends Controller
         }
 
         if (is_string($search) && $search !== '') {
-            $levelSets->where('name', 'LIKE', '%'.Str::escapeLike($search).'%')
-                ->orWhere('author', 'LIKE', '%'.Str::escapeLike($search).'%');
+            $levelSets->where('name', 'LIKE', '%'.Str::escapeLike($search).'%');
+
+            if ($author === null) {
+                $levelSets->orWhere('author', 'LIKE', '%'.Str::escapeLike($search).'%');
+            }
         } else {
             $search = null;
         }
