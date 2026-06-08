@@ -23,7 +23,7 @@ services:
       - redis
 
   mariadb:
-    image: mariadb:12.2.2
+    image: mariadb:12.3.2
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -38,7 +38,7 @@ services:
       - '127.0.0.1:3306:3306'
 
   caddy:
-    image: caddy:2.11.3-alpine
+    image: caddy:2.11.4-alpine
     environment:
       - CADDY_TLS_MODE
       - CADDY_TLS_EMAIL
