@@ -18,7 +18,8 @@ export default function DecompressorResultsImage(props: Props) {
                     ? styles.backgroundBlack
                     : props.appearance === 'WHITE'
                       ? styles.backgroundWhite
-                      : props.appearance === 'CHECKERBOARD'
+                      : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                        props.appearance === 'CHECKERBOARD'
                         ? styles.backgroundCheckerboard
                         : '') +
                 ' ' +

@@ -137,9 +137,12 @@ export default class ImageToCanvasApp extends Component<{}, State> {
         if (!(fileInput instanceof HTMLInputElement)) {
             throw new Error('Expected HTMLInputElement');
         }
-        if (fileInput.files && fileInput.files[0]) {
-            this.processFile(fileInput.files[0]);
+
+        const files = fileInput.files;
+        if (!files || files.length === 0) {
+            return;
         }
+        this.processFile(files[0]);
     };
 
     processFile = (file: File) => {

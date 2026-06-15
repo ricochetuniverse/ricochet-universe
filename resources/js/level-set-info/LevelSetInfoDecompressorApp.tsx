@@ -27,7 +27,7 @@ export default function LevelSetInfoDecompressorApp(props: Props) {
                 });
                 if (!response.ok) {
                     throw new Error(
-                        `Failed to download level set (response status: ${response.status})`
+                        `Failed to download level set (response status: ${response.status.toString()})`
                     );
                 }
 

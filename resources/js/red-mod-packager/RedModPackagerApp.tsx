@@ -19,7 +19,7 @@ function getAssumedDirectoryPrefix(file: File) {
 }
 
 export default function RedModPackagerApp() {
-    const [folderName, setFolderName] = useState<string | null>(null);
+    const [folderName, setFolderName] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const [packageTime, setPackageTime] = useState<Date | null>(null);
@@ -33,7 +33,7 @@ export default function RedModPackagerApp() {
     useObjectURL(downloadButtonUrl);
 
     function reset() {
-        setFolderName(null);
+        setFolderName('');
         setError(null);
 
         setPackageTime(null);

@@ -36,7 +36,8 @@ export default function DiscordWidgetMember({member}: Props) {
                             ? styles.statusOnline
                             : member.status === 'idle'
                               ? styles.statusIdle
-                              : member.status === 'dnd'
+                              : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                member.status === 'dnd'
                                 ? styles.statusDnd
                                 : ''
                     }

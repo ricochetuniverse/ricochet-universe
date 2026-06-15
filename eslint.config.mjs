@@ -12,7 +12,7 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig(
     js.configs.recommended,
-    tseslint.configs.strict, // strictTypeChecked
+    tseslint.configs.strictTypeChecked,
 
     importX.flatConfigs.typescript,
     jest.configs['flat/recommended'],
