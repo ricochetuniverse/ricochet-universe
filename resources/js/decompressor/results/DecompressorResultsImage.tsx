@@ -1,4 +1,4 @@
-import * as styles from './DecompressorResultsImage.module.scss';
+import styles from './DecompressorResultsImage.module.scss';
 
 export type Appearance = 'BLACK' | 'WHITE' | 'CHECKERBOARD';
 

@@ -1,6 +1,6 @@
 import type {z} from 'zod/mini';
 
-import * as styles from './DiscordWidget.module.scss';
+import styles from './DiscordWidget.module.scss';
 import DiscordWidgetMember from './DiscordWidgetMember';
 import {DiscordWidgetMemberSchema} from './DiscordWidgetMemberType';
 

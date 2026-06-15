@@ -53,9 +53,8 @@ export default defineConfig({
                 options: getSwcLoaderOptions(),
             },
             {
-                test: /\.(css|scss)$/,
-                use: [rspack.CssExtractRspackPlugin.loader, 'css-loader'],
-                type: 'javascript/auto',
+                test: /\.css$/,
+                type: 'css/auto',
             },
             {
                 test: /\.scss$/,
@@ -73,6 +72,7 @@ export default defineConfig({
                         ],
                     },
                 },
+                type: 'css/auto',
             },
             {
                 test: /\.(jpg|gif|png|svg|eot|ttf|woff|woff2)$/,
@@ -88,6 +88,11 @@ export default defineConfig({
                 type: 'asset/resource',
             },
         ],
+        parser: {
+            'css/auto': {
+                namedExports: false,
+            },
+        },
     },
     resolve: {
         alias: {
@@ -143,10 +148,6 @@ export default defineConfig({
                 'multicursor',
                 'quickCommand',
             ],
-        }),
-
-        new rspack.CssExtractRspackPlugin({
-            filename: '[name].[contenthash].css',
         }),
 
         new rspack.CopyRspackPlugin({

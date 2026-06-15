@@ -1,7 +1,7 @@
 import {useState} from 'preact/hooks';
 import type {z} from 'zod/mini';
 
-import * as styles from './DiscordWidgetMember.module.scss';
+import styles from './DiscordWidgetMember.module.scss';
 import {DiscordWidgetMemberSchema} from './DiscordWidgetMemberType';
 
 type Props = Readonly<{
