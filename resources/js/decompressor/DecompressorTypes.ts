@@ -1,4 +1,4 @@
-import type {ImageTypeEnum} from './nuvelocity/ImageType';
+import type {ImageType} from './nuvelocity/ImageType';
 
 export type DecompressorResultJs = {
     unpacker: 'JS';
@@ -9,7 +9,7 @@ export type DecompressorResultJs = {
 
 export type DecompressorResultNuVelocity = {
     unpacker: 'NUVELOCITY';
-    imageType: ImageTypeEnum;
+    imageType: ImageType;
     bytes: Uint8Array;
 };
 

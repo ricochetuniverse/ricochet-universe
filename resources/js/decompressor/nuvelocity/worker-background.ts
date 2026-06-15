@@ -1,4 +1,3 @@
-import {ImageType} from './ImageType';
 import type {WorkerRequest, WorkerResponses} from './WorkerMessageTypes';
 
 type AppExports = {
@@ -51,11 +50,11 @@ async function onMessage(request: WorkerRequest) {
 
         let decodedImagesJson = '';
         switch (request.imageType) {
-            case ImageType.SEQUENCE:
+            case 'SEQUENCE':
                 decodedImagesJson = dotNet.Unpacker.ReadSequence(request.bytes);
                 break;
 
-            case ImageType.FRAME:
+            case 'FRAME':
                 decodedImagesJson = dotNet.Unpacker.ReadFrame(request.bytes);
                 break;
 

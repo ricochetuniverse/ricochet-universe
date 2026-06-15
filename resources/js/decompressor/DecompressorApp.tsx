@@ -13,9 +13,10 @@ import type {
 } from './DecompressorTypes';
 import type {InflateResult} from './inflate-file';
 import {inflateFile} from './inflate-file';
-import {ImageType} from './nuvelocity/ImageType';
+import type {ImageType} from './nuvelocity/ImageType';
 import DecompressorResultsJs from './results/DecompressorResultsJs';
 import DecompressorResultsNuVelocity from './results/DecompressorResultsNuVelocity';
+import {useSettingsStore} from './settings-store';
 
 function generateBlobUrl(raw: Uint8Array<ArrayBuffer>, type: string): string {
     const blob = new Blob([raw], {type});
@@ -52,12 +53,12 @@ function readFileReaderBuffer(fileName: string, buffer: ArrayBuffer) {
     return inflateResult;
 }
 
-function maybeGetImageType(fileName: string) {
+function maybeGetImageType(fileName: string): ImageType | null {
     const fileNameLowercase = fileName.toLowerCase();
     if (fileNameLowercase.endsWith('.sequence')) {
-        return ImageType.SEQUENCE;
+        return 'SEQUENCE';
     } else if (fileNameLowercase.endsWith('.frame')) {
-        return ImageType.FRAME;
+        return 'FRAME';
     }
 
     return null;
@@ -79,6 +80,9 @@ export default function DecompressorApp(props: Props) {
 
     const [enableBrowserTextEditor, setEnableBrowserTextEditor] =
         useState(false);
+    const setImageCurrentIndex = useSettingsStore(
+        (state) => state.image.setCurrentIndex
+    );
 
     useObjectURL(blobUrls.text);
     useObjectURL(blobUrls.image);
@@ -133,6 +137,7 @@ export default function DecompressorApp(props: Props) {
                         imageType,
                         bytes: new Uint8Array(buffer),
                     });
+                    setImageCurrentIndex(0);
                     return;
                 }
 
@@ -170,7 +175,7 @@ export default function DecompressorApp(props: Props) {
                 }
             }
         },
-        [enableNewImageUnpacker]
+        [enableNewImageUnpacker, setImageCurrentIndex]
     );
 
     return (

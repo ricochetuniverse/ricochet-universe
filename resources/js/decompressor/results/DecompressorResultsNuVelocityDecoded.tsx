@@ -1,14 +1,13 @@
-import {useState} from 'preact/hooks';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 
+import {useSettingsStore} from '../settings-store';
+
 import DecompressorImageAppearance from './DecompressorImageAppearance';
-import DecompressorResultsImage, {
-    type Appearance,
-} from './DecompressorResultsImage';
+import DecompressorResultsImage from './DecompressorResultsImage';
 
 const BASE64_DATA_URI = 'data:image/png;base64,';
 
@@ -19,9 +18,17 @@ type Props = Readonly<{
 export default function DecompressorResultsNuVelocityDecoded({
     decodedImages,
 }: Props) {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [showAll, setShowAll] = useState(false);
-    const [appearance, setAppearance] = useState<Appearance>('CHECKERBOARD');
+    const currentIndex = useSettingsStore((state) => state.image.currentIndex);
+    const showAll = useSettingsStore((state) => state.image.showAll);
+    const appearance = useSettingsStore((state) => state.image.appearance);
+
+    const setCurrentIndex = useSettingsStore(
+        (state) => state.image.setCurrentIndex
+    );
+    const setShowAll = useSettingsStore((state) => state.image.setShowAll);
+    const setAppearance = useSettingsStore(
+        (state) => state.image.setAppearance
+    );
 
     return (
         <Stack gap={3}>
@@ -42,9 +49,9 @@ export default function DecompressorResultsNuVelocityDecoded({
                 value={appearance}
             />
 
-            {decodedImages.length > 1 ? (
-                !showAll ? (
-                    <>
+            {!showAll ? (
+                <>
+                    {decodedImages[currentIndex] ? (
                         <div>
                             <DecompressorResultsImage
                                 appearance={appearance}
@@ -54,7 +61,9 @@ export default function DecompressorResultsNuVelocityDecoded({
                                 }
                             />
                         </div>
+                    ) : null}
 
+                    {decodedImages.length > 1 ? (
                         <ButtonToolbar className="align-items-center">
                             <ButtonGroup className="me-2">
                                 <Button
@@ -135,28 +144,21 @@ export default function DecompressorResultsNuVelocityDecoded({
                                 </Button>
                             </ButtonGroup>
                         </ButtonToolbar>
-                    </>
-                ) : (
-                    <div>
-                        {decodedImages.map((img, index) => {
-                            return (
-                                <DecompressorResultsImage
-                                    appearance={appearance}
-                                    className="me-2 mb-2"
-                                    src={BASE64_DATA_URI + img}
-                                    // eslint-disable-next-line @eslint-react/no-array-index-key
-                                    key={index}
-                                />
-                            );
-                        })}
-                    </div>
-                )
+                    ) : null}
+                </>
             ) : (
                 <div>
-                    <DecompressorResultsImage
-                        appearance={appearance}
-                        src={BASE64_DATA_URI + decodedImages[0]}
-                    />
+                    {decodedImages.map((img, index) => {
+                        return (
+                            <DecompressorResultsImage
+                                appearance={appearance}
+                                className="me-2 mb-2"
+                                src={BASE64_DATA_URI + img}
+                                // eslint-disable-next-line @eslint-react/no-array-index-key
+                                key={index}
+                            />
+                        );
+                    })}
                 </div>
             )}
         </Stack>
