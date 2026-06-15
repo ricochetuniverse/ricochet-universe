@@ -33,40 +33,45 @@ export default function DecompressorResultsNuVelocity(props: Props) {
     useEffect(() => {
         let ignore = false;
 
-        unpack(props.dotnetLoaderUrl, props.result.bytes, (response) => {
-            if (ignore) {
-                return;
-            }
-
-            setStatus(response.status);
-
-            switch (response.status) {
-                case 'LOADING':
-                case 'PROCESSING':
-                    break;
-
-                case 'FINISHED': {
-                    const decodedImages = JSON.parse(
-                        response.decodedImagesJson
-                    ) as string[];
-                    setDecodedImages(decodedImages);
-                    break;
+        unpack(
+            props.dotnetLoaderUrl,
+            props.result.imageType,
+            props.result.bytes,
+            (response) => {
+                if (ignore) {
+                    return;
                 }
 
-                case 'ERROR':
-                    console.error(response.errorDetails);
-                    setErrorDetails(new Error(response.errorDetails));
-                    break;
+                setStatus(response.status);
 
-                default:
-                    break;
+                switch (response.status) {
+                    case 'LOADING':
+                    case 'PROCESSING':
+                        break;
+
+                    case 'FINISHED': {
+                        const decodedImages = JSON.parse(
+                            response.decodedImagesJson
+                        ) as string[];
+                        setDecodedImages(decodedImages);
+                        break;
+                    }
+
+                    case 'ERROR':
+                        console.error(response.errorDetails);
+                        setErrorDetails(new Error(response.errorDetails));
+                        break;
+
+                    default:
+                        break;
+                }
             }
-        });
+        );
 
         return () => {
             ignore = true;
         };
-    }, [props.dotnetLoaderUrl, props.result.bytes]);
+    }, [props.dotnetLoaderUrl, props.result.imageType, props.result.bytes]);
 
     return (
         <Card as="section">

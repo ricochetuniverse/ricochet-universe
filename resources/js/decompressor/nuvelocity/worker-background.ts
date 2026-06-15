@@ -1,8 +1,10 @@
+import {ImageType} from './ImageType';
 import type {WorkerRequest, WorkerResponses} from './WorkerMessageTypes';
 
 type AppExports = {
     Unpacker: {
-        ReadFile(file: Uint8Array): string;
+        ReadSequence(file: Uint8Array): string;
+        ReadFrame(file: Uint8Array): string;
     };
 };
 
@@ -47,7 +49,20 @@ async function onMessage(request: WorkerRequest) {
 
         reply({status: 'PROCESSING'});
 
-        const decodedImagesJson = dotNet.Unpacker.ReadFile(request.bytes);
+        let decodedImagesJson = '';
+        switch (request.imageType) {
+            case ImageType.SEQUENCE:
+                decodedImagesJson = dotNet.Unpacker.ReadSequence(request.bytes);
+                break;
+
+            case ImageType.FRAME:
+                decodedImagesJson = dotNet.Unpacker.ReadFrame(request.bytes);
+                break;
+
+            default:
+                throw new Error('Unsupported image type');
+        }
+
         reply({
             status: 'FINISHED',
             decodedImagesJson,

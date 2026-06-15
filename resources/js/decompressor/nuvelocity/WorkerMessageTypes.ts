@@ -1,6 +1,9 @@
+import type {ImageTypeEnum} from './ImageType';
+
 export type WorkerRequest = {
     messageId: number;
     loaderUrl: string;
+    imageType: ImageTypeEnum;
     bytes: Uint8Array<ArrayBuffer>;
 };
 

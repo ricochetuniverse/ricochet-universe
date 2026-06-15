@@ -13,6 +13,7 @@ import type {
 } from './DecompressorTypes';
 import type {InflateResult} from './inflate-file';
 import {inflateFile} from './inflate-file';
+import {ImageType} from './nuvelocity/ImageType';
 import DecompressorResultsJs from './results/DecompressorResultsJs';
 import DecompressorResultsNuVelocity from './results/DecompressorResultsNuVelocity';
 
@@ -49,6 +50,17 @@ function readFileReaderBuffer(fileName: string, buffer: ArrayBuffer) {
     }
 
     return inflateResult;
+}
+
+function maybeGetImageType(fileName: string) {
+    const fileNameLowercase = fileName.toLowerCase();
+    if (fileNameLowercase.endsWith('.sequence')) {
+        return ImageType.SEQUENCE;
+    } else if (fileNameLowercase.endsWith('.frame')) {
+        return ImageType.FRAME;
+    }
+
+    return null;
 }
 
 type Props = Readonly<{
@@ -111,12 +123,14 @@ export default function DecompressorApp(props: Props) {
                 }
 
                 const buffer = await file.arrayBuffer();
+                const imageType = maybeGetImageType(file.name);
 
                 setFileName(file.name);
-                if (file.name.endsWith('.Sequence') && enableNewImageUnpacker) {
+                if (imageType != null && enableNewImageUnpacker) {
                     // Use new unpacker
                     setResult({
                         unpacker: 'NUVELOCITY',
+                        imageType,
                         bytes: new Uint8Array(buffer),
                     });
                     return;
