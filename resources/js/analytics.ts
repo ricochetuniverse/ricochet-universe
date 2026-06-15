@@ -1,6 +1,6 @@
 declare global {
     interface Window {
-        dataLayer: unknown[];
+        dataLayer?: unknown[];
     }
 }
 
@@ -16,6 +16,7 @@ if (trackingId != null && trackingId !== '') {
 
     window.dataLayer = window.dataLayer || [];
     function gtag() {
+        // @ts-expect-error window.dataLayer is already created
         // eslint-disable-next-line prefer-rest-params
         window.dataLayer.push(arguments);
     }

@@ -1,4 +1,5 @@
 import {Inflate} from 'pako/lib/inflate';
+import constants from 'pako/lib/zlib/constants';
 
 import TextDecoder from '../helpers/TextDecoder';
 
@@ -21,9 +22,8 @@ export function inflateFile(buffer: ArrayBuffer): InflateResult {
     const inflator = new Inflate();
     inflator.push(compressed, true);
 
-    const Z_DATA_ERROR = -3;
     if (inflator.err) {
-        if (inflator.err !== Z_DATA_ERROR) {
+        if (inflator.err !== constants.Z_DATA_ERROR) {
             throw new Error(inflator.msg);
         }
 
@@ -33,11 +33,9 @@ export function inflateFile(buffer: ArrayBuffer): InflateResult {
         raw = inflator.result;
 
         // If there are any leftover, try to decode as a Sequence
-        // @ts-expect-error reading field that's not on the TS type
         if (inflator.strm.avail_in > 0) {
             maybeImage = new Uint8Array(
                 buffer,
-                // @ts-expect-error reading field that's not on the TS type
                 MAGIC_SKIP_NUMBER + inflator.strm.total_in + 5
             );
         }

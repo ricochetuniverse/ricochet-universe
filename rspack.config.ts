@@ -13,20 +13,19 @@ import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import {RspackManifestPlugin} from 'rspack-manifest-plugin';
 
+import packageJson from './package.json' with {type: 'json'};
+
 // https://stackoverflow.com/questions/64383909/dirname-is-not-defined-error-in-node-js-14-version/64383997#64383997
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const unpackerVersion = JSON.parse(readFileSync('package.json', 'utf-8'))[
-    'dependencies'
-]['@ricochetuniverse/nuvelocity-unpacker'];
-
 function getSwcLoaderOptions() {
-    const options: SwcLoaderOptions = JSON.parse(
+    const options = JSON.parse(
         readFileSync(resolve(__dirname, '.swcrc'), 'utf-8')
-    );
+    ) as SwcLoaderOptions & {
+        $schema?: string;
+    };
 
-    // @ts-expect-error reading from .swcrc
     delete options['$schema'];
     return options;
 }
@@ -157,7 +156,9 @@ export default defineConfig({
                     to: join(
                         __dirname,
                         'public/build/nuvelocity-unpacker/',
-                        unpackerVersion,
+                        packageJson.dependencies[
+                            '@ricochetuniverse/nuvelocity-unpacker'
+                        ],
                         '/[name][ext]'
                     ),
                 },

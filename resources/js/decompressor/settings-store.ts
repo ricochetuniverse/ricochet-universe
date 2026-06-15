@@ -20,7 +20,7 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
         showAll: false,
         appearance: 'CHECKERBOARD',
 
-        setCurrentIndex: (currentIndex: number) =>
+        setCurrentIndex: (currentIndex: number) => {
             set((state) => {
                 return {
                     image: {
@@ -28,8 +28,9 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
                         currentIndex,
                     },
                 };
-            }),
-        setShowAll: (showAll: boolean) =>
+            });
+        },
+        setShowAll: (showAll: boolean) => {
             set((state) => {
                 return {
                     image: {
@@ -37,8 +38,9 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
                         showAll,
                     },
                 };
-            }),
-        setAppearance: (appearance: Appearance) =>
+            });
+        },
+        setAppearance: (appearance: Appearance) => {
             set((state) => {
                 return {
                     image: {
@@ -46,6 +48,7 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
                         appearance,
                     },
                 };
-            }),
+            });
+        },
     },
 }));

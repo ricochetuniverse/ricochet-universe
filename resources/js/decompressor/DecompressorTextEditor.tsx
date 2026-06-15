@@ -1,5 +1,6 @@
+import type {editor} from 'monaco-editor';
 import {useRef} from 'preact/hooks';
-import MonacoEditor, {type MonacoEditorHandle} from 'react-monaco-editor';
+import MonacoEditor from 'react-monaco-editor';
 
 import 'monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.css'; // https://github.com/microsoft/monaco-editor/issues/1759
 
@@ -8,7 +9,9 @@ type Props = Readonly<{
 }>;
 
 export default function DecompressorTextEditor(props: Props) {
-    const monacoRef = useRef<MonacoEditorHandle>(null);
+    const monacoRef = useRef<{
+        editor: editor.IStandaloneCodeEditor;
+    } /* MonacoEditorHandle */>(null);
 
     function updateDimensions() {
         monacoRef.current?.editor.layout();

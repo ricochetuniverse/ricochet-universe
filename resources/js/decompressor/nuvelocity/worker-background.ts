@@ -14,6 +14,7 @@ async function loadAssembly<AppExports>(loaderUrl: string) {
         /* webpackIgnore: true */ loaderUrl
     )) as typeof import('@ricochetuniverse/nuvelocity-unpacker/dotnet/_framework/dotnet');
 
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const {getAssemblyExports, getConfig} = await module.dotnet
         .withDiagnosticTracing(process.env.NODE_ENV === 'development')
         .create();

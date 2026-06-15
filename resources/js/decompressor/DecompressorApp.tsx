@@ -100,80 +100,91 @@ export default function DecompressorApp(props: Props) {
     }, []);
 
     const onFileChange = useCallback(
-        async (ev: Event) => {
-            setError(null);
+        (ev: Event) => {
+            void (async () => {
+                setError(null);
 
-            setResult(null);
-            setFileName('');
-            setBlobUrls({text: null, image: null});
+                setResult(null);
+                setFileName('');
+                setBlobUrls({text: null, image: null});
 
-            try {
-                const fileInput = ev.currentTarget;
-                if (!(fileInput instanceof HTMLInputElement)) {
-                    throw new Error('Expected HTMLInputElement');
-                }
+                try {
+                    const fileInput = ev.currentTarget;
+                    if (!(fileInput instanceof HTMLInputElement)) {
+                        throw new Error('Expected HTMLInputElement');
+                    }
 
-                const files = fileInput.files;
-                if (!files || files.length === 0) {
-                    return;
-                }
-                const file = files[0];
+                    const files = fileInput.files;
+                    if (!files || files.length === 0) {
+                        return;
+                    }
+                    const file = files[0];
 
-                // should be unknown
-                if (file.type !== '' && file.type !== 'application/ms-tnef') {
-                    throw new Error(
-                        'File should be .RicochetI, .RicochetLW, .Sequence, .Frame or .dat'
+                    // should be unknown
+                    if (
+                        file.type !== '' &&
+                        file.type !== 'application/ms-tnef'
+                    ) {
+                        throw new Error(
+                            'File should be .RicochetI, .RicochetLW, .Sequence, .Frame or .dat'
+                        );
+                    }
+
+                    const buffer = await file.arrayBuffer();
+                    const imageType = maybeGetImageType(file.name);
+
+                    setFileName(file.name);
+                    if (imageType != null && enableNewImageUnpacker) {
+                        // Use new unpacker
+                        setResult({
+                            unpacker: 'NUVELOCITY',
+                            imageType,
+                            bytes: new Uint8Array(buffer),
+                        });
+                        setImageCurrentIndex(0);
+                        return;
+                    }
+
+                    const inflateResult = readFileReaderBuffer(
+                        file.name,
+                        buffer
                     );
-                }
 
-                const buffer = await file.arrayBuffer();
-                const imageType = maybeGetImageType(file.name);
-
-                setFileName(file.name);
-                if (imageType != null && enableNewImageUnpacker) {
-                    // Use new unpacker
                     setResult({
-                        unpacker: 'NUVELOCITY',
-                        imageType,
-                        bytes: new Uint8Array(buffer),
+                        unpacker: 'JS',
+                        raw: inflateResult.raw,
+                        text: inflateResult.utf8,
+                        image: inflateResult.image,
                     });
-                    setImageCurrentIndex(0);
-                    return;
+
+                    setBlobUrls({
+                        text: inflateResult.raw
+                            ? generateBlobUrl(inflateResult.raw, 'text/plain')
+                            : null,
+                        image: inflateResult.image
+                            ? generateBlobUrl(inflateResult.image, 'image/jpeg')
+                            : null,
+                    });
+                } catch (ex) {
+                    console.error(ex);
+
+                    if (
+                        ex instanceof DOMException &&
+                        ex.name === 'NotFoundError'
+                    ) {
+                        setError(
+                            'Selecting a folder is not supported, please select one file.'
+                        );
+                    } else if (ex instanceof Error) {
+                        setError(ex.message);
+                    } else {
+                        setError(
+                            ex?.toString() ??
+                                'There was a problem decompressing the file.'
+                        );
+                    }
                 }
-
-                const inflateResult = readFileReaderBuffer(file.name, buffer);
-
-                setResult({
-                    unpacker: 'JS',
-                    raw: inflateResult.raw,
-                    text: inflateResult.utf8,
-                    image: inflateResult.image,
-                });
-
-                setBlobUrls({
-                    text: inflateResult.raw
-                        ? generateBlobUrl(inflateResult.raw, 'text/plain')
-                        : null,
-                    image: inflateResult.image
-                        ? generateBlobUrl(inflateResult.image, 'image/jpeg')
-                        : null,
-                });
-            } catch (ex) {
-                console.error(ex);
-
-                if (ex instanceof DOMException && ex.name === 'NotFoundError') {
-                    setError(
-                        'Selecting a folder is not supported, please select one file.'
-                    );
-                } else if (ex instanceof Error) {
-                    setError(ex.message);
-                } else {
-                    setError(
-                        ex?.toString() ??
-                            'There was a problem decompressing the file.'
-                    );
-                }
-            }
+            })();
         },
         [enableNewImageUnpacker, setImageCurrentIndex]
     );
