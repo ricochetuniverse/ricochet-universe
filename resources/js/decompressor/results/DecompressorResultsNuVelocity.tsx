@@ -75,7 +75,7 @@ export default function DecompressorResultsNuVelocity(props: Props) {
 
     return (
         <Card as="section">
-            <Card.Header as="h2">Decompressed sequence image</Card.Header>
+            <Card.Header as="h2">Decompressed image</Card.Header>
 
             {status === 'LOADING' ? (
                 <Card.Body>Loading...</Card.Body>
@@ -94,7 +94,7 @@ export default function DecompressorResultsNuVelocity(props: Props) {
                     </Alert>
                 </Card.Body>
             ) : status === 'PROCESSING' ? (
-                <Card.Body>Decoding images...</Card.Body>
+                <Card.Body>Decoding image...</Card.Body>
             ) : null}
 
             {decodedImages.length ? (
