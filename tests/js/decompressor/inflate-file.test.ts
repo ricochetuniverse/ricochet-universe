@@ -2,8 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import {
-    inflateFile,
     decodeFromUint8Array,
+    inflateFile,
 } from '../../../resources/js/decompressor/inflate-file';
 
 const FIXTURE_DIR = path.resolve(__dirname, '../../fixtures/');
