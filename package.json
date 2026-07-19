@@ -75,7 +75,7 @@
     "jest-fixed-jsdom": "0.0.11",
     "monaco-editor-webpack-plugin": "7.1.1",
     "msw": "2.15.0",
-    "prettier": "3.8.4",
+    "prettier": "3.9.5",
     "rspack-manifest-plugin": "5.2.2",
     "sass-embedded": "1.100.0",
     "sass-loader": "17.0.0",
