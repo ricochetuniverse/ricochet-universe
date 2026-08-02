@@ -8,6 +8,9 @@ import type {WorkerStatuses} from '../nuvelocity/WorkerMessageTypes';
 
 import DecompressorResultsNuVelocityDecoded from './DecompressorResultsNuVelocityDecoded';
 
+// Firefox allows disabling WebAssembly through `about:config`
+const WEBASSEMBLY_ENABLED = typeof window.WebAssembly !== 'undefined';
+
 type Props = Readonly<{
     dotnetLoaderUrl: string;
     result: DecompressorResultNuVelocity;
@@ -32,6 +35,10 @@ export default function DecompressorResultsNuVelocity(props: Props) {
 
     useEffect(() => {
         let ignore = false;
+
+        if (!WEBASSEMBLY_ENABLED) {
+            return;
+        }
 
         unpack(
             props.dotnetLoaderUrl,
@@ -72,6 +79,16 @@ export default function DecompressorResultsNuVelocity(props: Props) {
             ignore = true;
         };
     }, [props.dotnetLoaderUrl, props.result.imageType, props.result.bytes]);
+
+    if (!WEBASSEMBLY_ENABLED) {
+        return (
+            <Alert variant="danger">
+                Decompressing this image requires WebAssembly but it is
+                unavailable in your browser. Please try updating your browser
+                and check your privacy extensions/settings.
+            </Alert>
+        );
+    }
 
     return (
         <Card as="section">
