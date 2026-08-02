@@ -10,7 +10,6 @@ import {
     type SwcLoaderOptions,
 } from '@rspack/core';
 import {CleanWebpackPlugin} from 'clean-webpack-plugin';
-import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import {RspackManifestPlugin} from 'rspack-manifest-plugin';
 
 import packageJson from './package.json' with {type: 'json'};
@@ -133,20 +132,6 @@ export default defineConfig({
                 });
                 return manifest;
             },
-        }),
-
-        new MonacoWebpackPlugin({
-            languages: [],
-            features: [
-                'bracketMatching',
-                'clipboard',
-                'contextmenu',
-                'find',
-                'folding',
-                'gotoLine',
-                'multicursor',
-                'quickCommand',
-            ],
         }),
 
         new rspack.CopyRspackPlugin({

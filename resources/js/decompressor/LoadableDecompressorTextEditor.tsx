@@ -1,4 +1,4 @@
-import {type ComponentProps} from 'preact';
+import type {ComponentProps} from 'preact';
 import {lazy} from 'preact/compat';
 import {useState} from 'preact/hooks';
 import Card from 'react-bootstrap/Card';

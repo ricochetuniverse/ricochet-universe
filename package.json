@@ -33,12 +33,11 @@
     "bootstrap": "5.3.8",
     "buffer": "6.0.3",
     "jszip": "3.10.1",
-    "monaco-editor": "0.55.1",
+    "monaco-editor": "0.56.0",
     "nullthrows": "1.1.1",
     "pako": "2.1.0",
     "preact": "10.29.8",
     "react-bootstrap": "2.10.10",
-    "react-monaco-editor": "0.59.0",
     "uppie": "4.1.5",
     "zod": "4.4.3",
     "zustand": "5.0.14"
@@ -74,7 +73,6 @@
     "jest": "30.4.2",
     "jest-environment-jsdom": "30.4.1",
     "jest-fixed-jsdom": "0.0.11",
-    "monaco-editor-webpack-plugin": "7.1.1",
     "msw": "2.15.0",
     "prettier": "3.9.6",
     "rspack-manifest-plugin": "5.2.2",
@@ -82,8 +80,5 @@
     "sass-loader": "17.0.0",
     "typescript": "npm:@typescript/typescript6@6.0.3",
     "typescript-eslint": "8.65.0"
-  },
-  "overrides": {
-    "monaco-editor": "0.55.1"
   }
 }

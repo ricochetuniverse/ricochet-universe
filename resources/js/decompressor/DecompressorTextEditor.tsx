@@ -1,43 +1,56 @@
-import type {editor} from 'monaco-editor';
-import {useRef} from 'preact/hooks';
-import MonacoEditor from 'react-monaco-editor';
-
-import 'monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.css'; // https://github.com/microsoft/monaco-editor/issues/1759
+import * as monaco from 'monaco-editor/editor/editor.api';
+import 'monaco-editor/features/bracketMatching/register';
+import 'monaco-editor/features/clipboard/register';
+import 'monaco-editor/features/codicon/register'; // https://github.com/microsoft/monaco-editor/issues/1759
+import 'monaco-editor/features/contextmenu/register';
+import 'monaco-editor/features/find/register';
+import 'monaco-editor/features/folding/register';
+import 'monaco-editor/features/gotoLine/register';
+import 'monaco-editor/features/multicursor/register';
+import 'monaco-editor/features/quickCommand/register';
+import {useEffect, useRef} from 'preact/hooks';
 
 type Props = Readonly<{
     text: string;
 }>;
 
-export default function DecompressorTextEditor(props: Props) {
-    const monacoRef = useRef<{
-        editor: editor.IStandaloneCodeEditor;
-    } /* MonacoEditorHandle */>(null);
+export default function DecompressorTextEditor({text}: Props) {
+    const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+    const divRef = useRef<HTMLDivElement | null>(null);
 
-    function updateDimensions() {
-        monacoRef.current?.editor.layout();
-    }
+    useEffect(() => {
+        if (!divRef.current) {
+            return;
+        }
+
+        if (!editorRef.current) {
+            editorRef.current = monaco.editor.create(divRef.current, {
+                automaticLayout: true,
+                lineNumbersMinChars: 8,
+                renderWhitespace: 'all',
+                scrollBeyondLastLine: false,
+                showFoldingControls: 'always',
+                // scrollbar: {
+                // 	alwaysConsumeMouseWheel: false,
+                // },
+                theme: 'vs-dark',
+            });
+        }
+
+        return () => {
+            editorRef.current?.dispose();
+            editorRef.current = null;
+        };
+    }, []);
+
+    const previousTextRef = useRef('');
+    useEffect(() => {
+        if (previousTextRef.current !== text) {
+            previousTextRef.current = text;
+            editorRef.current?.getModel()?.setValue(text);
+        }
+    }, [text]);
 
     // Safari bugs out with `all: unset`
-    return (
-        <div style={{height: '100vh'}}>
-            <MonacoEditor
-                width="100%"
-                height="100%"
-                theme="vs-dark"
-                value={props.text}
-                options={{
-                    lineNumbersMinChars: 8,
-                    renderWhitespace: 'all',
-                    showFoldingControls: 'always',
-                }}
-                ref={monacoRef}
-                editorDidMount={() => {
-                    window.addEventListener('resize', updateDimensions);
-                }}
-                editorWillUnmount={() => {
-                    window.removeEventListener('resize', updateDimensions);
-                }}
-            />
-        </div>
-    );
+    return <div style={{height: '100vh'}} ref={divRef} />;
 }
