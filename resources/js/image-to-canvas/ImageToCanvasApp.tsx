@@ -76,7 +76,7 @@ function generateBlobUrl(raw: string): string {
 export default class ImageToCanvasApp extends Component<{}, State> {
     canvas: HTMLCanvasElement = document.createElement('canvas');
 
-    state: State = {
+    override state: State = {
         fileName: '',
         loading: false,
         error: '',

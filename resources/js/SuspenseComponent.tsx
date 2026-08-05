@@ -16,11 +16,11 @@ type State = Readonly<{
 }>;
 
 export default class SuspenseComponent extends Component<Props, State> {
-    state: State = {
+    override state: State = {
         error: null,
     };
 
-    static getDerivedStateFromError(error: Error) {
+    static override getDerivedStateFromError(error: Error) {
         return {error};
     }
 
