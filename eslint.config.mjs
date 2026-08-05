@@ -34,13 +34,6 @@ export default defineConfig(
             '@eslint-react/no-forward-ref': 'off',
             '@eslint-react/prefer-destructuring-assignment': 'off',
 
-            '@typescript-eslint/no-empty-object-type': [
-                'error',
-                {
-                    allowObjectTypes: 'always',
-                },
-            ],
-
             // `importX.flatConfigs.recommended` without slow rules
             // https://typescript-eslint.io/troubleshooting/typed-linting/performance/#eslint-plugin-import
             'import-x/export': 'error',

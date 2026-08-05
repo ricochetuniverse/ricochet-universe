@@ -7,6 +7,9 @@ import Stack from 'react-bootstrap/Stack';
 
 import CustomFileInput from '../CustomFileInput';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+type Props = Readonly<{}>;
+
 type State = Readonly<{
     fileName: string;
     loading: boolean;
@@ -73,7 +76,7 @@ function generateBlobUrl(raw: string): string {
 }
 
 // eslint-disable-next-line @eslint-react/no-class-component
-export default class ImageToCanvasApp extends Component<{}, State> {
+export default class ImageToCanvasApp extends Component<Props, State> {
     canvas: HTMLCanvasElement = document.createElement('canvas');
 
     override state: State = {
