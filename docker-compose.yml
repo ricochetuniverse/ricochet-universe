@@ -4,7 +4,7 @@ services:
     volumes:
       - .:/var/ricochetuniverse
 
-  # https://laravel.com/docs/12.x/queues#running-the-queue-worker
+  # https://laravel.com/docs/13.x/queues#running-the-queue-worker
   queue:
     extends:
       service: php
@@ -13,7 +13,7 @@ services:
       - mariadb
       - redis
 
-  # https://laravel.com/docs/12.x/scheduling#running-the-scheduler-locally
+  # https://laravel.com/docs/13.x/scheduling#running-the-scheduler-locally
   schedule:
     extends:
       service: php
