@@ -221,8 +221,8 @@
                         @unless ($levelSet->levelRounds->isEmpty())
                             <div class="roundInfo__wrapper">
                                 @foreach ($levelSet->levelRounds as $round)
-                                    <a href="#" class="roundInfo__link js-open-round-info-modal"
-                                       data-round-info="{{ $round->toRoundInfoJson() }}">
+                                    <button type="button" class="roundInfo__link js-open-round-info-modal"
+                                            data-round-info="{{ $round->toRoundInfoJson() }}">
                                         @if ($round->image_file_name)
                                             <img
                                                 src="{{ $round->getImageUrl() }}"
@@ -250,7 +250,7 @@
                                         @if ($round->shouldShowViewNotesButton())
                                             <x-button class="d-block mt-2" as="span">View notes</x-button>
                                         @endif
-                                    </a>
+                                    </button>
                                 @endforeach
                             </div>
                         @else

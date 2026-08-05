@@ -195,6 +195,9 @@ select {
 
 // Level set info
 .roundInfo__link {
+    background: none;
+    border: none;
+
     padding-top: map-get($spacers, 2);
     padding-bottom: map-get($spacers, 2);
     text-decoration: none;
@@ -226,7 +229,13 @@ select {
 }
 
 .roundInfo__name {
+    color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
     text-decoration: $link-decoration;
+}
+
+.roundInfo__link:hover .roundInfo__name {
+    --bs-link-color-rgb: var(--bs-link-hover-color-rgb);
+    text-decoration: $link-hover-decoration;
 }
 
 .roundInfo__author {
@@ -241,7 +250,10 @@ select {
     }
 
     .roundInfo__link {
+        display: flex;
+        flex-direction: column;
         width: auto;
+        height: 100%;
     }
 }
 

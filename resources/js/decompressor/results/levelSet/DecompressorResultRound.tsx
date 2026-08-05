@@ -61,8 +61,8 @@ export default function DecompressorResultRound({
     }, [imageSrc]);
 
     return (
-        <a
-            href="#"
+        <button
+            type="button"
             className="roundInfo__link"
             onClick={(ev) => {
                 ev.preventDefault();
@@ -109,6 +109,6 @@ export default function DecompressorResultRound({
                     View notes
                 </Button>
             ) : null}
-        </a>
+        </button>
     );
 }
