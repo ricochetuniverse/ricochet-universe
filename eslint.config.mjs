@@ -15,13 +15,13 @@ export default defineConfig(
     tseslint.configs.strictTypeChecked,
 
     importX.flatConfigs.typescript,
-    jest.configs['flat/recommended'],
-    jest.configs['flat/style'],
+    eslintReact.configs['strict-type-checked'],
+    reactHooks.configs.flat.recommended,
     // Temporarily removed to unblock ESLint v10
     // https://gitlab.com/ngyikp/ricochet-levels/-/work_items/37
     // jsxA11y.flatConfigs.recommended,
-    eslintReact.configs['strict-type-checked'],
-    reactHooks.configs.flat.recommended,
+    jest.configs['flat/recommended'],
+    jest.configs['flat/style'],
     regexp.configs.recommended,
     {
         rules: {

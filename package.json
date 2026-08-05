@@ -1,5 +1,4 @@
 {
-  "$schema": "https://www.schemastore.org/package.json",
   "description": "Ricochet Universe",
   "homepage": "https://gitlab.com/ngyikp/ricochet-levels",
   "bugs": {
@@ -11,12 +10,16 @@
     "email": "ngyikp@gmail.com",
     "url": "https://ngyikp.com"
   },
-  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ngyikp/ricochet-levels.git"
+  },
   "private": true,
   "license": "MPL-2.0",
   "engines": {
     "node": ">=22"
   },
+  "type": "module",
   "scripts": {
     "development": "rspack --nodeEnv development --mode development",
     "lint": "eslint .",
