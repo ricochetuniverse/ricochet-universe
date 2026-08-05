@@ -4,7 +4,7 @@ import tsParser from '@typescript-eslint/parser';
 import {defineConfig} from 'eslint/config';
 import {importX} from 'eslint-plugin-import-x';
 import jest from 'eslint-plugin-jest';
-// import jsxA11y from 'eslint-plugin-jsx-a11y';
+import jsxA11yX from 'eslint-plugin-jsx-a11y-x';
 import reactHooks from 'eslint-plugin-react-hooks';
 import regexp from 'eslint-plugin-regexp';
 import testingLibrary from 'eslint-plugin-testing-library';
@@ -17,9 +17,7 @@ export default defineConfig(
     importX.flatConfigs.typescript,
     eslintReact.configs['strict-type-checked'],
     reactHooks.configs.flat.recommended,
-    // Temporarily removed to unblock ESLint v10
-    // https://gitlab.com/ngyikp/ricochet-levels/-/work_items/37
-    // jsxA11y.flatConfigs.recommended,
+    jsxA11yX.configs.strict,
     jest.configs['flat/recommended'],
     jest.configs['flat/style'],
     regexp.configs.recommended,
