@@ -46,14 +46,14 @@
     "zustand": "5.0.14"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "5.18.1",
+    "@eslint-react/eslint-plugin": "5.18.3",
     "@eslint/js": "10.0.1",
-    "@rspack/cli": "2.1.7",
-    "@rspack/core": "2.1.7",
+    "@rspack/cli": "2.1.8",
+    "@rspack/core": "2.1.8",
     "@swc/jest": "0.2.39",
     "@testing-library/dom": "10.4.1",
     "@testing-library/preact": "3.2.4",
-    "@testing-library/user-event": "14.6.1",
+    "@testing-library/user-event": "14.6.3",
     "@tsconfig/node24": "24.0.4",
     "@types/bootstrap": "5.2.11",
     "@types/jest": "30.0.0",
@@ -61,11 +61,11 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "@types/react-loadable": "5.5.11",
-    "@typescript-eslint/parser": "8.65.0",
+    "@typescript-eslint/parser": "8.66.0",
     "@typescript/native": "npm:typescript@7.0.2",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "7.1.4",
-    "eslint": "10.8.0",
+    "eslint": "10.8.1",
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-import-x": "4.17.1",
     "eslint-plugin-jest": "29.16.0",
@@ -83,6 +83,6 @@
     "sass-embedded": "1.100.0",
     "sass-loader": "17.0.0",
     "typescript": "npm:@typescript/typescript6@6.0.3",
-    "typescript-eslint": "8.65.0"
+    "typescript-eslint": "8.66.0"
   }
 }
