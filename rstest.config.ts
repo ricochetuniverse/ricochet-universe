@@ -10,7 +10,7 @@ export default defineConfig({
     //     delete config.plugins;
     //     return config;
     // },
-    globals: true,
     plugins: [pluginPreact(), pluginSass()],
+    setupFiles: ['tests/js/rstest.setup.ts'],
     testEnvironment: 'jsdom', // happy-dom is not fully supported
 });

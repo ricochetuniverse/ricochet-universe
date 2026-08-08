@@ -1,3 +1,5 @@
+import {expect, test} from '@rstest/core';
+
 import {
     findFileNameInAnyFolderInGameData,
     getFileNameFromPath,

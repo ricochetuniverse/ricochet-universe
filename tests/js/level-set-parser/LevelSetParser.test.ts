@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import {expect, test} from '@rstest/core';
+
 import {parse} from '../../../resources/js/level-set-parser/LevelSetParser';
 
 const FIXTURE_DIR = path.resolve(__dirname, '../../fixtures/');

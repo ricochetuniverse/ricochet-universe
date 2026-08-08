@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import {expect, test} from '@rstest/core';
+
 import checkPackagedFiles from '../../../resources/js/red-mod-packager/check-packaged-files';
 import {getFileNameFromPath} from '../../../resources/js/red-mod-packager/game-data-list';
 

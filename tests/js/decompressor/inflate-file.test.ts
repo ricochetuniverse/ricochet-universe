@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import {expect, test} from '@rstest/core';
+
 import {
     decodeFromUint8Array,
     inflateFile,

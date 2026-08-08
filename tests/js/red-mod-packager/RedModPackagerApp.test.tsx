@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import {expect, rs, test} from '@rstest/core';
+import {afterAll, beforeAll, expect, rs, test} from '@rstest/core';
 import {render, screen} from '@testing-library/preact';
 import userEvent from '@testing-library/user-event';
 

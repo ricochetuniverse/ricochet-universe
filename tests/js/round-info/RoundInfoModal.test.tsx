@@ -1,3 +1,4 @@
+import {expect, test} from '@rstest/core';
 import {
     fireEvent,
     render,
