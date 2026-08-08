@@ -1,4 +1,4 @@
-import {expect, test} from '@jest/globals';
+import {expect, test} from '@rstest/core';
 import {render, screen} from '@testing-library/preact';
 
 import DecompressorApp from '../../../resources/js/decompressor/DecompressorApp';

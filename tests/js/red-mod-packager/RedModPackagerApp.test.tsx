@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import {expect, jest, test} from '@jest/globals';
+import {expect, rs, test} from '@rstest/core';
 import {render, screen} from '@testing-library/preact';
 import userEvent from '@testing-library/user-event';
 
@@ -14,11 +14,11 @@ const FIXTURE_DIR = path.resolve(__dirname, '../../fixtures/');
 
 beforeAll(() => {
     // called by uppie, unused
-    jest.spyOn(FormData.prototype, 'append').mockImplementation(() => {});
+    rs.spyOn(FormData.prototype, 'append').mockImplementation(() => {});
 });
 
 afterAll(() => {
-    jest.restoreAllMocks();
+    rs.restoreAllMocks();
 });
 
 test('renders the app', async () => {
@@ -46,14 +46,13 @@ test('makes RED packages', async () => {
     expect(downloadButton).toBeInstanceOf(HTMLAnchorElement);
     assert(downloadButton instanceof HTMLAnchorElement);
 
-    const packaged = await fetch(downloadButton.href).then((r) => {
-        return r.arrayBuffer();
-    });
+    const blob = await fetch(downloadButton.href);
+    const packaged = await blob.bytes();
 
     // Compare
     const existing = await fs.readFile(
         path.resolve(FIXTURE_DIR, './red-mod-packager/packaged.red')
     );
 
-    expect(packaged).toStrictEqual(existing.buffer);
+    expect(packaged).toStrictEqual(new Uint8Array(existing.buffer));
 });

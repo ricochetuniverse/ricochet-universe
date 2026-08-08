@@ -1,4 +1,4 @@
-import {expect, jest, test} from '@jest/globals';
+import {expect, rs, test} from '@rstest/core';
 import {render, screen, waitFor} from '@testing-library/preact';
 import {http, HttpResponse} from 'msw';
 
@@ -14,7 +14,7 @@ beforeAll(() => {
 
 afterEach(() => {
     server.resetHandlers();
-    jest.restoreAllMocks();
+    rs.restoreAllMocks();
 });
 
 afterAll(() => {
@@ -31,9 +31,7 @@ test('renders members', async () => {
 });
 
 test('API failure', async () => {
-    const consoleMock = jest
-        .spyOn(console, 'error')
-        .mockImplementation(() => {});
+    const consoleMock = rs.spyOn(console, 'error').mockImplementation(() => {});
 
     server.use(
         http.get(WIDGET_API_URL, () => {
@@ -54,9 +52,7 @@ test('API failure', async () => {
 });
 
 test('network failure', async () => {
-    const consoleMock = jest
-        .spyOn(console, 'error')
-        .mockImplementation(() => {});
+    const consoleMock = rs.spyOn(console, 'error').mockImplementation(() => {});
 
     server.use(
         http.get(WIDGET_API_URL, () => {

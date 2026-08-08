@@ -6,7 +6,7 @@ Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets
 
 Visit the live website at [https://www.ricochetuniverse.com](https://www.ricochetuniverse.com)
 
-## Development
+## Contributing
 
 [Check out CONTRIBUTING.md for the full guide!](https://gitlab.com/ngyikp/ricochet-levels/-/blob/master/CONTRIBUTING.md)
 

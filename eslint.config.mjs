@@ -58,6 +58,13 @@ export default defineConfig(
                 tsconfigRootDir: import.meta.dirname,
             },
         },
+        settings: {
+            jest: {
+                // https://github.com/jest-community/eslint-plugin-jest#aliased-jestglobals
+                globalPackage: '@rstest/core',
+                version: 30,
+            },
+        },
     },
     {
         files: ['**/?(*.)+(spec|test).[jt]s?(x)'],

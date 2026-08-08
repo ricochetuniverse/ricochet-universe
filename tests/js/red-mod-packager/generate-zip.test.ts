@@ -18,5 +18,7 @@ test('generates RED file', async () => {
         path.resolve(FIXTURE_DIR, './red-mod-packager/packaged.red')
     );
 
-    expect(await result.zip.arrayBuffer()).toStrictEqual(existing.buffer);
+    expect(await result.zip.bytes()).toStrictEqual(
+        new Uint8Array(existing.buffer)
+    );
 });
