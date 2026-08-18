@@ -11,7 +11,7 @@ For bare-metal installs:
 - [PHP 8.5](https://www.php.net)
 - [Composer](https://getcomposer.org)
 - [MariaDB 12.1](https://mariadb.org)
-- [Node.js v22](https://nodejs.org)
+- [Node.js v24](https://nodejs.org)
 - [Valkey](https://valkey.io)
 - A [queue worker](https://laravel.com/docs/13.x/queues#supervisor-configuration)
 - A [task scheduler](https://laravel.com/docs/13.x/scheduling#running-the-scheduler)
