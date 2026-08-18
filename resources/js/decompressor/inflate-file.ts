@@ -1,5 +1,4 @@
-import {Inflate} from 'pako/lib/inflate';
-import constants from 'pako/lib/zlib/constants';
+import {Inflate, Z_DATA_ERROR, ZStream} from 'pako';
 
 import TextDecoder from '../helpers/TextDecoder';
 
@@ -20,10 +19,14 @@ export function inflateFile(buffer: ArrayBuffer): InflateResult {
 
     // basically what inflate() from pako does behind the scenes
     const inflator = new Inflate();
+    let inflatorStream: ZStream | undefined;
+    inflator.onStart = (strm) => {
+        inflatorStream = strm;
+    };
     inflator.push(compressed, true);
 
     if (inflator.err) {
-        if (inflator.err !== constants.Z_DATA_ERROR) {
+        if (inflator.err !== Z_DATA_ERROR) {
             throw new Error(inflator.msg);
         }
 
@@ -33,10 +36,10 @@ export function inflateFile(buffer: ArrayBuffer): InflateResult {
         raw = inflator.result;
 
         // If there are any leftover, try to decode as a Sequence
-        if (inflator.strm.avail_in > 0) {
+        if (inflatorStream != null && inflatorStream.avail_in > 0) {
             maybeImage = new Uint8Array(
                 buffer,
-                MAGIC_SKIP_NUMBER + inflator.strm.total_in + 5
+                MAGIC_SKIP_NUMBER + inflatorStream.total_in + 5
             );
         }
     }
