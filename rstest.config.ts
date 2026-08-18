@@ -11,6 +11,6 @@ export default defineConfig({
     //     return config;
     // },
     plugins: [pluginPreact(), pluginSass()],
-    setupFiles: ['tests/js/rstest.setup.ts'],
+    setupFiles: ['tests/js/setup-tests.ts'],
     testEnvironment: 'jsdom', // happy-dom is not fully supported
 });

@@ -68,7 +68,7 @@ Catalog URL=http://ricochet.test:8001/gateway/catalog.php
 
 ## Type-checking
 
-- Node.js: Use [TypeScript](https://www.typescriptlang.org), previously used [Flow](https://flow.org). Run `docker-compose run --rm node npm run tsc -- -b` to see errors.
+- Node.js: Use [TypeScript](https://www.typescriptlang.org) (previously used [Flow](https://flow.org)). Run `docker-compose run --rm node npm run tsc -- -b` to see errors.
 
 ## Static analysis
 
@@ -81,7 +81,7 @@ Catalog URL=http://ricochet.test:8001/gateway/catalog.php
 ## Tests
 
 - PHP: Use [PHPUnit](https://phpunit.de). Run `docker-compose run --rm php ./vendor/bin/phpunit` to run the tests.
-- Node.js: Use [Rstest](https://rstest.rs), previously used [Jest](https://jestjs.io). Run `docker-compose run --rm node npm test` to run the tests.
+- Node.js: Use [Rstest](https://rstest.rs) (previously used [Jest](https://jestjs.io)). Run `docker-compose run --rm node npm test` to run the tests.
 
 ### Running tests with coverage
 
