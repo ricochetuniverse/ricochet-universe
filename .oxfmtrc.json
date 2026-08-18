@@ -1,0 +1,16 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": false,
+    "printWidth": 80,
+    "sortPackageJson": {
+        "sortScripts": true
+    },
+    "ignorePatterns": [
+        "storage/",
+
+        "composer.json",
+        "composer.lock"
+    ]
+}

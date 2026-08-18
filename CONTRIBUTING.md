@@ -64,7 +64,7 @@ Catalog URL=http://ricochet.test:8001/gateway/catalog.php
 ## Code style
 
 - PHP: Use [Laravel Pint](https://laravel.com/docs/pint). Run `docker-compose run --rm php ./vendor/bin/pint` to auto-fix.
-- SCSS/JavaScript/Markdown/YAML: Use [Prettier](https://prettier.io). Run `docker-compose run --rm node npm run prettier -- --write` to auto-fix.
+- SCSS/JavaScript/Markdown/YAML: Use [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) (previously used [Prettier](https://prettier.io)). Run `docker-compose run --rm node npm run format` to auto-fix.
 
 ## Type-checking
 
@@ -97,7 +97,7 @@ The test suites are run on every push, it's best to run them on your system to a
 docker-compose run --rm php ./vendor/bin/phpunit
 docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=320M
 docker-compose run --rm php ./vendor/bin/pint --test
-docker-compose run --rm node sh -c "npm run tsc -- -b && npm run lint && npm test && npm run prettier -- -c"
+docker-compose run --rm node sh -c "npm run tsc -- -b && npm run lint && npm test && npm run format -- --check"
 ```
 
 ## Creating test database

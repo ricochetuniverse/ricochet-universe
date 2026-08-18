@@ -14,7 +14,8 @@ export type DecompressorResultNuVelocity = {
 };
 
 export type DecompressorResult =
-    DecompressorResultJs | DecompressorResultNuVelocity;
+    | DecompressorResultJs
+    | DecompressorResultNuVelocity;
 
 export type DecompressorBlobUrls = {
     text: string | null;

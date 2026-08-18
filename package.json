@@ -1,10 +1,12 @@
 {
-  "description": "Ricochet Universe",
+  "private": true,
+  "description": "Explore, download and play Ricochet Infinity and Ricochet Lost Worlds level sets created by the community.",
   "homepage": "https://gitlab.com/ngyikp/ricochet-levels",
   "bugs": {
     "url": "https://gitlab.com/ngyikp/ricochet-levels/issues",
     "email": "ngyikp@gmail.com"
   },
+  "license": "MPL-2.0",
   "author": {
     "name": "Ng Yik Phang (ngyikp)",
     "email": "ngyikp@gmail.com",
@@ -14,16 +16,12 @@
     "type": "git",
     "url": "git+https://gitlab.com/ngyikp/ricochet-levels.git"
   },
-  "private": true,
-  "license": "MPL-2.0",
-  "engines": {
-    "node": ">=22"
-  },
   "type": "module",
   "scripts": {
+    "dev": "npm run dev",
     "development": "rspack --nodeEnv development --mode development",
+    "format": "oxfmt",
     "lint": "eslint .",
-    "prettier": "prettier .",
     "production": "rspack --mode production",
     "test": "rstest",
     "tsc": "tsc",
@@ -75,11 +73,14 @@
     "eslint-plugin-testing-library": "7.16.2",
     "jsdom": "30.0.1",
     "msw": "2.15.0",
-    "prettier": "3.9.6",
+    "oxfmt": "0.63.0",
     "rspack-manifest-plugin": "5.2.2",
     "sass-embedded": "1.102.0",
     "sass-loader": "17.0.0",
     "typescript": "npm:@typescript/typescript6@6.0.3",
     "typescript-eslint": "8.67.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
