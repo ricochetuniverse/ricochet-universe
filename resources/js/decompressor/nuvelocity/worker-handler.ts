@@ -21,22 +21,22 @@ function startWorker() {
     worker.addEventListener(
         'message',
         ({
-            data: response,
+            data,
         }: MessageEvent<{
             messageId: number;
-            result: WorkerResponses;
+            response: WorkerResponses;
         }>) => {
-            const port = messagePorts.get(response.messageId);
+            const port = messagePorts.get(data.messageId);
             if (!port) {
                 return;
             }
-            port(response.result);
+            port(data.response);
 
             if (
-                response.result.status === 'FINISHED' ||
-                response.result.status === 'ERROR'
+                data.response.status === 'FINISHED' ||
+                data.response.status === 'ERROR'
             ) {
-                messagePorts.delete(response.messageId);
+                messagePorts.delete(data.messageId);
             }
         },
         false
