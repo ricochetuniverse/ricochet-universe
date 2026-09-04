@@ -30,18 +30,18 @@ After you `git clone` this repo...
 5. Install [mkcert](https://github.com/FiloSottile/mkcert), then run `mkcert -install` and `mkcert ricochet.test`, and move the 2 generated `.pem` files to `docker/secrets/`
 6. Open a terminal window and execute these commands:
     ```bash
-    docker-compose run --rm php composer install
-    docker-compose run --rm node npm install
-    docker-compose run --rm node npm run development
-    docker-compose run --rm php php artisan migrate
-    docker-compose run --rm php php artisan storage:link --relative
+    docker compose run --rm php composer install
+    docker compose run --rm node npm install
+    docker compose run --rm node npm run development
+    docker compose run --rm php php artisan migrate
+    docker compose run --rm php php artisan storage:link --relative
     ```
 
 ## Day-to-day development
 
-Execute `docker-compose up -d` to start the services, you can access the website at `https://ricochet.test:8000`
+Execute `docker compose up -d` to start the services, you can access the website at `https://ricochet.test:8000`
 
-Execute `docker-compose run --rm node npm run watch` and leave the terminal window open to rebuild assets whenever you save.
+Execute `docker compose run --rm node npm run watch` and leave the terminal window open to rebuild assets whenever you save.
 
 ## Connecting the game to local site
 
@@ -63,30 +63,30 @@ Catalog URL=http://ricochet.test:8001/gateway/catalog.php
 
 ## Code style
 
-- PHP: Use [Laravel Pint](https://laravel.com/docs/pint). Run `docker-compose run --rm php ./vendor/bin/pint` to auto-fix.
-- SCSS/JavaScript/Markdown/YAML: Use [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) (previously used [Prettier](https://prettier.io)). Run `docker-compose run --rm node npm run format` to auto-fix.
+- PHP: Use [Laravel Pint](https://laravel.com/docs/pint). Run `docker compose run --rm php ./vendor/bin/pint` to auto-fix.
+- SCSS/JavaScript/Markdown/YAML: Use [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) (previously used [Prettier](https://prettier.io)). Run `docker compose run --rm node npm run format` to auto-fix.
 
 ## Type-checking
 
-- Node.js: Use [TypeScript](https://www.typescriptlang.org) (previously used [Flow](https://flow.org)). Run `docker-compose run --rm node npm run tsc -- -b` to see errors.
+- Node.js: Use [TypeScript](https://www.typescriptlang.org) (previously used [Flow](https://flow.org)). Run `docker compose run --rm node npm run tsc -- -b` to see errors.
 
 ## Static analysis
 
-- PHP: Use [PHPStan](https://phpstan.org). Run `docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=320M` to see errors.
+- PHP: Use [PHPStan](https://phpstan.org). Run `docker compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=320M` to see errors.
 
 ## Linting
 
-- Node.js: Use [ESLint](https://eslint.org). Run `docker-compose run --rm node npm run lint` to see errors.
+- Node.js: Use [ESLint](https://eslint.org). Run `docker compose run --rm node npm run lint` to see errors.
 
 ## Tests
 
-- PHP: Use [PHPUnit](https://phpunit.de). Run `docker-compose run --rm php ./vendor/bin/phpunit` to run the tests.
-- Node.js: Use [Rstest](https://rstest.rs) (previously used [Jest](https://jestjs.io)). Run `docker-compose run --rm node npm test` to run the tests.
+- PHP: Use [PHPUnit](https://phpunit.de). Run `docker compose run --rm php ./vendor/bin/phpunit` to run the tests.
+- Node.js: Use [Rstest](https://rstest.rs) (previously used [Jest](https://jestjs.io)). Run `docker compose run --rm node npm test` to run the tests.
 
 ### Running tests with coverage
 
 ```bash
-docker-compose run -e XDEBUG_MODE=coverage --rm php ./vendor/bin/phpunit --coverage-html coverage/
+docker compose run -e XDEBUG_MODE=coverage --rm php ./vendor/bin/phpunit --coverage-html coverage/
 ```
 
 ## Running all tests
@@ -94,10 +94,10 @@ docker-compose run -e XDEBUG_MODE=coverage --rm php ./vendor/bin/phpunit --cover
 The test suites are run on every push, it's best to run them on your system to avoid CI failures afterwards:
 
 ```bash
-docker-compose run --rm php ./vendor/bin/phpunit
-docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=320M
-docker-compose run --rm php ./vendor/bin/pint --test
-docker-compose run --rm node sh -c "npm run tsc -- -b && npm run lint && npm test && npm run format -- --check"
+docker compose run --rm php ./vendor/bin/phpunit
+docker compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=320M
+docker compose run --rm php ./vendor/bin/pint --test
+docker compose run --rm node sh -c "npm run tsc -- -b && npm run lint && npm test && npm run format -- --check"
 ```
 
 ## Creating test database
@@ -105,7 +105,7 @@ docker-compose run --rm node sh -c "npm run tsc -- -b && npm run lint && npm tes
 Enter the MariaDB Docker container, use the root password at `docker/secrets/mariadb_root_password.txt`:
 
 ```bash
-docker-compose exec -it mariadb mariadb -uroot -p
+docker compose exec -it mariadb mariadb -uroot -p
 ```
 
 Execute MariaDB commands:
