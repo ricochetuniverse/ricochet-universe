@@ -4,6 +4,7 @@ export default function useObjectURL(currentUrl: string | null) {
     const [prevUrl, setPrevUrl] = useState(currentUrl);
     if (currentUrl !== prevUrl) {
         if (prevUrl != null) {
+            // eslint-disable-next-line @eslint-react/purity
             window.URL.revokeObjectURL(prevUrl);
         }
 

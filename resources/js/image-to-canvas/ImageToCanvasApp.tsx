@@ -1,21 +1,11 @@
 import nullthrows from 'nullthrows';
-import {Component} from 'preact';
+import {useCallback, useState} from 'preact/hooks';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Stack from 'react-bootstrap/Stack';
 
 import CustomFileInput from '../CustomFileInput';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type Props = Readonly<{}>;
-
-type State = Readonly<{
-    fileName: string;
-    loading: boolean;
-    error: string;
-    result: string;
-}>;
 
 type Pixel = {
     x: number;
@@ -75,66 +65,16 @@ function generateBlobUrl(raw: string): string {
     return window.URL.createObjectURL(blob);
 }
 
-// eslint-disable-next-line @eslint-react/no-class-component
-export default class ImageToCanvasApp extends Component<Props, State> {
-    canvas: HTMLCanvasElement = document.createElement('canvas');
+export default function ImageToCanvasApp() {
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
-    override state: State = {
-        fileName: '',
-        loading: false,
-        error: '',
-        result: '',
-    };
+    const [resultBlobUrl, setResultBlobUrl] = useState('');
 
-    render() {
-        return (
-            <Stack gap={3}>
-                <Card as="section">
-                    <Card.Header as="h1">Image to canvas</Card.Header>
-
-                    <Card.Body>
-                        <CustomFileInput
-                            accept=".jpg,.jpeg,.gif,.png"
-                            onChange={this.onFileChange}
-                        />
-                    </Card.Body>
-                </Card>
-
-                {this.state.loading ? (
-                    <Alert variant="info">Loading...</Alert>
-                ) : null}
-
-                {this.state.error ? (
-                    <Alert variant="danger">{this.state.error}</Alert>
-                ) : null}
-
-                {this.state.result ? (
-                    <Card as="section">
-                        <Card.Header as="h2">Scrapbook result</Card.Header>
-
-                        <Card.Body>
-                            <Button
-                                as="a"
-                                href={this.state.result}
-                                download="Scrap Book.object.txt"
-                                variant="outline-primary"
-                            >
-                                Download
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                ) : null}
-            </Stack>
-        );
-    }
-
-    onFileChange = (ev: Event) => {
-        this.setState({
-            fileName: '',
-            loading: true,
-            error: '',
-            result: '',
-        });
+    const onFileChange = useCallback((ev: Event) => {
+        setError(null);
+        setLoading(true);
+        setResultBlobUrl('');
 
         const fileInput = ev.currentTarget;
         if (!(fileInput instanceof HTMLInputElement)) {
@@ -145,24 +85,19 @@ export default class ImageToCanvasApp extends Component<Props, State> {
         if (!files || files.length === 0) {
             return;
         }
-        this.processFile(files[0]);
-    };
 
-    processFile = (file: File) => {
+        const file = files[0];
+
         // playfield max size is 616x589
+        const canvas = document.createElement('canvas');
 
         const img = new Image();
         img.onload = () => {
-            this.canvas.width = img.width;
-            this.canvas.height = img.height;
+            canvas.width = img.width;
+            canvas.height = img.height;
 
-            const canvasContext = nullthrows(this.canvas.getContext('2d'));
-            canvasContext.clearRect(
-                0,
-                0,
-                this.canvas.width,
-                this.canvas.height
-            );
+            const canvasContext = nullthrows(canvas.getContext('2d'));
+            canvasContext.clearRect(0, 0, canvas.width, canvas.height);
             canvasContext.drawImage(img, 0, 0);
 
             const pixels: Pixel[] = [];
@@ -217,19 +152,53 @@ export default class ImageToCanvasApp extends Component<Props, State> {
                     x += scannedWidth - 1;
                 }
             }
-            this.setState({
-                loading: false,
-                result: generateBlobUrl(getScrapBookData(pixels)),
-            });
+            setResultBlobUrl(generateBlobUrl(getScrapBookData(pixels)));
+            setLoading(false);
 
-            URL.revokeObjectURL(img.src);
+            window.URL.revokeObjectURL(img.src);
         };
         img.onerror = () => {
-            this.setState({
-                loading: false,
-                error: 'There was an error loading the image.',
-            });
+            setLoading(false);
+            setError('There was an error loading the image.');
+
+            window.URL.revokeObjectURL(img.src);
         };
-        img.src = URL.createObjectURL(file);
-    };
+        img.src = window.URL.createObjectURL(file);
+    }, []);
+
+    return (
+        <Stack gap={3}>
+            <Card as="section">
+                <Card.Header as="h1">Image to canvas</Card.Header>
+
+                <Card.Body>
+                    <CustomFileInput
+                        accept=".jpg,.jpeg,.gif,.png"
+                        onChange={onFileChange}
+                    />
+                </Card.Body>
+            </Card>
+
+            {loading ? <Alert variant="info">Loading...</Alert> : null}
+
+            {error ? <Alert variant="danger">{error}</Alert> : null}
+
+            {resultBlobUrl !== '' ? (
+                <Card as="section">
+                    <Card.Header as="h2">Scrapbook result</Card.Header>
+
+                    <Card.Body>
+                        <Button
+                            as="a"
+                            href={resultBlobUrl}
+                            download="Scrap Book.object.txt"
+                            variant="outline-primary"
+                        >
+                            Download
+                        </Button>
+                    </Card.Body>
+                </Card>
+            ) : null}
+        </Stack>
+    );
 }
