@@ -33,14 +33,14 @@
     "@swc/helpers": "0.5.23",
     "bootstrap": "5.3.8",
     "buffer": "6.0.3",
-    "jszip": "3.10.1",
+    "jszip": "3.10.2",
     "monaco-editor": "0.56.0",
     "nullthrows": "1.1.1",
-    "pako": "3.0.1",
+    "pako": "3.0.2",
     "preact": "10.29.8",
     "react-bootstrap": "2.10.10",
-    "uppie": "4.1.5",
-    "zod": "4.5.4",
+    "uppie": "4.1.7",
+    "zod": "4.6.7",
     "zustand": "5.0.15"
   },
   "devDependencies": {
