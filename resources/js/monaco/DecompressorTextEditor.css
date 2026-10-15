@@ -1,0 +1,7 @@
+.monaco-list label {
+    cursor: pointer;
+}
+
+.monaco-list .label-name {
+    text-decoration: none;
+}

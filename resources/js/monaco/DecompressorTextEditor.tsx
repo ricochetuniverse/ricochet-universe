@@ -10,6 +10,8 @@ import 'monaco-editor/features/multicursor/register';
 import 'monaco-editor/features/quickCommand/register';
 import {useEffect, useRef} from 'preact/hooks';
 
+import './DecompressorTextEditor.css';
+
 type Props = Readonly<{
     text: string;
 }>;

@@ -2,6 +2,7 @@ import {useState} from 'preact/hooks';
 import Card from 'react-bootstrap/Card';
 import Stack from 'react-bootstrap/Stack';
 
+import LoadableDecompressorTextEditor from '../../monaco/LoadableDecompressorTextEditor';
 import DecompressorMacOnlyFilesAlert from '../DecompressorMacOnlyFilesAlert';
 import DecompressorModRequirementAlert from '../DecompressorModRequirementAlert';
 import type {
@@ -9,7 +10,6 @@ import type {
     DecompressorResultJs,
 } from '../DecompressorTypes';
 import DownloadButton from '../DownloadButton';
-import LoadableDecompressorTextEditor from '../LoadableDecompressorTextEditor';
 
 import DecompressorImageAppearance from './DecompressorImageAppearance';
 import DecompressorResultsImage, {

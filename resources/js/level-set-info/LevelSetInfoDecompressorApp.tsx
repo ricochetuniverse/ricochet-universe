@@ -3,7 +3,7 @@ import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 
 import {inflateFile} from '../decompressor/inflate-file';
-import LoadableDecompressorTextEditor from '../decompressor/LoadableDecompressorTextEditor';
+import LoadableDecompressorTextEditor from '../monaco/LoadableDecompressorTextEditor';
 
 type Props = Readonly<{
     downloadUrl: string;

@@ -12,7 +12,7 @@ function reload() {
     return lazy(
         () =>
             import(
-                /* webpackChunkName: "decompressor-editor" */ '././DecompressorTextEditor'
+                /* webpackChunkName: "decompressor-editor" */ './DecompressorTextEditor'
             )
     );
 }
