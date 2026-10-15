@@ -1,5 +1,3 @@
-import {forwardRef} from 'preact/compat';
-
 type Props = Readonly<
     Omit<React.ComponentProps<'input'>, 'type' | 'className'> & {
         label?: string;
@@ -7,10 +5,12 @@ type Props = Readonly<
     }
 >;
 
-function CustomFileInput(
-    {label, directory = false, ...otherProps}: Props,
-    ref: React.Ref<HTMLInputElement>
-) {
+export default function CustomFileInput({
+    label,
+    directory = false,
+    ref,
+    ...otherProps
+}: Props) {
     const formLabel = label || (directory ? 'Select a folder:' : '');
 
     return (
@@ -30,5 +30,3 @@ function CustomFileInput(
         </div>
     );
 }
-
-export default forwardRef<HTMLInputElement, Props>(CustomFileInput);

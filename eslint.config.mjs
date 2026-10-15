@@ -27,9 +27,6 @@ export default defineConfig(
             'prefer-const': 'warn',
 
             '@eslint-react/immutability': 'error',
-            // ref as prop (https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
-            // is not supported on Preact yet
-            '@eslint-react/no-forward-ref': 'off',
             '@eslint-react/prefer-destructuring-assignment': 'off',
 
             // `importX.flatConfigs.recommended` without slow rules
