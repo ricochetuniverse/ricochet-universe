@@ -1,7 +1,6 @@
 import {useCallback, useState} from 'preact/hooks';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 
 import CustomFileInput from '../CustomFileInput';
@@ -78,8 +77,6 @@ export default function DecompressorApp(props: Props) {
         image: null,
     });
 
-    const [enableBrowserTextEditor, setEnableBrowserTextEditor] =
-        useState(false);
     const setImageCurrentIndex = useSettingsStore(
         (state) => state.image.setCurrentIndex
     );
@@ -88,16 +85,6 @@ export default function DecompressorApp(props: Props) {
     useObjectURL(blobUrls.image);
 
     const enableNewImageUnpacker = props.dotnetLoaderUrl !== '';
-
-    const changeViewInBrowserOption = useCallback((ev: Event) => {
-        const checkbox = ev.target;
-        if (!(checkbox instanceof HTMLInputElement)) {
-            throw new Error('Expected HTMLInputElement');
-        }
-        const checked = checkbox.checked;
-
-        setEnableBrowserTextEditor(checked);
-    }, []);
 
     const onFileChange = useCallback(
         (ev: Event) => {
@@ -204,16 +191,6 @@ export default function DecompressorApp(props: Props) {
                         data.
                     </p>
 
-                    <Form.Group className="mb-3">
-                        <Form.Check
-                            type="checkbox"
-                            id="decompressor-enableBrowserTextEditor"
-                            checked={enableBrowserTextEditor}
-                            onChange={changeViewInBrowserOption}
-                            label="View text in browser"
-                        />
-                    </Form.Group>
-
                     <CustomFileInput
                         accept=".RicochetI,.RicochetLW,.Sequence,.Frame,.dat"
                         onChange={onFileChange}
@@ -226,7 +203,6 @@ export default function DecompressorApp(props: Props) {
             {result?.unpacker === 'JS' ? (
                 <DecompressorResultsJs
                     blobUrls={blobUrls}
-                    enableBrowserTextEditor={enableBrowserTextEditor}
                     fileName={fileName}
                     result={result}
                 />

@@ -1,4 +1,4 @@
-import {useState} from 'preact/hooks';
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Stack from 'react-bootstrap/Stack';
 
@@ -10,22 +10,26 @@ import type {
     DecompressorResultJs,
 } from '../DecompressorTypes';
 import DownloadButton from '../DownloadButton';
+import {useSettingsStore} from '../settings-store';
 
 import DecompressorImageAppearance from './DecompressorImageAppearance';
-import DecompressorResultsImage, {
-    type Appearance,
-} from './DecompressorResultsImage';
+import DecompressorResultsImage from './DecompressorResultsImage';
 import DecompressorResultsLevelSetParser from './levelSet/DecompressorResultsLevelSetParser';
 
 type Props = Readonly<{
     blobUrls: DecompressorBlobUrls;
-    enableBrowserTextEditor: boolean;
     fileName: string;
     result: DecompressorResultJs;
 }>;
 
 export default function DecompressorResultsJs(props: Props) {
-    const [appearance, setAppearance] = useState<Appearance>('CHECKERBOARD');
+    const imageAppearance = useSettingsStore((state) => state.image.appearance);
+    const setImageAppearance = useSettingsStore(
+        (state) => state.image.setAppearance
+    );
+
+    const showTextEditor = useSettingsStore((state) => state.text.show);
+    const setShowTextEditor = useSettingsStore((state) => state.text.setShow);
 
     return (
         <>
@@ -58,15 +62,15 @@ export default function DecompressorResultsJs(props: Props) {
                             </div>
 
                             <DecompressorImageAppearance
-                                onChange={setAppearance}
-                                value={appearance}
+                                onChange={setImageAppearance}
+                                value={imageAppearance}
                             />
                         </Stack>
                     </Card.Body>
 
                     <div className="overflow-x-auto">
                         <DecompressorResultsImage
-                            appearance={appearance}
+                            appearance={imageAppearance}
                             src={props.blobUrls.image}
                         />
                     </div>
@@ -86,35 +90,51 @@ export default function DecompressorResultsJs(props: Props) {
                     </Card.Header>
 
                     <Card.Body>
-                        <Stack
-                            direction="horizontal"
-                            gap={3}
-                            className="align-items-center"
-                        >
-                            {props.blobUrls.text != null ? (
-                                <DownloadButton
-                                    blobUrl={props.blobUrls.text}
-                                    fileName={
-                                        props.fileName.replace(
-                                            /\.Ricochet(?:I|LW)$/,
-                                            ''
-                                        ) + ' (decompressed).txt'
-                                    }
-                                />
-                            ) : null}
+                        <Stack gap={3}>
+                            <Stack
+                                direction="horizontal"
+                                gap={3}
+                                className="align-items-center"
+                            >
+                                {props.blobUrls.text != null ? (
+                                    <DownloadButton
+                                        blobUrl={props.blobUrls.text}
+                                        fileName={
+                                            props.fileName.replace(
+                                                /\.Ricochet(?:I|LW)$/,
+                                                ''
+                                            ) + ' (decompressed).txt'
+                                        }
+                                    />
+                                ) : null}
 
-                            {!props.blobUrls.image ? (
-                                <p className="m-0">
-                                    If you’re manually editing this file with a
-                                    text editor, be sure to save the file with
-                                    Windows (CRLF) line endings and Windows-1252
-                                    text encoding to ensure game compatibility.
-                                </p>
+                                {!props.blobUrls.image ? (
+                                    <p className="m-0">
+                                        If you’re manually editing this file
+                                        with a text editor, be sure to save the
+                                        file with Windows (CRLF) line endings
+                                        and Windows-1252 text encoding to ensure
+                                        game compatibility.
+                                    </p>
+                                ) : null}
+                            </Stack>
+
+                            {!showTextEditor ? (
+                                <div>
+                                    <Button
+                                        variant="outline-primary"
+                                        onClick={() => {
+                                            setShowTextEditor(true);
+                                        }}
+                                    >
+                                        View text in browser
+                                    </Button>
+                                </div>
                             ) : null}
                         </Stack>
                     </Card.Body>
 
-                    {props.enableBrowserTextEditor ? (
+                    {showTextEditor ? (
                         <LoadableDecompressorTextEditor
                             text={props.result.text}
                         />

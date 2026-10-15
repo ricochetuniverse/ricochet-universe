@@ -5,21 +5,24 @@ import type {Appearance} from './results/DecompressorResultsImage';
 type SettingsStore = {
     image: {
         currentIndex: number;
-        showAll: boolean;
-        appearance: Appearance;
-
         setCurrentIndex: (currentIndex: number) => void;
+
+        showAll: boolean;
         setShowAll: (showAll: boolean) => void;
+
+        appearance: Appearance;
         setAppearance: (appearance: Appearance) => void;
+    };
+
+    text: {
+        show: boolean;
+        setShow: (showAll: boolean) => void;
     };
 };
 
 export const useSettingsStore = create<SettingsStore>((set) => ({
     image: {
         currentIndex: 0,
-        showAll: false,
-        appearance: 'CHECKERBOARD',
-
         setCurrentIndex: (currentIndex: number) => {
             set((state) => {
                 return {
@@ -30,6 +33,8 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
                 };
             });
         },
+
+        showAll: false,
         setShowAll: (showAll: boolean) => {
             set((state) => {
                 return {
@@ -40,12 +45,28 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
                 };
             });
         },
+
+        appearance: 'CHECKERBOARD',
         setAppearance: (appearance: Appearance) => {
             set((state) => {
                 return {
                     image: {
                         ...state.image,
                         appearance,
+                    },
+                };
+            });
+        },
+    },
+
+    text: {
+        show: false,
+        setShow: (show: boolean) => {
+            set((state) => {
+                return {
+                    text: {
+                        ...state.text,
+                        show,
                     },
                 };
             });
