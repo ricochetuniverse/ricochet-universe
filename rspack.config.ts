@@ -9,7 +9,6 @@ import {
     SubresourceIntegrityPlugin,
     type SwcLoaderOptions,
 } from '@rspack/core';
-import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import {RspackManifestPlugin} from 'rspack-manifest-plugin';
 
 import packageJson from './package.json' with {type: 'json'};
@@ -38,6 +37,7 @@ export default defineConfig({
         filename: '[name].[contenthash].js',
         publicPath: '/build/',
         crossOriginLoading: 'anonymous',
+        clean: true,
     },
     module: {
         rules: [
@@ -113,8 +113,6 @@ export default defineConfig({
         symlinks: false,
     },
     plugins: [
-        new CleanWebpackPlugin(),
-
         new SubresourceIntegrityPlugin({
             enabled: true,
         }),
