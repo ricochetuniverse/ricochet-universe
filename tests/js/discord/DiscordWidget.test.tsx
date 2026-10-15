@@ -1,6 +1,6 @@
 import {afterAll, afterEach, beforeAll, expect, rs, test} from '@rstest/core';
 import {render, screen, waitFor} from '@testing-library/preact';
-import {http, HttpResponse} from 'msw';
+import {http, HttpResponse} from 'msw/http';
 
 import DiscordWidgetContainer, {
     WIDGET_API_URL,

@@ -1,4 +1,4 @@
-import {http, HttpResponse} from 'msw';
+import {http, HttpResponse} from 'msw/http';
 
 import {WIDGET_API_URL} from '../../../../resources/js/discord/DiscordWidgetContainer';
 
