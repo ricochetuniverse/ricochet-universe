@@ -32,21 +32,21 @@ EOF;
 
     public function test_invalid_header(): void
     {
-        $this->expectExceptionMessage('Invalid header for rating data');
+        $this->expectExceptionMessageIs('Invalid header for rating data');
 
         RatingDataParser::parse('nope');
     }
 
     public function test_invalid_grade(): void
     {
-        $this->expectExceptionMessage('Grade rating is invalid');
+        $this->expectExceptionMessageIs('Grade rating is invalid');
 
         RatingDataParser::parse($this->getHeader()."\nPlayerAAA,Reflexive B Sides,14abc,11,8,Awesome,5");
     }
 
     public function test_percent_complete_digits_only(): void
     {
-        $this->expectExceptionMessage('Percent complete is invalid');
+        $this->expectExceptionMessageIs('Percent complete is invalid');
 
         RatingDataParser::parse($this->getHeader()."\nPlayerAAA,Reflexive B Sides,14,11,8,Awesome;Classic Style;Strategy,50abc");
     }

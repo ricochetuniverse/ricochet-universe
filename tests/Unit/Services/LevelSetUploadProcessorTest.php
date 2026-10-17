@@ -49,7 +49,7 @@ class LevelSetUploadProcessorTest extends TestCase
 
     public function test_invalid_download_url_wrong_host(): void
     {
-        $this->expectExceptionMessage('The level set URL must be a valid Discord attachment URL.');
+        $this->expectExceptionMessageIsOrContains('The level set URL must be a valid Discord attachment URL.');
 
         $processor = new LevelSetUploadProcessor;
         $processor->url = 'https://example.com/fake.txt';
@@ -60,7 +60,7 @@ class LevelSetUploadProcessorTest extends TestCase
 
     public function test_invalid_download_url_wrong_extension(): void
     {
-        $this->expectExceptionMessage('The level set URL must end with a .RicochetI or .RicochetLW file extension.');
+        $this->expectExceptionMessageIs('The level set URL must end with a .RicochetI or .RicochetLW file extension.');
 
         $processor = new LevelSetUploadProcessor;
         $processor->url = 'https://cdn.discordapp.com/attachments/123/123/fake.txt';
@@ -73,7 +73,7 @@ class LevelSetUploadProcessorTest extends TestCase
     {
         $this->seed(ReflexiveLevelSetSeeder::class);
 
-        $this->expectExceptionMessage('The level set name is already submitted.');
+        $this->expectExceptionMessageIs('The level set name is already submitted.');
 
         $processor = new LevelSetUploadProcessor;
         $processor->url = self::FAKE_DOWNLOAD_URL;

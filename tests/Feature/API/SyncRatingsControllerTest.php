@@ -81,7 +81,7 @@ EOF)->assertNoContent();
 
     public function test_invalid_data(): void
     {
-        $this->withoutExceptionHandling()->expectExceptionMessage('Invalid rating data');
+        $this->withoutExceptionHandling()->expectExceptionMessageIs('Invalid rating data');
 
         $this->callApi('nope');
     }
