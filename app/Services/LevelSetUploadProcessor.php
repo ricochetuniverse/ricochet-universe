@@ -5,6 +5,7 @@ namespace App\Services;
 use App\LevelRound;
 use App\LevelSet;
 use App\Mod;
+use App\Rules\DiscordAttachmentUrl;
 use App\Rules\LevelSetName;
 use App\Services\LevelSetParser\Parser;
 use Carbon\Carbon;
@@ -45,16 +46,19 @@ class LevelSetUploadProcessor
         ], [
             'url' => [
                 'required',
+                new DiscordAttachmentUrl,
                 'url',
                 function ($attribute, $value, $fail) {
                     $path = parse_url($value, PHP_URL_PATH);
                     if (! Str::endsWith($path, ['.RicochetI', '.RicochetLW'])) {
-                        return $fail('The URL must end with a .RicochetI or .RicochetLW file extension.');
+                        return $fail('The :attribute must end with a .RicochetI or .RicochetLW file extension.');
                     }
                 },
             ],
-            'name' => ['required', 'string', new LevelSetName, 'unique:App\\LevelSet,name'],
-        ], [], [
+            'name' => ['required', new LevelSetName, 'unique:App\\LevelSet,name'],
+        ], [
+            'name.unique' => 'The :attribute is already submitted.',
+        ], [
             'url' => 'level set URL',
             'name' => 'level set name',
         ]);

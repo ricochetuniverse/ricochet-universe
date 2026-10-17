@@ -47,12 +47,23 @@ class LevelSetUploadProcessorTest extends TestCase
         $disk->assertExists('Reflexive B Sides.RicochetI');
     }
 
-    public function test_invalid_download_url(): void
+    public function test_invalid_download_url_wrong_host(): void
     {
-        $this->expectExceptionMessage('The URL must end with a .RicochetI or .RicochetLW file extension.');
+        $this->expectExceptionMessage('The level set URL must be a valid Discord attachment URL.');
 
         $processor = new LevelSetUploadProcessor;
         $processor->url = 'https://example.com/fake.txt';
+        $processor->name = 'fake';
+        $processor->datePosted = Carbon::now();
+        $processor->process();
+    }
+
+    public function test_invalid_download_url_wrong_extension(): void
+    {
+        $this->expectExceptionMessage('The level set URL must end with a .RicochetI or .RicochetLW file extension.');
+
+        $processor = new LevelSetUploadProcessor;
+        $processor->url = 'https://cdn.discordapp.com/attachments/123/123/fake.txt';
         $processor->name = 'fake';
         $processor->datePosted = Carbon::now();
         $processor->process();
@@ -62,7 +73,7 @@ class LevelSetUploadProcessorTest extends TestCase
     {
         $this->seed(ReflexiveLevelSetSeeder::class);
 
-        $this->expectExceptionMessage('The level set name has already been taken.');
+        $this->expectExceptionMessage('The level set name is already submitted.');
 
         $processor = new LevelSetUploadProcessor;
         $processor->url = self::FAKE_DOWNLOAD_URL;

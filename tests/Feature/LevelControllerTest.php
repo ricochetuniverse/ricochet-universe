@@ -88,17 +88,19 @@ class LevelControllerTest extends TestCase
     public function test_update_with_auth(): void
     {
         $time = Carbon::createFromDate(2026, 1, 1)->unix();
+        $downloadUrl = 'https://cdn.discordapp.com/attachments/123/123/Reflexive_B_Sides.RicochetI';
         $levelSet = LevelSet::factory()->create();
 
         $user = User::factory()->isAdmin()->create();
         $response = $this->actingAs($user)->patch('/levels/'.$levelSet->id, [
             'created_at' => $time,
-            'download_url' => 'https://example.com/test.txt',
+            'download_url' => $downloadUrl,
         ]);
         $response->assertRedirect();
+        $response->assertSessionHasNoErrors();
         $levelSet->refresh();
 
         $this->assertEquals($time, $levelSet->created_at->unix());
-        $this->assertEquals('https://example.com/test.txt', $levelSet->alternate_download_url);
+        $this->assertEquals($downloadUrl, $levelSet->alternate_download_url);
     }
 }

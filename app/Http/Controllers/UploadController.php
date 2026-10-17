@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\DiscordAttachmentUrl;
 use App\Rules\ValidTimestamp;
 use App\Services\LevelSetUploadProcessor;
 use Carbon\Carbon;
@@ -16,15 +17,22 @@ class UploadController extends Controller
 
     public function store(Request $request)
     {
-        // url and name parameters are validated inside the processor
+        // url and name parameters are also validated inside the processor
         $this->validate($request, [
-            'url' => ['required', 'string', 'unique:App\\LevelSet,alternate_download_url'],
+            'url' => [
+                'required',
+                'string',
+                new DiscordAttachmentUrl,
+                'url',
+                'unique:App\\LevelSet,alternate_download_url',
+            ],
             'name' => ['required', 'string'],
             'timestamp' => ['required', 'integer', new ValidTimestamp],
         ], [
-            'url.unique' => 'The level set URL is already submitted.',
+            'url.unique' => 'The :attribute is already submitted.',
         ], [
             'url' => 'level set URL',
+            'name' => 'level set name',
         ]);
 
         $processor = new LevelSetUploadProcessor;

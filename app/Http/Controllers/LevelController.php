@@ -6,6 +6,7 @@ use App\Helpers\Str;
 use App\Jobs\DownloadLevelSet;
 use App\Jobs\ParseLevelSet;
 use App\LevelSet;
+use App\Rules\DiscordAttachmentUrl;
 use App\Rules\ValidTimestamp;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -174,11 +175,13 @@ class LevelController extends Controller
             'download_url' => [
                 'required',
                 'string',
+                new DiscordAttachmentUrl,
+                'url',
                 Rule::unique(LevelSet::class, 'alternate_download_url')
                     ->ignore($levelSet->id),
             ],
         ], [
-            'download_url.unique' => 'The level set URL is already submitted.',
+            'download_url.unique' => 'The :attribute is already submitted.',
         ], [
             'download_url' => 'level set URL',
         ]);
