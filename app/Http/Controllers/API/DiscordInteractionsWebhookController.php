@@ -77,17 +77,25 @@ class DiscordInteractionsWebhookController extends Controller
     {
         // https://github.com/discord/user-install-example/blob/main/utils.js
         // https://github.com/discord/discord-api-docs/issues/2359
-        $signature = $request->header('x-signature-ed25519');
-        $timestamp = $request->header('x-signature-timestamp');
+        $signature = $request->header('X-Signature-Ed25519');
+        $timestamp = $request->header('X-Signature-Timestamp');
         $body = $request->getContent();
 
-        $verified = sodium_crypto_sign_verify_detached(
-            sodium_hex2bin($signature),
-            $timestamp.$body,
-            sodium_hex2bin(config('services.discord.public_key'))
-        );
+        if (! is_string($signature) || ! is_string($timestamp) || $body === '') {
+            throw new BadRequestHttpException;
+        }
+
+        try {
+            $verified = sodium_crypto_sign_verify_detached(
+                sodium_hex2bin($signature),
+                $timestamp.$body,
+                sodium_hex2bin(config('services.discord.public_key'))
+            );
+        } catch (\Exception) {
+            $verified = false;
+        }
         if (! $verified) {
-            throw new BadRequestHttpException('Bad request signature');
+            throw new BadRequestHttpException;
         }
     }
 
