@@ -8,18 +8,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class LevelSubmitController extends Controller
 {
     public function submit(Request $request)
     {
         $upload_available = app()->environment('local');
-
         if (! $upload_available) {
-            return $this->showResponse(false, 'Level uploads through the game are not supported yet, please upload to #ricocheti-upload-channel on Discord instead.');
+            return $this->showResponse(false, 'Level uploads through the game are not supported yet, please upload to #ricocheti-upload-channel on the Ricochet Universe Discord instead.');
         }
 
         $file = $request->file('file');
+        if ($file === null) {
+            throw new BadRequestHttpException;
+        }
 
         $original_file_name = $file->getClientOriginalName();
         if (! Str::endsWith($original_file_name, '.RicochetI')) {
@@ -46,7 +49,7 @@ class LevelSubmitController extends Controller
 
     private function showResponse(bool $success, string $error)
     {
-        if ($success && strlen($error) > 0) {
+        if ($success && $error !== '') {
             throw new \InvalidArgumentException('Game will not show error message if it\'s successful');
         }
 
