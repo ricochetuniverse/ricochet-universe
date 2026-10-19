@@ -35,11 +35,12 @@ class DiscordAttachmentUrlRuleTest extends TestCase
             ['http://cdn.discordapp.com/attachments/123/123/test.txt'],
             ['https://nopecdn.discordapp.com/attachments/123/123/test.txt'],
             ['https://example.com/?https://cdn.discordapp.com/attachments/123/123/test.txt'],
+            [123],
         ];
     }
 
     #[DataProvider('failingValuesProvider')]
-    public function test_failing_values(string $url): void
+    public function test_failing_values(mixed $url): void
     {
         $this->assertFalse(validator(
             ['input' => $url],

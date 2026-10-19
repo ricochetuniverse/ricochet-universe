@@ -24,6 +24,12 @@ class DiscordAttachmentUrl implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if (! is_string($value)) {
+            $fail('The :attribute must be a string.');
+
+            return;
+        }
+
         if (! str_starts_with($value, 'https://cdn.discordapp.com/attachments/')) {
             $fail('The :attribute must be a valid Discord attachment URL.');
         }

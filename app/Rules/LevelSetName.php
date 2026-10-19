@@ -30,6 +30,8 @@ class LevelSetName implements ValidationRule
         // Game editor blocks these symbols: * / \ | " ; : < > ?
         if (preg_match('/^[a-zA-Z0-9`~!@#$%^&()\-_=+[\]{}\',.áéèïíöñ°³ ]+$/u', $value) !== 1) {
             $fail('The :attribute contains special/non-alpha-numeric characters that are not allowed, please simplify and remove them.');
+
+            return;
         }
 
         // Level sets named with commas can't be rated due to a game bug, this is only allowed for old level sets
