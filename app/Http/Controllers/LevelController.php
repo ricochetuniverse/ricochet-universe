@@ -174,7 +174,6 @@ class LevelController extends Controller
             'created_at' => ['required', 'integer', new ValidTimestamp],
             'download_url' => [
                 'required',
-                'string',
                 new DiscordAttachmentUrl,
                 'url',
                 Rule::unique(LevelSet::class, 'alternate_download_url')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\CspPresets\Mods;
 use App\Mod;
 use App\Rules\TagName;
 use Illuminate\Http\Request;
@@ -25,10 +26,10 @@ class ModsController extends Controller
         $this->validate($request, [
             'name' => ['required', 'string', new TagName, 'unique:mods'],
             'author' => ['required', 'string'],
-            'description' => '',
-            'video_embed_source' => ['nullable', 'url'],
+            'description' => ['nullable', 'string'],
+            'video_embed_source' => ['nullable', 'url', 'starts_with:'.Mods::YOUTUBE_EMBED_URL],
             'download_link' => ['nullable', 'url'],
-            'trigger_codename' => '',
+            'trigger_codename' => ['nullable', 'string'],
         ]);
 
         $mod = new Mod;

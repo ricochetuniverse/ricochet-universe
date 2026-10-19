@@ -21,7 +21,6 @@ class UploadController extends Controller
         $this->validate($request, [
             'url' => [
                 'required',
-                'string',
                 new DiscordAttachmentUrl,
                 'url',
                 'unique:App\\LevelSet,alternate_download_url',
