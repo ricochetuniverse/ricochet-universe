@@ -28,11 +28,11 @@ class LevelSubmitController extends Controller
 
         $levelSetName = Str::beforeLast($original_file_name, '.RicochetI');
         $validator = Validator::make([
-            'file_name' => $levelSetName,
+            'name' => $levelSetName,
         ], [
-            'file_name' => ['required', 'string', new LevelSetName, 'unique:App\\LevelSet,name'],
+            'name' => ['required', new LevelSetName, 'unique:App\\LevelSet,name'],
         ], [], [
-            'file_name' => 'level set name',
+            'name' => 'level set name',
         ]);
         if ($validator->fails()) {
             return $this->showResponse(false, $validator->errors()->first());

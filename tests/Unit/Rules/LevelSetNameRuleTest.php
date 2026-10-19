@@ -72,9 +72,13 @@ class LevelSetNameRuleTest extends TestCase
     {
         return [
             [''],
+            ['.'],
+            ['..'],
+            ['...'],
             ['abc;a'],
             ['abc/../'],
             ['abc\\..'],
+            [123],
 
             // has commas, should fail by default
             ['20,000 Leagues'],
@@ -83,7 +87,7 @@ class LevelSetNameRuleTest extends TestCase
     }
 
     #[DataProvider('failingValuesProvider')]
-    public function test_failing_values(string $name): void
+    public function test_failing_values(mixed $name): void
     {
         $this->assertFalse(validator(
             ['input' => $name],

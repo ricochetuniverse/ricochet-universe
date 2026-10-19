@@ -27,6 +27,19 @@ class LevelSetName implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if (! is_string($value)) {
+            $fail('The :attribute must be a string.');
+
+            return;
+        }
+
+        // Don't allow only dots
+        if (preg_match('/^\.+$/', $value) !== 0) {
+            $fail('The :attribute is not valid.');
+
+            return;
+        }
+
         // Game editor blocks these symbols: * / \ | " ; : < > ?
         if (preg_match('/^[a-zA-Z0-9`~!@#$%^&()\-_=+[\]{}\',.áéèïíöñ°³ ]+$/u', $value) !== 1) {
             $fail('The :attribute contains special/non-alpha-numeric characters that are not allowed, please simplify and remove them.');
