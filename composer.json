@@ -23,7 +23,7 @@
         "ext-pdo": "*",
         "ext-sodium": "*",
         "ext-zlib": "*",
-        "guzzlehttp/guzzle": "^7.16",
+        "guzzlehttp/guzzle": "^8.3",
         "knplabs/github-api": "^3.16",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^13.37",
