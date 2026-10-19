@@ -37,12 +37,9 @@
 	@binary_files {
 		path *.ricocheti *.ricochetlw
 	}
-	@not_text_files {
-		not path *.red *.ricocheti *.ricochetlw
-	}
 	header @zip_files Content-Type application/zip
 	header @binary_files Content-Type application/octet-stream
-	encode @not_text_files
+	encode
 
 	uri replace /levels/images/ /storage/legacy-levelset-images/
 	uri replace /levels/cache/ /storage/round-images/
