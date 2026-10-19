@@ -5,23 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\CspPresets\Mods;
 use App\Mod;
 use App\Rules\TagName;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ModsController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $mods = Mod::orderBy('created_at')->get();
 
         return view('mods.index', ['mods' => $mods]);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('mods.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
             'name' => ['required', 'string', new TagName, 'unique:mods'],
@@ -58,10 +60,10 @@ class ModsController extends Controller
 
     public function destroy(Mod $mod)
     {
-        $mod->delete();
-
-        flash('Mod removed.')->success();
-
-        return redirect()->action('ModsController@index');
+        // $mod->delete();
+        //
+        // flash('Mod removed.')->success();
+        //
+        // return redirect()->action('ModsController@index');
     }
 }
