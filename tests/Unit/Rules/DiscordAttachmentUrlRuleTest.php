@@ -20,7 +20,10 @@ class DiscordAttachmentUrlRuleTest extends TestCase
     #[DataProvider('passingValuesProvider')]
     public function test_passing_values(string $url): void
     {
-        $this->assertTrue(validator(['input' => $url], ['input' => new DiscordAttachmentUrl])->passes());
+        $this->assertTrue(validator(
+            ['input' => $url],
+            ['input' => new DiscordAttachmentUrl]
+        )->passes());
     }
 
     public static function failingValuesProvider(): array
@@ -38,6 +41,9 @@ class DiscordAttachmentUrlRuleTest extends TestCase
     #[DataProvider('failingValuesProvider')]
     public function test_failing_values(string $url): void
     {
-        $this->assertFalse(validator(['input' => $url], ['input' => new DiscordAttachmentUrl])->passes());
+        $this->assertFalse(validator(
+            ['input' => $url],
+            ['input' => new DiscordAttachmentUrl]
+        )->passes());
     }
 }

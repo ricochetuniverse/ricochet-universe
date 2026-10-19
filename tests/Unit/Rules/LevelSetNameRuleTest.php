@@ -5,88 +5,89 @@ declare(strict_types=1);
 namespace Tests\Unit\Rules;
 
 use App\Rules\LevelSetName;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class LevelSetNameRuleTest extends TestCase
 {
-    public function test_passing_values(): void
+    public static function passingValuesProvider(): array
     {
-        $names = [
-            'Reflexive B Sides',
-            'JB3',
-            'A.D.D.',
-            'Tom Horan\'s Worlds',
-            'Missions Above - Demo',
-            'O_O (Redone)',
-            'Ricochet\'s Revenge!',
-            'B & C',
-            'M@yem M@dness',
-            'Tracys Round#1',
-            'Patrick`s Bonus Rounds',
-            '$Euforia',
-            'Dejavu2008[5]',
-            'Ring+Ring=Fest',
-            'Chain reaction 3 {Rico\'s goofing off}',
-            'RETRO BLAST 6 - SUNNY WITH A 68% CHANCE OF BRICK BASHING',
-            'Lord Darkvlek ~ The Lost Files',
-            '^^^^^WAVE 10###OLARU ROBERT ALIN^^^^^^^^',
+        return [
+            ['Reflexive B Sides'],
+            ['JB3'],
+            ['A.D.D.'],
+            ['Tom Horan\'s Worlds'],
+            ['Missions Above - Demo'],
+            ['O_O (Redone)'],
+            ['Ricochet\'s Revenge!'],
+            ['B & C'],
+            ['M@yem M@dness'],
+            ['Tracys Round#1'],
+            ['Patrick`s Bonus Rounds'],
+            ['$Euforia'],
+            ['Dejavu2008[5]'],
+            ['Ring+Ring=Fest'],
+            ['Chain reaction 3 {Rico\'s goofing off}'],
+            ['RETRO BLAST 6 - SUNNY WITH A 68% CHANCE OF BRICK BASHING'],
+            ['Lord Darkvlek ~ The Lost Files'],
+            ['^^^^^WAVE 10###OLARU ROBERT ALIN^^^^^^^^'],
 
-            '#########Pack VL n°1',
-            'Eragoncola³s levels',
+            ['#########Pack VL n°1'],
+            ['Eragoncola³s levels'],
 
-            'explosions très bien',
-            '10 Niveles fácilmente difíciles(10 N.F.D)',
-            'Todo en Español',
-            'Noobie 3 - Shedding Naïveté',
+            ['explosions très bien'],
+            ['10 Niveles fácilmente difíciles(10 N.F.D)'],
+            ['Todo en Español'],
+            ['Noobie 3 - Shedding Naïveté'],
         ];
-
-        $rule = new LevelSetName;
-
-        foreach ($names as $name) {
-            $this->assertTrue(
-                validator(['name' => $name], ['name' => $rule])->passes(),
-                $name.' should pass'
-            );
-        }
     }
 
-    public function test_commas_only_if_allowed(): void
+    #[DataProvider('passingValuesProvider')]
+    public function test_passing_values(string $name): void
     {
-        $names = [
-            '20,000 Leagues',
-            'alec\'many rings and +,-,x and -..',
-        ];
-
-        $rule = new LevelSetName(allowCommas: true);
-
-        foreach ($names as $name) {
-            $this->assertTrue(
-                validator(['name' => $name], ['name' => $rule])->passes(),
-                $name.' should pass'
-            );
-        }
+        $this->assertTrue(validator(
+            ['input' => $name],
+            ['input' => new LevelSetName]
+        )->passes());
     }
 
-    public function test_failing_values(): void
+    public static function commasOnlyIfAllowedValuesProvider(): array
     {
-        $names = [
-            '',
-            'abc;a',
-            'abc/../',
-            'abc\\..',
+        return [
+            ['20,000 Leagues'],
+            ['alec\'many rings and +,-,x and -..'],
+        ];
+    }
+
+    #[DataProvider('commasOnlyIfAllowedValuesProvider')]
+    public function test_commas_only_if_allowed(string $name): void
+    {
+        $this->assertTrue(validator(
+            ['input' => $name],
+            ['input' => new LevelSetName(allowCommas: true)]
+        )->passes());
+    }
+
+    public static function failingValuesProvider(): array
+    {
+        return [
+            [''],
+            ['abc;a'],
+            ['abc/../'],
+            ['abc\\..'],
 
             // has commas, should fail by default
-            '20,000 Leagues',
-            'alec\'many rings and +,-,x and -..',
+            ['20,000 Leagues'],
+            ['alec\'many rings and +,-,x and -..'],
         ];
+    }
 
-        $rule = new LevelSetName;
-
-        foreach ($names as $name) {
-            $this->assertFalse(
-                validator(['name' => $name], ['name' => $rule])->passes(),
-                $name.' should fail'
-            );
-        }
+    #[DataProvider('failingValuesProvider')]
+    public function test_failing_values(string $name): void
+    {
+        $this->assertFalse(validator(
+            ['input' => $name],
+            ['input' => new LevelSetName]
+        )->passes());
     }
 }

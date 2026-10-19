@@ -6,45 +6,46 @@ namespace Tests\Unit\Rules;
 
 use App\Rules\ValidTimestamp;
 use Carbon\Carbon;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class ValidTimestampRuleTest extends TestCase
 {
-    public function test_passing_values(): void
+    public static function passingValuesProvider(): array
     {
-        $names = [
-            '1596879035',
-            1596879036,
-            '0', // technically valid :/
-            0,
+        return [
+            ['1596879035'],
+            [1596879036],
+            ['0'], // technically valid :/
+            [0],
         ];
-
-        $rule = new ValidTimestamp;
-
-        foreach ($names as $name) {
-            $this->assertTrue(
-                validator(['name' => $name], ['name' => $rule])->passes(),
-                $name.' should pass'
-            );
-        }
     }
 
-    public function test_failing_values(): void
+    #[DataProvider('passingValuesProvider')]
+    public function test_passing_values(mixed $value): void
     {
-        $names = [
-            'abc', // must be an integer
-            1596879037.5,
-            -1, // no underflowing
-            Carbon::now()->addMonths(13), // no far future dates
+        $this->assertTrue(validator(
+            ['input' => $value],
+            ['input' => new ValidTimestamp]
+        )->passes());
+    }
+
+    public static function failingValuesProvider(): array
+    {
+        return [
+            ['abc'], // must be an integer
+            [1596879037.5],
+            [-1], // no underflowing
+            [Carbon::now()->addMonths(13)], // no far future dates
         ];
+    }
 
-        $rule = new ValidTimestamp;
-
-        foreach ($names as $name) {
-            $this->assertFalse(
-                validator(['name' => $name], ['name' => $rule])->passes(),
-                $name.' should fail'
-            );
-        }
+    #[DataProvider('failingValuesProvider')]
+    public function test_failing_values(mixed $value): void
+    {
+        $this->assertFalse(validator(
+            ['input' => $value],
+            ['input' => new ValidTimestamp]
+        )->passes());
     }
 }

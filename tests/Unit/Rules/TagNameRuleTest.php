@@ -5,40 +5,41 @@ declare(strict_types=1);
 namespace Tests\Unit\Rules;
 
 use App\Rules\TagName;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class TagNameRuleTest extends TestCase
 {
-    public function test_passing_values(): void
+    public static function passingValuesProvider(): array
     {
-        $names = [
-            'abc',
+        return [
+            ['abc'],
         ];
-
-        $rule = new TagName;
-
-        foreach ($names as $name) {
-            $this->assertTrue(
-                validator(['name' => $name], ['name' => $rule])->passes(),
-                $name.' should pass'
-            );
-        }
     }
 
-    public function test_failing_values(): void
+    #[DataProvider('passingValuesProvider')]
+    public function test_passing_values(string $name): void
     {
-        $names = [
-            'a,b',
-            'a;b',
+        $this->assertTrue(validator(
+            ['input' => $name],
+            ['input' => new TagName]
+        )->passes());
+    }
+
+    public static function failingValuesProvider(): array
+    {
+        return [
+            ['a,b'],
+            ['a;b'],
         ];
+    }
 
-        $rule = new TagName;
-
-        foreach ($names as $name) {
-            $this->assertFalse(
-                validator(['name' => $name], ['name' => $rule])->passes(),
-                $name.' should fail'
-            );
-        }
+    #[DataProvider('failingValuesProvider')]
+    public function test_failing_values(string $name): void
+    {
+        $this->assertFalse(validator(
+            ['input' => $name],
+            ['input' => new TagName]
+        )->passes());
     }
 }
