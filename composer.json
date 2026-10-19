@@ -34,7 +34,7 @@
         "rtconner/laravel-tagging": "^4.1",
         "sentry/sentry-laravel": "^4.29",
         "socialiteproviders/discord": "^4.2",
-        "spatie/laravel-csp": "^3.28",
+        "spatie/laravel-csp": "^3.30",
         "symfony/filesystem": "^8.1"
     },
     "require-dev": {

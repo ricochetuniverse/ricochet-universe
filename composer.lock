@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8a0001d4e6adcd952efde73a5114fe0",
+    "content-hash": "3f5a6f1f988a7361cc2d746fcc017697",
     "packages": [
         {
             "name": "brick/math",
@@ -448,16 +448,16 @@
         },
         {
             "name": "dragonmantank/cron-expression",
-            "version": "v3.6.0",
+            "version": "v3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dragonmantank/cron-expression.git",
-                "reference": "d61a8a9604ec1f8c3d150d09db6ce98b32675013"
+                "reference": "4189372ffeff09bf14f731f67a9de90c7b413ebe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/d61a8a9604ec1f8c3d150d09db6ce98b32675013",
-                "reference": "d61a8a9604ec1f8c3d150d09db6ce98b32675013",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/4189372ffeff09bf14f731f67a9de90c7b413ebe",
+                "reference": "4189372ffeff09bf14f731f67a9de90c7b413ebe",
                 "shasum": ""
             },
             "require": {
@@ -468,8 +468,8 @@
             },
             "require-dev": {
                 "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^1.12.32|^2.1.31",
-                "phpunit/phpunit": "^8.5.48|^9.0"
+                "phpstan/phpstan": "^2.1.31",
+                "phpunit/phpunit": "^11.5.43 || ^12.4"
             },
             "type": "library",
             "extra": {
@@ -500,7 +500,7 @@
             ],
             "support": {
                 "issues": "https://github.com/dragonmantank/cron-expression/issues",
-                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.6.0"
+                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.6.1"
             },
             "funding": [
                 {
@@ -508,7 +508,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-31T18:51:33+00:00"
+            "time": "2026-10-19T17:53:57+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -5080,28 +5080,28 @@
         },
         {
             "name": "spatie/laravel-csp",
-            "version": "3.29.0",
+            "version": "3.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-csp.git",
-                "reference": "5c1ebe6ab96aa9c3065a9126ce03c1bdcacf2f64"
+                "reference": "84ddca1e8a84d3505830f9ac377002d403156645"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/5c1ebe6ab96aa9c3065a9126ce03c1bdcacf2f64",
-                "reference": "5c1ebe6ab96aa9c3065a9126ce03c1bdcacf2f64",
+                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/84ddca1e8a84d3505830f9ac377002d403156645",
+                "reference": "84ddca1e8a84d3505830f9ac377002d403156645",
                 "shasum": ""
             },
             "require": {
-                "illuminate/http": "^11.36.1|^12.0|^13.0",
-                "illuminate/support": "^11.36.1|^12.0|^13.0",
+                "illuminate/http": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.17"
             },
             "require-dev": {
                 "laravel/pint": "^1.30",
                 "mockery/mockery": "^1.6",
-                "orchestra/testbench": "^9.9|^10.0|^11.0",
+                "orchestra/testbench": "^10.0|^11.0",
                 "pestphp/pest": "^4.0|^5.0"
             },
             "type": "library",
@@ -5154,7 +5154,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-csp/issues",
-                "source": "https://github.com/spatie/laravel-csp/tree/3.29.0"
+                "source": "https://github.com/spatie/laravel-csp/tree/3.30.0"
             },
             "funding": [
                 {
@@ -5162,7 +5162,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-09-09T14:48:28+00:00"
+            "time": "2026-10-19T15:00:02+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
