@@ -10,7 +10,7 @@ For bare-metal installs:
     - Use Caddy instead of PHP's development server to match production usage as there can be [subtle bugs/differences](https://gitlab.com/ngyikp/ricochet-levels/-/issues/3)
 - [PHP 8.5](https://www.php.net)
 - [Composer](https://getcomposer.org)
-- [MariaDB 12.1](https://mariadb.org)
+- [MariaDB 13.0](https://mariadb.org)
 - [Node.js v24](https://nodejs.org)
 - [Valkey](https://valkey.io)
 - A [queue worker](https://laravel.com/docs/13.x/queues#supervisor-configuration)
