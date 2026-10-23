@@ -193,9 +193,6 @@ class ConvertCatalogxDotBin extends Command
 
         $levelSet->legacyTagged()->sync($sync);
         $levelSet->visibleTagged()->sync($sync);
-
-        // Legacy tags
-        $levelSet->retag($tagNames);
     }
 
     private function getTag(string $name): LevelSetTag

@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Services\LevelSetRatingsCalculator;
-use Conner\Tagging\Taggable;
 use Database\Factories\LevelSetFactory;
 use DomainException;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -26,7 +25,7 @@ use Illuminate\Support\Uri;
 #[UseFactory(LevelSetFactory::class)]
 class LevelSet extends Model
 {
-    use HasFactory, Taggable;
+    use HasFactory;
 
     /**
      * The attributes that should be cast to native types.

@@ -31,7 +31,6 @@
         "lcobucci/jwt": "^5.6",
         "league/flysystem-memory": "^3.31",
         "predis/predis": "^3.6",
-        "rtconner/laravel-tagging": "^4.1",
         "sentry/sentry-laravel": "^4.29",
         "socialiteproviders/discord": "^4.2",
         "spatie/laravel-csp": "^3.30",

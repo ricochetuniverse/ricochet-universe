@@ -238,9 +238,6 @@ return [
         'integer' => 'int',
         'boolean' => 'bool',
 
-        // Package has incorrect docblock
-        '\Illuminate\Database\Eloquent\Collection|\App\Tagged[]' => '\Illuminate\Database\Eloquent\Collection<int, \Conner\Tagging\Model\Tag>',
-
         // https://github.com/larastan/larastan/issues/1067
         '\Illuminate\Support\Carbon' => '\Carbon\CarbonInterface',
     ],

@@ -6,7 +6,6 @@ namespace App\Console\Commands;
 
 use App\LevelSet;
 use App\LevelSetTag;
-use Conner\Tagging\Model\Tag;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
@@ -29,7 +28,7 @@ class MigrateLevelSetTags extends Command
 
     private function migrateTags(): void
     {
-        $tags = Tag::all();
+        $tags = DB::table('tagging_tags')->get(); // Tag::all();
 
         DB::transaction(static function () use ($tags) {
             foreach ($tags as $tag) {
@@ -50,38 +49,41 @@ class MigrateLevelSetTags extends Command
         }
 
         DB::transaction(function () use ($newTags) {
-            LevelSet::with(['tagged' => function ($query) { // legacy tags
+            LevelSet::/*with(['tagged' => function ($query) { // legacy tags
                 $query->orderBy('id');
             }])
-                ->chunk(500, function ($levels, $page) use ($newTags) {
-                    foreach ($levels as $level) {
-                        $tags = $level->tags; // legacy tags
+                ->*/ chunk(500, function ($levels, $page) use ($newTags) {
+                foreach ($levels as $levelSet) {
+                    $legacyTagged = // $level->tags; // legacy tags
+                        DB::table('tagging_tagged')
+                            ->where('taggable_id', $levelSet->id)
+                            ->where('taggable_type', LevelSet::class)
+                            ->get();
 
-                        // Reposition Reflexive tag to the front
-                        $reflexive = $tags->firstWhere('name', 'Reflexive');
-                        if ($reflexive) {
-                            $tags = $tags->reject(function ($value) use ($reflexive) {
-                                return $value === $reflexive;
-                            });
-                            $tags->prepend($reflexive);
-                        }
-
-                        $sync = [];
-                        $position = 0;
-                        /** @var Tag $tag */
-                        foreach ($tags as $tag) {
-                            $sync[$newTags[$tag->name]->id] = ['position' => $position];
-                            $position += 1;
-
-                            $newTags[$tag->name]->count_visible += 1;
-                        }
-
-                        $level->legacyTagged()->sync($sync);
-                        $level->visibleTagged()->sync($sync);
+                    // Reposition Reflexive tag to the front
+                    $reflexive = $legacyTagged->firstWhere('tag_name', 'Reflexive');
+                    if ($reflexive) {
+                        $legacyTagged = $legacyTagged->reject(function ($value) use ($reflexive) {
+                            return $value === $reflexive;
+                        });
+                        $legacyTagged->prepend($reflexive);
                     }
 
-                    $this->line('Level sets (page '.$page.') migrated.');
-                });
+                    $sync = [];
+                    $position = 0;
+                    foreach ($legacyTagged as $tagged) {
+                        $sync[$newTags[$tagged->tag_name]->id] = ['position' => $position];
+                        $position += 1;
+
+                        $newTags[$tagged->tag_name]->count_visible += 1;
+                    }
+
+                    $levelSet->legacyTagged()->sync($sync);
+                    $levelSet->visibleTagged()->sync($sync);
+                }
+
+                $this->line('Level sets (page '.$page.') migrated.');
+            });
 
             foreach ($newTags as $tag) {
                 $tag->save();

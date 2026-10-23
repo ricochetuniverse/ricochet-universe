@@ -10,12 +10,10 @@ parameters:
     # Level 10 is the highest level
     level: 5
 
-    ignoreErrors:
-        # vendor code
-        - '#Relation ''tagged'' is not found in App\\LevelSet model\.#'
+    # ignoreErrors:
 
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
+    # excludePaths:
+    #     - ./*/*/FileToBeExcluded.php
 
     checkAuthCallsWhenInRequestScope: true
     checkConfigTypes: true

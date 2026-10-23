@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\LevelSet;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -40,18 +39,18 @@ class ReflexiveLevelSetSeeder extends Seeder
         ]);
 
         // Legacy tags
-        DB::table('tagging_tags')->insert([
-            'slug' => 'classic-style',
-            'name' => 'Classic Style',
-            'count' => 1,
-        ]);
-
-        DB::table('tagging_tagged')->insert([
-            'taggable_id' => $levelSetId,
-            'taggable_type' => LevelSet::class,
-            'tag_name' => 'Classic Style',
-            'tag_slug' => 'classic-style',
-        ]);
+        // DB::table('tagging_tags')->insert([
+        //     'slug' => 'classic-style',
+        //     'name' => 'Classic Style',
+        //     'count' => 1,
+        // ]);
+        //
+        // DB::table('tagging_tagged')->insert([
+        //     'taggable_id' => $levelSetId,
+        //     'taggable_type' => LevelSet::class,
+        //     'tag_name' => 'Classic Style',
+        //     'tag_slug' => 'classic-style',
+        // ]);
 
         // New tags
         $tagId = DB::table('level_set_tags')->insertGetId([
