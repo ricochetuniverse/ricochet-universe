@@ -7,6 +7,9 @@ use App\LevelSet;
 use App\Mod;
 use App\Rules\DiscordAttachmentUrl;
 use App\Rules\LevelSetName;
+use App\Services\DiscordApi\Enums\ComponentType;
+use App\Services\DiscordApi\Enums\MessageFlag;
+use App\Services\DiscordApi\LevelSetComponentEmbed;
 use App\Services\LevelSetParser\Parser;
 use Carbon\Carbon;
 use DomainException;
@@ -17,6 +20,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Uri;
 use Sentry\Laravel\Facade as Sentry;
 
 class LevelSetUploadProcessor
@@ -203,27 +207,16 @@ class LevelSetUploadProcessor
         }
 
         try {
-            Http::post($webhookUrl, [
-                'content' => 'New level set uploaded',
-                'embeds' => [
+            Http::post(Uri::of($webhookUrl)->withQuery(['with_components' => true]), [
+                'flags' => MessageFlag::IS_COMPONENTS_V2,
+                'components' => [
                     [
-                        'author' => [
-                            'name' => 'By '.$levelSet->author,
-                            'url' => action('LevelController@index', ['author' => $levelSet->author]),
-                        ],
-                        'title' => $levelSet->name,
-                        'url' => $levelSet->getPermalink(),
-                        'description' => $levelSet->description,
-                        'fields' => [
-                            [
-                                'name' => 'Number of rounds',
-                                'value' => $levelSet->rounds,
-                            ],
-                        ],
-                        'image' => [
-                            'url' => $levelSet->getImageUrl(),
-                        ],
-                        'timestamp' => $levelSet->created_at->toIso8601String(),
+                        'type' => ComponentType::TEXT_DISPLAY,
+                        'content' => 'New level set uploaded:',
+                    ],
+                    [
+                        'type' => ComponentType::CONTAINER,
+                        'components' => LevelSetComponentEmbed::getContainerComponents($levelSet),
                     ],
                 ],
             ])->throw();

@@ -1,3 +1,5 @@
+@use('App\Services\DiscordApi')
+
 @extends('layouts.app', [
     'selected_navbar_item' => 'levels',
 ])
@@ -269,4 +271,13 @@
             </div>
         </div>
     </div>
+
+    <script id="discord:component-embed" type="application/json">
+        {!! json_encode([
+            'component' => [
+                'type' => DiscordApi\Enums\ComponentType::CONTAINER,
+                'components' => DiscordApi\LevelSetComponentEmbed::getContainerComponents($levelSet),
+            ],
+        ], JSON_THROW_ON_ERROR) !!}
+    </script>
 @endsection
