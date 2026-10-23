@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DiscordApi\Enums\InstallationContext;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use SocialiteProviders\Discord\Provider;
 
 class DiscordLoginController extends Controller
 {
-    public function redirectToProvider()
+    public function redirectToProvider(Request $request)
     {
-        return Socialite::driver('discord')
+        /** @var Provider $socialite */
+        $socialite = Socialite::driver('discord')
             // @phpstan-ignore-next-line
-            ->setScopes(['identify'])
-            ->redirect();
+            ->setScopes(['identify']);
+
+        if ($request->input('commands')) {
+            $socialite->with(['integration_type' => InstallationContext::USER_INSTALL])
+                ->scopes('applications.commands');
+        }
+
+        return $socialite->redirect();
     }
 
     public function handleProviderCallback()

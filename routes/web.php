@@ -55,8 +55,6 @@ Route::group(['middleware' => $cache], static function () {
     Route::get('/about', 'AboutController@index');
 });
 
-Route::group(['middleware' => 'guest'], static function () {
-    Route::get('/auth/login/discord', 'DiscordLoginController@redirectToProvider');
-    Route::get('/auth/login/discord/callback', 'DiscordLoginController@handleProviderCallback');
-});
+Route::get('/auth/login/discord', 'DiscordLoginController@redirectToProvider');
+Route::get('/auth/login/discord/callback', 'DiscordLoginController@handleProviderCallback');
 Route::post('/auth/logout', 'AuthController@logout');
