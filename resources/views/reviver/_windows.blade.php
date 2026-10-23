@@ -1,4 +1,6 @@
-@if ($os === \App\Http\Controllers\ReviverController::WINDOWS10)
+@use('App\Http\Controllers\ReviverController')
+
+@if ($os === ReviverController::WINDOWS10)
     <x-card>
         <x-card.header as="h2">Update curl</x-card.header>
 
@@ -42,7 +44,7 @@
 
         <p class="m-0">Change it to:</p>
         <div class="mb-3 cursor-auto">
-            @if ($os === \App\Http\Controllers\ReviverController::WINDOWS10)
+            @if ($os === ReviverController::WINDOWS10)
                 <code>Catalog URL={{ action('API\\CatalogController@index') }}</code>
             @else
                 <code>Catalog

@@ -1,3 +1,5 @@
+@use('App\Http\Controllers\ReviverController')
+
 @extends('layouts.app', [
     'selected_navbar_item' => 'reviver.index.blade.php.reviver',
 ])
@@ -33,7 +35,7 @@
                             Select your operating system:
 
                             <div class="btn-group" role="group">
-                                @foreach (\App\Http\Controllers\ReviverController::GROUPS as $groupId => $groupName)
+                                @foreach (ReviverController::GROUPS as $groupId => $groupName)
                                     <x-button href="{{ action('ReviverController@show', ['os' => $groupId]) }}"
                                               :active="isset($os) && $os === $groupId">
                                         {{ $groupName }}
@@ -49,7 +51,7 @@
         @if (isset($os))
             <div class="row">
                 <div class="col vstack gap-3">
-                    @if ($os === \App\Http\Controllers\ReviverController::MACOS)
+                    @if ($os === ReviverController::MACOS)
                         @include('reviver._macos')
                     @else
                         @include('reviver._windows')

@@ -1,3 +1,5 @@
+@use('App\Http\Controllers\RoundsController')
+
 @extends('layouts.app', [
     'selected_navbar_item' => 'levels',
 ])
@@ -20,7 +22,7 @@
                             <input class="form-control me-2" type="search" name="search"
                                    placeholder="Search rounds by name" aria-label="Search rounds by name"
                                    value="{{ $search }}"
-                                   minlength="{{ \App\Http\Controllers\RoundsController::MIN_INPUT }}">
+                                   minlength="{{ RoundsController::MIN_INPUT }}">
 
                             <x-button type="submit">Search</x-button>
                         </form>
@@ -112,9 +114,9 @@
                 </div>
             </div>
         @elseif (strlen($search) > 0)
-            @if (strlen($search) < \App\Http\Controllers\RoundsController::MIN_INPUT)
+            @if (strlen($search) < RoundsController::MIN_INPUT)
                 <x-alert type="danger">
-                    Please enter a search input with {{ \App\Http\Controllers\RoundsController::MIN_INPUT }}+
+                    Please enter a search input with {{ RoundsController::MIN_INPUT }}+
                     characters.
                 </x-alert>
             @else

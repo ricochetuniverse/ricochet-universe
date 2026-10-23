@@ -1,3 +1,5 @@
+@use('App\Helpers\MixManifestWithIntegrity')
+
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
 <head>
@@ -9,7 +11,7 @@
     <meta name="color-scheme" content="dark light">
     @hasSection('robots')<meta name="robots" content="@yield('robots')">@endif
 
-    <link href="@mixPath('app.css')" rel="stylesheet" integrity="{{ app(\App\Helpers\MixManifestWithIntegrity::class)::getIntegrity('app.css') }}" crossorigin="anonymous">
+    <link href="@mixPath('app.css')" rel="stylesheet" integrity="{{ app(MixManifestWithIntegrity::class)::getIntegrity('app.css') }}" crossorigin="anonymous">
 
     @hasSection('og:url')<meta name="canonical" content="@yield('og:url')">@endif
 
@@ -171,6 +173,6 @@
         </main>
     </div>
 
-    <script src="@mixPath('app.js')" async integrity="{{ app(\App\Helpers\MixManifestWithIntegrity::class)::getIntegrity('app.js') }}" crossorigin="anonymous"></script>
+    <script src="@mixPath('app.js')" async integrity="{{ app(MixManifestWithIntegrity::class)::getIntegrity('app.js') }}" crossorigin="anonymous"></script>
 </body>
 </html>
