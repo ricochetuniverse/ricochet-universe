@@ -53,6 +53,9 @@ Route::group(['middleware' => $cache], static function () {
     Route::get('/image-to-canvas', 'ImageToCanvasController@index')
         ->middleware(AddCspHeaders::class.':'.CspPresets\Decompressor::class);
     Route::get('/data-browser', 'DataBrowserController@index');
+    Route::get('/data-browser/{category}/{path?}', 'DataBrowserController@show')
+        ->where('path', '.*')
+        ->middleware(AddCspHeaders::class.':'.CspPresets\Decompressor::class);
 
     Route::get('/about', 'AboutController@index');
 });
