@@ -27,6 +27,10 @@ if (document.getElementById('red-mod-packager-root')) {
     void import('./red-mod-packager/index');
 }
 
+if (document.getElementById('data-browser-root')) {
+    void import('./data-browser/index');
+}
+
 if (document.getElementById('image-to-canvas-root')) {
     void import('./image-to-canvas/index');
 }

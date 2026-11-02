@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DataBrowserController extends Controller
@@ -25,7 +26,7 @@ class DataBrowserController extends Controller
         return view('data-browser.index');
     }
 
-    public function show(string $category, ?string $path = null)
+    public function show(string $category, ?string $path = null): View
     {
         if (! self::canAccess()) {
             throw new NotFoundHttpException;
@@ -41,7 +42,11 @@ class DataBrowserController extends Controller
             throw new NotFoundHttpException;
         }
 
-        return $category.'<br>'.$path; // todo
+        return view('data-browser.show', [
+            'category' => $category,
+            'categoryName' => $categories[$category],
+            'path' => $path,
+        ]);
     }
 
     public static function canAccess(): bool
