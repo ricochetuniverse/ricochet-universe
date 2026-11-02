@@ -21,7 +21,7 @@ For bare-metal installs:
 After you `git clone` this repo...
 
 1. Add this host to your system's `hosts` file:
-    ```
+    ```text
     127.0.0.1 ricochet.test
     ```
 2. Install Docker and Docker Compose
@@ -51,13 +51,13 @@ First, add an entry for `127.0.0.1 ricochet.test` to your system's `hosts` file.
 
 Edit `Data2.dat` in the Ricochet Infinity game folder to point to the local site.
 
-```
+```text
 Catalog URL=https://ricochet.test:8000/gateway/catalog.php
 ```
 
 If `libcurl.dll` cannot be updated for whatever reason, there is a fallback to non-HTTPS.
 
-```
+```text
 Catalog URL=http://ricochet.test:8001/gateway/catalog.php
 ```
 
@@ -110,7 +110,7 @@ docker compose exec -it mariadb mariadb -uroot -p
 
 Execute MariaDB commands:
 
-```
+```sql
 CREATE DATABASE ricochetlevels_test;
 GRANT ALL PRIVILEGES ON ricochetlevels_test.* TO 'ricochetlevels_test'@'%' IDENTIFIED BY '123';
 FLUSH PRIVILEGES;

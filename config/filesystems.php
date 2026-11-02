@@ -99,6 +99,16 @@ return [
             'report' => false,
         ],
 
+        'data-browser' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/data-browser'),
+            'url' => env('APP_URL').'/storage/data-browser',
+            'visibility' => 'public',
+            'serve' => false,
+            'throw' => true,
+            'report' => false,
+        ],
+
     ],
 
     /*

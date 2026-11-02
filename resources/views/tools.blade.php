@@ -36,6 +36,17 @@
                             </div>
                         </li>
 
+                        @if (\App\Http\Controllers\DataBrowserController::canAccess())
+                            <li class="list-group-item p-3">
+                                <div>
+                                    <a href="{{ action('DataBrowserController@index') }}"
+                                       class="link-secondary fw-bold">Data browser</a> (DEV)
+                                </div>
+
+                                <div>Browse the contents of a <code>Data.dat</code> file</div>
+                            </li>
+                        @endif
+
                         @if (\App\Http\Controllers\ImageToCanvasController::canAccess())
                             <li class="list-group-item p-3">
                                 <div>

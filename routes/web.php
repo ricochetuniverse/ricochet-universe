@@ -52,6 +52,8 @@ Route::group(['middleware' => $cache], static function () {
     Route::get('/red-mod-packager', 'RedModPackagerController@index');
     Route::get('/image-to-canvas', 'ImageToCanvasController@index')
         ->middleware(AddCspHeaders::class.':'.CspPresets\Decompressor::class);
+    Route::get('/data-browser', 'DataBrowserController@index');
+
     Route::get('/about', 'AboutController@index');
 });
 
