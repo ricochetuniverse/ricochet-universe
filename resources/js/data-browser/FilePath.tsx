@@ -1,14 +1,25 @@
-import {useLocation, useRoute} from 'preact-iso';
+import {type RoutePropsForPath} from 'preact-iso';
 import {Card, Stack} from 'react-bootstrap';
 
-export default function FilePath() {
-    const location = useLocation();
-    const route = useRoute();
+import type {DataBrowserListingType} from './DataBrowserListing';
 
-    console.log(location);
-    console.log(route);
+type Props = Readonly<
+    RoutePropsForPath<'/:path*'> & {
+        allDirectoriesListing: DataBrowserListingType;
+    }
+>;
 
-    // const path = route.params.path;
+export default function FilePath({params, allDirectoriesListing}: Props) {
+    console.log(allDirectoriesListing);
+    console.log(params.path);
+
+    const pathSplit = (params.path ?? '').split('/');
+    const dirname = pathSplit.slice(0, -1).join('/');
+
+    const listing = allDirectoriesListing.find((list) => {
+        return list.prefix === dirname;
+    });
+    console.log(listing);
 
     return (
         <Stack gap={3}>

@@ -42,4 +42,8 @@
             </div>
         </div>
     </div>
+
+    <script type="application/json" id="data-browser-all-directories">
+        @json($allDirectoriesListing, JSON_THROW_ON_ERROR)
+    </script>
 @endsection
