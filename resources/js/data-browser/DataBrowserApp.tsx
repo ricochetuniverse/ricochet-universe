@@ -1,16 +1,23 @@
-import Card from 'react-bootstrap/Card';
-import Stack from 'react-bootstrap/Stack';
+import {LocationProvider, Route, Router} from 'preact-iso';
 
-export default function DataBrowserApp() {
+import FilePath from './FilePath';
+
+type Props = Readonly<{
+    urlPrefix: string;
+}>;
+
+export default function DataBrowserApp(props: Props) {
     return (
-        <Stack gap={3}>
-            <Card as="section">
-                <Card.Header as="h1">Data browser</Card.Header>
-
-                <Card.Body>
-                    <p>Hello from JS</p>
-                </Card.Body>
-            </Card>
-        </Stack>
+        <LocationProvider scope={props.urlPrefix}>
+            <Router>
+                {[
+                    <Route
+                        path={props.urlPrefix + '/:path*'}
+                        component={FilePath}
+                        key="route"
+                    />,
+                ]}
+            </Router>
+        </LocationProvider>
     );
 }
