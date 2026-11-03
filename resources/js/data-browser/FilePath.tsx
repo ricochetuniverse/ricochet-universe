@@ -1,25 +1,30 @@
+import {Fragment} from 'preact';
 import {type RoutePropsForPath} from 'preact-iso';
-import {Card, Stack} from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert';
+import Card from 'react-bootstrap/Card';
+import Stack from 'react-bootstrap/Stack';
 
 import type {DataBrowserListingType} from './DataBrowserListing';
+import parsePath from './parsePath';
 
 type Props = Readonly<
     RoutePropsForPath<'/:path*'> & {
         allDirectoriesListing: DataBrowserListingType;
+        urlPrefix: string;
     }
 >;
 
-export default function FilePath({params, allDirectoriesListing}: Props) {
-    console.log(allDirectoriesListing);
-    console.log(params.path);
+export default function FilePath({
+    params,
+    allDirectoriesListing,
+    urlPrefix,
+}: Props) {
+    const path = params.path ?? '';
 
-    const pathSplit = (params.path ?? '').split('/');
-    const dirname = pathSplit.slice(0, -1).join('/');
+    const parsed = parsePath(path, allDirectoriesListing);
+    console.log(parsed);
 
-    const listing = allDirectoriesListing.find((list) => {
-        return list.prefix === dirname;
-    });
-    console.log(listing);
+    // todo update document.title
 
     return (
         <Stack gap={3}>
@@ -27,14 +32,63 @@ export default function FilePath({params, allDirectoriesListing}: Props) {
                 <Card.Header as="h1">Data browser</Card.Header>
 
                 <Card.Body>
-                    {/* <a
-                        href={
-                            '/data-browser/ricochet-infinity-windows-build-68/' +
-                            Math.random()
-                        }
-                    >
-                        Test
-                    </a> */}
+                    {parsed?.dirname
+                        .split('/')
+                        .filter(Boolean)
+                        .map((item, index) => {
+                            // todo buggy in subfolders
+                            return (
+                                <Fragment key={index.toString() + item}>
+                                    <a href={urlPrefix + '/' + item + '/'}>
+                                        {item}
+                                    </a>
+                                    /
+                                </Fragment>
+                            );
+                        })}
+
+                    {parsed == null ? (
+                        <Alert variant="danger">
+                            This folder/file does not exist.
+                        </Alert>
+                    ) : (
+                        <ul>
+                            {parsed.list.directories.map((item) => {
+                                return (
+                                    <li key={item}>
+                                        <a
+                                            href={
+                                                urlPrefix +
+                                                '/' +
+                                                parsed.dirname +
+                                                item +
+                                                '/'
+                                            }
+                                        >
+                                            {item}
+                                        </a>
+                                    </li>
+                                );
+                            })}
+
+                            {parsed.list.files.map((item) => {
+                                return (
+                                    <li key={item}>
+                                        <a
+                                            href={
+                                                urlPrefix +
+                                                '/' +
+                                                parsed.dirname +
+                                                item
+                                            }
+                                        >
+                                            {item}
+                                        </a>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
                 </Card.Body>
             </Card>
         </Stack>

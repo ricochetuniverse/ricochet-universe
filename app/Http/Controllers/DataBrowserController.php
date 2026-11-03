@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,7 +27,7 @@ class DataBrowserController extends Controller
         return view('data-browser.index');
     }
 
-    public function show(string $category, ?string $path = null) : View
+    public function show(string $category, ?string $path = null): View
     {
         if (! self::canAccess()) {
             throw new NotFoundHttpException;
@@ -43,28 +44,7 @@ class DataBrowserController extends Controller
         }
 
         // todo move this json to better cache
-        $allDirectoriesListing = [];
-
-        $allDirectories = $disk->allDirectories($category);
-        array_unshift($allDirectories, $category);
-        sort($allDirectories);
-        foreach ($allDirectories as $directory) {
-            $listing = [
-                'prefix' => $directory === $category ? '' : str_replace($category.'/', '', $directory),
-
-                'directories' => array_map(static function ($item) use ($directory) {
-                    return str_replace($directory.'/', '', $item);
-                }, $disk->directories($directory)),
-
-                'files' => array_map(static function ($item) use ($directory) {
-                    return str_replace($directory.'/', '', $item);
-                }, $disk->files($directory)),
-            ];
-            sort($listing['directories']);
-            sort($listing['files']);
-
-            $allDirectoriesListing[] = $listing;
-        }
+        $allDirectoriesListing = self::getAllDirectoriesListing($disk, $category);
 
         return view('data-browser.show', [
             'category' => $category,
@@ -82,5 +62,33 @@ class DataBrowserController extends Controller
     private static function getCategories(): array
     {
         return config('ricochet.data_browser_categories');
+    }
+
+    private static function getAllDirectoriesListing(Filesystem $disk, string $category): array
+    {
+        $allDirectoriesListing = [];
+
+        $allDirectories = $disk->allDirectories($category);
+        array_unshift($allDirectories, $category);
+        sort($allDirectories);
+        foreach ($allDirectories as $directory) {
+            $listing = [
+                'path' => $directory === $category ? '/' : str_replace($category.'/', '', $directory).'/',
+
+                'directories' => array_map(static function ($item) use ($directory) {
+                    return str_replace($directory.'/', '', $item);
+                }, $disk->directories($directory)),
+
+                'files' => array_map(static function ($item) use ($directory) {
+                    return str_replace($directory.'/', '', $item);
+                }, $disk->files($directory)),
+            ];
+            sort($listing['directories']);
+            sort($listing['files']);
+
+            $allDirectoriesListing[] = $listing;
+        }
+
+        return $allDirectoriesListing;
     }
 }

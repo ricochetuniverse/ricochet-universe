@@ -13,7 +13,7 @@ export default function DataBrowserApp({
     urlPrefix,
 }: Props) {
     return (
-        <LocationProvider scope={urlPrefix}>
+        <LocationProvider scope={urlPrefix + '/'}>
             <Router>
                 {[
                     <Route
@@ -21,6 +21,7 @@ export default function DataBrowserApp({
                         component={FilePath}
                         key="route"
                         allDirectoriesListing={allDirectoriesListing}
+                        urlPrefix={urlPrefix}
                     />,
                 ]}
             </Router>
