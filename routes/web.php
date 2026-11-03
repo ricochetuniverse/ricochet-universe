@@ -29,7 +29,7 @@ Route::get('/upload', 'UploadController@index')->middleware($cache);
 Route::permanentRedirect('/levels/submitform.php', '/upload');
 Route::post('/upload', 'UploadController@store')->can('create', LevelSet::class);
 
-Route::get('/rounds', 'RoundsController@index');
+Route::get('/rounds', 'RoundsController@index')->middleware($cache);
 
 Route::get('/mods', 'ModsController@index')
     ->middleware($cache)
@@ -40,8 +40,9 @@ Route::post('/mods', 'ModsController@store')->can('create', Mod::class);
 // Route::patch('/mods/{mod}', 'ModsController@update');
 // Route::delete('/mods/{mod}', 'ModsController@destroy');
 
-Route::get('/discord', 'DiscordRedirectController@index');
 Route::group(['middleware' => $cache], static function () {
+    Route::get('/discord', 'DiscordRedirectController@index');
+
     Route::get('/reviver', 'ReviverController@index');
     Route::get('/reviver/{os}', 'ReviverController@show');
     Route::get('/reviver/macos/Data2.dat', 'ReviverController@generateData2DatFile');
