@@ -1,4 +1,4 @@
-import {expect, test} from '@rstest/core';
+import {assert, expect, test} from '@rstest/core';
 
 import type {DataBrowserListingType} from '../../../resources/js/data-browser/DataBrowserListing';
 import parsePath from '../../../resources/js/data-browser/parsePath';
@@ -24,41 +24,41 @@ const ALL_DIRECTORIES_LISTINGS: DataBrowserListingType = [
 test('top-level directory', () => {
     const parsed = parsePath('/', ALL_DIRECTORIES_LISTINGS);
 
-    expect(parsed).not.toBeNull();
-    expect(parsed?.dirname).toBe('/');
-    expect(parsed?.filename).toBe('');
-    expect(parsed?.list.directories).toStrictEqual(['Cache']);
-    expect(parsed?.list.files).toStrictEqual(['Affiliate.txt', 'Credits.txt']);
+    assert(parsed != null);
+    expect(parsed.dirname).toBe('/');
+    assert(!('filename' in parsed));
+    expect(parsed.list.directories).toStrictEqual(['Cache']);
+    expect(parsed.list.files).toStrictEqual(['Affiliate.txt', 'Credits.txt']);
 });
 
 test('a filename at the top-level directory', () => {
     const parsed = parsePath('Credits.txt', ALL_DIRECTORIES_LISTINGS);
 
-    expect(parsed).not.toBeNull();
-    expect(parsed?.dirname).toBe('/');
-    expect(parsed?.filename).toBe('Credits.txt');
-    expect(parsed?.list.directories).toStrictEqual(['Cache']);
-    expect(parsed?.list.files).toStrictEqual(['Affiliate.txt', 'Credits.txt']);
+    assert(parsed != null);
+    expect(parsed.dirname).toBe('/');
+    assert('filename' in parsed);
+    expect(parsed.filename).toBe('Credits.txt');
+    expect('list' in parsed).toBe(false);
 });
 
 test('inside a directory without slash', () => {
     const parsed = parsePath('Cache', ALL_DIRECTORIES_LISTINGS);
 
-    expect(parsed).not.toBeNull();
-    expect(parsed?.dirname).toBe('Cache/');
-    expect(parsed?.filename).toBe('');
-    expect(parsed?.list.directories).toStrictEqual(['Interface', 'Resources']);
-    expect(parsed?.list.files).toHaveLength(0);
+    assert(parsed != null);
+    expect(parsed.dirname).toBe('Cache/');
+    assert(!('filename' in parsed));
+    expect(parsed.list.directories).toStrictEqual(['Interface', 'Resources']);
+    expect(parsed.list.files).toHaveLength(0);
 });
 
 test('inside a directory with slash', () => {
     const parsed = parsePath('Cache/', ALL_DIRECTORIES_LISTINGS);
 
-    expect(parsed).not.toBeNull();
-    expect(parsed?.dirname).toBe('Cache/');
-    expect(parsed?.filename).toBe('');
-    expect(parsed?.list.directories).toStrictEqual(['Interface', 'Resources']);
-    expect(parsed?.list.files).toHaveLength(0);
+    assert(parsed != null);
+    expect(parsed.dirname).toBe('Cache/');
+    assert(!('filename' in parsed));
+    expect(parsed.list.directories).toStrictEqual(['Interface', 'Resources']);
+    expect(parsed.list.files).toHaveLength(0);
 });
 
 test('a filename inside a directory', () => {
@@ -67,11 +67,11 @@ test('a filename inside a directory', () => {
         ALL_DIRECTORIES_LISTINGS
     );
 
-    expect(parsed).not.toBeNull();
-    expect(parsed?.dirname).toBe('Cache/Resources/');
-    expect(parsed?.filename).toBe('!None.Sequence');
-    expect(parsed?.list.directories).toStrictEqual(['Achievements']);
-    expect(parsed?.list.files).toStrictEqual(['!None.Frame', '!None.Sequence']);
+    assert(parsed != null);
+    expect(parsed.dirname).toBe('Cache/Resources/');
+    assert('filename' in parsed);
+    expect(parsed.filename).toBe('!None.Sequence');
+    expect('list' in parsed).toBe(false);
 });
 
 test('does not exist', () => {

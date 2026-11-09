@@ -1,11 +1,15 @@
-import {Fragment} from 'preact';
 import {type RoutePropsForPath} from 'preact-iso';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 import Stack from 'react-bootstrap/Stack';
 
 import type {DataBrowserListingType} from './DataBrowserListing';
+import NavBreadcrumb from './NavBreadcrumb';
 import parsePath from './parsePath';
+
+function buildLink(item: string, dirname: string, urlPrefix: string) {
+    return urlPrefix + '/' + (dirname !== '/' ? dirname : '') + item;
+}
 
 type Props = Readonly<
     RoutePropsForPath<'/:path*'> & {
@@ -14,15 +18,13 @@ type Props = Readonly<
     }
 >;
 
-export default function FilePath({
+export default function FilePathRoute({
     params,
     allDirectoriesListing,
     urlPrefix,
 }: Props) {
     const path = params.path ?? '';
-
     const parsed = parsePath(path, allDirectoriesListing);
-    console.log(parsed);
 
     // todo update document.title
 
@@ -32,38 +34,25 @@ export default function FilePath({
                 <Card.Header as="h1">Data browser</Card.Header>
 
                 <Card.Body>
-                    {parsed?.dirname
-                        .split('/')
-                        .filter(Boolean)
-                        .map((item, index) => {
-                            // todo buggy in subfolders
-                            return (
-                                <Fragment key={index.toString() + item}>
-                                    <a href={urlPrefix + '/' + item + '/'}>
-                                        {item}
-                                    </a>
-                                    /
-                                </Fragment>
-                            );
-                        })}
+                    {parsed != null ? (
+                        <NavBreadcrumb parsed={parsed} urlPrefix={urlPrefix} />
+                    ) : null}
 
                     {parsed == null ? (
                         <Alert variant="danger">
                             This folder/file does not exist.
                         </Alert>
-                    ) : (
+                    ) : 'list' in parsed ? (
                         <ul>
                             {parsed.list.directories.map((item) => {
                                 return (
                                     <li key={item}>
                                         <a
-                                            href={
-                                                urlPrefix +
-                                                '/' +
-                                                parsed.dirname +
-                                                item +
-                                                '/'
-                                            }
+                                            href={buildLink(
+                                                item + '/',
+                                                parsed.dirname,
+                                                urlPrefix
+                                            )}
                                         >
                                             {item}
                                         </a>
@@ -75,12 +64,11 @@ export default function FilePath({
                                 return (
                                     <li key={item}>
                                         <a
-                                            href={
-                                                urlPrefix +
-                                                '/' +
-                                                parsed.dirname +
-                                                item
-                                            }
+                                            href={buildLink(
+                                                item,
+                                                parsed.dirname,
+                                                urlPrefix
+                                            )}
                                         >
                                             {item}
                                         </a>
@@ -88,7 +76,7 @@ export default function FilePath({
                                 );
                             })}
                         </ul>
-                    )}
+                    ) : null}
                 </Card.Body>
             </Card>
         </Stack>

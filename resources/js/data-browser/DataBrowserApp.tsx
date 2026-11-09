@@ -1,7 +1,7 @@
 import {LocationProvider, Route, Router} from 'preact-iso';
 
 import {type DataBrowserListingType} from './DataBrowserListing';
-import FilePath from './FilePath';
+import FilePathRoute from './FilePathRoute';
 
 type Props = Readonly<{
     allDirectoriesListing: DataBrowserListingType;
@@ -18,7 +18,7 @@ export default function DataBrowserApp({
                 {[
                     <Route
                         path={urlPrefix + '/:path*'}
-                        component={FilePath}
+                        component={FilePathRoute}
                         key="route"
                         allDirectoriesListing={allDirectoriesListing}
                         urlPrefix={urlPrefix}

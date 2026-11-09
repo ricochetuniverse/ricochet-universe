@@ -1,13 +1,19 @@
 import type {DataBrowserListingType} from './DataBrowserListing';
 
+export type ParsedPath =
+    | {
+          dirname: string;
+          list: DataBrowserListingType[0];
+      }
+    | {
+          dirname: string;
+          filename: string | null;
+      };
+
 export default function parsePath(
     path: string,
     allDirectoriesListing: DataBrowserListingType
-): {
-    dirname: string;
-    filename: string | null;
-    list: DataBrowserListingType[0];
-} | null {
+): ParsedPath | null {
     const pathSplit = path.split('/');
 
     const dirname = pathSplit.slice(0, -1).join('/') + '/';
@@ -16,11 +22,15 @@ export default function parsePath(
     for (let i = 0; i < allDirectoriesListing.length; i += 1) {
         const list = allDirectoriesListing[i];
         if (list.path === dirname) {
-            if (filename === '' || list.files.includes(filename)) {
+            if (filename === '') {
+                return {
+                    dirname,
+                    list,
+                };
+            } else if (list.files.includes(filename)) {
                 return {
                     dirname,
                     filename,
-                    list,
                 };
             } else if (list.directories.includes(filename)) {
                 // preact-iso router does not return `params.path` with ending slash,
