@@ -5,11 +5,13 @@ import FilePathRoute from './FilePathRoute';
 
 type Props = Readonly<{
     allDirectoriesListing: DataBrowserListingType;
+    storageUrl: string;
     urlPrefix: string;
 }>;
 
 export default function DataBrowserApp({
     allDirectoriesListing,
+    storageUrl,
     urlPrefix,
 }: Props) {
     return (
@@ -21,6 +23,7 @@ export default function DataBrowserApp({
                         component={FilePathRoute}
                         key="route"
                         allDirectoriesListing={allDirectoriesListing}
+                        storageUrl={storageUrl}
                         urlPrefix={urlPrefix}
                     />,
                 ]}

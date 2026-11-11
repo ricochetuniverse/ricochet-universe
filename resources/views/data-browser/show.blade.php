@@ -28,7 +28,7 @@
 
         <div class="row">
             <div class="col">
-                <div id="data-browser-root" data-url-prefix="/data-browser/{{ $category }}">
+                <div id="data-browser-root" data-url-prefix="/data-browser/{{ $category }}" data-storage-url="{{ $storageUrl }}">
                     <div class="vstack gap-3">
                         <x-card>
                             <x-card.header>Data browser</x-card.header>

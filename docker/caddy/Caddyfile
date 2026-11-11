@@ -35,7 +35,7 @@
 		path *.red
 	}
 	@binary_files {
-		path *.ricocheti *.ricochetlw
+		path *.ricocheti *.ricochetlw *.frame *.sequence
 	}
 	header @zip_files Content-Type application/zip
 	header @binary_files Content-Type application/octet-stream

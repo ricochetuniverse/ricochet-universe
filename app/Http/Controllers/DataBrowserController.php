@@ -50,6 +50,7 @@ class DataBrowserController extends Controller
             'category' => $category,
             'categoryName' => $categories[$category],
             'path' => $path,
+            'storageUrl' => $disk->url($category.'/'),
             'allDirectoriesListing' => $allDirectoriesListing,
         ]);
     }

@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Stack from 'react-bootstrap/Stack';
 
 import type {DataBrowserListingType} from './DataBrowserListing';
+import FileViewer from './FileViewer';
 import NavBreadcrumb from './NavBreadcrumb';
 import parsePath from './parsePath';
 
@@ -14,6 +15,7 @@ function buildLink(item: string, dirname: string, urlPrefix: string) {
 type Props = Readonly<
     RoutePropsForPath<'/:path*'> & {
         allDirectoriesListing: DataBrowserListingType;
+        storageUrl: string;
         urlPrefix: string;
     }
 >;
@@ -21,6 +23,7 @@ type Props = Readonly<
 export default function FilePathRoute({
     params,
     allDirectoriesListing,
+    storageUrl,
     urlPrefix,
 }: Props) {
     const path = params.path ?? '';
@@ -76,6 +79,12 @@ export default function FilePathRoute({
                                 );
                             })}
                         </ul>
+                    ) : 'filename' in parsed ? (
+                        <FileViewer
+                            storageUrl={storageUrl}
+                            dirname={parsed.dirname}
+                            filename={parsed.filename}
+                        />
                     ) : null}
                 </Card.Body>
             </Card>

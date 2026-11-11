@@ -7,7 +7,7 @@ export type ParsedPath =
       }
     | {
           dirname: string;
-          filename: string | null;
+          filename: string;
       };
 
 export default function parsePath(

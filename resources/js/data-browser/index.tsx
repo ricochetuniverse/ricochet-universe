@@ -16,6 +16,7 @@ if (root) {
     render(
         <DataBrowserApp
             allDirectoriesListing={allDirectoriesListing}
+            storageUrl={nullthrows(root.dataset['storageUrl'])}
             urlPrefix={nullthrows(root.dataset['urlPrefix'])}
         />,
         root

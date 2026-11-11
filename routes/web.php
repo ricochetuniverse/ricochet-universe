@@ -56,7 +56,7 @@ Route::group(['middleware' => $cache], static function () {
     Route::get('/data-browser', 'DataBrowserController@index');
     Route::get('/data-browser/{category}/{path?}', 'DataBrowserController@show')
         ->where('path', '.*')
-        ->middleware(AddCspHeaders::class.':'.CspPresets\Decompressor::class);
+        ->middleware(AddCspHeaders::class.':'.CspPresets\DataBrowser::class);
 
     Route::get('/about', 'AboutController@index');
 });
