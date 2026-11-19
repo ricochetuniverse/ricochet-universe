@@ -1,4 +1,4 @@
-FROM php:8.5.12-fpm-alpine
+FROM php:8.5.13-fpm-alpine
 
 RUN apk update && apk upgrade && apk add --no-cache git
 
